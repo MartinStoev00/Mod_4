@@ -28,7 +28,8 @@
       padding: 15px;
       padding-left: 50px;
       border: none;
-      border-radius: 8px; }
+      border-radius: 8px;
+      border: .5px solid #fff; }
     .header .form__btn {
       transition: .3s;
       position: absolute;
@@ -57,6 +58,8 @@
         display: block; }
         .header .form .dropdown__item:hover {
           background-color: #e6e8ea; }
+        .header .form .dropdown__item:nth-child(5) {
+          border-radius: 0px 0px 8px 8px; }
       .header .form .dropdown__img {
         height: 30px;
         width: 30px;
@@ -80,6 +83,7 @@
     align-content: space-between;
     align-items: center; }
   .header__myProfile {
+    cursor: pointer;
     transition: 0.2s;
     margin: 0 6px 0;
     border: none;
@@ -87,6 +91,7 @@
     font-size: 25px;
     background-color: inherit; }
   .header__notify {
+    cursor: pointer;
     transition: 0.2s;
     margin: 0 6px 0;
     padding: 10px;

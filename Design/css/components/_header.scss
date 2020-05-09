@@ -20,6 +20,7 @@
 			padding-left: 50px;
 			border: none;
 			border-radius: 8px;
+			border: .5px solid #fff;
 		}
 		&__btn {
 			transition: .3s;
@@ -34,7 +35,6 @@
 				color: #111;
 			}
 		}
-
 		.dropdown {
 			display: none;
 			position: absolute;
@@ -53,6 +53,9 @@
 				&:hover {
 					background-color: darken(rgb(241, 242, 243), 4%);
 				}
+				&:nth-child(5){
+					border-radius: 0px 0px 8px 8px;
+				}
 			}
 			&__img {
 				height: 30px; width: 30px;
@@ -66,7 +69,7 @@
 				padding: 0px 6px;
 			}
 			&__name {
-
+				
 			}
 			&__description {
 				margin-left: 5px;
@@ -85,6 +88,7 @@
 	    align-items: center;	
 	}
 	&__myProfile {
+		cursor: pointer;
 		transition: 0.2s;
 		margin: 0 6px 0;
 		border: none;
@@ -93,6 +97,7 @@
 		background-color: inherit;
 	}
 	&__notify {
+		cursor: pointer;
 		transition: 0.2s;
 		margin: 0 6px 0;
 		padding: 10px;
