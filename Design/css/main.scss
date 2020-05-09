@@ -17,18 +17,13 @@
   'base/animation';
 
 // 4. Layout-related sections
-// @import
-//   'layout/header',
-//   'layout/footer';
+@import
+  'layout/home';
 
 // 5. Components
 @import
-  'components/login';
+  'components/header';
 
-// 6. Page-specific styles
-@import
-  'pages/home';
-
-// 7. Themes
+// 6. Themes
 @import
   'themes/bgc';

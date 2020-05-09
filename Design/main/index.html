@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="main.css">
+	<link rel="stylesheet" href="../fontawesome-free-5.13.0-web/css/all.min.css">
+</head>
+<body>
+	<div class="header">
+		<img class="header__logo" src="../Pictures/website_icon.png" alt="">
+		<form class="form" action="#">
+			<input class="form__search" type="text" placeholder="Search...">
+			<div class="dropdown">
+				<div class="dropdown__item">
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo odit iusto magnam accusantium iste accusamus eos, dicta tempore libero labore, facilis, architecto molestiae dolorum culpa? Doloremque eos, atque obcaecati illo.</p>
+				</div>
+				<div class="dropdown__item">
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo odit iusto magnam accusantium iste accusamus eos, dicta tempore libero labore, facilis, architecto molestiae dolorum culpa? Doloremque eos, atque obcaecati illo.</p>
+				</div>
+				<div class="dropdown__item">
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo odit iusto magnam accusantium iste accusamus eos, dicta tempore libero labore, facilis, architecto molestiae dolorum culpa? Doloremque eos, atque obcaecati illo.</p>
+				</div>
+			</div>
+			<button class="form__btn  fa fa-search" type="submit"></button>
+		</form>
+		<div class="header__buttons">
+			<button class="header__myProfile fas fa-user-circle"></button>
+			<button class="header__notify fas fa-bell"></button>
+		</div>
+	</div>
+	<div class="main">
+		<div style="background-image: url(../Pictures/2.jpg);"></div>
+	</div>
+</body>
+<script>
+	let icons = document.getElementsByClassName("fas");
+	Array.prototype.forEach.call(icons, (icon) => {
+		icon.addEventListener("click", () => {
+			icon.style.marginBottom = "-7px";
+			setTimeout(() =>{
+				icon.style.marginBottom = "0px";
+			}, 200);
+		})
+	});
+
+	let searchInput = document.getElementsByClassName("form__search")[0];
+	let searchIcon = document.getElementsByClassName("form__btn")[0];
+	let dropdown = document.getElementsByClassName("dropdown")[0];
+	let yInput = Math.ceil(window.pageYOffset + searchInput.getBoundingClientRect().top) + 3.5;
+	let xInput =  Math.ceil(searchInput.getBoundingClientRect().left) + 5;
+	let inputWidth =  Math.ceil(searchInput.getBoundingClientRect().width);
+	let inputWHeight =  Math.ceil(searchInput.getBoundingClientRect().height);
+	searchIcon.style.top = yInput + "px";
+	searchIcon.style.left = xInput + "px";
+	dropdown.style.top = (yInput - 2.5 + inputWHeight) + "px";
+	dropdown.style.width = (inputWidth + .5) + "px";
+	dropdown.style.left = (xInput - 6) + "px"
+	
+	searchInput.addEventListener("focus", () => {
+		searchInput.style.backgroundColor = "#fff";
+		searchInput.style.border = ".5px solid #ddd";
+		searchInput.style.borderRadius = "8px 8px 0px 0px";
+		dropdown.style.display = "block";
+	});
+	searchInput.addEventListener("blur", () => {
+		setTimeout(() => {
+			console.log(document.activeElement.className);
+			if(document.activeElement.className !=="dropdown__item") {
+				searchInput.style.backgroundColor = "rgb(241, 242, 243)";
+				searchInput.style.border = "none";
+				searchInput.style.borderRadius = "8px";
+				dropdown.style.display = "none";
+			}
+		}, 10);
+	});
+
+	let items = [
+		{
+			name: "Joe",
+			description: "None",
+			img: "../Pictures/1.jpg"
+		},
+		{
+			name: "Joe1",
+			description: "None",
+			img: "../Pictures/2.jpg"
+		},
+		{
+			name: "Joe2",
+			description: "None",
+			img: "../Pictures/3.jpg"
+		},
+		{
+			name: "Joe3",
+			description: "None",
+			img: "../Pictures/4.jpg" 
+		},
+		{
+			name: "Joe4",
+			description: "None",
+			img: "../Pictures/5.jpg" 
+		},
+		{
+			name: "Joe5",
+			description: "None",
+			img: "../Pictures/6.jpg" 
+		}
+	];
+	let output = "";
+	items.slice(0, 5).forEach((item) => {
+		let {name, description, img} = item;
+		output +=
+		 `<a class="dropdown__item" href="www.${name}">
+			<div style="background-image: url(${img});" class="dropdown__img"></div>
+		 	<div class="dropdown__container">
+		 		<p class="dropdown__name">${name}</p>
+		 		<p class="dropdown__description">${description}</p>
+		 	</div>
+		</a>`;
+	});
+	dropdown.innerHTML = output;
+</script>
+</html>
