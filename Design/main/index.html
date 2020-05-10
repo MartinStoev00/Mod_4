@@ -17,6 +17,9 @@
 		<div class="header__buttons">
 			<button class="header__myProfile fas fa-user-circle"></button>
 			<button class="header__notify fas fa-bell"></button>
+			<div class="notifications"></div>
+			<p class="notifications__number"></p>
+			<div class="arrow"></div>
 		</div>
 	</div>
 	<div class="main">
@@ -24,48 +27,8 @@
 	</div>
 </body>
 <script>
-	let icons = document.getElementsByClassName("fas");
-	Array.prototype.forEach.call(icons, (icon) => {
-		icon.addEventListener("click", () => {
-			icon.style.marginBottom = "-7px";
-			setTimeout(() => {
-				icon.style.marginBottom = "0px";
-			}, 200);
-		})
-	});
-
-	let searchInput  = document.getElementsByClassName("form__search")[0];
-	let searchIcon = document.getElementsByClassName("form__btn")[0];
-	let dropdown = document.getElementsByClassName("dropdown")[0];
-	let yInput = Math.ceil(window.pageYOffset + searchInput.getBoundingClientRect().top) + 3.5;
-	let xInput   =  Math.ceil(searchInput.getBoundingClientRect().left) + 5;
-	let inputWidth =  Math.ceil(searchInput.getBoundingClientRect().width);
-	let inputWHeight =  Math.ceil(searchInput.getBoundingClientRect().height);
-	dropdown.style.top = (yInput - 3.5 + inputWHeight) + "px";
-	searchIcon.style.top = yInput + "px";
-	searchIcon.style.left  = xInput + "px";
-	dropdown.style.width = (inputWidth - 1) + "px";
-	dropdown.style.left= (xInput - 6) + "px"
-	
-	searchInput.addEventListener("focus", () => {
-		searchInput.style.backgroundColor = "#fff";
-		searchInput.style.border = ".5px solid #ddd";
-		searchInput.style.borderRadius = "8px 8px 0px 0px";
-		dropdown.style.display = "block";
-		fillTable(searchInput.value.toLowerCase());
-	});
-	searchInput.addEventListener("blur", () => {
-		setTimeout(() => {
-			if(document.activeElement.className !=="dropdown__item") {
-				searchInput.style.backgroundColor = "rgb(241, 242, 243)";
-				searchInput.style.border = ".5px solid #fff";
-				searchInput.style.borderRadius = "8px";
-				dropdown.style.display = "none";
-			}
-		}, 10);
-	});
-
-	let items = [
+	let incoming = {
+		items:[
 		{
 			name: "Joe",
 			description: "None",
@@ -120,12 +83,174 @@
 			name: "Joe",
 			description: "None",
 			img: "1.jpg"
-		},
-	];
+		}],
+		notifications: [
+			{
+				name: "Joe",
+				deed: " has commented on your post",
+				img: "1.jpg",
+				link: "somewhere",
+				date: "Yesterday"
+			},
+			{
+				name: "John",
+				deed: " has commented on your post",
+				img: "2.jpg",
+				link: "somewhere",
+				date: "Yesterday"
+			},
+			{
+				name: "James",
+				deed: " has commented on your post",
+				img: "3.jpg",
+				link: "somewhere",
+				date: "Yesterday"
+			},
+			{
+				name: "Jar",
+				deed: " has commented on your post",
+				img: "4.jpg",
+				link: "somewhere",
+				date: "Yesterday"
+			},
+			{
+				name: "Justice",
+				deed: " has commented on your post",
+				img: "5.jpg",
+				link: "somewhere",
+				date: "Yesterday"
+			},
+			{
+				name: "John",
+				deed: " has commented on your post",
+				img: "2.jpg",
+				link: "somewhere",
+				date: "Yesterday"
+			},
+			{
+				name: "James",
+				deed: " has commented on your post",
+				img: "3.jpg",
+				link: "somewhere",
+				date: "Yesterday"
+			},
+			{
+				name: "Jar",
+				deed: " has commented on your post",
+				img: "4.jpg",
+				link: "somewhere",
+				date: "Yesterday"
+			},
+			{
+				name: "Justice",
+				deed: " has commented on your post",
+				img: "5.jpg",
+				link: "somewhere",
+				date: "Yesterday"
+			},
+			{
+				name: "John",
+				deed: " has commented on your post",
+				img: "2.jpg",
+				link: "somewhere",
+				date: "Yesterday"
+			},
+			{
+				name: "James",
+				deed: " has commented on your post",
+				img: "3.jpg",
+				link: "somewhere",
+				date: "Yesterday"
+			},
+			{
+				name: "Jar",
+				deed: " has commented on your post",
+				img: "4.jpg",
+				link: "somewhere",
+				date: "Yesterday"
+			},
+			{
+				name: "Justice",
+				deed: " has commented on your post",
+				img: "5.jpg",
+				link: "somewhere",
+				date: "Yesterday"
+			}
+		]
+
+	};
+
+	window.onload = () => {
+		fillNotifications();
+		fillTable("");
+	};
+	let notificationsDisplayed = false;
+	let icons = document.getElementsByClassName("fas");
+	let dropdown = document.getElementsByClassName("dropdown")[0];
+	let searchIcon = document.getElementsByClassName("form__btn")[0];
+	let searchInput  = document.getElementsByClassName("form__search")[0];
+	let notifyIcon = document.getElementsByClassName("header__notify")[0];
+	let notifications = document.getElementsByClassName("notifications")[0];
+	let notifyNumber = document.getElementsByClassName("notifications__number")[0];
+	let xInput   =  searchInput.getBoundingClientRect().left + 6;
+	let inputWHeight =  searchInput.getBoundingClientRect().height;
+	let notifyIconX = notifyIcon.getBoundingClientRect().left - 70;
+	let inputWidth =  searchInput.getBoundingClientRect().width - 1;
+	let yInput = window.pageYOffset + searchInput.getBoundingClientRect().top + 3.5;
+	let notifyIconY = window.pageYOffset + notifyIcon.getBoundingClientRect().top + 50;
+	notifyNumber.style.top = (notifyIconY - 41) + "px";
+	notifyNumber.style.left = (notifyIconX + 98) + "px";
+	notifyNumber.innerHTML = incoming.notifications.length !== 0 ? incoming.notifications.length : "";
+	notifications.style.top = (notifyIconY) + "px";
+	notifications.style.left = notifyIconX + "px";
+	dropdown.style.top = (yInput - 3.5 + inputWHeight) + "px";
+	searchIcon.style.top = yInput + "px";
+	searchIcon.style.left  = xInput + "px";
+	dropdown.style.width = inputWidth + "px";
+	dropdown.style.left= (xInput - 6) + "px";
+
+	notifyIcon.addEventListener("click", () => {
+		setTimeout(() => {
+			if(notificationsDisplayed) {
+				fillNotifications();
+				notificationsDisplayed = false;
+				notifications.style.display = "none";
+			} else {
+				notificationsDisplayed = true;
+				notifications.style.display = "block";
+			}
+		}, 200);
+	});
+
+	// notifyIcon.addEventListener("blur", () => {
+	// 	setTimeout(() => {
+	// 		if(document.activeElement.className !=="notifications__item") {
+	// 			notificationsDisplayed = false;
+	// 			notifications.style.display = "none";
+	// 		}
+	// 	}, 10)
+	// });
+
+	function fillNotifications() {
+		let newArr = incoming.notifications;
+		let output = ``;
+		newArr.forEach((notification) => {
+			let {name, deed, link, img, date} = notification;
+			output +=
+			`<a class="notifications__item" href="${link}">
+				<div style="background-image: url(${img});" class="notifications__img"></div>
+				<div class="notifications__container">
+					<p class="notifications__text">${name} ${deed}</p>
+					<p class="notifications__date">${date}</p>
+				</div>
+			</a>`;
+		});
+		notifications.innerHTML = output;
+	}
 
 	function fillTable(input) {
 		let output = ``;
-		let newArr = items.filter((item) => {
+		let newArr = incoming.items.filter((item) => {
 	  		if(input == "") {
 	  			return true;
 	  		} else {
@@ -150,6 +275,32 @@
 		dropdown.innerHTML = output;
 	}
 
+
+	Array.prototype.forEach.call(icons, (icon) => {
+		icon.addEventListener("click", () => {
+			icon.style.marginBottom = "-7px";
+			setTimeout(() => {
+				icon.style.marginBottom = "0px";
+			}, 200);
+		});
+	});
+	searchInput.addEventListener("focus", () => {
+		searchInput.style.backgroundColor = "#fff";
+		searchInput.style.border = ".5px solid #ddd";
+		searchInput.style.borderRadius = "8px 8px 0px 0px";
+		dropdown.style.display = "block";
+		fillTable(searchInput.value.toLowerCase());
+	});
+	searchInput.addEventListener("blur", () => {
+		setTimeout(() => {
+			if(document.activeElement.className !=="dropdown__item") {
+				searchInput.style.backgroundColor = "rgb(241, 242, 243)";
+				searchInput.style.border = ".5px solid #fff";
+				searchInput.style.borderRadius = "8px";
+				dropdown.style.display = "none";
+			}
+		}, 10);
+	});
 	searchInput.addEventListener("keyup", (e) => {
 		fillTable(searchInput.value.toLowerCase());
 	});

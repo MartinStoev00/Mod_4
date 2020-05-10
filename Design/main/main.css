@@ -1,3 +1,19 @@
+.notifications::-webkit-scrollbar {
+  width: 8px;
+  border-radius: 8px;
+  margin-right: 10px; }
+
+.notifications::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
+  border-radius: 8px;
+  border: solid 3px transparent;
+  margin-right: 10px; }
+
+.notifications::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: darkgrey;
+  outline: 1px solid slategrey; }
+
 * {
   margin: 0;
   padding: 0;
@@ -98,5 +114,59 @@
     border: none;
     font-size: 25px;
     background-color: inherit; }
+  .header .notifications {
+    overflow-y: auto;
+    display: none;
+    font-family: 'Arial';
+    width: 400px;
+    height: 450px;
+    position: absolute;
+    border: .5px solid #ddd;
+    background-color: #fff;
+    border-radius: 8px; }
+    .header .notifications__item {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-around;
+      align-content: center;
+      align-items: center;
+      width: calc(100%);
+      color: #000;
+      text-decoration: none;
+      display: block;
+      border-top: .5px solid #ddd; }
+      .header .notifications__item:hover {
+        background-color: #e6e8ea; }
+      .header .notifications__item:nth-child(1) {
+        border-top: none;
+        border-radius: 8px 8px 0px 0px; }
+    .header .notifications__img {
+      margin: 10px;
+      padding: 10px;
+      height: 30px;
+      width: 30px;
+      background-position: center;
+      background-size: cover;
+      border-radius: 50%;
+      display: inline-block; }
+    .header .notifications__container {
+      height: 100%;
+      background-color: green;
+      display: inline-block;
+      width: calc(100% - 80px); }
+    .header .notifications__date {
+      color: #ddd;
+      font-size: 10px; }
+    .header .notifications__number {
+      display: block;
+      position: absolute;
+      background-color: red;
+      color: #fff;
+      border-radius: 20px;
+      font-family: 'Arial';
+      padding: 3px;
+      font-size: 8px;
+      text-align: center; }
 
 /*# sourceMappingURL=main.css.map */
