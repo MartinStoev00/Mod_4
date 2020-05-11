@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<title>Document</title>
 	<link rel="stylesheet" href="main.css">
+	<meta name='viewport' content='width=device-width, initial-scale=1'>
 	<link rel="stylesheet" href="../fontawesome-free-5.13.0-web/css/all.min.css">
 </head>
 <body>
@@ -18,6 +19,7 @@
 			<button class="header__myProfile fas fa-user-circle"></button>
 			<button class="header__notify fas fa-bell"></button>
 			<div class="notifications"></div>
+			<div class="notifications__triangle"></div>
 			<p class="notifications__number"></p>
 			<div class="arrow"></div>
 		</div>
@@ -183,7 +185,11 @@
 	window.onload = () => {
 		fillNotifications();
 		fillTable("");
+		init();
 	};
+
+	window.addEventListener('resize', init);
+
 	let notificationsDisplayed = false;
 	let icons = document.getElementsByClassName("fas");
 	let dropdown = document.getElementsByClassName("dropdown")[0];
@@ -192,44 +198,55 @@
 	let notifyIcon = document.getElementsByClassName("header__notify")[0];
 	let notifications = document.getElementsByClassName("notifications")[0];
 	let notifyNumber = document.getElementsByClassName("notifications__number")[0];
-	let xInput   =  searchInput.getBoundingClientRect().left + 6;
-	let inputWHeight =  searchInput.getBoundingClientRect().height;
-	let notifyIconX = notifyIcon.getBoundingClientRect().left - 70;
-	let inputWidth =  searchInput.getBoundingClientRect().width - 1;
-	let yInput = window.pageYOffset + searchInput.getBoundingClientRect().top + 3.5;
-	let notifyIconY = window.pageYOffset + notifyIcon.getBoundingClientRect().top + 50;
-	notifyNumber.style.top = (notifyIconY - 41) + "px";
-	notifyNumber.style.left = (notifyIconX + 98) + "px";
-	notifyNumber.innerHTML = incoming.notifications.length !== 0 ? incoming.notifications.length : "";
-	notifications.style.top = (notifyIconY) + "px";
-	notifications.style.left = notifyIconX + "px";
-	dropdown.style.top = (yInput - 3.5 + inputWHeight) + "px";
-	searchIcon.style.top = yInput + "px";
-	searchIcon.style.left  = xInput + "px";
-	dropdown.style.width = inputWidth + "px";
-	dropdown.style.left= (xInput - 6) + "px";
+	let tri = document.getElementsByClassName("notifications__triangle")[0];
+	let notifyIconY;
+
+	function init() {	
+		let xInput   =  searchInput.getBoundingClientRect().left + 6;
+		let inputWHeight =  searchInput.getBoundingClientRect().height;
+		let notifyIconX = notifyIcon.getBoundingClientRect().left - 70;
+		let inputWidth =  searchInput.getBoundingClientRect().width - 1;
+		let yInput = window.pageYOffset + searchInput.getBoundingClientRect().top + 3.5;
+		notifyIconY = window.pageYOffset + notifyIcon.getBoundingClientRect().top + 50;
+		tri.style.top = (notifyIconY - 7.5) + "px";
+		tri.style.left = (notifyIconX + 89) + "px";
+		notifyNumber.style.top = (notifyIconY - 41) + "px";
+		notifyNumber.style.left = (notifyIconX + 92) + "px";
+		notifications.style.top = (notifyIconY) + "px";
+		notifications.style.left = (notifyIconX - 240) + "px";
+		dropdown.style.top = (yInput - 3.5 + inputWHeight) + "px";
+		searchIcon.style.top = yInput + "px";
+		searchIcon.style.left  = xInput + "px";
+		dropdown.style.width = inputWidth + "px";
+		dropdown.style.left= (xInput - 6) + "px";
+	}
 
 	notifyIcon.addEventListener("click", () => {
+		notifyNumber.style.top = (notifyIconY - 34) + "px";
 		setTimeout(() => {
+		notifyNumber.style.top = (notifyIconY - 41) + "px";
 			if(notificationsDisplayed) {
 				fillNotifications();
 				notificationsDisplayed = false;
+				tri.style.display = "none";
 				notifications.style.display = "none";
 			} else {
 				notificationsDisplayed = true;
+				tri.style.display = "block";
 				notifications.style.display = "block";
 			}
 		}, 200);
 	});
 
-	// notifyIcon.addEventListener("blur", () => {
-	// 	setTimeout(() => {
-	// 		if(document.activeElement.className !=="notifications__item") {
-	// 			notificationsDisplayed = false;
-	// 			notifications.style.display = "none";
-	// 		}
-	// 	}, 10)
-	// });
+	notifyIcon.addEventListener("blur", () => {
+		setTimeout(() => {
+			if(document.activeElement.className !=="notifications__item") {
+				notificationsDisplayed = false;
+				notifications.style.display = "none";
+				tri.style.display = "none";
+			}
+		}, 10)
+	});
 
 	function fillNotifications() {
 		let newArr = incoming.notifications;
@@ -246,6 +263,7 @@
 			</a>`;
 		});
 		notifications.innerHTML = output;
+		notifyNumber.innerHTML = incoming.notifications.length !== 0 ? incoming.notifications.length : "";
 	}
 
 	function fillTable(input) {
@@ -274,7 +292,6 @@
 		}
 		dropdown.innerHTML = output;
 	}
-
 
 	Array.prototype.forEach.call(icons, (icon) => {
 		icon.addEventListener("click", () => {

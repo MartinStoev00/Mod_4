@@ -8,7 +8,6 @@
 		margin: 0 35px 0;
 	}
 	.form {
-		max-width: 630px;
 		width: calc(60vw);
 		margin: 0 30px 0;
 		&__search {
@@ -35,48 +34,6 @@
 				color: #111;
 			}
 		}
-		.dropdown {
-			display: none;
-			position: absolute;
-			background-color: #fff;
-			border-left: .5px solid #ddd;
-			border-right: .5px solid #ddd;
-			border-bottom: .5px solid #ddd;
-			border-radius: 0px 0px 8px 8px;
-			font-family: 'Arial';
-			&__item {
-				padding: 11px 20px;
-				width: calc(100% - 40px);
-				color: #000;
-				text-decoration: none;
-				display: block;
-				&:hover {
-					background-color: darken(rgb(241, 242, 243), 4%);
-				}
-				&:nth-child(5){
-					border-radius: 0px 0px 8px 8px;
-				}
-			}
-			&__img {
-				height: 30px; width: 30px;
-				background-position: center;
-				background-size: cover;
-				border-radius: 50%;
-				display: inline-block;
-			}
-			&__container {
-				display: inline-block;
-				padding: 0px 6px;
-			}
-			&__name {
-				
-			}
-			&__description {
-				margin-left: 5px;
-				color: #777;
-				font-size: 12px;
-			}
-		}
 	}
 	&__buttons {
 		width: calc(30vw);
@@ -94,9 +51,11 @@
 		border: none;
 		padding: 10px;
 		font-size: 25px;
+		color: #444;
 		background-color: inherit;
 	}
 	&__notify {
+		color: #444;
 		cursor: pointer;
 		transition: 0.2s;
 		margin: 0 6px 0;
@@ -104,69 +63,5 @@
 		border: none;
 		font-size: 25px;
 		background-color: inherit;
-	}
-	.notifications {
-		overflow-y: auto;
-		display: none;
-		font-family: 'Arial';
-		width: 400px;
-		height: 450px;
-		position: absolute;
-		border: .5px solid #ddd;
-		background-color: #fff;
-		border-radius: 8px;
-		&__item {
-			display: flex;
-		    flex-direction: row;
-		    flex-wrap: nowrap;
-		    justify-content: space-around;
-		    align-content: center;
-		    align-items: center;
-			width: calc(100%);
-			color: #000;
-			text-decoration: none;
-			display: block;
-			border-top: .5px solid #ddd;
-			&:hover {
-				background-color: darken(rgb(241, 242, 243), 4%);
-			}
-			&:nth-child(1){
-				border-top: none;
-				border-radius: 8px 8px 0px 0px;
-			}
-		}
-		&__img {
-			margin: 10px;
-			padding: 10px;
-			height: 30px; 
-			width: 30px;
-			background-position: center;
-			background-size: cover;
-			border-radius: 50%;
-			display: inline-block;
-		}
-		&__container {
-			height: 100%;
-			background-color: green;
-			display: inline-block;
-			width: calc(100% - 80px);
-		}
-		&__text {
-		}
-		&__date {
-			color: #ddd;
-			font-size: 10px;
-		}
-		&__number {
-			display: block;
-			position: absolute;
-			background-color: red;
-			color: #fff;
-			border-radius: 20px;
-			font-family: 'Arial';
-			padding: 3px;
-			font-size: 8px;
-			text-align: center;
-		}
 	}
 }
