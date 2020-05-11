@@ -1,0 +1,188 @@
+.notifications::-webkit-scrollbar {
+  width: 8px;
+  border-radius: 8px;
+  margin-right: 10px; }
+
+.notifications::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
+  border-radius: 8px;
+  background: #f1f1f1;
+  border: solid 3px transparent;
+  margin-right: 10px; }
+
+.notifications::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: darkgrey;
+  outline: 1px solid slategrey; }
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: none; }
+
+.header {
+  background-color: #fff;
+  border-bottom: .5px solid #ddd;
+  width: calc(100vw);
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center; }
+  .header__logo {
+    width: calc(14vw);
+    margin: 0 35px 0; }
+  .header .form {
+    width: calc(60vw);
+    margin: 0 30px 0; }
+    .header .form__search {
+      display: block;
+      margin: 16px;
+      background-color: #f1f2f3;
+      width: calc(100% - 62px);
+      padding: 15px;
+      padding-left: 50px;
+      border: none;
+      border-radius: 8px;
+      border: .5px solid #fff; }
+    .header .form__btn {
+      transition: .3s;
+      position: absolute;
+      padding: 13px;
+      border: none;
+      color: #666;
+      border-radius: 50%;
+      background-color: rgba(0, 0, 0, 0); }
+      .header .form__btn:hover {
+        background-color: #e6e8ea;
+        color: #111; }
+  .header__buttons {
+    width: calc(30vw);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-content: space-between;
+    align-items: center; }
+  .header__myProfile {
+    cursor: pointer;
+    transition: 0.2s;
+    margin: 0 6px 0;
+    border: none;
+    padding: 10px;
+    font-size: 25px;
+    color: #444;
+    background-color: inherit; }
+  .header__notify {
+    color: #444;
+    cursor: pointer;
+    transition: 0.2s;
+    margin: 0 6px 0;
+    padding: 10px;
+    border: none;
+    font-size: 25px;
+    background-color: inherit; }
+
+.dropdown {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  border-left: .5px solid #ddd;
+  border-right: .5px solid #ddd;
+  border-bottom: .5px solid #ddd;
+  border-radius: 0px 0px 8px 8px;
+  font-family: 'Arial'; }
+  .dropdown__item {
+    padding: 11px 20px;
+    width: calc(100% - 40px);
+    color: #000;
+    text-decoration: none;
+    display: block; }
+    .dropdown__item:hover {
+      background-color: #e6e8ea; }
+    .dropdown__item:nth-child(5) {
+      border-radius: 0px 0px 8px 8px; }
+  .dropdown__img {
+    height: 30px;
+    width: 30px;
+    background-position: center;
+    background-size: cover;
+    border-radius: 50%;
+    display: inline-block; }
+  .dropdown__container {
+    display: inline-block;
+    padding: 0px 6px; }
+  .dropdown__description {
+    margin-left: 5px;
+    color: #777;
+    font-size: 12px; }
+
+.notifications {
+  width: calc(26vw);
+  overflow-y: auto;
+  display: none;
+  font-family: 'Arial';
+  width: 400px;
+  height: 475px;
+  position: absolute;
+  border: .5px solid #ddd;
+  background-color: #fff;
+  border-radius: 8px;
+  z-index: 10; }
+  .notifications__triangle {
+    display: none;
+    width: 15px;
+    height: 15px;
+    transform: rotate(45deg);
+    position: absolute;
+    border-left: .5px solid #ddd;
+    border-top: .5px solid #ddd;
+    background-color: #fff;
+    z-index: 9; }
+  .notifications__item {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+    width: calc(100%);
+    color: #000;
+    text-decoration: none;
+    display: block;
+    border-top: .5px solid #ddd; }
+    .notifications__item:hover {
+      background-color: #f5f5f5; }
+    .notifications__item:nth-child(1) {
+      border-top: none;
+      border-radius: 8px 0px 0px 0px; }
+  .notifications__img {
+    margin: 10px;
+    padding: 10px;
+    height: 30px;
+    width: 30px;
+    background-position: center;
+    background-size: cover;
+    border-radius: 50%;
+    display: inline-block; }
+  .notifications__container {
+    height: 100%;
+    display: inline-block;
+    width: calc(100% - 80px); }
+  .notifications__date {
+    color: #ccc;
+    font-size: 10px; }
+  .notifications__number {
+    display: block;
+    transition: 0.2s;
+    position: absolute;
+    background-color: red;
+    color: #fff;
+    border-radius: 20px;
+    font-family: 'Arial';
+    padding: 3px;
+    font-size: 8px;
+    text-align: center; }
+
+/*# sourceMappingURL=main.css.map */

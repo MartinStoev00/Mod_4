@@ -1,0 +1,67 @@
+.header {
+	background-color: #fff;
+	border-bottom: .5px solid #ddd;
+	width: calc(100vw);
+	@include flex(row);
+	&__logo {
+		width: calc(14vw);
+		margin: 0 35px 0;
+	}
+	.form {
+		width: calc(60vw);
+		margin: 0 30px 0;
+		&__search {
+			display: block;
+			margin: 16px;
+			background-color: rgb(241, 242, 243);
+			width: calc(100% - 62px);
+			padding: 15px;
+			padding-left: 50px;
+			border: none;
+			border-radius: 8px;
+			border: .5px solid #fff;
+		}
+		&__btn {
+			transition: .3s;
+			position: absolute;
+			padding: 13px;
+			border: none;
+			color: #666;
+			border-radius: 50%;
+			background-color: rgba(0,0,0, 0);
+			&:hover {
+				background-color: darken(rgb(241, 242, 243), 4%);
+				color: #111;
+			}
+		}
+	}
+	&__buttons {
+		width: calc(30vw);
+		display: flex;
+	    flex-direction: row;
+	    flex-wrap: nowrap;
+	    justify-content: flex-start;
+	    align-content: space-between;
+	    align-items: center;	
+	}
+	&__myProfile {
+		cursor: pointer;
+		transition: 0.2s;
+		margin: 0 6px 0;
+		border: none;
+		padding: 10px;
+		font-size: 25px;
+		color: #444;
+		background-color: inherit;
+	}
+	&__notify {
+		color: #444;
+		cursor: pointer;
+		transition: 0.2s;
+		margin: 0 6px 0;
+		padding: 10px;
+		border: none;
+		font-size: 25px;
+		background-color: inherit;
+	}
+}

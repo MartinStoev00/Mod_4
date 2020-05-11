@@ -4,14 +4,4 @@
 
 <web-app>
   <display-name>Caren</display-name>
-  <servlet>
-  	<servlet-name>Login</servlet-name>
-  	<display-name>Login</display-name>
-  	<description></description>
-  	<servlet-class>nl.nedap.core.Login</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>Login</servlet-name>
-  	<url-pattern>/Login</url-pattern>
-  </servlet-mapping>
 </web-app>
