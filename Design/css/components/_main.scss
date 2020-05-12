@@ -1,0 +1,49 @@
+.main {
+	padding: 50px;
+	width: calc(100vw - 120px);
+	text-decoration: none;
+	color: #333;
+	&__card {
+		display: inline-block;
+		width: 180px;
+		text-decoration: none;
+		border-radius: 15px;
+		background-color: #fff;
+		border: .5px #ddd solid;
+		margin: 20px;
+		border-radius: 15px;
+	}
+	&__profile {
+		height: 80px;width: 80px;
+		margin-top: -50px;
+		position: relative;
+		z-index: 1;
+		border-radius: 50%;
+		border: 7px #fff solid;
+		margin-left: calc(50% - 47px);
+		background-position: center;
+		background-size: cover;
+	}
+	&__container {
+
+	}
+	&__text {
+		color: #000;
+		text-align: center;
+	}
+	&__name {
+		font-size: 26px;
+		text-decoration: underline;
+		padding: 6px 0px 20px;
+	}
+	&__description {
+	}
+	&__img {
+		border-radius: 15px 15px 0px 0px;
+		height: 90px; 
+		width: 100%;
+		background-position: center;
+		background-size: cover;
+		display: inline-block;
+	}
+}

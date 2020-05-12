@@ -24,9 +24,7 @@
 			<div class="arrow"></div>
 		</div>
 	</div>
-	<div class="main">
-		
-	</div>
+	<div class="main"></div>
 </body>
 <script>
 	let incoming = {
@@ -47,6 +45,36 @@
 			img: "3.jpg"
 		},
 		{
+			name: "Wishal",
+			description: "None",
+			img: "3.jpg"
+		},
+		{
+			name: "Wishal",
+			description: "None",
+			img: "3.jpg"
+		},
+		{
+			name: "Wishal",
+			description: "None",
+			img: "3.jpg"
+		},
+		{
+			name: "Wishal",
+			description: "None",
+			img: "3.jpg"
+		},
+		{
+			name: "Wishal",
+			description: "None",
+			img: "3.jpg"
+		},
+		{
+			name: "Wishal",
+			description: "None",
+			img: "3.jpg"
+		},
+		{
 			name: "Joe",
 			description: "None",
 			img: "1.jpg"
@@ -57,9 +85,69 @@
 			img: "4.jpg" 
 		},
 		{
+			name: "Mohammad",
+			description: "None",
+			img: "4.jpg" 
+		},
+		{
+			name: "Mohammad",
+			description: "None",
+			img: "4.jpg" 
+		},
+		{
+			name: "Mohammad",
+			description: "None",
+			img: "4.jpg" 
+		},
+		{
+			name: "Mohammad",
+			description: "None",
+			img: "4.jpg" 
+		},
+		{
+			name: "Mohammad",
+			description: "None",
+			img: "4.jpg" 
+		},
+		{
 			name: "Omar",
 			description: "None",
 			img: "5.jpg" 
+		},
+		{
+			name: "Omar",
+			description: "None",
+			img: "5.jpg" 
+		},
+		{
+			name: "Omar",
+			description: "None",
+			img: "5.jpg" 
+		},
+		{
+			name: "Omar",
+			description: "None",
+			img: "5.jpg" 
+		},
+		{
+			name: "Hamza",
+			description: "None",
+			img: "6.jpg" 
+		},
+		{
+			name: "Hamza",
+			description: "None",
+			img: "6.jpg" 
+		},
+		{
+			name: "Hamza",
+			description: "None",
+			img: "6.jpg" 
+		},
+		{
+			name: "Hamza",
+			description: "None",
+			img: "6.jpg" 
 		},
 		{
 			name: "Hamza",
@@ -181,16 +269,15 @@
 		]
 
 	};
-
 	window.onload = () => {
 		fillNotifications();
 		fillTable("");
 		init();
+		fillMain();
 	};
-
 	window.addEventListener('resize', init);
-
 	let notificationsDisplayed = false;
+	let main = document.getElementsByClassName("main")[0];
 	let icons = document.getElementsByClassName("fas");
 	let dropdown = document.getElementsByClassName("dropdown")[0];
 	let searchIcon = document.getElementsByClassName("form__btn")[0];
@@ -199,15 +286,18 @@
 	let notifications = document.getElementsByClassName("notifications")[0];
 	let notifyNumber = document.getElementsByClassName("notifications__number")[0];
 	let tri = document.getElementsByClassName("notifications__triangle")[0];
+	let header = document.getElementsByClassName("header")[0];
 	let notifyIconY;
-
-	function init() {	
+	function init() {
+		let headerH = header.getBoundingClientRect().height;
 		let xInput   =  searchInput.getBoundingClientRect().left + 6;
 		let inputWHeight =  searchInput.getBoundingClientRect().height;
 		let notifyIconX = notifyIcon.getBoundingClientRect().left - 70;
 		let inputWidth =  searchInput.getBoundingClientRect().width - 1;
-		let yInput = window.pageYOffset + searchInput.getBoundingClientRect().top + 3.5;
-		notifyIconY = window.pageYOffset + notifyIcon.getBoundingClientRect().top + 50;
+		let yInput = searchInput.getBoundingClientRect().top + 3.5;
+		notifyIconY = notifyIcon.getBoundingClientRect().top + 50;
+		main.style.marginTop = headerH + "px";
+		main.style.paddingBottom = headerH + "px";
 		tri.style.top = (notifyIconY - 7.5) + "px";
 		tri.style.left = (notifyIconX + 89) + "px";
 		notifyNumber.style.top = (notifyIconY - 41) + "px";
@@ -220,7 +310,6 @@
 		dropdown.style.width = inputWidth + "px";
 		dropdown.style.left= (xInput - 6) + "px";
 	}
-
 	notifyIcon.addEventListener("click", () => {
 		notifyNumber.style.top = (notifyIconY - 34) + "px";
 		setTimeout(() => {
@@ -237,7 +326,6 @@
 			}
 		}, 200);
 	});
-
 	notifyIcon.addEventListener("blur", () => {
 		setTimeout(() => {
 			if(document.activeElement.className !=="notifications__item") {
@@ -247,7 +335,6 @@
 			}
 		}, 10)
 	});
-
 	function fillNotifications() {
 		let newArr = incoming.notifications;
 		let output = ``;
@@ -265,7 +352,6 @@
 		notifications.innerHTML = output;
 		notifyNumber.innerHTML = incoming.notifications.length !== 0 ? incoming.notifications.length : "";
 	}
-
 	function fillTable(input) {
 		let output = ``;
 		let newArr = incoming.items.filter((item) => {
@@ -292,7 +378,25 @@
 		}
 		dropdown.innerHTML = output;
 	}
-
+	function fillMain() {
+		incoming.items.forEach((item) => {
+			let {name, description, img} = item;
+			main.innerHTML += 
+			`<a href="${img}" class="main__card">
+				<div class="main__container">
+					<div style="background-image: url(${ran(23)});" class="main__img"></div>
+					<div style="background-image: url(${img});" class="main__profile"></div>
+					<div class="main__text">
+						<p class="main__name">${name}</p>
+					</div>
+				</div>
+			</a>`
+		});
+	}
+	function ran(input) {
+		let num = Math.ceil(Math.random()*(input - 1));
+		return "folder/" + num + ".jpg";
+	}
 	Array.prototype.forEach.call(icons, (icon) => {
 		icon.addEventListener("click", () => {
 			icon.style.marginBottom = "-7px";
@@ -321,7 +425,5 @@
 	searchInput.addEventListener("keyup", (e) => {
 		fillTable(searchInput.value.toLowerCase());
 	});
-
-
 </script>
 </html>
