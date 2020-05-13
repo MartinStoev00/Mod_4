@@ -4,4 +4,14 @@
 
 <web-app>
   <display-name>Caren</display-name>
+  <servlet>
+  	<servlet-name>Signup</servlet-name>
+  	<display-name>Signup</display-name>
+  	<description>Responsible for signing up</description>
+  	<servlet-class>nl.nedap.core.Signup</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>Signup</servlet-name>
+  	<url-pattern>/Signup</url-pattern>
+  </servlet-mapping>
 </web-app>
