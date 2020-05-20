@@ -1,8 +1,10 @@
 package nl.nedap.core;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.stream.Collectors;
+
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class Signup
  */
-@WebServlet("signup")
 public class Signup extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -25,9 +26,9 @@ public class Signup extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -35,7 +36,16 @@ public class Signup extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		System.out.println("BOOP");
+		
+		BufferedReader reader = request.getReader();
+		String body = "";
+		String line;
+		while ((line = reader.readLine()) != null) {
+			body = body + line + "\n";
+			System.out.println("WHAT");
+		}
+		System.out.println(body);
 	}
 
 }
