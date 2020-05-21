@@ -1,21 +1,6 @@
 let inputs = document.getElementsByClassName("input__text");
 let labels = document.getElementsByClassName("input__label");
-let notifyIconY;
-let notificationsDisplayed = false;
-let noNotifications = `<div class="notifications__none">None</div>`;
 let exclamation = `<i class="fa fa-exclamation-triangle exclamation"></i>`;
-let main = document.getElementsByClassName("main")[0];
-let mainPosts = document.getElementsByClassName("mainPosts")[0];
-let sidebar = document.getElementsByClassName("sidebar")[0];
-let header = document.getElementsByClassName("header")[0];
-let icons = header.getElementsByClassName("fas");
-let dropdown = header.getElementsByClassName("dropdown")[0];
-let searchIcon = header.getElementsByClassName("form__btn")[0];
-let searchInput  = header.getElementsByClassName("form__search")[0];
-let notifyIcon = header.getElementsByClassName("header__notify")[0];
-let notifications = header.getElementsByClassName("notifications")[0];
-let tri = header.getElementsByClassName("notifications__triangle")[0];
-let notifyNumber = header.getElementsByClassName("notifications__number")[0];
 window.addEventListener('resize', init);
 window.onload = init;
 let incoming = {
@@ -355,7 +340,6 @@ let postsJson = {
     ]
 }
 function init() {
-    let headerH = header.getBoundingClientRect().height;
     if(inputs.length > 0) {
         function shake(input, label) {
             let offSet = Math.ceil(window.pageYOffset + input.getBoundingClientRect().top) + 6;
@@ -455,367 +439,384 @@ function init() {
             });
         });
         inputs[0].focus();
-    } 
-    if(document.getElementsByClassName("header").length > 0) {
-        function fillNotifications() {
-            notifications.innerHTML = "";
-            let newArr = incoming.notifications;
-            if(newArr.length == 0) {
-                notifications.innerHTML = noNotifications;
-            }
-            newArr.forEach((notification) => {
-                let {name, deed, link, img, date} = notification;
-                notifications.innerHTML +=
-                `<a class="notifications__item" href="${img}" data-index-number="${name}">
-                    <div style="background-image: url(${img});" class="notifications__img"></div>
-                    <div class="notifications__container">
-                        <p class="notifications__text">${name} ${deed}</p>
-                        <p class="notifications__date">${date}</p>
-                    </div>
-                </a>`;
-            });
-            function remove(index) {
-                let notifications = incoming.notifications;
-                let items = document.getElementsByClassName("notifications__item");
-                let i = -1;
-                notifications.forEach((notif, ind) => {
-                    if(notif.name === index && i < 0) {
-                        i = ind;
-                    }
-                });
-                if( i >= 0) {
-                    let removed = notifications.splice(0, i + 1);
-                    removed.pop();
-                    let newArr = [...removed,...notifications];
-                    items[i].remove();
-                    incoming.notifications = newArr;
+    } else {
+        let notifyIconY;
+        let notificationsDisplayed = false;
+        let header = document.getElementsByClassName("header")[0];
+        let noNotifications = `<div class="notifications__none">None</div>`;
+        let icons = header.getElementsByClassName("fas");
+        let dropdown = header.getElementsByClassName("dropdown")[0];
+        let searchIcon = header.getElementsByClassName("form__btn")[0];
+        let searchInput  = header.getElementsByClassName("form__search")[0];
+        let notifyIcon = header.getElementsByClassName("header__notify")[0];
+        let notifications = header.getElementsByClassName("notifications")[0];
+        let tri = header.getElementsByClassName("notifications__triangle")[0];
+        let notifyNumber = header.getElementsByClassName("notifications__number")[0];
+        let main = document.getElementsByClassName("main")[0];
+        let mainPosts = document.getElementsByClassName("mainPosts")[0];
+        let headerH = header.getBoundingClientRect().height;
+        let sidebar = document.getElementsByClassName("sidebar")[0];
+        if(document.getElementsByClassName("header").length > 0) {
+            function fillNotifications() {
+                notifications.innerHTML = "";
+                let newArr = incoming.notifications;
+                if(newArr.length == 0) {
+                    notifications.innerHTML = noNotifications;
                 }
-            }
-            notifyNumber.innerHTML = incoming.notifications.length !== 0 ? incoming.notifications.length : "";
-            let items = document.getElementsByClassName("notifications__item");
-            Array.prototype.forEach.call(items, (item) => {
-                item.addEventListener("click", (event) => {
-                    event.preventDefault();
-                    remove(item.dataset.indexNumber);
-                    if(document.getElementsByClassName("notifications__item").length == 0) {
-                        notificationsDisplayed = false;
-                        notifications.style.display = "none";
-                        tri.style.display = "none";
-                        notifications.innerHTML = noNotifications;
-                    }
-                    notifyNumber.innerHTML = incoming.notifications.length !== 0 ? incoming.notifications.length : "";
-                    location.href = item.href;
-                });
-            });
-        }
-        function fillTable(input) {
-            let output = ``;
-            let newArr = incoming.items.filter((item) => {
-                if(input == "") {
-                    return true;
-                } else {
-                    return item.name.toLowerCase().includes(input) || input.includes(item.name.toLowerCase());
-                }
-            }).slice(0, 5);
-            if(newArr.length == 0) {
-                output = `<div class="dropdown__item" style="color: #555">No results found</div>`;
-            } else {
-                newArr.forEach((item) => {
-                    let {name, description, img} = item;
-                    output +=
-                    `<a class="dropdown__item" href="${img}">
-                        <div style="background-image: url(${img});" class="dropdown__img"></div>
-                        <div class="dropdown__container">
-                            <p class="dropdown__name">${name}</p>
-                            <p class="dropdown__description">${description}</p>
+                newArr.forEach((notification) => {
+                    let {name, deed, link, img, date} = notification;
+                    notifications.innerHTML +=
+                    `<a class="notifications__item" href="${img}" data-index-number="${name}">
+                        <div style="background-image: url(${img});" class="notifications__img"></div>
+                        <div class="notifications__container">
+                            <p class="notifications__text">${name} ${deed}</p>
+                            <p class="notifications__date">${date}</p>
                         </div>
                     </a>`;
                 });
+                function remove(index) {
+                    let notifications = incoming.notifications;
+                    let items = document.getElementsByClassName("notifications__item");
+                    let i = -1;
+                    notifications.forEach((notif, ind) => {
+                        if(notif.name === index && i < 0) {
+                            i = ind;
+                        }
+                    });
+                    if( i >= 0) {
+                        let removed = notifications.splice(0, i + 1);
+                        removed.pop();
+                        let newArr = [...removed,...notifications];
+                        items[i].remove();
+                        incoming.notifications = newArr;
+                    }
+                }
+                notifyNumber.innerHTML = incoming.notifications.length !== 0 ? incoming.notifications.length : "";
+                let items = document.getElementsByClassName("notifications__item");
+                Array.prototype.forEach.call(items, (item) => {
+                    item.addEventListener("click", (event) => {
+                        event.preventDefault();
+                        remove(item.dataset.indexNumber);
+                        if(document.getElementsByClassName("notifications__item").length == 0) {
+                            notificationsDisplayed = false;
+                            notifications.style.display = "none";
+                            tri.style.display = "none";
+                            notifications.innerHTML = noNotifications;
+                        }
+                        notifyNumber.innerHTML = incoming.notifications.length !== 0 ? incoming.notifications.length : "";
+                        location.href = item.href;
+                    });
+                });
             }
-            dropdown.innerHTML = output;
-        }
-        let xInput   =  searchInput.getBoundingClientRect().left + 6;
-        let inputWHeight =  searchInput.getBoundingClientRect().height;
-        let notifyIconX = notifyIcon.getBoundingClientRect().left - 70;
-        let inputWidth =  searchInput.getBoundingClientRect().width - 1;
-        let yInput = searchInput.getBoundingClientRect().top + 3.5;
-        notifyIconY = notifyIcon.getBoundingClientRect().top + 50;
-        dropdown.style.width = inputWidth + "px";
-        dropdown.style.left= (xInput - 6) + "px";
-        dropdown.style.top = (yInput - 3.5 + inputWHeight) + "px";
-        tri.style.top = (notifyIconY - 7.5) + "px";
-        tri.style.left = (notifyIconX + 84) + "px";
-        notifyNumber.style.top = (notifyIconY - 41) + "px";
-        notifyNumber.style.left = (notifyIconX + 92) + "px";
-        notifications.style.top = (notifyIconY) + "px";
-        notifications.style.left = (notifyIconX - 240) + "px";
-        searchIcon.style.top = yInput + "px";
-        searchIcon.style.left  = xInput + "px";
-        fillNotifications();
-        fillTable("");
-        notifyIcon.addEventListener("click", () => {
-            notifyNumber.style.top = (notifyIconY - 34) + "px";
-            setTimeout(() => {
-                notifyNumber.style.top = (notifyIconY - 41) + "px";
-                if(notificationsDisplayed) {
-                    fillNotifications();
-                    notificationsDisplayed = false;
-                    tri.style.display = "none";
-                    notifications.style.display = "none";
+            function fillTable(input) {
+                let output = ``;
+                let newArr = incoming.items.filter((item) => {
+                    if(input == "") {
+                        return true;
+                    } else {
+                        return item.name.toLowerCase().includes(input) || input.includes(item.name.toLowerCase());
+                    }
+                }).slice(0, 5);
+                if(newArr.length == 0) {
+                    output = `<div class="dropdown__item" style="color: #555">No results found</div>`;
                 } else {
-                    notificationsDisplayed = true;
-                    tri.style.display = "block";
-                    notifications.style.display = "block";
+                    newArr.forEach((item) => {
+                        let {name, description, img} = item;
+                        output +=
+                        `<a class="dropdown__item" href="${img}">
+                            <div style="background-image: url(${img});" class="dropdown__img"></div>
+                            <div class="dropdown__container">
+                                <p class="dropdown__name">${name}</p>
+                                <p class="dropdown__description">${description}</p>
+                            </div>
+                        </a>`;
+                    });
                 }
-            }, 200);
-        });
-        notifyIcon.addEventListener("blur", () => {
-            setTimeout(() => {
-                if(document.activeElement.className !=="notifications__item") {
-                    notificationsDisplayed = false;
-                    notifications.style.display = "none";
-                    tri.style.display = "none";
-                }
-            }, 10)
-        });
-        Array.prototype.forEach.call(icons, (icon) => {
-            icon.addEventListener("click", () => {
-                icon.style.marginBottom = "-7px";
+                dropdown.innerHTML = output;
+            }
+            let xInput   =  searchInput.getBoundingClientRect().left + 6;
+            let inputWHeight =  searchInput.getBoundingClientRect().height;
+            let notifyIconX = notifyIcon.getBoundingClientRect().left - 70;
+            let inputWidth =  searchInput.getBoundingClientRect().width - 1;
+            let yInput = searchInput.getBoundingClientRect().top + 3.5;
+            notifyIconY = notifyIcon.getBoundingClientRect().top + 50;
+            dropdown.style.width = inputWidth + "px";
+            dropdown.style.left= (xInput - 6) + "px";
+            dropdown.style.top = (yInput - 3.5 + inputWHeight) + "px";
+            tri.style.top = (notifyIconY - 7.5) + "px";
+            tri.style.left = (notifyIconX + 84) + "px";
+            notifyNumber.style.top = (notifyIconY - 41) + "px";
+            notifyNumber.style.left = (notifyIconX + 92) + "px";
+            notifications.style.top = (notifyIconY) + "px";
+            notifications.style.left = (notifyIconX - 240) + "px";
+            searchIcon.style.top = yInput + "px";
+            searchIcon.style.left  = xInput + "px";
+            fillNotifications();
+            fillTable("");
+            notifyIcon.addEventListener("click", () => {
+                notifyNumber.style.top = (notifyIconY - 34) + "px";
                 setTimeout(() => {
-                    icon.style.marginBottom = "0px";
+                    notifyNumber.style.top = (notifyIconY - 41) + "px";
+                    if(notificationsDisplayed) {
+                        fillNotifications();
+                        notificationsDisplayed = false;
+                        tri.style.display = "none";
+                        notifications.style.display = "none";
+                    } else {
+                        notificationsDisplayed = true;
+                        tri.style.display = "block";
+                        notifications.style.display = "block";
+                    }
                 }, 200);
             });
-        });
-        searchInput.addEventListener("focus", () => {
-            searchInput.style.backgroundColor = "#fff";
-            searchInput.style.border = ".5px solid #ddd";
-            searchInput.style.borderRadius = "8px 8px 0px 0px";
-            dropdown.style.display = "block";
-            fillTable(searchInput.value.toLowerCase());
-        });
-        searchInput.addEventListener("blur", () => {
-            setTimeout(() => {
-                if(document.activeElement.className !=="dropdown__item") {
-                    searchInput.style.backgroundColor = "rgb(241, 242, 243)";
-                    searchInput.style.border = ".5px solid #fff";
-                    searchInput.style.borderRadius = "8px";
-                    dropdown.style.display = "none";
-                }
-            }, 10);
-        });
-        searchInput.addEventListener("keyup", (e) => {
-            fillTable(searchInput.value.toLowerCase());
-        });
-    }
-    if(document.getElementsByClassName("main").length > 0) {
-        function fillMain() {
-            function ran(input) {
-                let num = Math.ceil(Math.random()*(input - 1));
-                return "folder/" + num + ".jpg";
-            }
-            if(document.title == "Main") {
-                incoming.items.forEach((item) => {
-                let {name, description, img} = item;
-                main.innerHTML += 
-                    `<a href="${img}" class="main__card">
-                        <div class="main__container">
-                            <div style="background-image: url(${ran(23)});" class="main__img"></div>
-                            <div style="background-image: url(${img});" class="main__profile"></div>
-                            <div class="main__text">
-                                <p class="main__name">${name}</p>
-                            </div>
-                        </div>
-                    </a>`
-                });
-            } else if(document.title == "Posts") {
-
-            }
-        }
-        main.style.marginTop = headerH + "px";
-        main.style.paddingBottom = headerH + "px";
-        fillMain();
-    }
-    if(document.getElementsByClassName("mainPosts").length > 0) {
-        mainPosts.style.marginTop = headerH + "px";
-        fillPosts();
-        let posts = document.getElementsByClassName("post");
-        let readMore = `<span class="ReadMore">...<span  style="color: rgb(66, 133, 244);cursor:pointer;"> Read More</span></span>`;
-        Array.prototype.forEach.call(posts, (post) => { 
-            if(post.getElementsByClassName("post__text").length > 0) {
-                let postText = post.getElementsByClassName("post__text")[0];
-                let text = postText.innerHTML;
-                let charLimit = 400;
-                let firstHalf = text.substring(0, charLimit);
-                let secondHalf = `<span class="more" style="display:none;">${text.substring(charLimit, text.length)}</span>`;
-                let returnedText = firstHalf + secondHalf + readMore;
-                postText.innerHTML = returnedText;
-            }
-            if(post.getElementsByClassName("ReadMore").length > 0) {
-                let dpied = false;
-                let click = post.getElementsByClassName("ReadMore")[0];
-                click.addEventListener("click",() => {
-                    let more = post.getElementsByClassName("more")[0];
-                    if(!dpied) {
-                        more.style.display = "inline";
-                        dpied = true;
-                        post.getElementsByClassName("ReadMore")[0].innerHTML = `<span style="color: rgb(66, 133, 244);cursor:pointer;"> Read Less</span>`;
-                    } else {
-                        post.getElementsByClassName("ReadMore")[0].innerHTML = `...<span style="color: rgb(66, 133, 244);cursor:pointer;"> Read More</span>`;
-                        more.style.display = "none";
-                        dpied = false;
+            notifyIcon.addEventListener("blur", () => {
+                setTimeout(() => {
+                    if(document.activeElement.className !=="notifications__item") {
+                        notificationsDisplayed = false;
+                        notifications.style.display = "none";
+                        tri.style.display = "none";
                     }
+                }, 10)
+            });
+            Array.prototype.forEach.call(icons, (icon) => {
+                icon.addEventListener("click", () => {
+                    icon.style.marginBottom = "-7px";
+                    setTimeout(() => {
+                        icon.style.marginBottom = "0px";
+                    }, 200);
+                });
+            });
+            searchInput.addEventListener("focus", () => {
+                searchInput.style.backgroundColor = "#fff";
+                searchInput.style.border = ".5px solid #ddd";
+                searchInput.style.borderRadius = "8px 8px 0px 0px";
+                dropdown.style.display = "block";
+                fillTable(searchInput.value.toLowerCase());
+            });
+            searchInput.addEventListener("blur", () => {
+                setTimeout(() => {
+                    if(document.activeElement.className !=="dropdown__item") {
+                        searchInput.style.backgroundColor = "rgb(241, 242, 243)";
+                        searchInput.style.border = ".5px solid #fff";
+                        searchInput.style.borderRadius = "8px";
+                        dropdown.style.display = "none";
+                    }
+                }, 10);
+            });
+            searchInput.addEventListener("keyup", (e) => {
+                fillTable(searchInput.value.toLowerCase());
+            });
+        }
+        if(document.getElementsByClassName("main").length > 0) {
+            function fillMain() {
+                function ran(input) {
+                    let num = Math.ceil(Math.random()*(input - 1));
+                    return "folder/" + num + ".jpg";
+                }
+                if(document.title == "Main") {
+                    incoming.items.forEach((item) => {
+                    let {name, description, img} = item;
+                    main.innerHTML += 
+                        `<a href="${img}" class="main__card">
+                            <div class="main__container">
+                                <div style="background-image: url(${ran(23)});" class="main__img"></div>
+                                <div style="background-image: url(${img});" class="main__profile"></div>
+                                <div class="main__text">
+                                    <p class="main__name">${name}</p>
+                                </div>
+                            </div>
+                        </a>`
+                    });
+                } else if(document.title == "Posts") {
+
+                }
+            }
+            main.style.marginTop = headerH + "px";
+            main.style.paddingBottom = headerH + "px";
+            fillMain();
+        }
+        if(document.getElementsByClassName("mainPosts").length > 0) {
+            function fillPosts() {
+                function display() {
+                    let postsMain = mainPosts.getElementsByClassName("posts")[0];
+                    postsMain.innerHTML = ``;
+                    postsJson.posts.forEach((post) => {
+                        let commentsText = ``;
+                        post.comments.forEach((comment, index) => {
+                            if(index < 2) {
+                                let {name, date, img, text} = comment;  
+                                commentsText += 
+                                    `<div class="comment">
+                                        <div class="comment__pic" style="background-image: url(${img});"></div>
+                                        <div class="comment__wrapper">
+                                            <div class="comment__text"><span style="color: rgb(56, 88, 152);font-weight: 600;">${name}</span>${text}</div>
+                                            <div class="comment__date">${date}</div>
+                                        </div>
+                                    </div>`
+                            }
+                        });
+                        let numOfComments = post.comments.length > 3 ? ` 
+                            <div class="comments__info">
+                                <div class="comments__viewall">View All Comments</div>
+                                <div class="comments__count">2 out of ${post.comments.length}</div>
+                            </div>` : ``;
+                        let {name, date, img, text} = post; 
+                        postsMain.innerHTML += 
+                            `<div class="post">
+                                <div class="post__header">
+                                    <div class="post__pic" style="background-image: url(${img});"></div>
+                                    <div class="post__info">
+                                        <div class="post__uploader">${name}</div>
+                                        <div class="post__date">${date}</div>
+                                    </div>
+                                </div>
+                                <div class="post__text">${text}</div>
+                                <div class="comments">
+                                    ${numOfComments}
+                                    <div class="comments__section">
+                                        ${commentsText}
+                                    </div>
+                                    <div class="comments__urs">
+                                        <div class="comments__urs-pic" style="background-image: url(1.jpg);"></div>
+                                        <input class="comments__urs-input"type="text" placeholder="Write your comment">
+                                    </div>
+                                </div>
+                            </div>`
+                    });
+                }
+                display();
+                let postsBlocks = document.getElementsByClassName("post");
+                Array.prototype.forEach.call(postsBlocks, (block,i) => {
+                    let viewall = block.getElementsByClassName("comments__viewall")[0];
+                    let dp = false;
+                    viewall.addEventListener("click", () => {
+                        let info = block.getElementsByClassName("comments__info")[0];
+                        let section = block.getElementsByClassName("comments__section")[0];
+                        let count = info.getElementsByClassName("comments__count")[0];
+                        let commentsText = ``;
+                        section.innerHTML = ``;
+                        if(!dp) {
+                            viewall.innerHTML = `Collapse Menu`;
+                            count.innerHTML = `${postsJson.posts[i].comments.length} out of ${postsJson.posts[i].comments.length}`;
+                            postsJson.posts[i].comments.forEach((comment) => {
+                                let {name, date, img, text} = comment;  
+                                commentsText += 
+                                    `<div class="comment">
+                                        <div class="comment__pic" style="background-image: url(${img});"></div>
+                                        <div class="comment__wrapper">
+                                            <div class="comment__text"><span style="color: rgb(56, 88, 152);font-weight: 600;">${name}</span>${text}</div>
+                                            <div class="comment__date">${date}</div>
+                                        </div>
+                                    </div>`;
+                            });
+                            section.innerHTML = commentsText;
+                            dp = true;
+                        } else {
+                            viewall.innerHTML = `View All Comments`;
+                            count.innerHTML = `2 out of ${postsJson.posts[i].comments.length}`;
+                            postsJson.posts[i].comments.forEach((comment, num) => {
+                                if(num < 2) {
+                                    let {name, date, img, text} = comment;  
+                                    commentsText += 
+                                        `<div class="comment">
+                                            <div class="comment__pic" style="background-image: url(${img});"></div>
+                                            <div class="comment__wrapper">
+                                                <div class="comment__text"><span style="color: rgb(56, 88, 152);font-weight: 600;">${name}</span>${text}</div>
+                                                <div class="comment__date">${date}</div>
+                                            </div>
+                                        </div>`;
+                                }
+                            });
+                            section.innerHTML = commentsText;
+                            dp = false;
+                        }
+                    })
                 })
             }
-        })
-    }
-    if(document.getElementsByClassName("sidebar").length > 0) {
-        function fillPeople() {
-            let people = document.getElementsByClassName("people")[0];
-            incoming.items.forEach((item) => {
-                let {name, img} = item;
-                people.innerHTML += 
-                    `<a href="${img}" class="people__container">
-                        <div class="people__pic" style="background-image: url(${img});"></div>
-                        <div class="people__name">${name}</div>
-                    </a>`
-            });
-        }
-        let currentpage;
-        sidebar.style.top = headerH + "px";
-        let sbc = document.getElementsByClassName("sidebar__content")[0];
-        let t = sbc.getBoundingClientRect().top + sbc.getBoundingClientRect().height;
-        document.getElementsByClassName("people")[0].style.top = "calc(5vh + " + t + "px)";
-        let linkForPages = document.getElementsByClassName("sidebar__link");
-        Array.prototype.forEach.call(linkForPages, (link, index) => {
-            let linkL = link.getAttribute("data-link");
-            function on() {
-                currentpage = linkL;
-                link.style.backgroundColor = "rgba(66, 133, 244, 0.1)";
-                link.style.color = "rgb(66, 133, 244)";
-            }
-            function off(linkAll) {
-                linkAll.style.backgroundColor = "#fff";
-                linkAll.style.color = "#444";
-            }
-            if(index == 0) {
-                on();
-            }
-            link.addEventListener("click", () => {
-                Array.prototype.forEach.call(linkForPages, (linkAll) => off(linkAll));
-                on();
-                console.log(linkL);
-            });
-            link.addEventListener("mouseover", () => {
-                if(currentpage !== linkL) {
-                    link.style.backgroundColor = "#f5f5f5";
+            mainPosts.style.marginTop = headerH + "px";
+            fillPosts();
+            let posts = document.getElementsByClassName("post");
+            let readMore = `<span class="ReadMore">...<span  style="color: rgb(66, 133, 244);cursor:pointer;"> Read More</span></span>`;
+            Array.prototype.forEach.call(posts, (post) => { 
+                if(post.getElementsByClassName("post__text").length > 0) {
+                    let postText = post.getElementsByClassName("post__text")[0];
+                    let text = postText.innerHTML;
+                    let charLimit = 400;
+                    let firstHalf = text.substring(0, charLimit);
+                    let secondHalf = `<span class="more" style="display:none;">${text.substring(charLimit, text.length)}</span>`;
+                    let returnedText = firstHalf + secondHalf + readMore;
+                    postText.innerHTML = returnedText;
                 }
-            });
-            link.addEventListener("mouseout", () => {
-                if(currentpage !== linkL) {
-                    off(link);
+                if(post.getElementsByClassName("ReadMore").length > 0) {
+                    let dpied = false;
+                    let click = post.getElementsByClassName("ReadMore")[0];
+                    click.addEventListener("click",() => {
+                        let more = post.getElementsByClassName("more")[0];
+                        if(!dpied) {
+                            more.style.display = "inline";
+                            dpied = true;
+                            post.getElementsByClassName("ReadMore")[0].innerHTML = `<span style="color: rgb(66, 133, 244);cursor:pointer;"> Read Less</span>`;
+                        } else {
+                            post.getElementsByClassName("ReadMore")[0].innerHTML = `...<span style="color: rgb(66, 133, 244);cursor:pointer;"> Read More</span>`;
+                            more.style.display = "none";
+                            dpied = false;
+                        }
+                    })
                 }
             })
-        });
-        fillPeople();
-    }
-}
-function fillPosts() {
-    function display() {
-        let postsMain = mainPosts.getElementsByClassName("posts")[0];
-        postsMain.innerHTML = ``;
-        postsJson.posts.forEach((post) => {
-            let commentsText = ``;
-            post.comments.forEach((comment, index) => {
-                if(index < 2) {
-                    let {name, date, img, text} = comment;  
-                    commentsText += 
-                        `<div class="comment">
-                            <div class="comment__pic" style="background-image: url(${img});"></div>
-                            <div class="comment__wrapper">
-                                <div class="comment__text"><span style="color: rgb(56, 88, 152);font-weight: 600;">${name}</span>${text}</div>
-                                <div class="comment__date">${date}</div>
-                            </div>
-                        </div>`
-                }
-            });
-            let numOfComments = post.comments.length > 3 ? ` 
-                <div class="comments__info">
-                    <div class="comments__viewall">View All Comments</div>
-                    <div class="comments__count">2 out of ${post.comments.length}</div>
-                </div>` : ``;
-            let {name, date, img, text} = post; 
-            postsMain.innerHTML += 
-                `<div class="post">
-                    <div class="post__header">
-                        <div class="post__pic" style="background-image: url(${img});"></div>
-                        <div class="post__info">
-                            <div class="post__uploader">${name}</div>
-                            <div class="post__date">${date}</div>
-                        </div>
-                    </div>
-                    <div class="post__text">${text}</div>
-                    <div class="comments">
-                        ${numOfComments}
-                        <div class="comments__section">
-                            ${commentsText}
-                        </div>
-                        <div class="comments__urs">
-                            <div class="comments__urs-pic" style="background-image: url(1.jpg);"></div>
-                            <input class="comments__urs-input"type="text" placeholder="Write your comment">
-                        </div>
-                    </div>
-                </div>`
-        });
-    }
-    display();
-    let postsBlocks = document.getElementsByClassName("post");
-    Array.prototype.forEach.call(postsBlocks, (block,i) => {
-        block.getElementsByClassName("comments__viewall")[0];
-        let dp = false;
-        block.addEventListener("click", () => {
-            let info = block.getElementsByClassName("comments__info")[0];
-            let section = block.getElementsByClassName("comments__section")[0];
-            let viewall = info.getElementsByClassName("comments__viewall")[0];
-            let count = info.getElementsByClassName("comments__count")[0];
-            let commentsText = ``;
-            section.innerHTML = ``;
-            if(!dp) {
-                viewall.innerHTML = `Collapse Menu`;
-                count.innerHTML = `${postsJson.posts[i].comments.length} out of ${postsJson.posts[i].comments.length}`;
-                postsJson.posts[i].comments.forEach((comment) => {
-                    let {name, date, img, text} = comment;  
-                    commentsText += 
-                        `<div class="comment">
-                            <div class="comment__pic" style="background-image: url(${img});"></div>
-                            <div class="comment__wrapper">
-                                <div class="comment__text"><span style="color: rgb(56, 88, 152);font-weight: 600;">${name}</span>${text}</div>
-                                <div class="comment__date">${date}</div>
-                            </div>
-                        </div>`;
+        }
+        if(document.getElementsByClassName("sidebar").length > 0) {
+            function fillPeople() {
+                let people = document.getElementsByClassName("people")[0];
+                incoming.items.forEach((item) => {
+                    let {name, img} = item;
+                    people.innerHTML += 
+                        `<a href="${img}" class="people__container">
+                            <div class="people__pic" style="background-image: url(${img});"></div>
+                            <div class="people__name">${name}</div>
+                        </a>`
                 });
-                section.innerHTML = commentsText;
-                dp = true;
-            } else {
-                viewall.innerHTML = `View All Comments`;
-                count.innerHTML = `2 out of ${postsJson.posts[i].comments.length}`;
-                postsJson.posts[i].comments.forEach((comment, num) => {
-                    if(num < 2) {
-                        let {name, date, img, text} = comment;  
-                        commentsText += 
-                            `<div class="comment">
-                                <div class="comment__pic" style="background-image: url(${img});"></div>
-                                <div class="comment__wrapper">
-                                    <div class="comment__text"><span style="color: rgb(56, 88, 152);font-weight: 600;">${name}</span>${text}</div>
-                                    <div class="comment__date">${date}</div>
-                                </div>
-                            </div>`;
+            }
+            let currentpage;
+            sidebar.style.top = headerH + "px";
+            let sbc = document.getElementsByClassName("sidebar__content")[0];
+            let t = sbc.getBoundingClientRect().top + sbc.getBoundingClientRect().height;
+            document.getElementsByClassName("people")[0].style.top = "calc(5vh + " + t + "px)";
+            let linkForPages = document.getElementsByClassName("sidebar__link");
+            Array.prototype.forEach.call(linkForPages, (link, index) => {
+                let linkL = link.getAttribute("data-link");
+                function on() {
+                    currentpage = linkL;
+                    link.style.backgroundColor = "rgba(66, 133, 244, 0.1)";
+                    link.style.color = "rgb(66, 133, 244)";
+                }
+                function off(linkAll) {
+                    linkAll.style.backgroundColor = "#fff";
+                    linkAll.style.color = "#444";
+                }
+                if(index == 0) {
+                    on();
+                }
+                link.addEventListener("click", () => {
+                    Array.prototype.forEach.call(linkForPages, (linkAll) => off(linkAll));
+                    on();
+                    console.log(linkL);
+                });
+                link.addEventListener("mouseover", () => {
+                    if(currentpage !== linkL) {
+                        link.style.backgroundColor = "#f5f5f5";
                     }
                 });
-                section.innerHTML = commentsText;
-                dp = false;
-            }
-        })
-    })
+                link.addEventListener("mouseout", () => {
+                    if(currentpage !== linkL) {
+                        off(link);
+                    }
+                })
+            });
+            fillPeople();
+        }
+    }
+   
 }
 
 
