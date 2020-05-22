@@ -1,7 +1,22 @@
 export default function header(incoming) {
-    let notifyIconY;
+    let headerText = 
+        `<img class="header__logo" src="../Pictures/website_icon.png" alt="">
+        <form class="form" action="#">
+            <input class="form__search" type="text" placeholder="Search...">
+            <div class="dropdown"></div>
+            <button class="form__btn  fa fa-search" type="submit"></button>
+        </form>
+        <div class="header__buttons">
+            <button class="header__myProfile fas fa-user-circle"></button>
+            <button class="header__notify fas fa-bell"></button>
+            <div class="notifications"></div>
+            <div class="notifications__triangle"></div>
+            <p class="notifications__number"></p>
+            <div class="arrow"></div>
+        </div>`;
     let notificationsDisplayed = false;
     let header = document.getElementsByClassName("header")[0];
+    header.innerHTML = headerText;
     let noNotifications = `<div class="notifications__none">None</div>`;
     let icons = header.getElementsByClassName("fas");
     let dropdown = header.getElementsByClassName("dropdown")[0];
@@ -103,7 +118,7 @@ export default function header(incoming) {
     let notifyIconX = notifyIcon.getBoundingClientRect().left - 70;
     let inputWidth =  searchInput.getBoundingClientRect().width - 1;
     let yInput = searchInput.getBoundingClientRect().top + 3.5;
-    notifyIconY = notifyIcon.getBoundingClientRect().top + 50;
+    let notifyIconY = notifyIcon.getBoundingClientRect().top + 50;
     dropdown.style.width = inputWidth + "px";
     dropdown.style.left= (xInput - 6) + "px";
     dropdown.style.top = (yInput - 3.5 + inputWHeight) + "px";

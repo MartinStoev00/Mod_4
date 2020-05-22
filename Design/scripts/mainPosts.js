@@ -1,11 +1,12 @@
 export default function mainPosts(postsJSON) {
+    let mainPosts = document.getElementsByClassName("mainPosts")[0];
+    let headerBlock = document.getElementsByClassName("header")[0];
+    let headerH = headerBlock.getBoundingClientRect().height;
+    let postsMain = mainPosts.getElementsByClassName("posts")[0];
 	 function fillPosts() {
-	    let headerBlock = document.getElementsByClassName("header")[0];
-	    let headerH = headerBlock.getBoundingClientRect().height;
         function display() {
-            let postsMain = mainPosts.getElementsByClassName("posts")[0];
             postsMain.innerHTML = ``;
-            postsJson.posts.forEach((post) => {
+            postsJSON.posts.forEach((post) => {
                 let commentsText = ``;
                 post.comments.forEach((comment, index) => {
                     if(index < 2) {
@@ -62,8 +63,8 @@ export default function mainPosts(postsJSON) {
                 section.innerHTML = ``;
                 if(!dp) {
                     viewall.innerHTML = `Collapse Menu`;
-                    count.innerHTML = `${postsJson.posts[i].comments.length} out of ${postsJson.posts[i].comments.length}`;
-                    postsJson.posts[i].comments.forEach((comment) => {
+                    count.innerHTML = `${postsJSON.posts[i].comments.length} out of ${postsJSON.posts[i].comments.length}`;
+                    postsJSON.posts[i].comments.forEach((comment) => {
                         let {name, date, img, text} = comment;  
                         commentsText += 
                             `<div class="comment">
@@ -78,8 +79,8 @@ export default function mainPosts(postsJSON) {
                     dp = true;
                 } else {
                     viewall.innerHTML = `View All Comments`;
-                    count.innerHTML = `2 out of ${postsJson.posts[i].comments.length}`;
-                    postsJson.posts[i].comments.forEach((comment, num) => {
+                    count.innerHTML = `2 out of ${postsJSON.posts[i].comments.length}`;
+                    postsJSON.posts[i].comments.forEach((comment, num) => {
                         if(num < 2) {
                             let {name, date, img, text} = comment;  
                             commentsText += 

@@ -7,10 +7,9 @@ export default function main(incoming) {
             let num = Math.ceil(Math.random()*(input - 1));
             return "folder/" + num + ".jpg";
         }
-        if(document.title == "Main") {
-            incoming.items.forEach((item) => {
+        incoming.items.forEach((item) => {
             let {name, description, img} = item;
-            main.innerHTML += 
+            mainBlock.innerHTML += 
                 `<a href="${img}" class="main__card">
                     <div class="main__container">
                         <div style="background-image: url(${ran(23)});" class="main__img"></div>
@@ -20,8 +19,7 @@ export default function main(incoming) {
                         </div>
                     </div>
                 </a>`
-            });
-        } 
+        }); 
     }
     mainBlock.style.marginTop = headerH + "px";
     mainBlock.style.paddingBottom = headerH + "px";

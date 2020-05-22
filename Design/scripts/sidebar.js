@@ -1,4 +1,7 @@
 export default function sidebar(incoming) {
+    let headerBlock = document.getElementsByClassName("header")[0];
+    let headerH = headerBlock.getBoundingClientRect().height;
+    let sidebar = document.getElementsByClassName("sidebar")[0];
 	 function fillPeople() {
         let people = document.getElementsByClassName("people")[0];
         incoming.items.forEach((item) => {

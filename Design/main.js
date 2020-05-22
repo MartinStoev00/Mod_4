@@ -1,7 +1,7 @@
-import header from "../scripts/header.js";
-import main from "../scripts/main.js";
-import mainPosts from "../scripts/mainPosts.js";
-import sidebar from "../scripts/sidebar.js";
+import header from "./scripts/header.js";
+import main from "./scripts/main.js";
+import mainPosts from "./scripts/mainPosts.js";
+import sidebar from "./scripts/sidebar.js";
 
 let incoming = {
     items:[
