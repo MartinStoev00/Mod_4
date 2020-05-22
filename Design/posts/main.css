@@ -374,6 +374,8 @@
         margin: 7px 20px 0;
         font-size: 13px;
         font-weight: 100; }
+      .mainPosts .post .comment__viewall {
+        cursor: pointer; }
 
 .main {
   padding: 50px;
