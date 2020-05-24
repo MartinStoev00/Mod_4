@@ -1,36 +1,21 @@
-export default function header(incoming) {
-    let headerText = 
-        `<img class="header__logo" src="../Pictures/website_icon.png" alt="">
-        <form class="form" action="#">
-            <input class="form__search" type="text" placeholder="Search...">
-            <div class="dropdown"></div>
-            <button class="form__btn  fa fa-search" type="submit"></button>
-        </form>
-        <div class="header__buttons">
-            <button class="header__myProfile fas fa-user-circle"></button>
-            <button class="header__notify fas fa-bell"></button>
-            <div class="notifications"></div>
-            <div class="notifications__triangle"></div>
-            <p class="notifications__number"></p>
-            <div class="arrow"></div>
-        </div>`;
-    let notificationsDisplayed = false;
-    let header = document.getElementsByClassName("header")[0];
-    header.innerHTML = headerText;
-    let noNotifications = `<div class="notifications__none">None</div>`;
-    let icons = header.getElementsByClassName("fas");
-    let dropdown = header.getElementsByClassName("dropdown")[0];
-    let searchIcon = header.getElementsByClassName("form__btn")[0];
-    let searchInput  = header.getElementsByClassName("form__search")[0];
-    let notifyIcon = header.getElementsByClassName("header__notify")[0];
-    let notifications = header.getElementsByClassName("notifications")[0];
-    let tri = header.getElementsByClassName("notifications__triangle")[0];
-    let notifyNumber = header.getElementsByClassName("notifications__number")[0];
-    let main = document.getElementsByClassName("main")[0];
-    let mainPosts = document.getElementsByClassName("mainPosts")[0];
-    let headerH = header.getBoundingClientRect().height;
-    let sidebar = document.getElementsByClassName("sidebar")[0];
+let notificationsDisplayed = false;
+let headerBlock = document.getElementsByClassName("header")[0];
+let noNotifications = `<div class="notifications__none">None</div>`;
+let icons = headerBlock.getElementsByClassName("fas");
+let dropdown = headerBlock.getElementsByClassName("dropdown")[0];
+let searchIcon = headerBlock.getElementsByClassName("form__btn")[0];
+let searchInput  = headerBlock.getElementsByClassName("form__search")[0];
+let notifyIcon = headerBlock.getElementsByClassName("header__notify")[0];
+let notifyIconY = notifyIcon.getBoundingClientRect().top + 50;
+let notifications = headerBlock.getElementsByClassName("notifications")[0];
+let tri = headerBlock.getElementsByClassName("notifications__triangle")[0];
+let notifyNumber = headerBlock.getElementsByClassName("notifications__number")[0];
+let main = document.getElementsByClassName("main")[0];
+let mainPosts = document.getElementsByClassName("mainPosts")[0];
+let headerH = headerBlock.getBoundingClientRect().height;
+let sidebar = document.getElementsByClassName("sidebar")[0];
 
+export function header(incoming) {
     function fillNotifications() {
         notifications.innerHTML = "";
         let newArr = incoming.notifications;
@@ -113,23 +98,6 @@ export default function header(incoming) {
         dropdown.innerHTML = output;
     }
 
-    let xInput   =  searchInput.getBoundingClientRect().left + 6;
-    let inputWHeight =  searchInput.getBoundingClientRect().height;
-    let notifyIconX = notifyIcon.getBoundingClientRect().left - 70;
-    let inputWidth =  searchInput.getBoundingClientRect().width - 1;
-    let yInput = searchInput.getBoundingClientRect().top + 3.5;
-    let notifyIconY = notifyIcon.getBoundingClientRect().top + 50;
-    dropdown.style.width = inputWidth + "px";
-    dropdown.style.left= (xInput - 6) + "px";
-    dropdown.style.top = (yInput - 3.5 + inputWHeight) + "px";
-    tri.style.top = (notifyIconY - 7.5) + "px";
-    tri.style.left = (notifyIconX + 84) + "px";
-    notifyNumber.style.top = (notifyIconY - 41) + "px";
-    notifyNumber.style.left = (notifyIconX + 92) + "px";
-    notifications.style.top = (notifyIconY) + "px";
-    notifications.style.left = (notifyIconX - 240) + "px";
-    searchIcon.style.top = yInput + "px";
-    searchIcon.style.left  = xInput + "px";
     fillNotifications();
     fillTable("");
     notifyIcon.addEventListener("click", () => {
@@ -185,4 +153,24 @@ export default function header(incoming) {
     searchInput.addEventListener("keyup", (e) => {
         fillTable(searchInput.value.toLowerCase());
     });
+}
+
+export function headerStyle() {
+    let xInput   =  searchInput.getBoundingClientRect().left + 6;
+    let inputWHeight =  searchInput.getBoundingClientRect().height;
+    let notifyIconX = notifyIcon.getBoundingClientRect().left - 70;
+    let inputWidth =  searchInput.getBoundingClientRect().width - 1;
+    let yInput = searchInput.getBoundingClientRect().top + 3.5;
+    let notifyIconY = notifyIcon.getBoundingClientRect().top + 50;
+    dropdown.style.width = inputWidth + "px";
+    dropdown.style.left= (xInput - 6) + "px";
+    dropdown.style.top = (yInput - 3.5 + inputWHeight) + "px";
+    tri.style.top = (notifyIconY - 7.5) + "px";
+    tri.style.left = (notifyIconX + 84) + "px";
+    notifyNumber.style.top = (notifyIconY - 41) + "px";
+    notifyNumber.style.left = (notifyIconX + 92) + "px";
+    notifications.style.top = (notifyIconY) + "px";
+    notifications.style.left = (notifyIconX - 240) + "px";
+    searchIcon.style.top = yInput + "px";
+    searchIcon.style.left  = xInput + "px";
 }

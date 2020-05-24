@@ -1,4 +1,4 @@
-import header from "./scripts/header.js";
+import {header, headerStyle} from "./scripts/header.js";
 import main from "./scripts/main.js";
 import mainPosts from "./scripts/mainPosts.js";
 import sidebar from "./scripts/sidebar.js";
@@ -341,9 +341,6 @@ let postsJson = {
 }
 
 function init() {
-    if(document.getElementsByClassName("header").length > 0) {   
-        header(incoming);
-    }
     if(document.getElementsByClassName("main").length > 0) {   
         main(incoming);
     }
@@ -353,9 +350,19 @@ function init() {
     if(document.getElementsByClassName("sidebar").length > 0) {   
         sidebar(incoming);
     }
+    if(document.getElementsByClassName("header").length > 0) {   
+        header(incoming);
+    }
 }
 
-window.addEventListener('resize', init);
-window.onload = init;
+function stylize() {
+    if(document.getElementsByClassName("header").length > 0) {   
+        headerStyle();
+    }
+}
 
-
+window.addEventListener('resize', stylize);
+window.onload = () => {
+    stylize();
+    init();
+};

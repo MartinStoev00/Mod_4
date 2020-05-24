@@ -1,7 +1,9 @@
 export default function main(incoming) {
+    let mainBlock = document.getElementsByClassName("main")[0];
     let headerBlock = document.getElementsByClassName("header")[0];
     let headerH = headerBlock.getBoundingClientRect().height;
-    let mainBlock = document.getElementsByClassName("main")[0];
+    mainBlock.style.marginTop = headerH + "px";
+    mainBlock.style.paddingBottom = headerH + "px";
 	function fillMain() {
         function ran(input) {
             let num = Math.ceil(Math.random()*(input - 1));
@@ -21,7 +23,5 @@ export default function main(incoming) {
                 </a>`
         }); 
     }
-    mainBlock.style.marginTop = headerH + "px";
-    mainBlock.style.paddingBottom = headerH + "px";
     fillMain();
 }
