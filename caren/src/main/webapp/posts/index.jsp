@@ -8,6 +8,13 @@
 	<link rel="stylesheet" href="../fontawesome-free-5.13.0-web/css/all.min.css">
 </head>
 <body>
+	<%
+		if (session.getAttribute("aid") == null) {
+			response.sendRedirect("http://localhost:8080/caren/login/");
+		}
+	
+	%>
+	
 	<div class="header" name="header">
 		<img class="header__logo" src="../Pictures/website_icon.png" alt="">
 		<form class="form" action="#">
