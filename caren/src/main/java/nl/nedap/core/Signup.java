@@ -25,6 +25,8 @@ public class Signup extends HttpServlet {
 	private static String URL = "jdbc:mysql://localhost:3369/caren";
 	private static String DBUSERNAME = "root";
 	private static String DBPASS = "kze3jBXt7oW4";
+	
+	private static String passwordCharacters = "abdefghijklmnopqrstuvwxyz0123456789ABDEFGHIJKLMNOPQRSTUVWXYZ";
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -32,6 +34,16 @@ public class Signup extends HttpServlet {
 	public Signup() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	
+	public boolean hasForeignCharacters(String p) {
+		for (int i = 0; i < p.length(); i++) {
+			if (!passwordCharacters.contains(p.substring(i, i+1))) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 	/**
@@ -73,8 +85,20 @@ public class Signup extends HttpServlet {
 			//Result set of statement execution
 			ResultSet resultset = statement.executeQuery();
 			
-			if (email == "") {
-				out.println(docType + "<HTML> <body>No email was provided: "+email+"</body> </HTML>");
+			if (email == "" || firstname == "" || lastname == ""  || birthdate == "" || gender == "" || password == "" || passwordagn == "") {
+				out.println(docType + "<HTML> <body>Please make sure all fields are filled. </body> </HTML>");
+				return;
+			} else if (!(email.contains("@") && email.contains("."))) {
+				out.println(docType + "<HTML> <body>Invalid email format: "+email+"</body> </HTML>");
+				return;
+			}  else if (hasForeignCharacters(password)) {
+				out.println(docType + "<HTML> <body>Password can only contain the following characters: a->z, A->Z, 0->9 </body> </HTML>");
+				return;
+			} else if (password.length() < 8) {
+				out.println(docType + "<HTML> <body>Password must at least be 8 characters long</HTML>");
+				return;
+			} else  if (!passwordagn.equals(password)) {
+				out.println(docType + "<HTML> <body>Passwords do not match</body> </HTML>");
 				return;
 			}
 			
@@ -101,6 +125,10 @@ public class Signup extends HttpServlet {
 				persCreationSt.executeUpdate();
 				
 				out.println(docType + "<HTML> <body>Account created.</body> </HTML>");
+				//Make session
+				
+				//Redirect to main page
+				response.sendRedirect("http://localhost:8080/caren/login/");
 				
 			} else { // cannot create acc
 				out.println(docType + "<HTML> <body> You cannot create an acc with that email </body> </HTML>");
