@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class Signup
@@ -126,9 +127,11 @@ public class Signup extends HttpServlet {
 				
 				out.println(docType + "<HTML> <body>Account created.</body> </HTML>");
 				//Make session
+				HttpSession session = request.getSession();
+				session.setAttribute("aid", aid);
 				
 				//Redirect to main page
-				response.sendRedirect("http://localhost:8080/caren/login/");
+				response.sendRedirect("http://localhost:8080/caren/main/");
 				
 			} else { // cannot create acc
 				out.println(docType + "<HTML> <body> You cannot create an acc with that email </body> </HTML>");
