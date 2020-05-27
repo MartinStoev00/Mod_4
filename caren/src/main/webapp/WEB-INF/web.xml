@@ -9,8 +9,32 @@
 		<servlet-name>Signup</servlet-name>
 		<servlet-class>nl.nedap.core.Signup</servlet-class>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>Signout</display-name>
+		<servlet-name>Signout</servlet-name>
+		<servlet-class>nl.nedap.core.Signout</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>Login</display-name>
+		<servlet-name>Login</servlet-name>
+		<servlet-class>nl.nedap.core.Login</servlet-class>
+	</servlet>
+	
+	
 	<servlet-mapping>
 		<servlet-name>Signup</servlet-name>
 		<url-pattern>/signup/signupentr</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Signout</servlet-name>
+		<url-pattern>/signout</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Login</servlet-name>
+		<url-pattern>/login/loginentr</url-pattern>
 	</servlet-mapping>
 </web-app>

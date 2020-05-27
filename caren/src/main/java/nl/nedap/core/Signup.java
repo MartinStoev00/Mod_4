@@ -126,12 +126,13 @@ public class Signup extends HttpServlet {
 				persCreationSt.executeUpdate();
 				
 				out.println(docType + "<HTML> <body>Account created.</body> </HTML>");
+				
 				//Make session
 				HttpSession session = request.getSession();
 				session.setAttribute("aid", aid);
 				
-				//Redirect to main page
-				response.sendRedirect("http://localhost:8080/caren/main/");
+				//Redirect to posts page
+				response.sendRedirect("http://localhost:8080/caren/posts/");
 				
 			} else { // cannot create acc
 				out.println(docType + "<HTML> <body> You cannot create an acc with that email </body> </HTML>");
