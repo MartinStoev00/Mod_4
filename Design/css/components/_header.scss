@@ -2,7 +2,10 @@
 	background-color: #fff;
 	border-bottom: .5px solid #ddd;
 	width: calc(100vw);
+	position: fixed;
+	top: 0;
 	@include flex(row);
+	z-index: 5;
 	&__logo {
 		width: calc(14vw);
 		margin: 0 35px 0;

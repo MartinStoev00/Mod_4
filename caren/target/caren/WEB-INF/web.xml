@@ -11,6 +11,6 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Signup</servlet-name>
-		<url-pattern>/signupentr</url-pattern>
+		<url-pattern>/signup/signupentr</url-pattern>
 	</servlet-mapping>
 </web-app>

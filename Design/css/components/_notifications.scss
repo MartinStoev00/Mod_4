@@ -5,11 +5,19 @@
 	font-family: 'Arial';
 	width: 400px;
 	height: 475px;
-	position: absolute;
+	position: fixed;
 	border: .5px solid #ddd;
 	background-color: #fff;
 	border-radius: 8px;
 	z-index: 10;
+	&__none {
+		width: calc(100% - 30px);
+		height: 30px;
+		color: #bbb;
+		font-size: 22px;
+		text-align: center;
+		padding: 15px;
+	}
 	&__triangle {
 		display: none;
 		width: 15px;
@@ -20,19 +28,17 @@
 		border-top: .5px solid #ddd;
 		background-color: #fff;
 		z-index: 9;
-
 	}
 	&__item {
 		display: flex;
 	    flex-direction: row;
 	    flex-wrap: nowrap;
-	    justify-content: space-around;
-	    align-content: center;
-	    align-items: center;
+	    justify-content: center;
+	    align-content: stretch;
+	    align-items: stretch;
 		width: calc(100%);
 		color: #000;
 		text-decoration: none;
-		display: block;
 		border-top: .5px solid #ddd;
 		&:hover {
 			background-color: #f5f5f5;
@@ -50,16 +56,19 @@
 		background-position: center;
 		background-size: cover;
 		border-radius: 50%;
-		display: inline-block;
 	}
 	&__container {
-		height: 100%;
-		display: inline-block;
 		width: calc(100% - 80px);
-	}
-	&__text {
+		padding: 15px 3px 0px;
+		display: flex;
+    	flex-direction: column;
+    	flex-wrap: nowrap;
+    	justify-content: flex-start;
+    	align-content: stretch;
+    	align-items: flex-start;
 	}
 	&__date {
+		padding: 5px;
 		color: #ccc;
 		font-size: 10px;
 	}

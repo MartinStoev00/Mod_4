@@ -10,19 +10,27 @@
 	<div class="signup__container">
 		<img class="signup__logo" src="../Pictures/logo.png" alt="Nedap">
 		<h2 class="signup__heading">Sign up</h2>
-		<div class="input">
-			<p class="input__label">Username</p>
-			<p class="input__label">Password</p>
-			<p class="input__label">Repeat Password</p>
-			<input class="input__text" type="text">
-			<input class="input__text" type="password">
-			<input class="input__text" type="password">
-		</div>
-		<div class="submit">
-			<a class="submit__link" href="#" >Forgotten Password?</a>
-			<button class="submit__btn" onclick="errSignup();">Submit</button>
-		</div>
+		<form action="signupentr">
+			<div class="input">
+				<p class="input__label">First name</p>
+				<p class="input__label">Last name</p>
+				<p class="input__label">Email</p>
+				<p class="input__label">Birth date</p>
+				<p class="input__label">Password</p>
+				<p class="input__label">Repeat password</p>
+				<input class="input__text" type="text" name="firstname">
+				<input class="input__text" type="text" name="lastname">
+				<input class="input__text" type="text" name="email">
+				<input class="input__text" type="text" name="birthdate">
+				<input class="input__text" type="password" name="password">
+				<input class="input__text" type="password"  name="passwordagn">
+			</div>
+			<div class="submit">
+				<a class="submit__link" href="#" >Forgotten Password?</a>
+				<input type="submit" value="Signup" class="submit__btn" onclick="errSignup()">
+			</div>
+		</form>
 	</div>
 </body>
-<script src="../main.js"></script>
+<script src="../scripts/form.js"></script>
 </html>

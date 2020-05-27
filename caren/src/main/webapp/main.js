@@ -1,117 +1,368 @@
-let inputs = document.getElementsByClassName("input__text");
-let labels = document.getElementsByClassName("input__label");
+import {header, headerStyle} from "./scripts/header.js";
+import main from "./scripts/main.js";
+import mainPosts from "./scripts/mainPosts.js";
+import sidebar from "./scripts/sidebar.js";
 
-let exclamation = `<i class="fa fa-exclamation-triangle exclamation"></i>`;
-
-window.onload = function() {
-    if(inputs.length > 0) {
-        init();
-        inputs[0].focus();
-    }
+let incoming = {
+    items:[
+    {
+        name: "Joe",
+        description: "None",
+        img: "1.jpg"
+    },
+    {
+        name: "Monica",
+        description: "None",
+        img: "2.jpg"
+    },
+    {
+        name: "Wishal",
+        description: "None",
+        img: "3.jpg"
+    },
+    {
+        name: "Wishal",
+        description: "None",
+        img: "3.jpg"
+    },
+    {
+        name: "Wishal",
+        description: "None",
+        img: "3.jpg"
+    },
+    {
+        name: "Wishal",
+        description: "None",
+        img: "3.jpg"
+    },
+    {
+        name: "Wishal",
+        description: "None",
+        img: "3.jpg"
+    },
+    {
+        name: "Wishal",
+        description: "None",
+        img: "3.jpg"
+    },
+    {
+        name: "Wishal",
+        description: "None",
+        img: "3.jpg"
+    },
+    {
+        name: "Joe",
+        description: "None",
+        img: "1.jpg"
+    },
+    {
+        name: "Mohammad",
+        description: "None",
+        img: "4.jpg" 
+    },
+    {
+        name: "Mohammad",
+        description: "None",
+        img: "4.jpg" 
+    },
+    {
+        name: "Mohammad",
+        description: "None",
+        img: "4.jpg" 
+    },
+    {
+        name: "Mohammad",
+        description: "None",
+        img: "4.jpg" 
+    },
+    {
+        name: "Mohammad",
+        description: "None",
+        img: "4.jpg" 
+    },
+    {
+        name: "Mohammad",
+        description: "None",
+        img: "4.jpg" 
+    },
+    {
+        name: "Omar",
+        description: "None",
+        img: "5.jpg" 
+    },
+    {
+        name: "Omar",
+        description: "None",
+        img: "5.jpg" 
+    },
+    {
+        name: "Omar",
+        description: "None",
+        img: "5.jpg" 
+    },
+    {
+        name: "Omar",
+        description: "None",
+        img: "5.jpg" 
+    },
+    {
+        name: "Hamza",
+        description: "None",
+        img: "6.jpg" 
+    },
+    {
+        name: "Hamza",
+        description: "None",
+        img: "6.jpg" 
+    },
+    {
+        name: "Hamza",
+        description: "None",
+        img: "6.jpg" 
+    },
+    {
+        name: "Hamza",
+        description: "None",
+        img: "6.jpg" 
+    },
+    {
+        name: "Hamza",
+        description: "None",
+        img: "6.jpg" 
+    },
+    {
+        name: "Joe",
+        description: "None",
+        img: "1.jpg"
+    },
+    {
+        name: "Joe",
+        description: "None",
+        img: "1.jpg"
+    },
+    {
+        name: "Joe",
+        description: "None",
+        img: "1.jpg"
+    },
+    {
+        name: "Joe",
+        description: "None",
+        img: "1.jpg"
+    }],
+    notifications: [
+        {
+            name: "Joenvkgkjhgkjhggjfgj",
+            deed: " has commented on your post",
+            img: "1.jpg",
+            link: "somewhere",
+            date: "Yesterday"
+        },
+        {
+            name: "Grozen",
+            deed: " has commented on your post",
+            img: "2.jpg",
+            link: "somewhere",
+            date: "Yesterday"
+        },
+        {
+            name: "James",
+            deed: " has commented on your post",
+            img: "3.jpg",
+            link: "somewhere",
+            date: "Yesterday"
+        },
+        {
+            name: "Jar",
+            deed: " has commented on your post",
+            img: "4.jpg",
+            link: "somewhere",
+            date: "Yesterday"
+        },
+        {
+            name: "Justice",
+            deed: " has commented on your post",
+            img: "5.jpg",
+            link: "somewhere",
+            date: "Yesterday"
+        },
+        {
+            name: "John",
+            deed: " has commented on your post",
+            img: "2.jpg",
+            link: "somewhere",
+            date: "Yesterday"
+        },
+        {
+            name: "James",
+            deed: " has commented on your post",
+            img: "3.jpg",
+            link: "somewhere",
+            date: "Yesterday"
+        },
+        {
+            name: "Jar",
+            deed: " has commented on your post",
+            img: "4.jpg",
+            link: "somewhere",
+            date: "Yesterday"
+        },
+        {
+            name: "Justice",
+            deed: " has commented on your post",
+            img: "5.jpg",
+            link: "somewhere",
+            date: "Yesterday"
+        },
+        {
+            name: "John",
+            deed: " has commented on your post",
+            img: "2.jpg",
+            link: "somewhere",
+            date: "Yesterday"
+        },
+        {
+            name: "James",
+            deed: " has commented on your post",
+            img: "3.jpg",
+            link: "somewhere",
+            date: "Yesterday"
+        },
+        {
+            name: "Jar",
+            deed: " has commented on your post",
+            img: "4.jpg",
+            link: "somewhere",
+            date: "Yesterday"
+        },
+        {
+            name: "Justice",
+            deed: " has commented on your post",
+            img: "5.jpg",
+            link: "somewhere",
+            date: "Yesterday"
+        }
+    ]
+};
+let postsJson = {
+    posts: [
+        {
+            name: "John Doe1",
+            date: "2011-11-11",
+            img: "1.jpg",
+            text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, sa sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, saepe quaerat iure doloremque debitis ad. Illum iusto officiis hic voluptate earum, ad.",
+            comments: [
+                {
+                    name: "Joe Marunga1",
+                    img: "1.jpg",
+                    text: "Lorem ue? Quis dolor earum ut, nam  quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.",
+                    date:"2011-11-11"
+                },{
+                    name: "Joe Marunga1",
+                    img: "1.jpg",
+                    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, reprehenderit, cumque? Quis dolor earum ut, nam quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, reprehenderit, cumque? Quis dolor earum ut, nam quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.",
+                    date:"2011-11-11"
+                },{
+                    name: "Joe Marunga1",
+                    img: "1.jpg",
+                    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, reprehenderit, cumque? Quis dolor earum ut, nam quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, reprehenderit, cumque? Quis dolor earum ut, nam quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.",
+                    date:"2011-11-11"
+                },{
+                    name: "Joe Marunga2",
+                    img: "1.jpg",
+                    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, reprehenderit, cumque? Quis dolor earum ut, nam quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, reprehenderit, cumque? Quis dolor earum ut, nam quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.",
+                    date:"2011-11-11"
+                },{
+                    name: "Joe Marunga3",
+                    img: "1.jpg",
+                    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, reprehenderit, cumque? Quis dolor earum ut, nam quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, reprehenderit, cumque? Quis dolor earum ut, nam quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.",
+                    date:"2011-11-11"
+                },{
+                    name: "Joe Marunga4",
+                    img: "1.jpg",
+                    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, reprehenderit, cumque? Quis dolor earum ut, nam quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, reprehenderit, cumque? Quis dolor earum ut, nam quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.",
+                    date:"2011-11-11"
+                },
+                {
+                    name: "Joe Marunga5",
+                    img: "1.jpg",
+                    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, reprehenderit, cumque? Quis dolor earum ut, nam quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, reprehenderit, cumque? Quis dolor earum ut, nam quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.",
+                    date:"2011-11-11"
+                },
+                {
+                    name: "Joe Marunga6",
+                    img: "1.jpg",
+                    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, reprehenderit, cumque? Quis dolor earum ut, nam quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, reprehenderit, cumque? Quis dolor earum ut, nam quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.",
+                    date:"2011-11-11"
+                }
+            ]
+        }, {
+            name: "John Doe2",
+            date: "2011-11-11",
+            img: "1.jpg",
+            text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, saepe quaerat iure doloremque debitis ad. Illum iusto officiis hic voluptate earum, ad.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, saepe quaerat iure doloremque debitis ad. Illum iusto officiis hic voluptate earum, ad.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt repellendus of    ficiis repudiandae sed, tempora nesciunt, mollitia animi, saepe quaerat iure doloremque debitis ad. Illum iusto officiis hic voluptate earum, ad.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, saepe quaerat iure doloremque debitis ad. Illum iusto officiis hic voluptate earum, ad.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, saepe quaerat iure doloremque debitis ad. Illum iusto officiis hic voluptate earum, ad.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, saepe quaerat iure doloremque debitis ad. Illum iusto officiis hic voluptate earum, ad.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, saepe quaerat iure doloremque debitis ad. Illum iusto officiis hic voluptate earum, ad.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, saepe quaerat iure doloremque debitis ad. Illum iusto officiis hic voluptate earum, ad.",
+            comments: [
+                {
+                    name: "Joe Marunga",
+                    img: "1.jpg",
+                    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, reprehenderit, cumque? Quis dolor earum ut, nam quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, reprehenderit, cumque? Quis dolor earum ut, nam quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.",
+                    date:"2011-11-11"
+                },
+                {
+                    name: "Joe Marunga",
+                    img: "1.jpg",
+                    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, reprehenderit, cumque? Quis dolor earum ut, nam quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, reprehenderit, cumque? Quis dolor earum ut, nam quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.",
+                    date:"2011-11-11"
+                },{
+                    name: "Joe Marunga",
+                    img: "1.jpg",
+                    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, reprehenderit, cumque? Quis dolor earum ut, nam quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, reprehenderit, cumque? Quis dolor earum ut, nam quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.",
+                    date:"2011-11-11"
+                },{
+                    name: "Joe Marunga",
+                    img: "1.jpg",
+                    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, reprehenderit, cumque? Quis dolor earum ut, nam quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, reprehenderit, cumque? Quis dolor earum ut, nam quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.",
+                    date:"2011-11-11"
+                },{
+                    name: "Joe Marunga",
+                    img: "1.jpg",
+                    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, reprehenderit, cumque? Quis dolor earum ut, nam quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, reprehenderit, cumque? Quis dolor earum ut, nam quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.",
+                    date:"2011-11-11"
+                },
+                {
+                    name: "Joe Marunga",
+                    img: "1.jpg",
+                    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, reprehenderit, cumque? Quis dolor earum ut, nam quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, reprehenderit, cumque? Quis dolor earum ut, nam quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.",
+                    date:"2011-11-11"
+                }
+            ]
+        }
+    ]
 }
-
-window.addEventListener('resize', init);
 
 function init() {
-    Array.prototype.forEach.call(inputs, (input, index) => {
-        let label = labels[index];
-        let offSet = Math.ceil(window.pageYOffset + input.getBoundingClientRect().top) + 7;
-        label.style.top = offSet + "px";
-        let leftOffSet = Math.ceil(input.getBoundingClientRect().left) + 5;
-        label.style.left = leftOffSet + "px";
-        input.addEventListener("focus", () => {
-            label.style.fontSize = "10px";
-            label.style.backgroundColor = "#ffffff";
-            label.style.top = (offSet - 14) + "px";
-            label.style.zIndex = "1";
-        });
-        input.addEventListener("blur", () => {
-            if (input.value == "" && input.style.backgroundColor !== "rgb(249, 252, 184)") {
-                label.style.fontSize = "16px";
-                label.style.backgroundColor = "transperent";
-                label.style.top = offSet + "px";
-                label.style.zIndex = "-1";
-            }
-        });
-    });
-}
-
-
-function shake(input, label) {
-    let offSet = Math.ceil(window.pageYOffset + input.getBoundingClientRect().top) + 6;
-    label.style.fontSize = "10px";
-    label.style.backgroundColor = "#ffffff";
-    label.style.top = (offSet - 14) + "px";
-    label.style.zIndex = "1";
-    input.value = "";
-    input.style.border = "1px solid red";
-    input.style.backgroundColor = "rgb(249,252,184)";
-    input.style.animation = "shake 0.82s both";
-    label.style.animation = "shake 0.82s both";
-    setTimeout(function() {
-        input.style.animation = "none";
-        label.style.animation = "none";
-    }, 830);
-    input.value = "";
-}
-
-function errLogin() {
-    let name;
-    let password;
-    if(inputs[0].value == "") {
-    	inputs[0].focus();
-    	shake(inputs[0], labels[0]);
+    if(document.getElementsByClassName("main").length > 0) {   
+        main(incoming);
     }
-    name = inputs[0].value;
-    if(inputs[1].value == "") {
-    	inputs[1].focus();
-    	shake(inputs[1], labels[1]);
+    if(document.getElementsByClassName("mainPosts").length > 0) {   
+        mainPosts(postsJson);
     }
-    password = inputs[1].value;
-    if(name !== "" && password !== "") {
-    	if (false) {
-    		location.href = "www.yoursite.com";
-    	} else {
-	    	inputs[0].focus();
-	    	shake(inputs[0], labels[0]);
-	    	shake(inputs[1], labels[1]);
-    	}
+    if(document.getElementsByClassName("sidebar").length > 0) {   
+        sidebar(incoming);
+    }
+    if(document.getElementsByClassName("header").length > 0) {   
+        header(incoming);
     }
 }
 
-function errSignup() {  
-    let name;
-    let password;
-    let repeat;
-    if(inputs[0].value == "") {
-        inputs[0].focus();
-        shake(inputs[0], labels[0]);
-    }
-    name = inputs[0].value;
-    if(inputs[1].value == "") {
-        inputs[1].focus();
-        shake(inputs[1], labels[1]);
-    }
-    password = inputs[1].value;
-    if(inputs[2].value == "") {
-        inputs[2].focus();
-        shake(inputs[2], labels[2]);
-    }
-    repeat = inputs[2].value;
-    if(name !== "" && password !== "" && repeat !== "") {
-        if(password == repeat) {
-            if (false) {
-                location.href = "www.yoursite.com";
-            } else {
-                inputs[0].focus();
-                shake(inputs[0], labels[0]);
-                shake(inputs[1], labels[1]);
-                shake(inputs[2], labels[2]);
-            }
-        } else {
-            inputs[1].focus();
-            shake(inputs[1], labels[1]);
-            shake(inputs[2], labels[2]);
-        }
+function stylize() {
+    if(document.getElementsByClassName("header").length > 0) {   
+        headerStyle();
     }
 }
+
+window.addEventListener('resize', stylize);
+window.onload = () => {
+    stylize();
+    init();
+};
