@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Sign up</title>
+	<link rel="stylesheet" href="main.css">
+	<meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body class="signup">
+	<div class="signup__container">
+		<img class="signup__logo" src="../Pictures/logo.png" alt="Nedap">
+		<h2 class="signup__heading">Sign up</h2>
+		<form action="signupentr">
+			<div class="input">
+				<p class="input__label">First name</p>
+				<p class="input__label">Last name</p>
+				<p class="input__label">Email</p>
+				<p class="input__label">Birth date</p>
+				<p class="input__label">Gender</p>
+				<p class="input__label">Password</p>
+				<p class="input__label">Repeat password</p>
+				<input class="input__text" type="text" name="firstname">
+				<input class="input__text" type="text" name="lastname">
+				<input class="input__text" type="text" name="email">
+				<input class="input__text" type="text" name="birthdate">
+				<input class="input__text" type="text" name="gender">
+				<input class="input__text" type="password" name="password">
+				<input class="input__text" type="password"  name="passwordagn">
+			</div>
+			<div class="submit">
+				<a class="submit__link" href="#" >Forgotten Password?</a>
+				<input type="submit" value="Signup" class="submit__btn">
+			</div>
+		</form>
+	</div>
+</body>
+<script src="../scripts/form.js"></script>
+</html>

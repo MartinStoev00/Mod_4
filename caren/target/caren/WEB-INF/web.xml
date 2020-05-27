@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app>
+	<display-name>Caren</display-name>
+	<servlet>
+		<description>
+		</description>
+		<display-name>Signup</display-name>
+		<servlet-name>Signup</servlet-name>
+		<servlet-class>nl.nedap.core.Signup</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Signup</servlet-name>
+		<url-pattern>/signup/signupentr</url-pattern>
+	</servlet-mapping>
+</web-app>
