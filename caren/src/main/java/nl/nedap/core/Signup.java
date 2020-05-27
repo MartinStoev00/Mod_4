@@ -95,7 +95,7 @@ public class Signup extends HttpServlet {
 				int aid = aidResultSet.getInt(1);
 				
 				//Making call to database to make person in people.
-				String createPersQ = "INSERT INTO people (aid, first_name, last_name, date_of_birth, gender) VALUES (?, ?, ?, ?, ?, ?)";
+				String createPersQ = "INSERT INTO people (aid, first_name, last_name, date_of_birth, gender) VALUES (?, ?, ?, ?, ?)";
 				PreparedStatement persCreationSt = conn.prepareStatement(createPersQ);
 				persCreationSt.setString(1, ""+aid); persCreationSt.setString(2, firstname); persCreationSt.setString(3, lastname); persCreationSt.setString(4, birthdate); persCreationSt.setString(5, gender);
 				persCreationSt.executeUpdate();
