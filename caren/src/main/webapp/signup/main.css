@@ -8,7 +8,7 @@
   width: 100%;
   height: calc(100vh);
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center; }
@@ -46,6 +46,21 @@
       transition: 0.2s;
       color: #555;
       z-index: -1; }
+    .signup__container .input__options {
+      display: none;
+      position: absolute;
+      background-color: #fff;
+      border: 1px solid #1a73e8;
+      border-top: none;
+      border-radius: 0px 0px 4px 4px;
+      z-index: 100; }
+    .signup__container .input__value {
+      text-align: center;
+      font-size: 18px;
+      padding: 8px 0;
+      background-color: #e8f1fd; }
+      .signup__container .input__value:hover {
+        background-color: #d1e3fb; }
     .signup__container .submit {
       width: 100%;
       display: inline-flex;

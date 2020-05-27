@@ -6,7 +6,7 @@ window.onload = init;
 let inputs = document.getElementsByClassName("input__text");
 let labels = document.getElementsByClassName("input__label");
 
- function shake(input, label) {
+function shake(input, label) {
     let offSet = Math.ceil(window.pageYOffset + input.getBoundingClientRect().top) + 6;
     label.style.fontSize = "10px";
     label.style.backgroundColor = "#ffffff";
@@ -88,6 +88,9 @@ function errSignup() {
 function init() {
     Array.prototype.forEach.call(inputs, (input, index) => {
         let label = labels[index];
+        let offSet = input.getBoundingClientRect().top + 7;
+        let leftOffSet = input.getBoundingClientRect().left + 5;
+        label.style.left = leftOffSet + "px";
         function on() {
             label.style.fontSize = "10px";
             label.style.backgroundColor = "#ffffff";
@@ -100,17 +103,43 @@ function init() {
             label.style.top = offSet + "px";
             label.style.zIndex = "-1";
         }
-        let offSet = input.getBoundingClientRect().top + 7;
-        let leftOffSet = input.getBoundingClientRect().left + 5;
-        label.style.left = leftOffSet + "px";
+        let optionsBlock = document.getElementsByClassName("input__options")[0];
+        if(input.name == "gender") {
+            let topForRect = input.getBoundingClientRect().height + input.getBoundingClientRect().top - 1;
+            optionsBlock.style.top = topForRect + "px";
+            optionsBlock.style.width = (input.getBoundingClientRect().width - 2) + "px"; 
+            let values = document.getElementsByClassName("input__value");
+            Array.prototype.forEach.call(values, (value) => {
+                value.addEventListener("click", () => {
+                    let gender = value.innerHTML;
+                    input.value = gender.toLowerCase();
+                });
+            });
+        }
         on();
         input.addEventListener("focus", () => {
-            on();
+            if(input.name == "gender") {
+                optionsBlock.style.display = "block";
+                input.style.borderBottom = "none";
+                input.style.border = "1px solid rgb(26, 115, 232)";
+                input.style.borderRadius = "4px 4px 0px 0px";
+            } else {
+                on();
+            }
         });
         input.addEventListener("blur", () => {
-            if (input.value == "" && input.style.backgroundColor !== "rgb(249, 252, 184)") {
+            if (input.value == "" && input.style.backgroundColor !== "rgb(249, 252, 184)" && !(input.type == "date")) {
                 off();
+            } else {
+                if(input.name == "gender") {
+                    setTimeout(() => {
+                        optionsBlock.style.display = "none";
+                        input.style.borderRadius = "4px";
+                        input.style.border = "1px solid #ccc";
+                    }, 150);
+                }
             }
+            
         });
     });
     inputs[0].focus();	
