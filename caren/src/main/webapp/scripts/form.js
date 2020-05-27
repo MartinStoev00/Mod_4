@@ -107,6 +107,7 @@ function init() {
         if(input.name == "gender") {
             let topForRect = input.getBoundingClientRect().height + input.getBoundingClientRect().top - 1;
             optionsBlock.style.top = topForRect + "px";
+            optionsBlock.style.left = (leftOffSet - 5) + "px";
             optionsBlock.style.width = (input.getBoundingClientRect().width - 2) + "px"; 
             let values = document.getElementsByClassName("input__value");
             Array.prototype.forEach.call(values, (value) => {

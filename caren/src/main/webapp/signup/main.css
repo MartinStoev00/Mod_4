@@ -27,18 +27,37 @@
     padding: 20px;
     border-radius: 10px;
     border: 1px solid #ccc; }
-    .signup__container .input__text {
+    .signup__container .input > .input__text {
       margin: 10px 0;
       display: block;
       width: calc(60vw);
-      max-width: 280px;
+      max-width: 360px;
       border: 1px solid #ccc;
       background-color: rgba(26, 115, 232, 0.1);
       padding: 8px;
       font-size: 17px;
       border-radius: 4px; }
-      .signup__container .input__text:focus {
+      .signup__container .input > .input__text:focus {
         border: 1px solid #1a73e8; }
+    .signup__container .input__halves {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-content: stretch;
+      align-items: stretch; }
+      .signup__container .input__halves .input__text {
+        margin: 10px 0;
+        display: block;
+        width: calc(60vw);
+        max-width: 170px;
+        border: 1px solid #ccc;
+        background-color: rgba(26, 115, 232, 0.1);
+        padding: 8px;
+        font-size: 17px;
+        border-radius: 4px; }
+        .signup__container .input__halves .input__text:focus {
+          border: 1px solid #1a73e8; }
     .signup__container .input__label {
       position: absolute;
       padding: 3px;
@@ -61,6 +80,8 @@
       background-color: #e8f1fd; }
       .signup__container .input__value:hover {
         background-color: #d1e3fb; }
+      .signup__container .input__value:nth-child(3) {
+        border-radius: 0px 0px 4px 4px; }
     .signup__container .submit {
       width: 100%;
       display: inline-flex;

@@ -18,13 +18,17 @@
 				<p class="input__label">Email</p>
 				<p class="input__label">Birth date</p>
 				<p class="input__label">Gender</p>
-				<p class="input__label">Password A-Za-z0-9</p>
+				<p class="input__label">Password [A-Z a-z 0-9]</p>
 				<p class="input__label">Repeat password</p>
-				<input required="required" class="input__text" type="text" name="firstname">
-				<input required="required" class="input__text" type="text" name="lastname">
+				<div class="input__halves">
+					<input required="required" class="input__text" type="text" name="firstname">
+					<input required="required" class="input__text" type="text" name="lastname">
+				</div>
 				<input required="required" class="input__text" type="text" name="email">
-				<input required="required" class="input__text" type="date" max="2020-12-31" name="birthdate">
-				<input required="required" class="input__text" type="text" name="gender" readonly value="other">
+				<div class="input__halves">
+					<input required="required" class="input__text" type="date" max="2020-12-31" name="birthdate">
+					<input required="required" class="input__text" type="text" name="gender" readonly value="other">
+				</div>
 				<input required="required" class="input__text" type="password" minlength = "8" pattern="[A-Za-z0-9]" name="password">
 				<input required="required" class="input__text" type="password"  name="passwordagn">
 				<div class="input__options">
