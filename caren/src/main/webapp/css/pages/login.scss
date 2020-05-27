@@ -52,11 +52,20 @@
 			width: 100%;
 			@include flex(row);
 			&__link {
-				color: rgba(26, 115, 232,0.9);
-				font-size: 13px;
-				&:hover, &:focus {
-					color: rgba(26, 115, 232, 1);
-					text-shadow: 0 0 7px rgba(26, 115, 232,0.3);
+				display: flex;
+			    flex-direction: column;
+			    flex-wrap: nowrap;
+			    justify-content: center;
+			    align-content: stretch;
+			    align-items: flex-start;
+				&s {
+					padding: 5px 10px;
+					color: rgba(26, 115, 232,0.9);
+					font-size: 13px;
+					&:hover, &:focus {
+						color: rgba(26, 115, 232, 1);
+						text-shadow: 0 0 7px rgba(26, 115, 232,0.3);
+					}
 				}
 			}
 			&__btn {

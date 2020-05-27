@@ -47,7 +47,7 @@
 	    align-content: space-between;
 	    align-items: center;	
 	}
-	&__myProfile {
+	&__myProfile, &__notify, &__logout {
 		cursor: pointer;
 		transition: 0.2s;
 		margin: 0 6px 0;
@@ -55,16 +55,6 @@
 		padding: 10px;
 		font-size: 25px;
 		color: #444;
-		background-color: inherit;
-	}
-	&__notify {
-		color: #444;
-		cursor: pointer;
-		transition: 0.2s;
-		margin: 0 6px 0;
-		padding: 10px;
-		border: none;
-		font-size: 25px;
 		background-color: inherit;
 	}
 }

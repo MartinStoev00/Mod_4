@@ -55,11 +55,19 @@
       align-content: center;
       align-items: center; }
       .login__container .submit__link {
-        color: rgba(26, 115, 232, 0.9);
-        font-size: 13px; }
-        .login__container .submit__link:hover, .login__container .submit__link:focus {
-          color: #1a73e8;
-          text-shadow: 0 0 7px rgba(26, 115, 232, 0.3); }
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-content: stretch;
+        align-items: flex-start; }
+        .login__container .submit__links {
+          padding: 5px 10px;
+          color: rgba(26, 115, 232, 0.9);
+          font-size: 13px; }
+          .login__container .submit__links:hover, .login__container .submit__links:focus {
+            color: #1a73e8;
+            text-shadow: 0 0 7px rgba(26, 115, 232, 0.3); }
       .login__container .submit__btn {
         transition: 0.2s;
         color: #fff;
