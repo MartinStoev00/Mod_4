@@ -26,13 +26,13 @@ export function header(incoming) {
         newArr.forEach((notification) => {
             let {name, deed, link, img, date} = notification;
             notifications.innerHTML +=
-            `<a class="notifications__item" href="${img}" data-index-number="${name}">
-                <div style="background-image: url(${img});" class="notifications__img"></div>
-                <div class="notifications__container">
-                    <p class="notifications__text">${name} ${deed}</p>
-                    <p class="notifications__date">${date}</p>
-                </div>
-            </a>`;
+                `<a class="notifications__item" href="${img}" data-index-number="${name}">
+                    <div style="background-image: url(${img});" class="notifications__img"></div>
+                    <div class="notifications__container">
+                        <p class="notifications__text">${name} ${deed}</p>
+                        <p class="notifications__date">${date}</p>
+                    </div>
+                </a>`;
         });
 
         function remove(index) {
@@ -73,7 +73,7 @@ export function header(incoming) {
 
     function fillTable(input) {
         let output = ``;
-        let newArr = incoming.items.filter((item) => {
+        let newArr = incoming.filter((item) => {
             if(input == "") {
                 return true;
             } else {
@@ -98,7 +98,7 @@ export function header(incoming) {
         dropdown.innerHTML = output;
     }
 
-    fillNotifications();
+    //fillNotifications();
     fillTable("");
     notifyIcon.addEventListener("click", () => {
         notifyNumber.style.top = (notifyIconY - 34) + "px";

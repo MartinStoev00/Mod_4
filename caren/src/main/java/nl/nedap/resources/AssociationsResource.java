@@ -13,8 +13,8 @@ import javax.ws.rs.core.MediaType;
 
 import nl.nedap.utility.DatabaseManager;
 
-@Path("getrecords")
-public class RecordsResource {
+@Path("getassociations")
+public class AssociationsResource {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public String showTime(
@@ -23,11 +23,11 @@ public class RecordsResource {
 		if (request.getSession().getAttribute("aid") != null) {
 			int aid = (int)request.getSession().getAttribute("aid");
 			
-			String query = "SELECT r.type, r.data, r.timestamp, cp.name" + "\n"
-					+ "FROM reports r, people p, care_providers cp" + "\n"
-					+ "WHERE r.person_id = p.pid" + "\n"
-					+ "AND p.aid = ?" + "\n"
-					+ "AND r.care_provider_id = cp.id;";
+			String query = "SELECT CONCAT(p2.first_name, \" \", p2.last_name), r.type" + "\n"
+					+ "FROM people p1, people p2, relationships r" + "\n"
+					+ "WHERE r.person_id = p1.pid" + "\n"
+					+ "AND r.related_person_id = p2.pid" + "\n"
+					+ "AND p1.aid = ?";
 			
 			ResultSet records = DatabaseManager.ReadQuery(query, ""+aid);
 			String result = "[";
@@ -37,10 +37,8 @@ public class RecordsResource {
 				
 				while (records.next()) {
 					//ResultSetMetaData metadata = records.getMetaData();
-					String type = records.getString(1);
-					String data = records.getString(2);
-					String timestamp = records.getString(3);
-					String care_provider = records.getString(4);
+					String name = records.getString(1);
+					String type = records.getString(2);
 					
 					if (firstRecord) {
 						firstRecord = false;
@@ -49,10 +47,8 @@ public class RecordsResource {
 					}
 					
 					result = result + "{"
-							+ "\"title\": \""+ type + "\", "
-							+ "\"text\": "+ data + ", "
-							+ "\"date\": \""+ timestamp + "\", "
-							+ "\"name\": \""+ care_provider
+							+ "\"name\": \""+ name + "\", "
+							+ "\"description\": \""+ type
 							+ "\"}";
 				}
 				

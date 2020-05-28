@@ -206,7 +206,8 @@
   bottom: 0;
   left: 0;
   width: calc(20vw);
-  border-right: .5px solid #ddd; }
+  border-right: .5px solid #ddd;
+  background-color: #fff; }
   .sidebar__content {
     margin-top: calc(5vh);
     width: 85%;
@@ -269,6 +270,8 @@
   align-content: stretch;
   align-items: center;
   background-color: #f3f3f3; }
+  .mainPosts .posts {
+    min-height: 1000px; }
   .mainPosts .post {
     font-family: 'Arial';
     border: 1px #ddd solid;
@@ -284,6 +287,11 @@
       justify-content: flex-start;
       align-content: flex-start;
       align-items: center; }
+    .mainPosts .post__title {
+      text-align: center;
+      font-size: 22px;
+      font-weight: 600;
+      margin: 10px 0 30px; }
     .mainPosts .post__pic {
       margin: 15px;
       padding: 7px;
@@ -302,88 +310,198 @@
     .mainPosts .post__text {
       text-align: justify;
       padding: 0 15px 15px; }
-    .mainPosts .post .comments {
-      border-top: 0.5px solid #ddd;
-      padding: 8px 0;
-      text-align: center; }
-      .mainPosts .post .comments__info {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        justify-content: space-between;
-        align-content: flex-start;
-        align-items: flex-start;
-        padding: 7px 15px;
-        font-size: 13px; }
-      .mainPosts .post .comments__viewall {
-        color: rgba(66, 133, 244, 0.9);
-        text-decoration: underline;
-        cursor: pointer; }
-      .mainPosts .post .comments__urs {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        justify-content: flex-start;
-        align-content: flex-start;
-        align-items: flex-start;
-        margin: 0 15px; }
-        .mainPosts .post .comments__urs-pic {
-          height: 30px;
-          width: 30px;
-          background-position: center;
-          background-size: cover;
-          border-radius: 50%; }
-        .mainPosts .post .comments__urs-input {
-          margin: 0 10px;
-          border-radius: 30px;
-          padding: 7px 12px;
-          border: .5px solid #ddd;
-          background-color: #fbfbfb;
-          width: calc(100% - 65px); }
-    .mainPosts .post .comment {
+    .mainPosts .post__err {
+      text-align: center;
+      font-size: 22px;
+      color: #555;
+      font-family: 'Arial';
+      font-weight: 600;
+      display: none;
+      padding: 30px; }
+
+.posts__header {
+  font-family: 'Arial';
+  width: 100%;
+  background-color: #fff;
+  border-bottom: .5px solid #ddd; }
+  .posts__header .filters {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: stretch;
+    align-items: stretch; }
+    .posts__header .filters__line {
       display: flex;
       flex-direction: row;
       flex-wrap: nowrap;
-      justify-content: space-between;
-      align-content: flex-start;
-      align-items: flex-start;
-      margin: 10px 15px 15px; }
-      .mainPosts .post .comment__pic {
-        height: 30px;
-        width: 30px;
-        background-position: center;
-        background-size: cover;
-        border-radius: 50%; }
-      .mainPosts .post .comment__wrapper {
-        width: calc(100% - 55px);
-        margin: 0 10px;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: nowrap;
-        justify-content: flex-start;
-        align-content: flex-start;
-        align-items: flex-end; }
-      .mainPosts .post .comment__text {
-        border-radius: 20px;
-        padding: 10px;
-        text-align: justify;
-        background-color: #f2f3f5; }
-      .mainPosts .post .comment__date {
-        display: block;
-        color: #aaa;
-        margin: 7px 20px 0;
-        font-size: 13px;
-        font-weight: 100; }
-      .mainPosts .post .comment__viewall {
-        cursor: pointer; }
+      justify-content: flex-start;
+      align-content: center;
+      align-items: center;
+      padding: 10px 20px; }
+    .posts__header .filters__search {
+      margin: 0 10px;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      width: 40%;
+      background-color: #f5f5f5; }
+    .posts__header .filters__filter, .posts__header .filters__reset {
+      margin: 0 10px;
+      border-radius: 5px;
+      border: none;
+      padding: 10px 15px;
+      width: 15%;
+      background-color: #f5f5f5;
+      border: .5px #fff solid;
+      position: relative;
+      z-index: 1; }
+      .posts__header .filters__filter .fas, .posts__header .filters__reset .fas {
+        display: inline-block; }
+    .posts__header .filters__box {
+      position: absolute;
+      display: none;
+      background-color: #f5f5f5;
+      border-radius: 0px 0px 5px 5px;
+      font-family: 'Arial';
+      border: .5px #ddd solid;
+      border-top: none;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); }
+      .posts__header .filters__box .box__text {
+        margin: 5px 10px 0px; }
+      .posts__header .filters__box .box__date {
+        width: calc(100% - 30px);
+        margin: 5px 10px 10px;
+        border: none;
+        background-color: #fff;
+        padding: 5px;
+        border-radius: 5px; }
+      .posts__header .filters__box .box__btn {
+        width: calc(100% - 20px);
+        margin: 5px 10px 10px;
+        border: none;
+        background-color: #fff;
+        padding: 5px;
+        border-radius: 5px; }
+        .posts__header .filters__box .box__btn:hover {
+          background-color: #fafafa;
+          box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); }
+
+.comments {
+  border-top: 0.5px solid #ddd;
+  padding: 8px 0;
+  text-align: center; }
+  .comments__info {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-content: flex-start;
+    align-items: flex-start;
+    padding: 7px 15px;
+    font-size: 13px; }
+  .comments__viewall {
+    color: rgba(66, 133, 244, 0.9);
+    text-decoration: underline;
+    cursor: pointer; }
+  .comments__urs {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+    align-items: flex-start;
+    margin: 0 15px; }
+    .comments__urs-pic {
+      height: 30px;
+      width: 30px;
+      background-position: center;
+      background-size: cover;
+      border-radius: 50%;
+      background-color: #000; }
+    .comments__urs-form {
+      width: calc(100% - 65px);
+      margin: 0 10px; }
+    .comments__urs-input {
+      border-radius: 30px;
+      padding: 7px 12px;
+      border: .5px solid #ddd;
+      background-color: #fbfbfb;
+      width: calc(100%); }
+    .comments__urs-click {
+      border: none;
+      background-color: #fbfbfb;
+      position: absolute;
+      border-radius: 0px 30px 30px 0px;
+      text-align: center; }
+    .comments__urs-line {
+      width: .5px;
+      background-color: #ddd;
+      position: absolute; }
+    .comments__urs .visibility__options {
+      position: absolute;
+      display: none;
+      background-color: #fbfbfb;
+      border: .5px solid #ddd;
+      border-top: none;
+      border-radius: 0px 0px 16px 16px; }
+    .comments__urs .visibility__select {
+      padding: 10px 0;
+      font-size: 12px; }
+      .comments__urs .visibility__select:nth-child(3) {
+        border-radius: 0px 0px 16px 16px; }
+      .comments__urs .visibility__select:hover {
+        background-color: #eeeeee; }
+
+.comment {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-content: flex-start;
+  align-items: flex-start;
+  margin: 10px 15px 15px; }
+  .comment__pic {
+    height: 30px;
+    width: 30px;
+    background-position: center;
+    background-size: cover;
+    border-radius: 50%; }
+  .comment__wrapper {
+    width: calc(100% - 55px);
+    margin: 0 10px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+    align-items: flex-end; }
+  .comment__text {
+    border-radius: 20px;
+    padding: 10px;
+    text-align: justify;
+    background-color: #f2f3f5; }
+  .comment__date {
+    display: block;
+    color: #aaa;
+    margin: 7px 20px 0;
+    font-size: 13px;
+    font-weight: 100; }
+  .comment__viewall {
+    cursor: pointer; }
 
 .main {
   padding: 50px;
   width: calc(100vw - 120px);
   text-decoration: none;
-  color: #333; }
+  color: #333;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
+  align-items: baseline; }
   .main__card {
-    display: inline-block;
     width: 180px;
     text-decoration: none;
     border-radius: 15px;

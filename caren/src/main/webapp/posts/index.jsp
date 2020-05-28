@@ -8,20 +8,20 @@
 	<link rel="stylesheet" href="../fontawesome-free-5.13.0-web/css/all.min.css">
 </head>
 <body>
+
 	<%
 		if (session.getAttribute("aid") == null) {
 			response.sendRedirect("http://localhost:8080/caren/login/");
 		}
-	
 	%>
 	
 	<div class="header" name="header">
 		<img class="header__logo" src="../Pictures/website_icon.png" alt="">
-		<form class="form" action="#">
+		<div class="form">
 			<input class="form__search" type="text" placeholder="Search...">
 			<div class="dropdown"></div>
 			<button class="form__btn  fa fa-search" type="submit"></button>
-		</form>
+		</div>
 		<div class="header__buttons">
 			<button class="header__myProfile fas fa-user-circle"></button>
 			<button class="header__notify fas fa-bell"></button>
@@ -41,6 +41,33 @@
 		<div class="people"></div>
 	</div>
 	<div class="mainPosts">
+		<div class="posts__header">
+			<div class="filters">
+				<div class="filters__line">
+					<p class="filters__labels">Search according to title name: </p>
+					<input class="filters__search" type="text" placeholder="Title">
+				</div>
+				<div class="filters__line">
+					<p class="filters__labels">Filter: </p>
+					<button class="filters__filter">Filter <i class="fas fa-caret-down"></i></button>
+					<p class="filters__labels">Sort: </p>
+					<button class="filters__filter">Sorting <i class="fas fa-caret-down"></i></button>
+					<button class="filters__reset">Reset</button>
+					<div class="filters__box">
+						<p class="box__text">From: </p>
+						<input class="box__date" type="date">
+						<p class="box__text">To: </p>
+						<input class="box__date" type="date">
+						<button class="box__btn">Filter</button>
+					</div>
+					<div class="filters__box">
+						<button class="box__btn">Alphabetically</button>
+						<button class="box__btn">Oldest to Newest</button>
+						<button class="box__btn">Newest to Oldest</button>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="posts"></div>
 	</div>
 </body>
