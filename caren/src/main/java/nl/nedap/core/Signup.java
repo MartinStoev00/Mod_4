@@ -66,10 +66,10 @@ public class Signup extends HttpServlet {
 		String password = request.getParameter("password");
 		String passwordagn = request.getParameter("passwordagn");
 		
-		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn = DriverManager.getConnection(URL, DBUSERNAME, DBPASS);
+			
 			
 			//TODO check if account already exists
 			//The query

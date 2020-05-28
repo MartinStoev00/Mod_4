@@ -2,6 +2,11 @@
 
 <web-app>
 	<display-name>Caren</display-name>
+	
+	<servlet>
+		<servlet-name>javax.ws.rs.core.Application</servlet-name>
+	</servlet>
+  
 	<servlet>
 		<description>
 		</description>
@@ -24,6 +29,11 @@
 		<servlet-class>nl.nedap.core.Login</servlet-class>
 	</servlet>
 	
+	
+	<servlet-mapping>
+		<servlet-name>javax.ws.rs.core.Application</servlet-name>
+		<url-pattern>/rest/*</url-pattern>
+	</servlet-mapping>
 	
 	<servlet-mapping>
 		<servlet-name>Signup</servlet-name>

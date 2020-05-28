@@ -79,9 +79,6 @@ public class Login extends HttpServlet {
 				int aid = passResultset.getInt(1);
 				String pass = passResultset.getString(2);
 				
-				System.out.println("aid: " + aid);
-				System.out.println("stored pass: " + pass);
-				
 				if (pass.equals(password)) {
 					//Make session
 					HttpSession session = request.getSession();
@@ -89,6 +86,8 @@ public class Login extends HttpServlet {
 					
 					//Redirect to posts page
 					response.sendRedirect("http://localhost:8080/caren/posts/");
+					
+					System.out.println("Login successful: " + email);
 				} else {
 					response.sendRedirect("http://localhost:8080/caren/login/");
 				}
