@@ -14,11 +14,11 @@ public class RecordsResource {
 	public String showTime(
 	    @Context HttpServletRequest request
 	) {
-		System.out.println("noooo");
-		int aid = (int)request.getAttribute("aid");
-		System.out.println(aid);
-		
-		return "100 records!";
-	    // The method body
+		if (request.getSession().getAttribute("aid") != null) {
+			int aid = (int)request.getSession().getAttribute("aid");
+			return aid + " is logged in";
+		} else {
+			return "No logins";
+		}
 	}
 }

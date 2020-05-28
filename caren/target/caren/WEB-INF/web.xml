@@ -4,7 +4,15 @@
 	<display-name>Caren</display-name>
 	
 	<servlet>
-		<servlet-name>javax.ws.rs.core.Application</servlet-name>
+		<servlet-name>jersey-serlvet</servlet-name>
+		<servlet-class>
+        	org.glassfish.jersey.servlet.ServletContainer
+        </servlet-class>
+		<init-param>
+		     <param-name>com.sun.jersey.config.property.packages</param-name>
+		     <param-value>nl.nedap.resources</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
 	</servlet>
   
 	<servlet>
@@ -31,7 +39,7 @@
 	
 	
 	<servlet-mapping>
-		<servlet-name>javax.ws.rs.core.Application</servlet-name>
+		<servlet-name>jersey-serlvet</servlet-name>
 		<url-pattern>/rest/*</url-pattern>
 	</servlet-mapping>
 	
