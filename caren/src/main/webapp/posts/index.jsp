@@ -23,8 +23,12 @@
 			<button class="form__btn  fa fa-search" type="submit"></button>
 		</div>
 		<div class="header__buttons">
-			<button class="header__myProfile fas fa-user-circle"></button>
+			<button class="header__myProfile fas fa-user-circle" onclick="location.href='http://localhost:8080/caren/posts/'"></button>
 			<button class="header__notify fas fa-bell"></button>
+			<button class="header__home fas fa-home" onclick="location.href='http://localhost:8080/caren/main/'"></button>
+			<form action="../signout">
+				<button type="submit" class="header__logout fas fa-sign-out-alt"></button>
+			</form>
 			<div class="notifications"></div>
 			<div class="notifications__triangle"></div>
 			<p class="notifications__number"></p>

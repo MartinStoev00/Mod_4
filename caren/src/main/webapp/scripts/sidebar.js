@@ -4,7 +4,7 @@ export default function sidebar(incoming) {
     let sidebar = document.getElementsByClassName("sidebar")[0];
 	 function fillPeople() {
         let people = document.getElementsByClassName("people")[0];
-        incoming.items.forEach((item) => {
+        incoming.forEach((item) => {
             let {name, img} = item;
             people.innerHTML += 
                 `<a href="${img}" class="people__container">

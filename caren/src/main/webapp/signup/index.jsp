@@ -8,6 +8,14 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body class="signup">
+
+	<%
+		if (session.getAttribute("aid") != null) {
+		response.sendRedirect("http://localhost:8080/caren/posts/");
+	}
+	%>
+	
+	
 	<div class="signup__container">
 		<img class="signup__logo" src="../Pictures/logo.png" alt="Nedap">
 		<h2 class="signup__heading">Sign up</h2>
@@ -29,7 +37,7 @@
 					<input required="required" class="input__text" type="date" max="2020-12-31" name="birthdate">
 					<input required="required" class="input__text" type="text" name="gender" readonly value="other">
 				</div>
-				<input required="required" class="input__text" type="password" minlength = "8" pattern="[A-Za-z0-9]{8, 32}" name="password">
+				<input required="required" class="input__text" type="password" minlength = "8" pattern="[A-Za-z0-9]{8, 30}" name="password">
 				<input required="required" class="input__text" type="password"  name="passwordagn">
 				<div class="input__options">
 					<p class="input__value">male</p>

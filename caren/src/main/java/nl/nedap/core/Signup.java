@@ -135,7 +135,7 @@ public class Signup extends HttpServlet {
 				response.sendRedirect("http://localhost:8080/caren/posts/");
 				
 			} else { // cannot create acc
-				out.println(docType + "<HTML> <body> You cannot create an acc with that email </body> </HTML>");
+				out.println(docType + "<HTML> <body> Email: "+ email +" already in use. Please go back and try another one. </body> </HTML>");
 			}
 			
 			

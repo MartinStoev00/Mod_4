@@ -607,20 +607,19 @@ function init() {
     let posts;
     let associations;
 
-    getrecords((data) => {
-    	posts = JSON.parse(data);
-    }, "http://localhost:8080/caren/rest/getrecords")
-    
-    getrecords((data) => {
-    	associations = JSON.parse(data);
-    }, "http://localhost:8080/caren/rest/getassociations")
-
-    setTimeout(() => {
-        if(document.getElementsByClassName("main").length > 0) {   
-            main(associations);
-        }
+    getrecords("http://localhost:8080/caren/rest/getrecords").then((data) => {
+        posts = JSON.parse(data);
         if(document.getElementsByClassName("mainPosts").length > 0) {   
             mainPosts(posts);
+        }
+    }).catch((err) => {
+        console.log(err);
+    });
+
+    getrecords("http://localhost:8080/caren/rest/getassociations").then((data) => {
+        associations = JSON.parse(data);
+        if(document.getElementsByClassName("main").length > 0) {   
+            main(associations);
         }
         if(document.getElementsByClassName("sidebar").length > 0) {   
             sidebar(associations);
@@ -629,7 +628,9 @@ function init() {
             header(associations);
             headerStyle();
         }
-    }, 500);
+    }).catch((err) => {
+        console.log(err);
+    });
 }
 
 function stylize() {
@@ -641,14 +642,27 @@ function stylize() {
 window.addEventListener('resize', stylize);
 window.onload = init;
 
-function getrecords(exe, location) {
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                exe(xhr.responseText);
-                console.log(xhr.responseText);
-            }
+function getrecords(location) {
+    return new Promise(function(resolve, reject){
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", location, true); 
+    xhr.onload = function(){
+        if(this.status >= 200 && this.status < 300){
+            resolve(xhr.response);
+            console.log(xhr.responseText);
+        } else {
+            reject({
+                status: this.status,
+                statusText: xhr.statusText
+            });
         }
-        xhr.open("GET", location, true); 
-        xhr.send();
-    }
+    };
+    xhr.onerror = function() {
+        reject({
+            status: this.status,
+            statusText: xhr.statusText
+        });
+    };
+    xhr.send();
+  });
+}

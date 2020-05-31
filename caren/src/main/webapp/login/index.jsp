@@ -19,7 +19,7 @@
 		<h2 class="login__heading">Log In</h2>
 		<form action="loginentr">
 			<div class="input">
-				<p class="input__label">Username</p>
+				<p class="input__label">Email</p>
 				<p class="input__label">Password</p>
 				<input class="input__text" type="text" name="email"> <input
 					class="input__text" type="password" name="password">
@@ -27,7 +27,7 @@
 			<div class="submit">
 				<div class="submit__link">
 					<a class="submit__links" href="#">Forgotten Password?</a> <a
-						class="submit__links" href="http://localhost:8080/caren/signup/">Make
+						class="submit__links" href="http://localhost:8080/caren/signup/index.jsp">Make
 						an account</a>
 				</div>
 				<input type="submit" class="submit__btn" value="Login">

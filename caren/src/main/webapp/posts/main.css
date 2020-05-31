@@ -78,7 +78,7 @@
     font-size: 25px;
     color: #444;
     background-color: inherit; }
-  .header__notify {
+  .header__notify, .header__home, .header__logout {
     color: #444;
     cursor: pointer;
     transition: 0.2s;

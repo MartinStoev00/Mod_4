@@ -23,8 +23,9 @@
 			<i class="form__btn  fa fa-search"></i>
 		</form>
 		<div class="header__buttons">
-			<button class="header__myProfile fas fa-user-circle"></button>
+			<button class="header__myProfile fas fa-user-circle" onclick="location.href='http://localhost:8080/caren/posts/'"></button>
 			<button class="header__notify fas fa-bell"></button>
+			<button class="header__home fas fa-home" onclick="location.href='http://localhost:8080/caren/main/'"></button>
 			<form action="../signout">
 				<button type="submit" class="header__logout fas fa-sign-out-alt"></button>
 			</form>

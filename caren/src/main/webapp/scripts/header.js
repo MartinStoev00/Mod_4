@@ -87,7 +87,7 @@ export function header(incoming) {
                 let {name, description, img} = item;
                 output +=
                 `<a class="dropdown__item" href="${img}">
-                    <div style="background-image: url(${img});" class="dropdown__img"></div>
+                    <div style="background-image: url(${(Math.ceil(Math.random()*(4))) + ".jpg"});" class="dropdown__img"></div>
                     <div class="dropdown__container">
                         <p class="dropdown__name">${name}</p>
                         <p class="dropdown__description">${description}</p>

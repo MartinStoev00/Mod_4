@@ -14,9 +14,10 @@ function fillMain(incoming) {
             `<a href="${img}" class="main__card">
                 <div class="main__container">
                     <div style="background-image: url(${ran(23)});" class="main__img"></div>
-                    <div style="background-image: url(${img});" class="main__profile"></div>
+                    <div style="background-image: url(${(Math.ceil(Math.random()*(4))) + ".jpg"});" class="main__profile"></div>
                     <div class="main__text">
                         <p class="main__name">${name}</p>
+                        <p class="main__description">${description}</p>
                     </div>
                 </div>
             </a>`
