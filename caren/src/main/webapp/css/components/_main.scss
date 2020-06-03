@@ -3,6 +3,12 @@
 	width: calc(100vw - 120px);
 	text-decoration: none;
 	color: #333;
+	display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
 	&__card {
 		display: inline-block;
 		width: 180px;
@@ -24,19 +30,21 @@
 		background-position: center;
 		background-size: cover;
 	}
-	&__container {
-
-	}
 	&__text {
 		color: #000;
 		text-align: center;
 	}
 	&__name {
 		font-size: 26px;
-		text-decoration: underline;
-		padding: 6px 0px 20px;
+		padding: 6px 0px 10px;
 	}
 	&__description {
+	   	color: #838383;
+	    font-size: 18px;
+	    font-weight: 600;
+	    text-transform: uppercase;
+	    font-family: 'Arial';
+	    padding: 0px 0px 20px;
 	}
 	&__img {
 		border-radius: 15px 15px 0px 0px;

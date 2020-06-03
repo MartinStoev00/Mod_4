@@ -11,7 +11,11 @@
 	font-family: 'Arial';
 	width: 100%;
 	height: calc(100vh);
-	@include flex(center);
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
 	&__logo {
 		width: 140px;
 		margin-top: 10px;
@@ -20,7 +24,12 @@
 		margin: 13px;
 	}
 	&__container {
-		@include flex(column);
+		display: flex;
+	    flex-direction: column;
+	    flex-wrap: wrap;
+	    justify-content: space-around;
+	    align-items: center;
+	    align-content: center;
 		padding: 20px;
 		border-radius: 10px;
 		border: 1px solid #ccc;	
@@ -57,7 +66,7 @@
 					font-size: 17px;
 					border-radius: 4px;
 					&:focus {
-						border: 1px solid rgb(26, 115, 232);
+						border: 1px solid #1a73e8;
 					}
 				}
 			}

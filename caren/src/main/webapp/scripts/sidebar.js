@@ -8,7 +8,7 @@ export default function sidebar(incoming) {
             let {name, img} = item;
             people.innerHTML += 
                 `<a href="${img}" class="people__container">
-                    <div class="people__pic" style="background-image: url(${img});"></div>
+                    <div class="people__pic" style="background-image: url(../Pictures/profile_pics/${img});"></div>
                     <div class="people__name">${name}</div>
                 </a>`
         });

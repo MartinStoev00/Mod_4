@@ -13,8 +13,8 @@ let charLimit = 400;
 function display(posts) {
     postsMain.innerHTML = ``;
     posts.forEach((post) => {
-        let {name, date, img, text, title} = post; 
-        postsMain.innerHTML += postsTemplate(img, name, date, title, JSON.stringify(text));
+        let {name, date, img, text, title, comments} = post; 
+        postsMain.innerHTML += postsTemplate(img, name, date, title, JSON.stringify(text), allCommentsTemplate(comments), numOfCommentsTemplate(comments.length));
     });
 }
 
@@ -22,7 +22,7 @@ function commentTemplate(comment) {
     let {img, name, text, date} = comment;
     let returned = 
         `<div class="comment">
-            <div class="comment__pic" style="background-image: url(${img});"></div>
+            <div class="comment__pic" style="background-image: url(../Pictures/profile_pics/${img});"></div>
             <div class="comment__wrapper">
                 <div class="comment__text"><span style="color: rgb(56, 88, 152);font-weight: 600;">${name} </span>${text}</div>
                 <div class="comment__date">${date}</div>
@@ -40,11 +40,11 @@ function numOfCommentsTemplate(length) {
     return returned;
 }
 
-function postsTemplate(img, name, date, title, text) {
+function postsTemplate(img, name, date, title, text, comments, num) {
     let returned = 
         `<div class="post">
             <div class="post__header">
-                <div class="post__pic" style="background-image: url(${img});"></div>
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/${img});"></div>
                 <div class="post__info">
                     <div class="post__uploader">${name}</div>
                     <div class="post__date">${date}</div>
@@ -53,8 +53,10 @@ function postsTemplate(img, name, date, title, text) {
             <div class="post__title">${title}</div>
             <div class="post__text">${text}</div>
             <div class="comments">
+                ${num}
+                ${comments}
                <div class="comments__urs">
-                    <div class="comments__urs-pic" style="background-image: url(1.jpg);"></div>
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
                     <div class="comments__urs-form">
                         <input class="comments__urs-input"type="text" placeholder="Write your comment">
                         <div class="comments__urs-line"></div>
@@ -335,7 +337,6 @@ function doEveryThing(posts) {
 export default function mainPosts(something) {
     data = something;
     initData = something;
-    console.log(something);
     mainPostsBlocks.style.marginTop = headerH + "px";
     document.getElementsByTagName("body")[0].style.backgroundColor = "#f5f5f5";
     doEveryThing(initData);
