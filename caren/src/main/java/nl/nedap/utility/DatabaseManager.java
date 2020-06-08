@@ -44,10 +44,33 @@ public class DatabaseManager {
 	}
 	
 	public static Boolean IsAssociate(int sessionId, int id) {
+		//if (sessionId == id) {return true;}
+		
 		String q = "SELECT a.aid" + "\n"
 				+ "FROM accounts a, relationships r" + "\n"
 				+ "WHERE r.person_id = ?" + "\n"
 				+ "AND r.related_person_id = ?";
+		
+		ResultSet r = ReadQuery(q, ""+sessionId, ""+id);
+		try {
+			if (r.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return false;
+	}
+	
+	public static Boolean IsClient(int sessionId, int id) {
+		//if (sessionId == id) {return true;}
+		
+		String q = "SELECT a.aid" + "\n"
+				+ "FROM accounts a, care_providers p, care_providers_people c" + "\n"
+				+ "WHERE c.care_provider_id = ? AND c.person_id = ?";
 		
 		ResultSet r = ReadQuery(q, ""+sessionId, ""+id);
 		try {

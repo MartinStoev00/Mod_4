@@ -1,4 +1,4 @@
-package nl.nedap.resources;
+package model;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
