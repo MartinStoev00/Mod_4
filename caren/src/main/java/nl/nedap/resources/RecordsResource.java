@@ -7,21 +7,30 @@ import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import nl.nedap.utility.DatabaseManager;
 
-@Path("getrecords")
+@Path("getrecords/{id}")
 public class RecordsResource {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public String showTime(
-	    @Context HttpServletRequest request
+	    @Context HttpServletRequest request, @PathParam("id") int id
 	) {
 		if (request.getSession().getAttribute("aid") != null) {
 			int aid = (int)request.getSession().getAttribute("aid");
+			
+			if (id == 0) {
+				id = aid;
+			} else if (!DatabaseManager.IsAssociate(aid, id)) {
+				return "[]";
+			}
+			
+			
 			
 			String query = "SELECT r.type, r.data, r.timestamp, cp.name" + "\n"
 					+ "FROM reports r, people p, care_providers cp" + "\n"
@@ -29,7 +38,10 @@ public class RecordsResource {
 					+ "AND p.aid = ?" + "\n"
 					+ "AND r.care_provider_id = cp.id;";
 			
-			ResultSet records = DatabaseManager.ReadQuery(query, ""+aid);
+			ResultSet records = DatabaseManager.ReadQuery(query, ""+id);
+			
+			
+			
 			String result = "[";
 			try {
 				

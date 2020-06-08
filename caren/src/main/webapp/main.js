@@ -3,11 +3,107 @@ import main from "./scripts/mainPage.js";
 import mainPosts from "./scripts/mainPosts.js";
 import sidebar from "./scripts/sidebar.js";
 
+let notifications = [
+    {
+        name: "Joenvkgkjhgkjhggjfgj",
+        deed: " has commented on your post",
+        img: "1.jpg",
+        link: "somewhere",
+        date: "Yesterday"
+    },
+    {
+        name: "Grozen",
+        deed: " has commented on your post",
+        img: "2.jpg",
+        link: "somewhere",
+        date: "Yesterday"
+    },
+    {
+        name: "James",
+        deed: " has commented on your post",
+        img: "3.jpg",
+        link: "somewhere",
+        date: "Yesterday"
+    },
+    {
+        name: "Jar",
+        deed: " has commented on your post",
+        img: "4.jpg",
+        link: "somewhere",
+        date: "Yesterday"
+    },
+    {
+        name: "Justice",
+        deed: " has commented on your post",
+        img: "5.jpg",
+        link: "somewhere",
+        date: "Yesterday"
+    },
+    {
+        name: "John",
+        deed: " has commented on your post",
+        img: "2.jpg",
+        link: "somewhere",
+        date: "Yesterday"
+    },
+    {
+        name: "James",
+        deed: " has commented on your post",
+        img: "3.jpg",
+        link: "somewhere",
+        date: "Yesterday"
+    },
+    {
+        name: "Jar",
+        deed: " has commented on your post",
+        img: "4.jpg",
+        link: "somewhere",
+        date: "Yesterday"
+    },
+    {
+        name: "Justice",
+        deed: " has commented on your post",
+        img: "5.jpg",
+        link: "somewhere",
+        date: "Yesterday"
+    },
+    {
+        name: "John",
+        deed: " has commented on your post",
+        img: "2.jpg",
+        link: "somewhere",
+        date: "Yesterday"
+    },
+    {
+        name: "James",
+        deed: " has commented on your post",
+        img: "3.jpg",
+        link: "somewhere",
+        date: "Yesterday"
+    },
+    {
+        name: "Jar",
+        deed: " has commented on your post",
+        img: "4.jpg",
+        link: "somewhere",
+        date: "Yesterday"
+    },
+    {
+        name: "Justice",
+        deed: " has commented on your post",
+        img: "5.jpg",
+        link: "somewhere",
+        date: "Yesterday"
+    }
+];
+
+
+
 function init() {
     let posts;
     let associations;
 
-    getrecords("http://localhost:8080/caren/rest/getrecords").then((data) => {
+    getrecords("http://localhost:8080/caren/rest/getrecords/0").then((data) => {
         posts = JSON.parse(data);
         if(document.getElementsByClassName("mainPosts").length > 0) {   
             mainPosts(posts);
@@ -25,7 +121,7 @@ function init() {
             sidebar(associations);
         }
         if(document.getElementsByClassName("header").length > 0) {   
-            header(associations);
+            header(associations, notifications);
             headerStyle();
         }
     }).catch((err) => {

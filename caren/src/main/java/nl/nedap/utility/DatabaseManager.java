@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class DatabaseManager {
 	
@@ -21,9 +22,11 @@ public class DatabaseManager {
 			PreparedStatement statement = conn.prepareStatement(q);
 			
 			//Set variables
-			for (int i = 0; i < vars.length; i++) {
-				//Add values to prepared statement
-				statement.setString(i+1, vars[i]);
+			if (vars != null && vars.length > 0) {
+				for (int i = 0; i < vars.length; i++) {
+					//Add values to prepared statement
+					statement.setString(i+1, vars[i]);
+				}
 			}
 			
 			//Result set of statement execution
@@ -38,5 +41,25 @@ public class DatabaseManager {
 			return null;
 		}
 		
+	}
+	
+	public static Boolean IsAssociate(int sessionId, int id) {
+		String q = "SELECT a.aid" + "\n"
+				+ "FROM accounts a, relationships r" + "\n"
+				+ "WHERE r.person_id = ?" + "\n"
+				+ "AND r.related_person_id = ?";
+		
+		ResultSet r = ReadQuery(q, ""+sessionId, ""+id);
+		try {
+			if (r.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return false;
 	}
 }

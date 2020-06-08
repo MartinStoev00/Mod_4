@@ -3,6 +3,8 @@ package nl.nedap.resources;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
@@ -16,55 +18,45 @@ import nl.nedap.utility.DatabaseManager;
 @Path("getassociations")
 public class AssociationsResource {
 	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public String showTime(
-	    @Context HttpServletRequest request
-	) {
+	@Produces({MediaType.APPLICATION_JSON})
+	
+	
+	public List<Associate> getAssociations(@Context HttpServletRequest request) {
+		
 		if (request.getSession().getAttribute("aid") != null) {
 			int aid = (int)request.getSession().getAttribute("aid");
 			
-			String query = "SELECT CONCAT(p2.first_name, \" \", p2.last_name), r.type" + "\n"
-					+ "FROM people p1, people p2, relationships r" + "\n"
+			String query = "SELECT CONCAT(p2.first_name, \" \", p2.last_name), r.type, a.aid" + "\n"
+					+ "FROM people p1, people p2, relationships r, accounts a" + "\n"
 					+ "WHERE r.person_id = p1.pid" + "\n"
 					+ "AND r.related_person_id = p2.pid" + "\n"
+					+ "AND p2.aid = a.aid" + "\n"
 					+ "AND p1.aid = ?";
 			
 			ResultSet records = DatabaseManager.ReadQuery(query, ""+aid);
-			String result = "[";
+			List<Associate> as = new ArrayList<>();
 			try {
-				
 				boolean firstRecord = true;
 				
 				while (records.next()) {
 					//ResultSetMetaData metadata = records.getMetaData();
 					String name = records.getString(1);
 					String type = records.getString(2);
+					String aaid = records.getString(3);
 					
-					if (firstRecord) {
-						firstRecord = false;
-					} else {
-						result = result + ", "; 
-					}
-					
-					result = result + "{"
-							+ "\"name\": \""+ name + "\", "
-							+ "\"description\": \""+ type
-							+ "\"}";
+					Associate associate = new Associate(name, type, aaid);
+					as.add(associate);
 				}
 				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			result = result + "]";
-			while (result.contains("\n")) {
-				result = result.substring(0, result.indexOf("\n")) + result.substring(result.indexOf("\n")+2, result.length());
-			}
-			return result;
+
+			return as;
 			
 		} else {
-			return "[]";
+			return null;
 		}
 	}
 }

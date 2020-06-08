@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import nl.nedap.utility.DatabaseManager;
+
 /**
  * Servlet implementation class Login
  */
@@ -48,16 +50,8 @@ public class Login extends HttpServlet {
 					+ "FROM accounts a" + "\n"
 					+ "WHERE a.email = ?;";
 			
-			//Create prepared statement object
-			PreparedStatement statement = conn.prepareStatement(q);
-			
-			//Add values to prepared statement
-			statement.setString(1, email);
-			
+			ResultSet resultset = DatabaseManager.ReadQuery(q, email);
 			System.out.println("Attempted login by: email: " + email + "; password: " + password + ";");
-			
-			//Result set of statement execution
-			ResultSet resultset = statement.executeQuery();
 			
 			if (resultset.next()) { // has an account
 				System.out.println("Account with email: " + email + "; exists.");
@@ -66,14 +60,8 @@ public class Login extends HttpServlet {
 						+ "FROM accounts a" + "\n"
 						+ "WHERE a.email = ?;";
 				
-				//Create prepared statement object
-				PreparedStatement passStatement = conn.prepareStatement(accInfo);
-				
-				//Add values to prepared statement
-				passStatement.setString(1, email);
-				
 				//Result set of statement execution
-				ResultSet passResultset = passStatement.executeQuery();
+				ResultSet passResultset = DatabaseManager.ReadQuery(accInfo, email);
 				passResultset.next();
 				
 				int aid = passResultset.getInt(1);
