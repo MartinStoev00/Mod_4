@@ -15,6 +15,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import model.Comment;
+import nl.nedap.utility.CommentVisibility;
 import nl.nedap.utility.DatabaseManager;
 
 @Path("comments/{recordid}")
@@ -23,6 +24,7 @@ public class CommentsResource {
 	@Produces({MediaType.APPLICATION_JSON})
 	public List<Comment> getComments(@Context HttpServletRequest request, @PathParam("recordid") int recordid) {
 		int aid = (int)request.getAttribute("aid");
+		String aidType = (String)request.getAttribute("aidType");
 		
 		
 		//The list of comments to be returned at the end.
@@ -39,16 +41,31 @@ public class CommentsResource {
 		
 		try {
 			while (result.next()) {
-				String cid, rid, pid, visibility, date_added, text;
-				cid = result.getString(1);
-				rid = result.getString(2);
-				pid = result.getString(3);
+				int cid, rid, pid; String visibility, date_added, text;
+				cid = result.getInt(1);
+				rid = result.getInt(2);
+				pid = result.getInt(3);
 				visibility = result.getString(4);
 				date_added = result.getString(5);
 				text = result.getString(6);
 				
-				Comment comment = new Comment(cid, rid, visibility, date_added, text);
-				comments.add(comment);
+				boolean addComment = false;
+				
+				// Handling visibility.
+				if (aidType.equals("care_provider") && (visibility == CommentVisibility.PUBLIC || visibility == CommentVisibility.PRIVATE)) {
+					if (DatabaseManager.IsClient(aid, pid)) {
+						addComment = true;
+					}
+				} else if (aid == pid) {
+					addComment = true;
+				} else if (DatabaseManager.IsAssociate(aid, pid) && (visibility == CommentVisibility.PUBLIC)) {
+					addComment = true;
+				}
+				
+				if (addComment) {
+					Comment comment = new Comment(cid, rid, pid, visibility, date_added, text);
+					comments.add(comment);
+				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
