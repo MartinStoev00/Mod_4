@@ -113,12 +113,12 @@ Array.prototype.forEach.call(linkForPages, (link, index) => {
         }
     });
     link.addEventListener("mouseover", () => {
-        if(currentpage !== linkL && link.style.backgroundColor !== "rgba(66, 133, 244, 0.1)") {
+        if(link.style.backgroundColor !== "rgba(66, 133, 244, 0.1)") {
             link.style.backgroundColor = "#f5f5f5";
         }
     });
     link.addEventListener("mouseout", () => {
-        if(currentpage !== linkL && link.style.backgroundColor !== "rgba(66, 133, 244, 0.1)") {
+        if(link.style.backgroundColor !== "rgba(66, 133, 244, 0.1)") {
             off(link);
         }
     })
