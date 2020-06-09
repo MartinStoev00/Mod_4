@@ -147,6 +147,9 @@
 		    align-content: flex-start;
 		    align-items: flex-start;
 		    margin: 10px 15px 15px;
+			&__response {
+				margin-left: 65px;
+			}
 			&__pic {
 				height: 30px; width: 30px;
 				background-position: center;

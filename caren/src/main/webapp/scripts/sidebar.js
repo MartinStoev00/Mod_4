@@ -29,15 +29,15 @@ filterBox.style.top =  filterBoxTop + "px";
 people.style.height = (filterBtn.getBoundingClientRect().bottom) + "px";
 people.style.display = "none";
 filterBtn.style.backgroundColor = "#fff";
-let initData, data;
+let initData, data, commetsData;
 let startDate, endDate, order = chrono;
 
-export default function sidebar(items, posts) {
+export default function sidebar(items, posts, comments) {
     items.forEach((item) => {
         let {name, img} = item;
         people.innerHTML += 
-            `<a href="${img}" class="people__container">
-                <div class="people__pic" style="background-image: url(../Pictures/profile_pics/${img});"></div>
+            `<a href="${img}.jpg" class="people__container">
+                <div class="people__pic" style="background-image: url(../Pictures/profile_pics/${img}.jpg);"></div>
                 <div class="people__name">${name}</div>
             </a>`
     });
@@ -51,13 +51,14 @@ export default function sidebar(items, posts) {
         if(one > two) { return 1; }
         return 0;
     });
+    commetsData = comments;
     initData = posts;
     data = posts;
     startDate = ordererdDates.shift();
     fromDate.value = startDate;
     endDate = ordererdDates.pop();
     toDate.value = endDate;
-    mainPosts(
+    mainWithComments(
         posts.sort((a, b) => {
             let one = new Date(a.date);
             let two = new Date(b.date)
@@ -67,6 +68,10 @@ export default function sidebar(items, posts) {
         }));
     sortingBlocks(posts);
     filteringSearch();
+}
+
+function mainWithComments(inputData) {
+    mainPosts(inputData, commetsData)
 }
 
 Array.prototype.forEach.call(linkForPages, (link, index) => {
@@ -159,7 +164,7 @@ function filteringDates() {
         let to = new Date(endDate);
         return postDate > from && postDate < to;
     });
-    mainPosts(data);
+    mainWithComments(data);
     let people = 0;
     let postBlockMain = document.getElementsByClassName("post");
     Array.prototype.forEach.call(postBlockMain, (blockPost) => {
@@ -240,7 +245,7 @@ function sortingBlocks(posts) {
                 return 0;
             });
             data = newArr;
-            mainPosts(data);
+            mainWithComments(data);
         } else {
             order = revChrono;
             boxBtns[0].innerHTML = chrono;
@@ -253,7 +258,7 @@ function sortingBlocks(posts) {
                 return 0;
             });
             data = newArr;
-            mainPosts(data);
+            mainWithComments(data);
         }
     });
 }
@@ -284,7 +289,7 @@ btnReset.addEventListener("click", () => {
         link.style.color = "rgb(66, 133, 244)";
         link.getElementsByClassName("fa-check")[0].style.display = "block";
     })
-    mainPosts(
+    mainWithComments(
         initData.sort((a, b) => {
             let one = new Date(a.date);
             let two = new Date(b.date)

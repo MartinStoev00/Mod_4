@@ -6,45 +6,29 @@ if(document.getElementsByClassName("mainPosts").length > 0) {
     mainPostsBlocks = document.getElementsByClassName("mainPosts")[0];
     postsMain = mainPostsBlocks.getElementsByClassName("posts")[0];
 }
-let numDisplayed = 1;
+let numDisplayed = 8;
 let readMore = `<span class="ReadMore">...<span  style="color: rgb(66, 133, 244);cursor:pointer;"> Read More</span></span>`;
 let charLimit = 400;
 
-function display(posts) {
+function display(posts, comments) {
     postsMain.innerHTML = `<div class="post__err">No Results Found</div>`;
     posts.forEach((post) => {
-        let {name, date, img, text, title, comments} = post;
-        postsMain.innerHTML += postsTemplate(img, name, date, title, JSON.stringify(text), allCommentsTemplate(comments), numOfCommentsTemplate(comments.length));
+        let {rid: postID, name, date, img, text, title} = post;
+        let dataAboutComments = [];
+        comments.forEach((comment) => {
+            if(postID == comment.rid) {
+                dataAboutComments.push(comment);
+            }
+        })
+        postsMain.innerHTML += postsTemplate(img, name, date, title, JSON.stringify(text), allCommentsTemplate(dataAboutComments), numOfCommentsTemplate(dataAboutComments.length));
     });
-}
-
-function commentTemplate(comment) {
-    let {img, name, text, date} = comment;
-    let returned = 
-        `<div class="comment">
-            <div class="comment__pic" style="background-image: url(../Pictures/profile_pics/${img});"></div>
-            <div class="comment__wrapper">
-                <div class="comment__text"><span style="color: rgb(56, 88, 152);font-weight: 600;">${name} </span>${text}</div>
-                <div class="comment__date">${date}</div>
-            </div>
-        </div>`
-    return returned;
-}
-
-function numOfCommentsTemplate(length) {
-    let returned = length > 3 ? ` 
-        <div class="comments__info">
-            <div class="comments__viewall">View All Comments</div>
-            <div class="comments__count">${numDisplayed} out of ${length}</div>
-        </div>` : ``;
-    return returned;
 }
 
 function postsTemplate(img, name, date, title, text, comments, num) {
     let returned = 
         `<div class="post" data-link="${title}">
             <div class="post__header">
-                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/${img});"></div>
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/${img}.jpg);"></div>
                 <div class="post__info">
                     <div class="post__uploader">${name}</div>
                     <div class="post__date">${date}</div>
@@ -73,14 +57,58 @@ function postsTemplate(img, name, date, title, text, comments, num) {
     return returned;
 }
 
+function numOfCommentsTemplate(length) {
+    let returned = length > 3 ? ` 
+        <div class="comments__info">
+            <div class="comments__viewall">View All Comments</div>
+            <div class="comments__count">${numDisplayed} out of ${length}</div>
+        </div>` : ``;
+    return returned;
+}
+
 function allCommentsTemplate(comments) {
     let commentsText = ``;
-    comments.forEach((comment, index) => {
+    let sortedComments = comments;
+    sortedComments.sort((a, b) => {
+        let one = new Date(a.date_added);
+        let two = new Date(b.date_added)
+        if(one < two) { return -1; }
+        if(one > two) { return 1; }
+        return 0;
+    });
+    let filteredSortedComments = sortedComments.filter((comment) => {
+        return comment.parent == 0;
+    })
+    let resultedComments = [];
+    filteredSortedComments.forEach((commentParent) => {
+        resultedComments.push(commentParent);
+        sortedComments.forEach((candidateChildComment) => {
+            if(commentParent.cid == candidateChildComment.parent) {
+                resultedComments.push(candidateChildComment);
+            }
+        })
+    })
+    console.log(resultedComments);
+    resultedComments.forEach((comment, index) => {
         if(index < numDisplayed) {
             commentsText += commentTemplate(comment);
         }
     });
     return commentsText;
+}
+
+function commentTemplate(comment) {
+    let {name, pid, text, date_added, parent} = comment;
+    let state = parent == 0 ? "" : "comment__response";
+    let returned = 
+        `<div class="comment ${state}">
+            <div class="comment__pic" style="background-image: url(../Pictures/profile_pics/${pid}.jpg);"></div>
+            <div class="comment__wrapper">
+                <div class="comment__text"><span style="color: rgb(56, 88, 152);font-weight: 600;">${name} </span>${text}</div>
+                <div class="comment__date">${date_added}</div>
+            </div>
+        </div>`
+    return returned;
 }
 
 function addExpand() {
@@ -202,14 +230,14 @@ function fillPosts(posts) {
 mainPostsBlocks.style.marginTop = headerH + "px";
 document.getElementsByTagName("body")[0].style.backgroundColor = "#f5f5f5";
 
-function doEveryThing(posts) {
-    display(posts);
-    fillPosts(posts);
+function doEveryThing(posts, comments) {
+    display(posts, comments);
+    fillPosts(posts, comments);
     addExpand();
 }
 
-export default function mainPosts(something) {
+export default function mainPosts(something, comments) {
     data = something;
     initData = something;
-    doEveryThing(initData);
+    doEveryThing(initData, comments);
 }
