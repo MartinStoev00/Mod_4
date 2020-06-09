@@ -1,6 +1,5 @@
 import {header, headerStyle} from "./scripts/header.js";
 import main from "./scripts/mainPage.js";
-import mainPosts from "./scripts/mainPosts.js";
 import sidebar from "./scripts/sidebar.js";
 
 let notifications = [
@@ -105,8 +104,8 @@ function init() {
 
     getrecords("http://localhost:8080/caren/rest/getrecords/0").then((data) => {
         posts = JSON.parse(data);
-        if(document.getElementsByClassName("mainPosts").length > 0) {   
-            mainPosts(posts);
+        if(document.getElementsByClassName("sidebar").length > 0) {   
+            sidebar(associations, posts);
         }
     }).catch((err) => {
         console.log(err);
@@ -117,9 +116,7 @@ function init() {
         if(document.getElementsByClassName("main").length > 0) {   
             main(associations);
         }
-        if(document.getElementsByClassName("sidebar").length > 0) {   
-            sidebar(associations);
-        }
+        
         if(document.getElementsByClassName("header").length > 0) {   
             header(associations, notifications);
             headerStyle();

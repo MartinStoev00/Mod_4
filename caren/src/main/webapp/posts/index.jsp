@@ -37,41 +37,38 @@
 	</div>
 	<div class="sidebar">
 		<ul class="sidebar__content">
-			<li class="sidebar__link" data-link="1.jpg"><i class="far fa-copy"></i>Reports</li>
-			<li class="sidebar__link" data-link="2.jpg"><i class="fas fa-chart-bar"></i>Statistics 1</li>
-			<li class="sidebar__link" data-link="3.jpg"><i class="fas fa-chart-bar"></i>Statistics 2</li>
-			<li class="sidebar__link" data-link="4.jpg"><i class="fas fa-chart-bar"></i>Statistics 3</li>
+			<li class="sidebar__link" data-link="text"><span><i class="far fa-copy"></i>Text</span><i class="fas fa-check"></i></li>
+			<li class="sidebar__link" data-link="height"><span><i class="fas fa-ruler"></i>Height</span><i class="fas fa-check"></i></li>
+			<li class="sidebar__link" data-link="weight"><span><i class="fas fa-weight"></i>Weight</span><i class="fas fa-check"></i></li>
+			<li class="sidebar__link" data-link="blood_pressure"><span><i class="fas fa-tint"></i>Blood Pressure</span><i class="fas fa-check"></i></li>
+			<li class="sidebar__link" data-link="other"><span><i class="fas fa-chart-bar"></i>Other</span><i class="fas fa-check"></i></li>
 		</ul>
+		<div class="sidebar__nav">
+			<button class="sidebar__control">Filter</button>
+			<button class="sidebar__control">People</button>
+		</div>
+		<div class="filters">
+			<input class="filters__search" type="text" placeholder="Title">
+			<button class="filters__filter">Oldest to Newest <i class="fas fa-caret-down"></i></button>
+			<div class="filters__box">
+				<button class="box__btn">Newest to Oldest</button>
+			</div>
+			<div class="filters__date">
+				<div class="date__line">
+					<p class="date__text">From: </p>
+					<input class="date__date" type="date">
+				</div>
+				<div class="date__separate"></div>
+				<div class="date__line">
+					<p class="date__text">To: </p>
+					<input class="date__date" type="date">
+				</div>
+			</div>
+			<button class="filters__reset">Reset</button>
+		</div>
 		<div class="people"></div>
 	</div>
 	<div class="mainPosts">
-		<div class="posts__header">
-			<div class="filters">
-				<div class="filters__line">
-					<p class="filters__labels">Search according to title name: </p>
-					<input class="filters__search" type="text" placeholder="Title">
-				</div>
-				<div class="filters__line">
-					<p class="filters__labels">Filter: </p>
-					<button class="filters__filter">Filter <i class="fas fa-caret-down"></i></button>
-					<p class="filters__labels">Sort: </p>
-					<button class="filters__filter">Sorting <i class="fas fa-caret-down"></i></button>
-					<button class="filters__reset">Reset</button>
-					<div class="filters__box">
-						<p class="box__text">From: </p>
-						<input class="box__date" type="date">
-						<p class="box__text">To: </p>
-						<input class="box__date" type="date">
-						<button class="box__btn">Filter</button>
-					</div>
-					<div class="filters__box">
-						<button class="box__btn">Alphabetically</button>
-						<button class="box__btn">Oldest to Newest</button>
-						<button class="box__btn">Newest to Oldest</button>
-					</div>
-				</div>
-			</div>
-		</div>
 		<div class="posts"></div>
 	</div>
 </body>
