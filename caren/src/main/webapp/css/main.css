@@ -216,7 +216,7 @@
     width: 50%; }
   .sidebar__content {
     margin: calc(5vh) 0 calc(3.5vh);
-    width: 85%;
+    width: 95%;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -224,6 +224,13 @@
     align-content: stretch;
     align-items: flex-start; }
   .sidebar__link {
+    transition: .2s;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-content: stretch;
+    align-items: center;
     border-radius: 0px 30px 30px 0px;
     text-decoration: none;
     color: #444;
@@ -231,6 +238,7 @@
     font-family: 'Arial';
     font-size: 17px; }
     .sidebar__link i {
+      transition: .2s;
       width: 20px;
       padding: 12px 24px; }
   .sidebar .people {
@@ -385,7 +393,8 @@
       text-align: center;
       font-size: 22px;
       font-weight: 600;
-      margin: 10px 0 30px; }
+      margin: 10px 0 30px;
+      text-transform: capitalize; }
     .mainPosts .post__uploader {
       font-weight: 600;
       color: #385898; }

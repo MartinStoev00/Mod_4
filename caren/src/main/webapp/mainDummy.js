@@ -1,6 +1,5 @@
 import {header, headerStyle} from "./scripts/header.js";
 import main from "./scripts/mainPage.js";
-import mainPosts from "./scripts/mainPosts.js";
 import sidebar from "./scripts/sidebar.js";
 
 let items = [
@@ -249,7 +248,7 @@ let posts = [
         date: "2010-12-11 15:29:37",
         img: "1.jpg",
         title: "text",
-        text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, sa sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, saepe quaerat iure doloremque debitis ad. Illum iusto officiis hic voluptate earum, ad.",
+        text: "Jar Jar",
         comments: [
             {
                 name: "Joe Marunga1",
@@ -601,11 +600,8 @@ let posts = [
 ];
 
 function init() {
-    if(document.getElementsByClassName("sidebar").length > 0) {   
-        sidebar(items);
-    }
     if(document.getElementsByClassName("mainPosts").length > 0) {   
-        mainPosts(posts);
+        sidebar(items, posts);
     }
     if(document.getElementsByClassName("main").length > 0) {   
         main(items);

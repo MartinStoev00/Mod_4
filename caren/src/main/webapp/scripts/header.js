@@ -22,6 +22,7 @@ export function header(inputItems, inputNotifications) {
     fillNotifications();
     fillTable("");
 }
+
 notifyIcon.addEventListener("click", () => {
     notifyNumber.style.top = (notifyIconY - 34) + "px";
     setTimeout(() => {
@@ -155,7 +156,7 @@ function fillTable(input) {
         if(input == "") {
             return true;
         } else {
-            return itemsReceived.name.toLowerCase().includes(input) || input.includes(itemsReceived.name.toLowerCase());
+            return item.name.toLowerCase().includes(input) || input.includes(item.name.toLowerCase());
         }
     }).slice(0, 5);
     if(newArr.length == 0) {

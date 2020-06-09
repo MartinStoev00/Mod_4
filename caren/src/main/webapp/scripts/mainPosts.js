@@ -1,14 +1,10 @@
-let mainPostsBlocks, postsMain, heightMain, weightMain, bloodPressureMain, otherMain;
+let mainPostsBlocks, postsMain;
 let headerBlock = document.getElementsByClassName("header")[0];
 let headerH = headerBlock.getBoundingClientRect().height;
 let data, initData;
 if(document.getElementsByClassName("mainPosts").length > 0) {
     mainPostsBlocks = document.getElementsByClassName("mainPosts")[0];
-    postsMain = mainPostsBlocks.getElementsByClassName("text")[0];
-    heightMain =  mainPostsBlocks.getElementsByClassName("height")[0]
-    weightMain =  mainPostsBlocks.getElementsByClassName("weight")[0]
-    bloodPressureMain =  mainPostsBlocks.getElementsByClassName("blood_pressure")[0]
-    otherMain =  mainPostsBlocks.getElementsByClassName("other")[0]
+    postsMain = mainPostsBlocks.getElementsByClassName("posts")[0];
 }
 let numDisplayed = 1;
 let readMore = `<span class="ReadMore">...<span  style="color: rgb(66, 133, 244);cursor:pointer;"> Read More</span></span>`;
@@ -16,13 +12,9 @@ let charLimit = 400;
 
 function display(posts) {
     postsMain.innerHTML = `<div class="post__err">No Results Found</div>`;
-    heightMain.innerHTML = `<div class="post__err">No Results Found</div>`;
-    weightMain.innerHTML = `<div class="post__err">No Results Found</div>`;
-    bloodPressureMain.innerHTML = `<div class="post__err">No Results Found</div>`;
-    otherMain.innerHTML = `<div class="post__err">No Results Found</div>`;
     posts.forEach((post) => {
         let {name, date, img, text, title, comments} = post;
-        document.getElementsByClassName(title)[0].innerHTML += postsTemplate(img, name, date, title, JSON.stringify(text), allCommentsTemplate(comments), numOfCommentsTemplate(comments.length));
+        postsMain.innerHTML += postsTemplate(img, name, date, title, JSON.stringify(text), allCommentsTemplate(comments), numOfCommentsTemplate(comments.length));
     });
 }
 
@@ -50,7 +42,7 @@ function numOfCommentsTemplate(length) {
 
 function postsTemplate(img, name, date, title, text, comments, num) {
     let returned = 
-        `<div class="post">
+        `<div class="post" data-link="${title}">
             <div class="post__header">
                 <div class="post__pic" style="background-image: url(../Pictures/profile_pics/${img});"></div>
                 <div class="post__info">
@@ -58,8 +50,8 @@ function postsTemplate(img, name, date, title, text, comments, num) {
                     <div class="post__date">${date}</div>
                 </div>
             </div>
-            <div class="post__title">${title}</div>
-            <div class="post__text">${text}</div>
+            <div class="post__title">${title.replace("_", " ")}</div>
+            <div class="post__text">${text.replace(/"/g, ``)}</div>
             <div class="comments">
                 ${num}
                 ${comments}
@@ -207,130 +199,8 @@ function fillPosts(posts) {
     });
 }
 
-function filteringSearch() {
-    let errBlock = document.getElementsByClassName("post__err")[0];
-    let searchRecords = document.getElementsByClassName("filters__search")[0];
-    searchRecords.addEventListener("keyup", () => {
-        let present = 0;
-        let curr = searchRecords.value.toLowerCase();
-        let postsBlocks = document.getElementsByClassName("post");
-        Array.prototype.forEach.call(postsBlocks, (post) => {
-            let currTitle = post.getElementsByClassName("post__title")[0].innerHTML.toLowerCase();
-            if(!(currTitle.includes(curr) || curr.includes(currTitle))) {
-                post.style.display = "none";
-            } else{
-                post.style.display = "block";
-                present++;
-            }
-        });
-        if(present == 0) {
-            errBlock.style.display = "block";
-        } else {
-            errBlock.style.display = "none";
-        }
-    });
-}
-
-function filteringFilter(posts) {
-    let dp = false;
-    let filterBtns = document.getElementsByClassName("filters__filter")[0];
-    let filterBox = document.getElementsByClassName("filters__box")[0];
-    let iconCurr = filterBtns.getElementsByClassName("fas")[0]; 
-    let filterBoxTop = filterBtns.getBoundingClientRect().top + filterBtns.getBoundingClientRect().height - 1;
-    filterBox.style.top =  filterBoxTop + "px";
-    filterBox.style.left = filterBtns.getBoundingClientRect().left + "px";
-    filterBox.style.width = (filterBtns.getBoundingClientRect().width - 2) + "px";
-    function on() {
-        iconCurr.className = "fas fa-caret-up";
-        filterBtns.style.borderRadius = "5px 5px 0px 0px";
-        dp = true;
-        filterBtns.style.border = ".5px #ddd solid";
-        filterBtns.style.borderBottom = ".5px #f5f5f5 solid";
-        filterBox.style.display = "block";
-    }
-    function off() {
-        iconCurr.className = "fas fa-caret-down";
-        filterBtns.style.borderRadius = "5px";
-        dp = false;
-        filterBtns.style.border = ".5px #fff solid";
-        filterBox.style.display = "none";
-    }
-    filterBtns.addEventListener("click", () => {
-        if(!dp) {
-            on();
-        } else {
-            off();
-        }
-    });
-    filterBtns.addEventListener("blur", () => {
-        setTimeout(() => {
-            if(document.activeElement.className !=="box__date") {
-                off();
-            }
-        },150);
-    });
-
-    let boxBtns = document.getElementsByClassName("box__btn");
-    // boxBtns[0].addEventListener("click",() => {
-    //     let fromDate = document.getElementsByClassName("box__date")[0].value;
-    //     let toDate = document.getElementsByClassName("box__date")[1].value;
-    //     let newArr = posts;
-    //     if(fromDate.length > 0 ) {
-    //         newArr = posts.filter((post) => {
-    //             let one = new Date(post.date);
-    //             let two = new Date(fromDate);
-    //             return  one >= two;
-    //         });
-    //     }
-    //     if(toDate.length > 0) {
-    //         newArr = newArr.filter((post) => {
-    //             let one = new Date(post.date);
-    //             let two = new Date(toDate);
-    //             return  one <= two;
-    //         });
-    //     }
-    //     data = newArr;
-    //     doEveryThing(data);
-    // });
-    boxBtns[0].addEventListener("click", () => {
-        let newArr = data.sort((a, b) => {
-            if(a.title < b.title) { return -1; }
-            if(a.title > b.title) { return 1; }
-            return 0;
-        });
-        data = newArr;
-        console.log(newArr);
-        doEveryThing(data);
-    });
-    boxBtns[1].addEventListener("click", () => {
-        let newArr = data.sort((a, b) => {
-            let one = new Date(a.date);
-            let two = new Date(b.date)
-            if(one < two) { return -1; }
-            if(one > two) { return 1; }
-            return 0;
-        });
-        data = newArr;
-        console.log(newArr);
-        doEveryThing(data);
-    });
-    boxBtns[2].addEventListener("click", () => {
-        let newArr = data.sort((a, b) => {
-            let one = new Date(a.date);
-            let two = new Date(b.date)
-            if(one > two) { return -1; }
-            if(one < two) { return 1; }
-            return 0;
-        });
-        data = newArr;
-        console.log(newArr);
-        doEveryThing(data);
-    });
-    let btnReset = document.getElementsByClassName("filters__reset")[0];
-    btnReset.addEventListener("click", () => {
-        doEveryThing(initData);
-    });
-}
+mainPostsBlocks.style.marginTop = headerH + "px";
+document.getElementsByTagName("body")[0].style.backgroundColor = "#f5f5f5";
 
 function doEveryThing(posts) {
     display(posts);
@@ -341,9 +211,5 @@ function doEveryThing(posts) {
 export default function mainPosts(something) {
     data = something;
     initData = something;
-    mainPostsBlocks.style.marginTop = headerH + "px";
-    document.getElementsByTagName("body")[0].style.backgroundColor = "#f5f5f5";
     doEveryThing(initData);
-    filteringSearch();
-    filteringFilter(data);
 }
