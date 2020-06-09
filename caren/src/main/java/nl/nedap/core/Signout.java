@@ -20,6 +20,7 @@ public class Signout extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession s = request.getSession();
 		s.setAttribute("aid", null);
+		s.setAttribute("aidType", null);
 		response.sendRedirect("http://localhost:8080/caren/login/");
 	}
 

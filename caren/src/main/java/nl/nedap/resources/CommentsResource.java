@@ -18,36 +18,48 @@ import model.Comment;
 import nl.nedap.utility.CommentVisibility;
 import nl.nedap.utility.DatabaseManager;
 
-@Path("comments/{recordid}")
+@Path("getcomments")
 public class CommentsResource {
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
-	public List<Comment> getComments(@Context HttpServletRequest request, @PathParam("recordid") int recordid) {
-		int aid = (int)request.getAttribute("aid");
-		String aidType = (String)request.getAttribute("aidType");
-		
-		
+	public List<Comment> getComments(@Context HttpServletRequest request) {
 		//The list of comments to be returned at the end.
 		List<Comment> comments = new ArrayList<>();
+				
+				
+		if (request.getSession().getAttribute("aid") == null) {
+			return comments;
+		}
+		
+		
+		int aid = (int)request.getSession().getAttribute("aid");
+		String aidType = (String)request.getSession().getAttribute("aidType");
+		
+		
+		
 		
 		//The query to get all the comments belonging to a post.
-		String query = "SELECT c.cid, c.rid, c.pid, c.visibility, c.date_added, c.text"
-				+ "FROM commends c, records r"
-				+ "WHERE c.rid = r.rid"
-				+ "AND r.rid = ?";
+		String query = "SELECT c.cid, c.rid, c.pid, CONCAT(p.first_name, \" \", p.last_name), c.visibility, c.text, c.date_added, c.parentid" + "\n"
+				+ "FROM comments c, reports r, people p" + "\n"
+				+ "WHERE r.person_id = ?"  + "\n"
+				+ "AND c.rid = r.id"  + "\n"
+				+ "AND c.pid = p.pid;";
 		
-		//Resultset.
-		ResultSet result = DatabaseManager.ReadQuery(query, ""+recordid);
-		
+		//Resultset
+		ResultSet result = DatabaseManager.ReadQuery(query, ""+aid);
+
 		try {
 			while (result.next()) {
-				int cid, rid, pid; String visibility, date_added, text;
+				int cid, rid, pid; String visibility, date_added, text, name;
+				int parent;
 				cid = result.getInt(1);
 				rid = result.getInt(2);
 				pid = result.getInt(3);
-				visibility = result.getString(4);
-				date_added = result.getString(5);
+				name = result.getString(4);
+				visibility = result.getString(5);
 				text = result.getString(6);
+				date_added = result.getString(7);
+				parent = result.getInt(8);
 				
 				boolean addComment = false;
 				
@@ -63,7 +75,7 @@ public class CommentsResource {
 				}
 				
 				if (addComment) {
-					Comment comment = new Comment(cid, rid, pid, visibility, date_added, text);
+					Comment comment = new Comment(cid, rid, pid, name, visibility, text, date_added, parent);
 					comments.add(comment);
 				}
 			}

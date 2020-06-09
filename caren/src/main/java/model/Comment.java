@@ -7,16 +7,21 @@ public class Comment {
 	private int cid;
 	private int rid;
 	private int pid;
+	private String name;
 	private String visibility;
-	private String date_added;
 	private String text;
-	
-	public Comment(int cid, int rid, int pid, String visibility, String date_added, String text) {
+	private String date_added;
+	private int parentid;
+
+	public Comment(int cid, int rid, int pid, String name, String visibility, String text, String date_added, int parentid) {
 		this.rid = rid;
 		this.cid = cid;
+		this.pid = pid;
+		this.name = name;
 		this.visibility = visibility;
-		this.date_added = date_added;
 		this.text = text;
+		this.date_added = date_added;
+		this.parentid = parentid;
 	}
 
 	public int getCid() {
@@ -42,6 +47,14 @@ public class Comment {
 	public void setPid(int pid) {
 		this.pid = pid;
 	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public String getVisibility() {
 		return visibility;
@@ -50,7 +63,6 @@ public class Comment {
 	public void setVisibility(String visibility) {
 		this.visibility = visibility;
 	}
-
 
 	public String getDate_added() {
 		return date_added;
@@ -66,5 +78,13 @@ public class Comment {
 
 	public void setText(String text) {
 		this.text = text;
+	}
+	
+	public int getParentid() {
+		return parentid;
+	}
+
+	public void setParentid(int parentid) {
+		this.parentid = parentid;
 	}
 }
