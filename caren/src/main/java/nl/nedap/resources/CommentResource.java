@@ -20,6 +20,10 @@ public class CommentResource {
 	@PUT
 	@Consumes({MediaType.APPLICATION_JSON})
 	public void addComment(@Context HttpServletRequest request, @PathParam("recordid") int recordid, JAXBElement<Comment> commentR) {
+		//comment: {rid, visibility, text, date_added, parentid}.
 		Comment comment = commentR.getValue();
+		
+		String q = "INSERT INTO "
+				+ "";
 	}
 }

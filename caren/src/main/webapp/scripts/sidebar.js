@@ -1,4 +1,5 @@
 import mainPosts from "./mainPosts.js";
+import getRequest from "../main.js";
 
 let headerBlock = document.getElementsByClassName("header")[0];
 let sidebarBlock = document.getElementsByClassName("sidebar")[0];
@@ -36,10 +37,10 @@ export default function sidebar(items, posts, comments) {
     items.forEach((item) => {
         let {name, img} = item;
         people.innerHTML += 
-            `<a href="${img}.jpg" class="people__container">
+            `<div onclick="console.log('POOP')" class="people__container">
                 <div class="people__pic" style="background-image: url(../Pictures/profile_pics/${img}.jpg);"></div>
                 <div class="people__name">${name}</div>
-            </a>`
+            </div>`
     });
     let ordererdDates = posts.map((post) => {
         let {date} = post;

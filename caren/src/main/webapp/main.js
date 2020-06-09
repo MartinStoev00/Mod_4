@@ -147,7 +147,7 @@ function stylize() {
 window.addEventListener('resize', stylize);
 window.onload = init;
 
-function getrecords(location) {
+export default function getrecords(location) {
     return new Promise(function(resolve, reject){
     var xhr = new XMLHttpRequest();
     xhr.open("GET", location, true); 
