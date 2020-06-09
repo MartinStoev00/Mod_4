@@ -1,6 +1,5 @@
 import {header, headerStyle} from "./scripts/header.js";
 import main from "./scripts/mainPage.js";
-import mainPosts from "./scripts/mainPosts.js";
 import sidebar from "./scripts/sidebar.js";
 
 let items = [
@@ -601,11 +600,8 @@ let posts = [
 ];
 
 function init() {
-    if(document.getElementsByClassName("sidebar").length > 0) {   
-        sidebar(items);
-    }
     if(document.getElementsByClassName("mainPosts").length > 0) {   
-        mainPosts(posts);
+        sidebar(items, posts);
     }
     if(document.getElementsByClassName("main").length > 0) {   
         main(items);
