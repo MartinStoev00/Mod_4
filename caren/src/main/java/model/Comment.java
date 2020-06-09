@@ -4,13 +4,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "comment")
 public class Comment {	
-	private String cid;
-	private String rid;
+	private int cid;
+	private int rid;
+	private int pid;
 	private String visibility;
 	private String date_added;
 	private String text;
 	
-	public Comment(String cid, String rid, String visibility, String date_added, String text) {
+	public Comment(int cid, int rid, int pid, String visibility, String date_added, String text) {
 		this.rid = rid;
 		this.cid = cid;
 		this.visibility = visibility;
@@ -18,20 +19,28 @@ public class Comment {
 		this.text = text;
 	}
 
-	public String getRid() {
-		return rid;
-	}
-
-	public void setRid(String rid) {
-		this.rid = rid;
-	}
-
-	public String getCid() {
+	public int getCid() {
 		return cid;
 	}
 
-	public void setCid(String cid) {
+	public void setCid(int cid) {
 		this.cid = cid;
+	}
+	
+	public int getRid() {
+		return rid;
+	}
+
+	public void setRid(int rid) {
+		this.rid = rid;
+	}
+	
+	public int getPid() {
+		return pid;
+	}
+
+	public void setPid(int pid) {
+		this.pid = pid;
 	}
 
 	public String getVisibility() {
