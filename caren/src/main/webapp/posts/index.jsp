@@ -37,11 +37,11 @@
 	</div>
 	<div class="sidebar">
 		<ul class="sidebar__content">
-			<li class="sidebar__link" data-link="text"><i class="far fa-copy"></i>Text</li>
-			<li class="sidebar__link" data-link="height"><i class="fas fa-ruler"></i>Height</li>
-			<li class="sidebar__link" data-link="weight"><i class="fas fa-weight"></i>Weight</li>
-			<li class="sidebar__link" data-link="blood_pressure"><i class="fas fa-tint"></i>Blood Pressure</li>
-			<li class="sidebar__link" data-link="other"><i class="fas fa-chart-bar"></i>Other</li>
+			<li class="sidebar__link" data-link="text"><span><i class="far fa-copy"></i>Text</span><i class="fas fa-check"></i></li>
+			<li class="sidebar__link" data-link="height"><span><i class="fas fa-ruler"></i>Height</span><i class="fas fa-check"></i></li>
+			<li class="sidebar__link" data-link="weight"><span><i class="fas fa-weight"></i>Weight</span><i class="fas fa-check"></i></li>
+			<li class="sidebar__link" data-link="blood_pressure"><span><i class="fas fa-tint"></i>Blood Pressure</span><i class="fas fa-check"></i></li>
+			<li class="sidebar__link" data-link="other"><span><i class="fas fa-chart-bar"></i>Other</span><i class="fas fa-check"></i></li>
 		</ul>
 		<div class="sidebar__nav">
 			<button class="sidebar__control">Filter</button>
@@ -49,10 +49,8 @@
 		</div>
 		<div class="filters">
 			<input class="filters__search" type="text" placeholder="Title">
-			<button class="filters__filter">Sorting <i class="fas fa-caret-down"></i></button>
+			<button class="filters__filter">Oldest to Newest <i class="fas fa-caret-down"></i></button>
 			<div class="filters__box">
-				<button class="box__btn">Alphabetically</button>
-				<button class="box__btn">Oldest to Newest</button>
 				<button class="box__btn">Newest to Oldest</button>
 			</div>
 			<div class="filters__date">
@@ -71,11 +69,7 @@
 		<div class="people"></div>
 	</div>
 	<div class="mainPosts">
-		<div class="text"></div>
-		<div class="height"></div>
-		<div class="weight"></div>
-		<div class="blood_pressure"></div>
-		<div class="other"></div>
+		<div class="posts"></div>
 	</div>
 </body>
 <script type="module" src="../main.js"></script>
