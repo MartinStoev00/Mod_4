@@ -1,9 +1,15 @@
 export default function sidebar(incoming) {
     let headerBlock = document.getElementsByClassName("header")[0];
-    let headerH = headerBlock.getBoundingClientRect().height;
     let sidebar = document.getElementsByClassName("sidebar")[0];
-	 function fillPeople() {
-        let people = document.getElementsByClassName("people")[0];
+    let people = document.getElementsByClassName("people")[0];
+    let settings = document.getElementsByClassName("filters")[0];
+    let filterBtn = document.getElementsByClassName("sidebar__control")[0];
+    let peopleBtn = document.getElementsByClassName("sidebar__control")[1];
+    let linkForPages = document.getElementsByClassName("sidebar__link");
+    let headerH = headerBlock.getBoundingClientRect().height;
+    let attr = ["text", "height", "weight", "blood_pressure", "other"];
+    let currentpage;
+	function fillPeople() {
         incoming.forEach((item) => {
             let {name, img} = item;
             people.innerHTML += 
@@ -13,12 +19,12 @@ export default function sidebar(incoming) {
                 </a>`
         });
     }
-    let currentpage;
     sidebar.style.top = headerH + "px";
-    let sbc = document.getElementsByClassName("sidebar__content")[0];
-    let t = sbc.getBoundingClientRect().top + sbc.getBoundingClientRect().height;
-    document.getElementsByClassName("people")[0].style.top = "calc(5vh + " + t + "px)";
-    let linkForPages = document.getElementsByClassName("sidebar__link");
+    people.style.height = (filterBtn.getBoundingClientRect().bottom) + "px";
+    attr.forEach((classNameElem) => {
+        document.getElementsByClassName(classNameElem)[0].style.display = "none";
+    });
+    document.getElementsByClassName(attr[0])[0].style.display = "block";
     Array.prototype.forEach.call(linkForPages, (link, index) => {
         let linkL = link.getAttribute("data-link");
         function on() {
@@ -36,6 +42,10 @@ export default function sidebar(incoming) {
         link.addEventListener("click", () => {
             Array.prototype.forEach.call(linkForPages, (linkAll) => off(linkAll));
             on();
+            attr.forEach((classNameElem) => {
+                document.getElementsByClassName(classNameElem)[0].style.display = "none";
+            });
+            document.getElementsByClassName(linkL)[0].style.display = "block";
             console.log(linkL);
         });
         link.addEventListener("mouseover", () => {
@@ -50,4 +60,18 @@ export default function sidebar(incoming) {
         })
     });
     fillPeople();
+    people.style.display = "none";
+    filterBtn.style.backgroundColor = "#fff";
+    filterBtn.addEventListener("click", () => {
+        people.style.display = "none";
+        settings.style.display = "block";
+        filterBtn.style.backgroundColor = "#fff";
+        peopleBtn.style.backgroundColor = "rgb(239, 239, 239)";
+    });
+    peopleBtn.addEventListener("click", () => {
+        people.style.display = "block";
+        settings.style.display = "none";
+        filterBtn.style.backgroundColor = "rgb(239, 239, 239)";
+        peopleBtn.style.backgroundColor = "#fff";
+    });
 }

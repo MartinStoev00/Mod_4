@@ -248,7 +248,7 @@ let posts = [
         name: "John Doe1",
         date: "2010-12-11 15:29:37",
         img: "1.jpg",
-        title: "CA I am Grozen an I know it",
+        title: "text",
         text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, sa sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, saepe quaerat iure doloremque debitis ad. Illum iusto officiis hic voluptate earum, ad.",
         comments: [
             {
@@ -300,7 +300,7 @@ let posts = [
         name: "CJohn Doe1",
         date: "2009-12-11 15:28:37",
         img: "1.jpg",
-        title: "DI am Grozen an I know it",
+        title: "height",
         text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, sa sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, saepe quaerat iure doloremque debitis ad. Illum iusto officiis hic voluptate earum, ad.",
         comments: [
             {
@@ -352,7 +352,7 @@ let posts = [
         name: "DJohn Doe1",
         date: "2011-12-11 15:29:37",
         img: "1.jpg",
-        title: "I am Grozen an I know it",
+        title: "weight",
         text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, sa sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, saepe quaerat iure doloremque debitis ad. Illum iusto officiis hic voluptate earum, ad.",
         comments: [
             {
@@ -404,7 +404,7 @@ let posts = [
         name: "DJohn Doe1",
         date: "2010-12-12 15:27:37",
         img: "1.jpg",
-        title: "I am Grozen an I know it",
+        title: "blood_pressure",
         text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, sa sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, saepe quaerat iure doloremque debitis ad. Illum iusto officiis hic voluptate earum, ad.",
         comments: [
             {
@@ -456,7 +456,7 @@ let posts = [
         name: "EJohn Doe1",
         date: "2010-12-12 15:26:37",
         img: "1.jpg",
-        title: "I am Grozen an I know it",
+        title: "other",
         text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, sa sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, saepe quaerat iure doloremque debitis ad. Illum iusto officiis hic voluptate earum, ad.",
         comments: [
             {
@@ -508,7 +508,7 @@ let posts = [
         name: "EJohn Doe1",
         date: "2008-12-11 15:29:37",
         img: "1.jpg",
-        title: "DI am Grozen an I know it",
+        title: "height",
         text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, sa sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, saepe quaerat iure doloremque debitis ad. Illum iusto officiis hic voluptate earum, ad.",
         comments: [
             {
@@ -559,7 +559,7 @@ let posts = [
     }, {
         name: "BJohn Doe2",
         date: "2011-11-11 13:29:37",
-        title: "BI am not Grozen an I know it",
+        title: "other",
         img: "1.jpg",
         text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, saepe quaerat iure doloremque debitis ad. Illum iusto officiis hic voluptate earum, ad.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, saepe quaerat iure doloremque debitis ad. Illum iusto officiis hic voluptate earum, ad.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt repellendus of    ficiis repudiandae sed, tempora nesciunt, mollitia animi, saepe quaerat iure doloremque debitis ad. Illum iusto officiis hic voluptate earum, ad.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, saepe quaerat iure doloremque debitis ad. Illum iusto officiis hic voluptate earum, ad.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, saepe quaerat iure doloremque debitis ad. Illum iusto officiis hic voluptate earum, ad.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, saepe quaerat iure doloremque debitis ad. Illum iusto officiis hic voluptate earum, ad.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, saepe quaerat iure doloremque debitis ad. Illum iusto officiis hic voluptate earum, ad.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, saepe quaerat iure doloremque debitis ad. Illum iusto officiis hic voluptate earum, ad.",
         comments: [
@@ -601,14 +601,14 @@ let posts = [
 ];
 
 function init() {
+    if(document.getElementsByClassName("sidebar").length > 0) {   
+        sidebar(items);
+    }
     if(document.getElementsByClassName("mainPosts").length > 0) {   
         mainPosts(posts);
     }
     if(document.getElementsByClassName("main").length > 0) {   
         main(items);
-    }
-    if(document.getElementsByClassName("sidebar").length > 0) {   
-        sidebar(items);
     }
     if(document.getElementsByClassName("header").length > 0) {   
         header(items, notifications);

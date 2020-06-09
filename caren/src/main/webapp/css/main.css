@@ -199,8 +199,23 @@
   width: calc(20vw);
   border-right: .5px solid #ddd;
   background-color: #fff; }
+  .sidebar__nav {
+    border-top: .5px solid #ddd;
+    border-bottom: .5px solid #ddd;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-content: stretch;
+    align-items: center; }
+  .sidebar__control {
+    display: inline;
+    border: none;
+    padding: 10px 0;
+    width: 50%; }
   .sidebar__content {
-    margin-top: calc(5vh);
+    margin: calc(5vh) 0 calc(3.5vh);
     width: 85%;
     display: flex;
     flex-direction: column;
@@ -216,13 +231,10 @@
     font-family: 'Arial';
     font-size: 17px; }
     .sidebar__link i {
+      width: 20px;
       padding: 12px 24px; }
   .sidebar .people {
-    border-top: .5px solid #ddd;
-    position: fixed;
     width: calc(20vw);
-    left: 0;
-    bottom: 0;
     overflow-y: auto; }
     .sidebar .people__container {
       display: flex;
@@ -251,16 +263,100 @@
       align-content: stretch;
       align-items: flex-start;
       width: calc(100% - 80px); }
+  .sidebar .filters {
+    padding: 10px;
+    background-color: #fff;
+    width: calc(100% - 20px);
+    font-family: 'Arial';
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-content: space-between;
+    align-items: center; }
+    .sidebar .filters__search {
+      margin-top: 10px;
+      width: calc(100% - 20px);
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      background-color: #f5f5f5; }
+    .sidebar .filters__filter, .sidebar .filters__reset {
+      width: 100%;
+      border-radius: 5px;
+      border: none;
+      padding: 10px 15px;
+      background-color: #f5f5f5;
+      border: .5px #fff solid;
+      position: relative;
+      z-index: 1; }
+      .sidebar .filters__filter .fas, .sidebar .filters__reset .fas {
+        display: inline-block; }
+    .sidebar .filters__filter, .sidebar .filters__search {
+      margin-bottom: 10px; }
+    .sidebar .filters__reset {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      width: calc(100% - 20px); }
+    .sidebar .filters__date {
+      width: calc(100% - 4px);
+      background-color: #eee;
+      border-radius: 5px;
+      border: .5px solid #ccc; }
+      .sidebar .filters__date .date__line {
+        padding: 5px; }
+      .sidebar .filters__date .date__separate {
+        width: 100%;
+        background-color: #ccc;
+        height: .5px; }
+      .sidebar .filters__date .date__text {
+        margin: 5px 15px; }
+      .sidebar .filters__date .date__date {
+        margin: 5px;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        width: calc(100% - 30px); }
+    .sidebar .filters__box {
+      position: fixed;
+      display: none;
+      background-color: #f5f5f5;
+      border-radius: 0px 0px 5px 5px;
+      font-family: 'Arial';
+      border: .5px #ddd solid;
+      border-top: none;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); }
+      .sidebar .filters__box .box__text {
+        margin: 5px 10px 0px; }
+      .sidebar .filters__box .box__date {
+        width: calc(100% - 30px);
+        margin: 5px 10px 10px;
+        border: none;
+        background-color: #fff;
+        padding: 5px;
+        border-radius: 5px; }
+      .sidebar .filters__box .box__btn {
+        width: calc(100% - 20px);
+        margin: 5px 10px 10px;
+        border: none;
+        background-color: #fff;
+        padding: 5px;
+        border-radius: 5px; }
+        .sidebar .filters__box .box__btn:hover {
+          background-color: #fafafa;
+          box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); }
 
 .mainPosts {
   margin-left: calc(20vw);
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
-  justify-content: space-around;
-  align-content: stretch;
+  justify-content: flex-start;
+  align-content: space-between;
   align-items: center;
-  background-color: #f3f3f3; }
+  background-color: #f3f3f3;
+  min-height: 1000px; }
   .mainPosts .post {
     font-family: 'Arial';
     border: 1px #ddd solid;
@@ -407,75 +503,6 @@
         font-weight: 100; }
       .mainPosts .post .comment__viewall {
         cursor: pointer; }
-  .mainPosts .posts {
-    min-height: 1000px; }
-    .mainPosts .posts__header {
-      font-family: 'Arial';
-      width: 100%;
-      background-color: #fff;
-      border-bottom: .5px solid #ddd; }
-      .mainPosts .posts__header .filters {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-content: stretch;
-        align-items: stretch; }
-        .mainPosts .posts__header .filters__line {
-          display: flex;
-          flex-direction: row;
-          flex-wrap: nowrap;
-          justify-content: flex-start;
-          align-content: center;
-          align-items: center;
-          padding: 10px 20px; }
-        .mainPosts .posts__header .filters__search {
-          margin: 0 10px;
-          padding: 10px;
-          border-radius: 5px;
-          border: none;
-          width: 40%;
-          background-color: #f5f5f5; }
-        .mainPosts .posts__header .filters__filter, .mainPosts .posts__header .filters__reset {
-          margin: 0 10px;
-          border-radius: 5px;
-          border: none;
-          padding: 10px 15px;
-          width: 15%;
-          background-color: #f5f5f5;
-          border: .5px #fff solid;
-          position: relative;
-          z-index: 1; }
-          .mainPosts .posts__header .filters__filter .fas, .mainPosts .posts__header .filters__reset .fas {
-            display: inline-block; }
-        .mainPosts .posts__header .filters__box {
-          position: absolute;
-          display: none;
-          background-color: #f5f5f5;
-          border-radius: 0px 0px 5px 5px;
-          font-family: 'Arial';
-          border: .5px #ddd solid;
-          border-top: none;
-          box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); }
-          .mainPosts .posts__header .filters__box .box__text {
-            margin: 5px 10px 0px; }
-          .mainPosts .posts__header .filters__box .box__date {
-            width: calc(100% - 30px);
-            margin: 5px 10px 10px;
-            border: none;
-            background-color: #fff;
-            padding: 5px;
-            border-radius: 5px; }
-          .mainPosts .posts__header .filters__box .box__btn {
-            width: calc(100% - 20px);
-            margin: 5px 10px 10px;
-            border: none;
-            background-color: #fff;
-            padding: 5px;
-            border-radius: 5px; }
-            .mainPosts .posts__header .filters__box .box__btn:hover {
-              background-color: #fafafa;
-              box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); }
 
 .main {
   padding: 50px;
