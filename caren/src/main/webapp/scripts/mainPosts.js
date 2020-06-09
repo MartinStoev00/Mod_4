@@ -51,7 +51,7 @@ function postsTemplate(img, name, date, title, text, comments, num) {
                 </div>
             </div>
             <div class="post__title">${title.replace("_", " ")}</div>
-            <div class="post__text">${text}</div>
+            <div class="post__text">${text.replace(/"/g, ``)}</div>
             <div class="comments">
                 ${num}
                 ${comments}

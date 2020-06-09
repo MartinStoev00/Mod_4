@@ -248,7 +248,7 @@ let posts = [
         date: "2010-12-11 15:29:37",
         img: "1.jpg",
         title: "text",
-        text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, sa sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, saepe quaerat iure doloremque debitis ad. Illum iusto officiis hic voluptate earum, ad.",
+        text: "Jar Jar",
         comments: [
             {
                 name: "Joe Marunga1",
