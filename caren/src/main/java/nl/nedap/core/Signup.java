@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import nl.nedap.utility.DatabaseManager;
+
 /**
  * Servlet implementation class Signup
  */
@@ -128,9 +130,19 @@ public class Signup extends HttpServlet {
 				out.println(docType + "<HTML> <body>Account created.</body> </HTML>");
 				
 				//Make session
+				String pidQ = "SELECT p.pid"
+						+ "FROM people p, accounts a"
+						+ "WHERE p.aid = a.aid"
+						+ "AND p.aid = ?";
+				
+				ResultSet rsForpid = DatabaseManager.ReadQuery(pidQ, ""+aid);
+				rsForpid.next();
+				int pid = rsForpid.getInt(1);
+				
 				HttpSession session = request.getSession();
 				session.setAttribute("aid", aid);
 				session.setAttribute("aidType", "client");
+				session.setAttribute("aid", pid);
 				
 				//Redirect to posts page
 				response.sendRedirect("http://localhost:8080/caren/posts/");

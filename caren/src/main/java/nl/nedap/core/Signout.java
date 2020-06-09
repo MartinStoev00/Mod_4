@@ -21,6 +21,7 @@ public class Signout extends HttpServlet {
 		HttpSession s = request.getSession();
 		s.setAttribute("aid", null);
 		s.setAttribute("aidType", null);
+		s.setAttribute("pid", null);
 		response.sendRedirect("http://localhost:8080/caren/login/");
 	}
 

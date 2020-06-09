@@ -111,7 +111,7 @@ function init() {
         associations = JSON.parse(data);
         getrecords("http://localhost:8080/caren/rest/getrecords/0").then((data) => {
             posts = JSON.parse(data);
-            getrecords("http://localhost:8080/caren/rest/getcomments").then((data) => {
+            getrecords("http://localhost:8080/caren/rest/getcomments/0").then((data) => {
                 comments = JSON.parse(data);
                 console.log(comments)
                 if(document.getElementsByClassName("sidebar").length > 0) {   
