@@ -77,18 +77,18 @@ function allCommentsTemplate(comments) {
         return 0;
     });
     let filteredSortedComments = sortedComments.filter((comment) => {
-        return comment.parent == 0;
+        return comment.parentid == 0;
     })
     let resultedComments = [];
-    filteredSortedComments.forEach((commentParent) => {
-        resultedComments.push(commentParent);
+    filteredSortedComments.forEach((commentparentid) => {
+        resultedComments.push(commentparentid);
         sortedComments.forEach((candidateChildComment) => {
-            if(commentParent.cid == candidateChildComment.parent) {
+            if(commentparentid.cid == candidateChildComment.parentid) {
                 resultedComments.push(candidateChildComment);
             }
         })
     })
-    console.log(resultedComments);
+    
     resultedComments.forEach((comment, index) => {
         if(index < numDisplayed) {
             commentsText += commentTemplate(comment);
@@ -98,8 +98,8 @@ function allCommentsTemplate(comments) {
 }
 
 function commentTemplate(comment) {
-    let {name, pid, text, date_added, parent} = comment;
-    let state = parent == 0 ? "" : "comment__response";
+    let {name, pid, text, date_added, parentid} = comment;
+    let state = parentid == 0 ? "" : "comment__response";
     let returned = 
         `<div class="comment ${state}">
             <div class="comment__pic" style="background-image: url(../Pictures/profile_pics/${pid}.jpg);"></div>
