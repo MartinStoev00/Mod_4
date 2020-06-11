@@ -111,4 +111,23 @@ public static void updateQuery(String q, String ... vars) {
 		
 		return false;
 	}
+
+	public static boolean isBeingCareForBy(int loggedpid, int pid) {
+		String q = "SELECT a.aid" + "\n"
+				+ "FROM accounts a, care_providers p, care_providers_people c" + "\n"
+				+ "WHERE c.care_provider_id = ? AND c.person_id = ?";
+		
+		ResultSet r = ReadQuery(q, ""+pid, ""+loggedpid);
+		try {
+			if (r.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return false;
+	}
 }

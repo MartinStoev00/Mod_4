@@ -28,6 +28,7 @@ function display(posts, comments) {
 }
 
 function postsTemplate(img, name, date, title, text, comments, num, rid) {
+	console.log(comments);
     let returned = 
         `<div class="post" data-link="${title}" data-id="${rid}">
             <div class="post__header">
@@ -111,19 +112,36 @@ function allCommentsTemplate(comments) {
 function commentTemplate(comment) {
     let {name, pid, text, date_added, parentid, visibility, cid} = comment;
     let state = parentid == 0 ? "" : "comment__response";
-    let returned = 
-        `<div class="comment ${state}" data-cid="${cid}">
-            <div class="comment__pic" style="background-image: url(../Pictures/profile_pics/${pid}.jpg);"></div>
-            <div class="comment__wrapper">
-                <div class="comment__text"><span style="color: rgb(56, 88, 152);font-weight: 600;">${name} </span>${text}</div>
-                <div class="comment__date">
-                	<span style="color: blue; text-decoration: underline; margin-right: 15px;">Reply</span>
-                	<span>${date_added}</span>
-                	<i class="fas fa-circle" style="margin: 5px; font-size: 5px;padding:5px;"></i>
-                	<span style="text-transform: capitalize;">${visibility}</span>
+    let replyButton = '<span style="color: blue; text-decoration: underline; margin-right: 15px;">Reply</span>'
+    	let returned;
+    if (parentid != 0) {
+    	returned = 
+            `<div class="comment ${state}" data-cid="${cid}">
+                <div class="comment__pic" style="background-image: url(../Pictures/profile_pics/${pid}.jpg);"></div>
+                <div class="comment__wrapper">
+                    <div class="comment__text"><span style="color: rgb(56, 88, 152);font-weight: 600;">${name} </span>${text}</div>
+                    <div class="comment__date">
+                    	<span>${date_added}</span>
+                    	<i class="fas fa-circle" style="margin: 5px; font-size: 5px;padding:5px;"></i>
+                    	<span style="text-transform: capitalize;">${visibility}</span>
+                    </div>
                 </div>
-            </div>
-        </div>`
+            </div>`
+    } else {
+    	returned = 
+            `<div class="comment ${state}" data-cid="${cid}">
+                <div class="comment__pic" style="background-image: url(../Pictures/profile_pics/${pid}.jpg);"></div>
+                <div class="comment__wrapper">
+                    <div class="comment__text"><span style="color: rgb(56, 88, 152);font-weight: 600;">${name} </span>${text}</div>
+                    <div class="comment__date">
+                    	${replyButton}
+                    	<span>${date_added}</span>
+                    	<i class="fas fa-circle" style="margin: 5px; font-size: 5px;padding:5px;"></i>
+                    	<span style="text-transform: capitalize;">${visibility}</span>
+                    </div>
+                </div>
+            </div>`
+    }
     return returned;
 }
 

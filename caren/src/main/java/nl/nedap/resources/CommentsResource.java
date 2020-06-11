@@ -70,7 +70,7 @@ public class CommentsResource {
 					}
 				} else if (aid == pid) {
 					addComment = true;
-				} else if (DatabaseManager.IsAssociate(pid, loggedpid) && (visibility.equals(CommentVisibility.PUBLIC))) {
+				} else if ((DatabaseManager.IsAssociate(pid, loggedpid) || DatabaseManager.isBeingCareForBy(loggedpid, pid)) && (visibility.equals(CommentVisibility.PUBLIC))) {
 					addComment = true;
 				} else {
 					
