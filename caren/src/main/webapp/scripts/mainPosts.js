@@ -1,3 +1,5 @@
+import {putcomment} from "../main.js";
+
 let mainPostsBlocks, postsMain;
 let headerBlock = document.getElementsByClassName("header")[0];
 let headerH = headerBlock.getBoundingClientRect().height;
@@ -20,13 +22,13 @@ function display(posts, comments) {
                 dataAboutComments.push(comment);
             }
         })
-        postsMain.innerHTML += postsTemplate(img, name, date, title, JSON.stringify(text), allCommentsTemplate(dataAboutComments), numOfCommentsTemplate(dataAboutComments.length));
+        postsMain.innerHTML += postsTemplate(img, name, date, title, JSON.stringify(text), allCommentsTemplate(dataAboutComments), numOfCommentsTemplate(dataAboutComments.length), postID);
     });
 }
 
-function postsTemplate(img, name, date, title, text, comments, num) {
+function postsTemplate(img, name, date, title, text, comments, num, rid) {
     let returned = 
-        `<div class="post" data-link="${title}">
+        `<div class="post" data-link="${title}" data-id="${rid}">
             <div class="post__header">
                 <div class="post__pic" style="background-image: url(../Pictures/profile_pics/${img}.jpg);"></div>
                 <div class="post__info">
@@ -113,6 +115,7 @@ function commentTemplate(comment) {
     return returned;
 }
 
+
 function addExpand() {
     let posts = document.getElementsByClassName("post");
     Array.prototype.forEach.call(posts, (post) => {
@@ -180,7 +183,39 @@ function addExpand() {
         });
         inputSend.addEventListener("click", () => {
             if(inputSelected.value.length > 0) {
-
+            	
+            	function normalize(input){
+            		if (input.length == 1) {
+            			return "0"+input;
+            		}
+            		return input;
+            	}
+            	
+            	let idINeedToSendTo = post.getAttribute("data-id");
+            	let contentINeedToSendTo = inputSelected.value;
+            	let visibilityINeedToSendTo = visibility.value;
+            	
+            	var today = new Date();
+            	var year = today.getFullYear();
+            	var month = today.getMonth()+1;
+            	var day = today.getDate();
+            	var hour = today.getHours();
+            	var minute = today.getMinutes();
+            	var second = today.getSeconds();
+            	var date = year+'-'+normalize(""+month)+'-'+normalize(""+day)+ ' ' + normalize(""+hour) + ":" + normalize(""+minute) + ":" + normalize(""+second);
+            	
+            	console.log(date);
+            	
+            	let objectSent = {
+            			cid: 0,
+            			rid: idINeedToSendTo,
+            			pid: 0,
+            			visibility: visibilityINeedToSendTo,
+            			text: contentINeedToSendTo,
+            			date_added: date
+            	}
+            	
+            	usePutComment(idINeedToSendTo, objectSent);
             }
         });
         let btnsOptions = visOptions.getElementsByClassName("visibility__select");
@@ -241,4 +276,12 @@ export default function mainPosts(something, comments) {
     data = something;
     initData = something;
     doEveryThing(initData, comments);
+}
+
+function usePutComment(input, content){
+	putcomment("http://localhost:8080/caren/rest/comment/"+input, content).then((data) => {
+	    console.log(input);
+	}).catch((err) => {
+	    console.log(err);
+	});
 }
