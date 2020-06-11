@@ -43,6 +43,32 @@ public class DatabaseManager {
 		
 	}
 	
+public static void updateQuery(String q, String ... vars) {
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn = DriverManager.getConnection(URL, DBUSERNAME, DBPASS);
+			
+			//Create prepared statement object
+			PreparedStatement statement = conn.prepareStatement(q);
+			
+			//Set variables
+			if (vars != null && vars.length > 0) {
+				for (int i = 0; i < vars.length; i++) {
+					//Add values to prepared statement
+					statement.setString(i+1, vars[i]);
+				}
+			}
+			
+			//Result set of statement execution
+			statement.executeUpdate();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
 	public static Boolean IsAssociate(int sessionId, int id) {
 		//if (sessionId == id) {return true;}
 		
