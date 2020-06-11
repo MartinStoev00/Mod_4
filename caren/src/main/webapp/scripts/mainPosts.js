@@ -156,11 +156,9 @@ function addExpand() {
             visOptions.style.display = "block";
             visibility.style.borderRadius = "0 14px 0px 0px";
             visibility.style.borderBottom = ".5px solid rgb(251, 251, 251)";
-            visibility.style.top = (inputSelected.offsetTop - .5) + "px";
             dp = true;
         }
         function off() {
-            visibility.style.top = (inputSelected.offsetTop + .5) + "px";
             visOptions.style.display = "none";
             visibility.style.borderRadius = "0 30px 30px 0";
             visibility.style.borderBottom = ".5px solid #ddd";
@@ -189,13 +187,13 @@ function addExpand() {
                 }
             });
         }
-        visibility.style.top = (inputSelected.offsetTop + .5) + "px";
-        visibility.style.left = (inputSelected.getBoundingClientRect().left + inputSelected.getBoundingClientRect().width - visibility.getBoundingClientRect().width - 1) + "px";
-        visibility.style.height = (inputSelected.getBoundingClientRect().height - 2) + "px";
         visOptions.style.top = (visibility.offsetTop + visibility.getBoundingClientRect().height - .5) + "px";
         visOptions.style.left = (visibility.getBoundingClientRect().left) + "px"; 
         visOptions.style.width = (visibility.getBoundingClientRect().width - 1.5) + "px";   
         visibility.addEventListener("click", () => {
+            visOptions.style.top = (visibility.offsetTop + visibility.getBoundingClientRect().height - .5) + "px";
+            visOptions.style.left = (visibility.getBoundingClientRect().left) + "px"; 
+            visOptions.style.width = (visibility.getBoundingClientRect().width - 1.5) + "px"; 
             if(!dp) {
                 on();
             } else {
@@ -207,55 +205,63 @@ function addExpand() {
                 off();
             }, 150);
         });
-        inputSend.addEventListener("click", clickOnSend());
-        function clickOnSend() {
+        inputSend.addEventListener("click", () => {
             if(inputSelected.value.length > 0) {
-                function normalize(input){
-                    if (input.length == 1) {
-                        return "0"+input;
-                    }
-                    return input;
-                }
-                let idINeedToSendTo = post.getAttribute("data-id");
-                let contentINeedToSendTo = inputSelected.value;
-                let visibilityINeedToSendTo = visibility.value;
-                var today = new Date();
-                var year = today.getFullYear();
-                var month = today.getMonth()+1;
-                var day = today.getDate();
-                var hour = today.getHours();
-                var minute = today.getMinutes();
-                var second = today.getSeconds();
-                var date = year+'-'+normalize(""+month)+'-'+normalize(""+day)+ ' ' + normalize(""+hour) + ":" + normalize(""+minute) + ":" + normalize(""+second);
-                
-                let objectSent = {
-                        cid: 0,
-                        rid: idINeedToSendTo,
-                        pid: 0,
-                        visibility: visibilityINeedToSendTo,
-                        text: contentINeedToSendTo,
-                        date_added: date,
-                        parentid: 0
-                }
-                usePutComment(idINeedToSendTo, objectSent);
-                inputSelected.value = "";
-                let commentSectionText = post.getElementsByClassName("comments")[0];
-                let commentThreadsInTheCommentSec = commentSectionText.getElementsByClassName("comment__thread");
-                let yourCommentField = post.getElementsByClassName("comments__urs")[0];
-                let commentSecText = "";
-                Array.prototype.forEach.call( commentThreadsInTheCommentSec, (currentCommentThreadSelected)=>{
-                    if (currentCommentThreadSelected) {
-                        commentSecText += currentCommentThreadSelected.innerHTML;
-                    }
-                })
-                commentSecText += commentTemplate(objectSent);
-                commentSecText += '<div class="comments__urs">' + yourCommentField.innerHTML + '</div>';
-                commentSectionText.innerHTML = commentSecText;
-                let nameIWantToChange = post.getElementsByClassName("comment__text")[post.getElementsByClassName("comment__text").length-1].getElementsByTagName("span")[0];
-                nameIWantToChange.innerHTML = "You ";
-                inputSend.addEventListener("click", clickOnSend());
+            	
+            	function normalize(input){
+            		if (input.length == 1) {
+            			return "0"+input;
+            		}
+            		return input;
+            	}
+            	
+            	let idINeedToSendTo = post.getAttribute("data-id");
+            	let contentINeedToSendTo = inputSelected.value;
+            	let visibilityINeedToSendTo = visibility.value;
+            	
+            	var today = new Date();
+            	var year = today.getFullYear();
+            	var month = today.getMonth()+1;
+            	var day = today.getDate();
+            	var hour = today.getHours();
+            	var minute = today.getMinutes();
+            	var second = today.getSeconds();
+            	var date = year+'-'+normalize(""+month)+'-'+normalize(""+day)+ ' ' + normalize(""+hour) + ":" + normalize(""+minute) + ":" + normalize(""+second);
+            	
+            	let objectSent = {
+            			cid: 0,
+            			rid: idINeedToSendTo,
+            			pid: 0,
+            			visibility: visibilityINeedToSendTo,
+            			text: contentINeedToSendTo,
+            			date_added: date,
+            			parentid: 0
+            	}
+            	
+            	usePutComment(idINeedToSendTo, objectSent);
+            	
+            	inputSelected.value = "";
+            	let commentSectionText = post.getElementsByClassName("comments")[0];
+            	let commentThreadsInTheCommentSec = commentSectionText.getElementsByClassName("comment__thread");
+            	let yourCommentField = post.getElementsByClassName("comments__urs")[0];
+            	let commentSecText = "";
+            	
+            	Array.prototype.forEach.call( commentThreadsInTheCommentSec, (currentCommentThreadSelected)=>{
+            		if (currentCommentThreadSelected) {
+            			commentSecText += currentCommentThreadSelected.innerHTML;
+            		}
+            	})
+            	
+            	commentSecText += commentTemplate(objectSent);
+            	commentSecText += '<div class="comments__urs">' + yourCommentField.innerHTML + '</div>';
+            	commentSectionText.innerHTML = commentSecText;
+            	let nameIWantToChange = post.getElementsByClassName("comment__text")[post.getElementsByClassName("comment__text").length-1].getElementsByTagName("span")[0];
+            	nameIWantToChange.innerHTML = "You ";
+            	
+            	addClickEventExpandReplies();
+            	
             }
-        }
+        });
         let btnsOptions = visOptions.getElementsByClassName("visibility__select");
         Array.prototype.forEach.call(btnsOptions, (btn) => {
             btn.addEventListener("click", () => {
