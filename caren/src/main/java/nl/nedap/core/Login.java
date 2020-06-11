@@ -56,9 +56,10 @@ public class Login extends HttpServlet {
 			if (resultset.next()) { // has an account
 				System.out.println("Account with email: " + email + "; exists.");
 				
-				String accInfo = "SELECT a.aid, a.password" + "\n"
-						+ "FROM accounts a" + "\n"
-						+ "WHERE a.email = ?;";
+				String accInfo = "SELECT a.aid, a.password, p.pid" + "\n"
+						+ "FROM accounts a, people p" + "\n"
+						+ "WHERE a.email = ?" + "\n"
+						+ "AND a.aid = p.aid;";
 				
 				//Result set of statement execution
 				ResultSet passResultset = DatabaseManager.ReadQuery(accInfo, email);
@@ -66,11 +67,13 @@ public class Login extends HttpServlet {
 				
 				int aid = passResultset.getInt(1);
 				String pass = passResultset.getString(2);
+				int pid = passResultset.getInt(3);
 				
 				if (pass.equals(password)) {
 					//Make session
 					HttpSession session = request.getSession();
 					session.setAttribute("aid", aid);
+					session.setAttribute("pid", pid);
 					session.setAttribute("aidType", "client");
 					
 					//Redirect to posts page

@@ -101,29 +101,41 @@ let notifications = [
 function init() {
     let posts;
     let associations;
+    let comments;
+    
+   
 
-    getrecords("http://localhost:8080/caren/rest/getrecords/0").then((data) => {
-        posts = JSON.parse(data);
-        if(document.getElementsByClassName("sidebar").length > 0) {   
-            sidebar(associations, posts);
-        }
-    }).catch((err) => {
-        console.log(err);
-    });
+   
 
     getrecords("http://localhost:8080/caren/rest/getassociations").then((data) => {
         associations = JSON.parse(data);
-        if(document.getElementsByClassName("main").length > 0) {   
-            main(associations);
-        }
-        
-        if(document.getElementsByClassName("header").length > 0) {   
-            header(associations, notifications);
-            headerStyle();
-        }
+        getrecords("http://localhost:8080/caren/rest/getrecords/0").then((data) => {
+            posts = JSON.parse(data);
+            getrecords("http://localhost:8080/caren/rest/getcomments/0").then((data) => {
+                comments = JSON.parse(data);
+                console.log(comments)
+                if(document.getElementsByClassName("sidebar").length > 0) {   
+                    sidebar(associations, posts, comments);
+                }
+                
+                if(document.getElementsByClassName("main").length > 0) {   
+                    main(associations);
+                }
+                
+                if(document.getElementsByClassName("header").length > 0) {   
+                    header(associations, notifications);
+                    headerStyle();
+                }
+            }).catch((err) => {
+                console.log(err);
+            });
+        }).catch((err) => {
+            console.log(err);
+        });
     }).catch((err) => {
         console.log(err);
     });
+   
 }
 
 function stylize() {
@@ -135,14 +147,13 @@ function stylize() {
 window.addEventListener('resize', stylize);
 window.onload = init;
 
-function getrecords(location) {
+export default function getrecords(location) {
     return new Promise(function(resolve, reject){
     var xhr = new XMLHttpRequest();
     xhr.open("GET", location, true); 
     xhr.onload = function(){
         if(this.status >= 200 && this.status < 300){
             resolve(xhr.response);
-            console.log(xhr.responseText);
         } else {
             reject({
                 status: this.status,

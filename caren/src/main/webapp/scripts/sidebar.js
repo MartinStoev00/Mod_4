@@ -1,4 +1,5 @@
 import mainPosts from "./mainPosts.js";
+import getrecords from "../main.js";
 
 let headerBlock = document.getElementsByClassName("header")[0];
 let sidebarBlock = document.getElementsByClassName("sidebar")[0];
@@ -33,14 +34,58 @@ let initData, data, commetsData;
 let startDate, endDate, order = chrono;
 
 export default function sidebar(items, posts, comments) {
+	function gettingTheRaCOfPerson(input) {
+		let posts, comments;
+		getrecords("http://localhost:8080/caren/rest/getrecords/"+input).then((data) => {
+			posts = JSON.parse(data);
+			getrecords("http://localhost:8080/caren/rest/getcomments/"+input).then((data) => {
+				comments = JSON.parse(data);
+				console.log(comments);
+				mainPosts(posts.sort((a, b) => {
+		            let one = new Date(a.date);
+		            let two = new Date(b.date)
+		            if(one < two) { return -1; }
+		            if(one > two) { return 1; }
+		            return 0;
+		        }), comments)
+		        
+		        initData = posts;
+	    		data = initData;
+	    		order = chrono;startDate = ordererdDates.shift();
+	    		fromDate.value = startDate;
+	    		endDate = ordererdDates.pop();
+	    		toDate.value = endDate;
+	    		boxBtns[0].innerHTML = revChrono;
+	    		searchRecords.value = "";
+	    		filterBtns.innerHTML = order + " " + caret;
+	    		Array.prototype.forEach.call(linkForPages, (link) => {
+	    		    link.style.backgroundColor = "rgba(66, 133, 244, 0.1)";
+	    		    link.style.color = "rgb(66, 133, 244)";
+	    		    link.getElementsByClassName("fa-check")[0].style.display = "block";
+	    		})
+		        
+			})
+		})
+	}
+	
+	
     items.forEach((item) => {
-        let {name, img} = item;
+        let {name, img, aid} = item;
         people.innerHTML += 
-            `<a href="${img}.jpg" class="people__container">
+            `<div data-name="${aid}" class="people__container">
                 <div class="people__pic" style="background-image: url(../Pictures/profile_pics/${img}.jpg);"></div>
                 <div class="people__name">${name}</div>
-            </a>`
+            </div>`
     });
+    let peopleiwanttoclickon = document.getElementsByClassName("people__container");
+    Array.prototype.forEach.call(peopleiwanttoclickon, (person) => {
+    	let idiwannagoto = person.getAttribute("data-name");
+    	person.addEventListener("click", () => {
+    		gettingTheRaCOfPerson(idiwannagoto);
+    		
+    	});
+    	
+    })
     let ordererdDates = posts.map((post) => {
         let {date} = post;
         return date.split(" ")[0];
@@ -69,6 +114,8 @@ export default function sidebar(items, posts, comments) {
     sortingBlocks(posts);
     filteringSearch();
 }
+
+
 
 function mainWithComments(inputData) {
     mainPosts(inputData, commetsData)
