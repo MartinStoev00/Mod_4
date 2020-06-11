@@ -548,11 +548,23 @@
         width: calc(100% - 20px);
         background-color: #f2f3f5; }
       .mainPosts .post .comment__date {
-        display: block;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
         color: #aaa;
         margin: 7px 20px 0;
         font-size: 13px;
         font-weight: 100; }
+        .mainPosts .post .comment__date * {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: nowrap;
+          justify-content: center;
+          align-content: center;
+          align-items: center; }
       .mainPosts .post .comment__viewall {
         cursor: pointer; }
 

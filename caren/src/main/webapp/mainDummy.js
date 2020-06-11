@@ -275,7 +275,8 @@ let comments = [
         pid: 1,
         text: "Lorem ue? Quis dolor earum ut, nam  quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.",
         date_added:"2011-12-11",
-        parent: 0
+        parentid: 0,
+        visibility:"private"
     },
     {
         cid: 1,
@@ -284,7 +285,8 @@ let comments = [
         pid: 1,
         text: "Lorem ue",
         date_added:"2011-11-11",
-        parent: 0
+        parentid: 0,
+        visibility:"private"
     },
     {
         cid: 2,
@@ -293,7 +295,8 @@ let comments = [
         pid: 1,
         text: "Lorem ue? Quis dolor earum ut, nam  quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.",
         date_added:"2011-10-11",
-        parent: 0  
+        parentid: 0,
+        visibility:"private"
     },
     {
         cid: 51,
@@ -302,7 +305,7 @@ let comments = [
         pid: 1,
         text: "Lorem ue? Quis dolor earum ut, nam  quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.",
         date_added:"2009-11-14",
-        parent: 1 
+        parentid: 1 
     },
     {
         cid: 3,
@@ -311,7 +314,8 @@ let comments = [
         pid: 1,
         text: "Lorem ue? Quis dolor earum ut, nam  quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.",
         date_added:"2009-11-11",
-        parent: 1 
+        parentid: 1,
+        visibility:"private"
     },
     {
         cid: 4,
@@ -320,7 +324,8 @@ let comments = [
         pid: 1,
         text: "Lorem ue? Quis dolor earum ut, nam  quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.",
         date_added:"2008-10-11",
-        parent: 2 
+        parentid: 2,
+        visibility:"private"
     },
     {
         cid: 5,
@@ -329,7 +334,8 @@ let comments = [
         pid: 1,
         text: "Lorem ue? Quis dolor earum ut, nam  quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.",
         date_added:"2011-11-12",
-        parent: 6 
+        parentid: 6,
+        visibility:"private"
     },
     {
         cid: 6,
@@ -338,7 +344,8 @@ let comments = [
         pid: 1,
         text: "Lorem ue? Quis dolor earum ut, nam  quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.",
         date_added:"2011-9-11",
-        parent: 0 
+        parentid: 0,
+        visibility:"private"
     },
 ]
 

@@ -50,7 +50,7 @@ function postsTemplate(img, name, date, title, text, comments, num, rid) {
                             <div class="visibility__options">
                                 <p class="visibility__select">public</p>
                                 <p class="visibility__select">private</p>
-                                <p class="visibility__select">perosonal</p>
+                                <p class="visibility__select">personal</p>
                             </div>
                         </div>
                         <button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
@@ -92,7 +92,6 @@ function allCommentsTemplate(comments) {
             }
         })
     })
-    
     resultedComments.forEach((comment, index) => {
         if(index < numDisplayed) {
             commentsText += commentTemplate(comment);
@@ -102,14 +101,14 @@ function allCommentsTemplate(comments) {
 }
 
 function commentTemplate(comment) {
-    let {name, pid, text, date_added, parentid} = comment;
+    let {name, pid, text, date_added, parentid, visibility} = comment;
     let state = parentid == 0 ? "" : "comment__response";
     let returned = 
         `<div class="comment ${state}">
             <div class="comment__pic" style="background-image: url(../Pictures/profile_pics/${pid}.jpg);"></div>
             <div class="comment__wrapper">
                 <div class="comment__text"><span style="color: rgb(56, 88, 152);font-weight: 600;">${name} </span>${text}</div>
-                <div class="comment__date">${date_added}</div>
+                <div class="comment__date"><span>${date_added}</span><i class="fas fa-circle" style="margin: 5px; font-size: 5px;padding:5px;"></i><span style="text-transform: capitalize;">${visibility}</span></div>
             </div>
         </div>`
     return returned;

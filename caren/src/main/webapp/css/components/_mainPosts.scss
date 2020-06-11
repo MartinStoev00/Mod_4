@@ -203,7 +203,20 @@
 				background-color: rgb(242, 243, 245);
 			}
 			&__date {
-				display: block;
+				display: flex;
+			    flex-direction: row;
+			    flex-wrap: nowrap;
+			    justify-content: center;
+			    align-content: center;
+			    align-items: center;
+			    * {
+			    	display: flex;
+				    flex-direction: row;
+				    flex-wrap: nowrap;
+				    justify-content: center;
+				    align-content: center;
+				    align-items: center;
+			    }
 				color: #aaa;
 				margin: 7px 20px 0;
 				font-size: 13px;
