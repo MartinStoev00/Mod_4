@@ -13,16 +13,17 @@ let readMore = `<span class="ReadMore">...<span  style="color: rgb(66, 133, 244)
 let charLimit = 400;
 
 function display(posts, comments) {
+	console.log(posts);
     postsMain.innerHTML = `<div class="post__err">No Results Found</div>`;
     posts.forEach((post) => {
-        let {rid: postID, name, date, img, text, title} = post;
+        let {rid: postID, name, date, pid, text, title} = post;
         let dataAboutComments = [];
         comments.forEach((comment) => {
             if(postID == comment.rid) {
                 dataAboutComments.push(comment);
             }
         })
-        postsMain.innerHTML += postsTemplate(img, name, date, title, JSON.stringify(text), allCommentsTemplate(dataAboutComments), numOfCommentsTemplate(dataAboutComments.length), postID);
+        postsMain.innerHTML += postsTemplate(pid, name, date, title, JSON.stringify(text), allCommentsTemplate(dataAboutComments), numOfCommentsTemplate(dataAboutComments.length), postID);
     });
 }
 
@@ -95,7 +96,7 @@ function allCommentsTemplate(comments) {
     resultedComments.forEach((comment, index) => {
         if(index < numDisplayed) {
             if(comment.parentid == 0 && index !== 0) {
-                commentsText += `</div><div comment__thread>`;
+                commentsText += `</div><div class="comment__thread">`;
             }
             commentsText += commentTemplate(comment);
             if(comment.parentid == 0 && index !== resultedComments.length - 1 && resultedComments[index + 1].parentid !== 0) {
@@ -108,14 +109,19 @@ function allCommentsTemplate(comments) {
 }
 
 function commentTemplate(comment) {
-    let {name, pid, text, date_added, parentid, visibility} = comment;
+    let {name, pid, text, date_added, parentid, visibility, cid} = comment;
     let state = parentid == 0 ? "" : "comment__response";
     let returned = 
-        `<div class="comment ${state}">
+        `<div class="comment ${state}" data-cid="${cid}">
             <div class="comment__pic" style="background-image: url(../Pictures/profile_pics/${pid}.jpg);"></div>
             <div class="comment__wrapper">
                 <div class="comment__text"><span style="color: rgb(56, 88, 152);font-weight: 600;">${name} </span>${text}</div>
-                <div class="comment__date"><span>${date_added}</span><i class="fas fa-circle" style="margin: 5px; font-size: 5px;padding:5px;"></i><span style="text-transform: capitalize;">${visibility}</span></div>
+                <div class="comment__date">
+                	<span style="color: blue; text-decoration: underline; margin-right: 15px;">Reply</span>
+                	<span>${date_added}</span>
+                	<i class="fas fa-circle" style="margin: 5px; font-size: 5px;padding:5px;"></i>
+                	<span style="text-transform: capitalize;">${visibility}</span>
+                </div>
             </div>
         </div>`
     return returned;
@@ -125,6 +131,20 @@ function commentTemplate(comment) {
 function addExpand() {
     let posts = document.getElementsByClassName("post");
     Array.prototype.forEach.call(posts, (post) => {
+    	function addClickEventExpandReplies(){
+    		let commentsSectionDownBelow = post.getElementsByClassName("commentthread");
+            Array.prototype.forEach.call(commentsSectionDownBelow, (currentCommentThread) =>  {
+                let showMoreRep = currentCommentThread.getElementsByClassName("commentshowReplies")[0];
+                showMoreRep.addEventListener("click", () => {
+                    let responseComments = currentCommentThread.getElementsByClassName("comment__response");
+                    Array.prototype.forEach.call(responseComments, (responseComment) => {
+                        responseComment.style.display = "flex";
+                    })
+                    showMoreRep.style.display = "none";
+                })
+
+            });
+    	}
         let dp = false;
         let readMoreBlock = post.getElementsByClassName("ReadMore");
         let postTextBlock = post.getElementsByClassName("post__text"); 
@@ -210,18 +230,39 @@ function addExpand() {
             	var second = today.getSeconds();
             	var date = year+'-'+normalize(""+month)+'-'+normalize(""+day)+ ' ' + normalize(""+hour) + ":" + normalize(""+minute) + ":" + normalize(""+second);
             	
-            	console.log(date);
-            	
             	let objectSent = {
             			cid: 0,
             			rid: idINeedToSendTo,
             			pid: 0,
             			visibility: visibilityINeedToSendTo,
             			text: contentINeedToSendTo,
-            			date_added: date
+            			date_added: date,
+            			parentid: 0
             	}
             	
             	usePutComment(idINeedToSendTo, objectSent);
+            	
+            	inputSelected.value = "";
+            	let commentSectionText = post.getElementsByClassName("comments")[0];
+            	let commentThreadsInTheCommentSec = commentSectionText.getElementsByClassName("comment__thread");
+            	let yourCommentField = post.getElementsByClassName("comments__urs")[0];
+            	let commentSecText = "";
+            	
+            	Array.prototype.forEach.call( commentThreadsInTheCommentSec, (currentCommentThreadSelected)=>{
+            		if (currentCommentThreadSelected) {
+            			commentSecText += currentCommentThreadSelected.innerHTML;
+            		}
+            	})
+            	
+            	commentSecText += commentTemplate(objectSent);
+            	commentSecText += '<div class="comments__urs">' + yourCommentField.innerHTML + '</div>';
+            	console.log(commentSectionText.innerHTML);
+            	commentSectionText.innerHTML = commentSecText;
+            	let nameIWantToChange = post.getElementsByClassName("comment__text")[post.getElementsByClassName("comment__text").length-1].getElementsByTagName("span")[0];
+            	nameIWantToChange.innerHTML = "You ";
+            	
+            	addClickEventExpandReplies();
+            	
             }
         });
         let btnsOptions = visOptions.getElementsByClassName("visibility__select");
@@ -230,16 +271,18 @@ function addExpand() {
                 visibility.value = btn.innerHTML;
             });
         });
-        let commentsSectionDownBelow = post.getElementsByClassName("comment__thread");
-        Array.prototype.forEach.call(commentsSectionDownBelow, (currentCommentThread) =>  {
-            let showMoreRep = currentCommentThread.getElementsByClassName("comment__showReplies")[0];
-            showMoreRep.addEventListener("click", () => {
-                let responseComments = currentCommentThread.getElementsByClassName("comment__response");
-                Array.prototype.forEach.call(responseComments, (responseComment) => {
-                    responseComment.style.display = "flex";
+        let AcommentsSectionDownBelow = post.getElementsByClassName("comment__thread");
+        Array.prototype.forEach.call(AcommentsSectionDownBelow, (currentCommentThread) =>  {
+            if (currentCommentThread.getElementsByClassName("comment__showReplies")[0]) {
+            	let AshowMoreRep = currentCommentThread.getElementsByClassName("comment__showReplies")[0];
+                AshowMoreRep.addEventListener("click", () => {
+                    let AresponseComments = currentCommentThread.getElementsByClassName("comment__response");
+                    Array.prototype.forEach.call(AresponseComments, (responseComment) => {
+                        responseComment.style.display = "flex";
+                    })
+                    AshowMoreRep.style.display = "none";
                 })
-                showMoreRep.style.display = "none";
-            })
+            }
 
         });
     });

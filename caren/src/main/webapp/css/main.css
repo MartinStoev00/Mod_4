@@ -550,7 +550,7 @@
       .mainPosts .post .comment__thread .comment__response {
         display: none; }
       .mainPosts .post .comment__text {
-        border-radius: 20px;
+        border-radius: 15px;
         padding: 10px;
         text-align: justify;
         width: calc(100% - 20px);

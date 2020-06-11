@@ -48,7 +48,7 @@
 			<button class="sidebar__control">People</button>
 		</div>
 		<div class="filters">
-			<input class="filters__search" type="text" placeholder="Title">
+			<input class="filters__search" type="text" placeholder="Search Term">
 			<button class="filters__filter">Oldest to Newest <i class="fas fa-caret-down"></i></button>
 			<div class="filters__box">
 				<button class="box__btn">Newest to Oldest</button>

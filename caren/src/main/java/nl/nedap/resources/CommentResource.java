@@ -28,8 +28,6 @@ public class CommentResource {
 		
 		int pid = (int)request.getSession().getAttribute("pid");
 		
-		System.out.println(comment.getRid());
-		
 		String q = "INSERT INTO comments(rid, pid, visibility, text, date_added, parentid)" + "\n"
 				+ "VALUES(?, ?, ?, ?, ?, ?)";
 		

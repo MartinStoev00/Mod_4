@@ -56,7 +56,7 @@ public class Login extends HttpServlet {
 			if (resultset.next()) { // has an account
 				System.out.println("Account with email: " + email + "; exists.");
 				
-				String accInfo = "SELECT a.aid, a.password, p.pid" + "\n"
+				String accInfo = "SELECT a.aid, a.password, p.pid, CONCAT(p.first_name, \" \", p.first_name)" + "\n"
 						+ "FROM accounts a, people p" + "\n"
 						+ "WHERE a.email = ?" + "\n"
 						+ "AND a.aid = p.aid;";
@@ -68,6 +68,7 @@ public class Login extends HttpServlet {
 				int aid = passResultset.getInt(1);
 				String pass = passResultset.getString(2);
 				int pid = passResultset.getInt(3);
+				String name = passResultset.getString(4);
 				
 				if (pass.equals(password)) {
 					//Make session
@@ -75,6 +76,7 @@ public class Login extends HttpServlet {
 					session.setAttribute("aid", aid);
 					session.setAttribute("pid", pid);
 					session.setAttribute("aidType", "client");
+					session.setAttribute("name", name);
 					
 					//Redirect to posts page
 					response.sendRedirect("http://localhost:8080/caren/posts/");
