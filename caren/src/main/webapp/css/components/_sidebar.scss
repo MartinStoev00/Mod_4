@@ -21,6 +21,9 @@
 		border: none;
 		padding: 10px 0;
 		width: 50%;
+		&:hover {
+			cursor: pointer;
+		}
 	}
 	&__content {
 		margin: calc(5vh) 0 calc(3.5vh);
@@ -46,6 +49,9 @@
 		width: calc(100%);
 		font-family: 'Arial';
 		font-size: 17px;
+		&:hover {
+			cursor: pointer;
+		}
 		i {
 			transition: .2s;
 			width: 20px;
@@ -114,6 +120,11 @@
 			border: .5px #fff solid;
 			position: relative;
 			z-index: 1;
+			transition: .2s;
+			&:hover {
+				cursor: pointer;
+				background-color: #d8d8d8;
+			}
 	    	.fas {
 	    		display: inline-block;	
 	    	}
@@ -150,6 +161,11 @@
 					padding: 10px;
 					border-radius: 5px;
 					width: calc(100% - 30px);
+					transition: .2s;
+					&:hover {
+						cursor: pointer;
+						background-color: #f9f9f9;
+					}
 	    		}
 	    	}
 	    }

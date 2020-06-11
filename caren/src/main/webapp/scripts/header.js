@@ -81,7 +81,7 @@ export function headerStyle() {
     let xInput   =  searchInput.getBoundingClientRect().left + 6;
     let inputWHeight =  searchInput.getBoundingClientRect().height;
     let notifyIconX = notifyIcon.getBoundingClientRect().left - 70;
-    let inputWidth =  searchInput.getBoundingClientRect().width - 1;
+    let inputWidth =  searchInput.getBoundingClientRect().width - 1.5;
     let yInput = searchInput.getBoundingClientRect().top + 3.5;
     let notifyIconY = notifyIcon.getBoundingClientRect().top + 50;
     dropdown.style.width = inputWidth + "px";

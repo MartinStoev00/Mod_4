@@ -256,7 +256,7 @@ let posts = [
         date: "2009-12-11 15:28:37",
         img: "1",
         title: "height",
-        text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, sa sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, saepe quaerat iure doloremque debitis ad. Illum iusto officiis hic voluptate earum, ad.",
+        text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, sa sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollajks dhfaksjdhfgkjsdhfgakj sdhfgjsdfgak ddddddddddd dddddddddddd ddddddddddddd ddddddddddd dddddddddddd dddddddddddd dddddddddddd ddddddddd sjdhfgksdjg sjdhgksjdf gksdjfaghskdfjitia animi, saepe quaerat iure doloremque debitis ad. Illum iusto officiis hic voluptate earum, ad.",
     },{
         rid: 1236,
         name: "DJohn Doe1",
@@ -269,11 +269,20 @@ let posts = [
 
 let comments = [
     {
-        cid: 1,
+        cid: 50,
         rid: 1234,
         name: "Joe Marunga1",
         pid: 1,
         text: "Lorem ue? Quis dolor earum ut, nam  quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.",
+        date_added:"2011-12-11",
+        parent: 0
+    },
+    {
+        cid: 1,
+        rid: 1234,
+        name: "Joe Marunga1",
+        pid: 1,
+        text: "Lorem ue",
         date_added:"2011-11-11",
         parent: 0
     },
@@ -285,6 +294,15 @@ let comments = [
         text: "Lorem ue? Quis dolor earum ut, nam  quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.",
         date_added:"2011-10-11",
         parent: 0  
+    },
+    {
+        cid: 51,
+        rid: 1234,
+        name: "Joe Marunga1",
+        pid: 1,
+        text: "Lorem ue? Quis dolor earum ut, nam  quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.",
+        date_added:"2009-11-14",
+        parent: 1 
     },
     {
         cid: 3,
