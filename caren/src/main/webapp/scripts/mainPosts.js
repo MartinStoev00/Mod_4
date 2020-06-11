@@ -42,14 +42,16 @@ function postsTemplate(img, name, date, title, text, comments, num) {
                <div class="comments__urs">
                     <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
                     <div class="comments__urs-form">
-                        <input class="comments__urs-input"type="text" placeholder="Write your comment">
-                        <div class="comments__urs-line"></div>
-                        <input type="text" readonly class="comments__urs-click" value="visible to everyone">
-                        <div class="visibility__options">
-                            <p class="visibility__select">visible to everyone</p>
-                            <p class="visibility__select">visible to caretakers</p>
-                            <p class="visibility__select">visible to patients</p>
+                        <div class="comments__urs-wrapper">
+                            <input class="comments__urs-input"type="text" placeholder="Write your comment">
+                            <input type="text" readonly class="comments__urs-click" value="public">
+                            <div class="visibility__options">
+                                <p class="visibility__select">public</p>
+                                <p class="visibility__select">private</p>
+                                <p class="visibility__select">perosonal</p>
+                            </div>
                         </div>
+                        <button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
                     </div>
                 </div>
             </div>
@@ -114,8 +116,27 @@ function commentTemplate(comment) {
 function addExpand() {
     let posts = document.getElementsByClassName("post");
     Array.prototype.forEach.call(posts, (post) => {
-        let postTextBlock = post.getElementsByClassName("post__text"); 
+        let dp = false;
         let readMoreBlock = post.getElementsByClassName("ReadMore");
+        let postTextBlock = post.getElementsByClassName("post__text"); 
+        let visibility = post.getElementsByClassName("comments__urs-click")[0];
+        let visOptions = post.getElementsByClassName("visibility__options")[0];
+        let inputSelected = post.getElementsByClassName("comments__urs-input")[0];
+        let inputSend = post.getElementsByClassName("comments__urs-send")[0];
+        function on() {
+            visOptions.style.display = "block";
+            visibility.style.borderRadius = "0 14px 0px 0px";
+            visibility.style.borderBottom = ".5px solid rgb(251, 251, 251)";
+            visibility.style.top = (inputSelected.offsetTop - .5) + "px";
+            dp = true;
+        }
+        function off() {
+            visibility.style.top = (inputSelected.offsetTop + .5) + "px";
+            visOptions.style.display = "none";
+            visibility.style.borderRadius = "0 30px 30px 0";
+            visibility.style.borderBottom = ".5px solid #ddd";
+            dp = false;
+        }
         if(postTextBlock.length > 0 && postTextBlock[0].innerHTML.length > 400) {
             let postText = post.getElementsByClassName("post__text")[0];
             let text = postText.innerHTML;
@@ -139,37 +160,12 @@ function addExpand() {
                 }
             });
         }
-        let dp = false;
-        let inputSelected = post.getElementsByClassName("comments__urs-input")[0];
-        let visibility = post.getElementsByClassName("comments__urs-click")[0];
-        let line = post.getElementsByClassName("comments__urs-line")[0];
-        let visOptions = post.getElementsByClassName("visibility__options")[0];
         visibility.style.top = (inputSelected.offsetTop + .5) + "px";
         visibility.style.left = (inputSelected.getBoundingClientRect().left + inputSelected.getBoundingClientRect().width - visibility.getBoundingClientRect().width - 1) + "px";
         visibility.style.height = (inputSelected.getBoundingClientRect().height - 2) + "px";
-        line.style.top = (visibility.offsetTop + 2) + "px";
-        line.style.height = (visibility.getBoundingClientRect().height - 4) + "px";
-        line.style.left = (visibility.getBoundingClientRect().left - 1) + "px";
-        visOptions.style.top = (visibility.offsetTop + visibility.getBoundingClientRect().height) + "px";
+        visOptions.style.top = (visibility.offsetTop + visibility.getBoundingClientRect().height - .5) + "px";
         visOptions.style.left = (visibility.getBoundingClientRect().left) + "px"; 
-        visOptions.style.width = (visibility.getBoundingClientRect().width) + "px";   
-        function on() {
-            visOptions.style.display = "block";
-            line.style.display = "none";
-            visibility.style.borderRadius = "14px 14px 0px 0px";
-            visibility.style.border = ".5px solid #ddd";
-            visibility.style.borderBottom = "none";
-            visibility.style.top = (inputSelected.offsetTop - .5) + "px";
-            dp = true;
-        }
-        function off() {
-            visibility.style.top = (inputSelected.offsetTop + .5) + "px";
-            visOptions.style.display = "none";
-            line.style.display = "block";
-            visibility.style.borderRadius = "30px";
-            visibility.style.border = "none";
-            dp = false;
-        }
+        visOptions.style.width = (visibility.getBoundingClientRect().width - 1.5) + "px";   
         visibility.addEventListener("click", () => {
             if(!dp) {
                 on();
@@ -181,6 +177,11 @@ function addExpand() {
             setTimeout(() => {
                 off();
             }, 150);
+        });
+        inputSend.addEventListener("click", () => {
+            if(inputSelected.value.length > 0) {
+
+            }
         });
         let btnsOptions = visOptions.getElementsByClassName("visibility__select");
         Array.prototype.forEach.call(btnsOptions, (btn) => {
