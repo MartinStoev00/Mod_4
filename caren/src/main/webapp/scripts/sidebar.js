@@ -67,7 +67,9 @@ export default function sidebar(items, posts, comments) {
 			})
 		})
 	}
-	
+
+    fromDate.addEventListener("change", filteringDates);
+    toDate.addEventListener("change", filteringDates);
 	
     items.forEach((item) => {
         let {name, img, aid} = item;
@@ -114,8 +116,6 @@ export default function sidebar(items, posts, comments) {
     sortingBlocks(posts);
     filteringSearch();
 }
-
-
 
 function mainWithComments(inputData) {
     mainPosts(inputData, commetsData)
@@ -187,8 +187,7 @@ peopleBtn.addEventListener("click", () => {
     filterBtn.style.backgroundColor = "rgb(239, 239, 239)";
     peopleBtn.style.backgroundColor = "#fff";
 });
-fromDate.addEventListener("change", filteringDates);
-toDate.addEventListener("change", filteringDates);
+
 
 function filteringDates() {
     startDate = fromDate.value;

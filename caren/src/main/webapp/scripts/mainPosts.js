@@ -8,7 +8,7 @@ if(document.getElementsByClassName("mainPosts").length > 0) {
     mainPostsBlocks = document.getElementsByClassName("mainPosts")[0];
     postsMain = mainPostsBlocks.getElementsByClassName("posts")[0];
 }
-let numDisplayed = 8;
+let numDisplayed = 100;
 let readMore = `<span class="ReadMore">...<span  style="color: rgb(66, 133, 244);cursor:pointer;"> Read More</span></span>`;
 let charLimit = 400;
 
@@ -39,9 +39,9 @@ function postsTemplate(img, name, date, title, text, comments, num, rid) {
             <div class="post__title">${title.replace("_", " ")}</div>
             <div class="post__text">${text.replace(/"/g, ``)}</div>
             <div class="comments">
-                ${num}
+                <!-- num was here-->
                 ${comments}
-               <div class="comments__urs">
+                <div class="comments__urs">
                     <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
                     <div class="comments__urs-form">
                         <div class="comments__urs-wrapper">
@@ -71,7 +71,7 @@ function numOfCommentsTemplate(length) {
 }
 
 function allCommentsTemplate(comments) {
-    let commentsText = ``;
+    let commentsText = `<div class="comment__thread">`;
     let sortedComments = comments;
     sortedComments.sort((a, b) => {
         let one = new Date(a.date_added);
@@ -94,9 +94,16 @@ function allCommentsTemplate(comments) {
     })
     resultedComments.forEach((comment, index) => {
         if(index < numDisplayed) {
+            if(comment.parentid == 0 && index !== 0) {
+                commentsText += `</div><div comment__thread>`;
+            }
             commentsText += commentTemplate(comment);
+            if(comment.parentid == 0 && index !== resultedComments.length - 1 && resultedComments[index + 1].parentid !== 0) {
+                commentsText += `<div class="comment__showReplies">Show Replies</div>`
+            }
         }
     });
+    commentsText += "</div>";
     return commentsText;
 }
 
@@ -222,6 +229,18 @@ function addExpand() {
             btn.addEventListener("click", () => {
                 visibility.value = btn.innerHTML;
             });
+        });
+        let commentsSectionDownBelow = post.getElementsByClassName("comment__thread");
+        Array.prototype.forEach.call(commentsSectionDownBelow, (currentCommentThread) =>  {
+            let showMoreRep = currentCommentThread.getElementsByClassName("comment__showReplies")[0];
+            showMoreRep.addEventListener("click", () => {
+                let responseComments = currentCommentThread.getElementsByClassName("comment__response");
+                Array.prototype.forEach.call(responseComments, (responseComment) => {
+                    responseComment.style.display = "flex";
+                })
+                showMoreRep.style.display = "none";
+            })
+
         });
     });
 }

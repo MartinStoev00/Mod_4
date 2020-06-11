@@ -541,6 +541,14 @@
         justify-content: flex-start;
         align-content: flex-start;
         align-items: flex-end; }
+      .mainPosts .post .comment__showReplies {
+        margin-top: -30px;
+        color: #4285f4;
+        text-decoration: underline;
+        text-align: left;
+        padding: 0 66px 10px; }
+      .mainPosts .post .comment__thread .comment__response {
+        display: none; }
       .mainPosts .post .comment__text {
         border-radius: 20px;
         padding: 10px;

@@ -195,6 +195,18 @@
 			    align-content: flex-start;
 			    align-items: flex-end;
 			}
+			&__showReplies {
+				margin-top: -30px;
+				color: rgb(66,133,244);
+				text-decoration: underline;
+				text-align: left;
+				padding: 0 66px 10px;
+			}
+			&__thread {
+				.comment__response {
+					display: none;
+				}
+			}
 			&__text {
 				border-radius: 20px;
 				padding: 10px;
