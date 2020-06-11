@@ -13,6 +13,10 @@ public class Comment {
 	private String date_added;
 	private int parentid;
 
+	public Comment() {
+		this(0, 0, 0, "PH", "public", "PH", "1999-01-01", 0);
+	}
+	
 	public Comment(int cid, int rid, int pid, String name, String visibility, String text, String date_added, int parentid) {
 		this.rid = rid;
 		this.cid = cid;
