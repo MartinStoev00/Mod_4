@@ -28,6 +28,7 @@ function display(posts, comments) {
 }
 
 function postsTemplate(img, name, date, title, text, comments, num, rid) {
+	console.log(comments);
     let returned = 
         `<div class="post" data-link="${title}" data-id="${rid}">
             <div class="post__header">
@@ -111,19 +112,36 @@ function allCommentsTemplate(comments) {
 function commentTemplate(comment) {
     let {name, pid, text, date_added, parentid, visibility, cid} = comment;
     let state = parentid == 0 ? "" : "comment__response";
-    let returned = 
-        `<div class="comment ${state}" data-cid="${cid}">
-            <div class="comment__pic" style="background-image: url(../Pictures/profile_pics/${pid}.jpg);"></div>
-            <div class="comment__wrapper">
-                <div class="comment__text"><span style="color: rgb(56, 88, 152);font-weight: 600;">${name} </span>${text}</div>
-                <div class="comment__date">
-                	<span style="color: blue; text-decoration: underline; margin-right: 15px;">Reply</span>
-                	<span>${date_added}</span>
-                	<i class="fas fa-circle" style="margin: 5px; font-size: 5px;padding:5px;"></i>
-                	<span style="text-transform: capitalize;">${visibility}</span>
+    let replyButton = '<span style="color: blue; text-decoration: underline; margin-right: 15px;">Reply</span>'
+    	let returned;
+    if (parentid != 0) {
+    	returned = 
+            `<div class="comment ${state}" data-cid="${cid}">
+                <div class="comment__pic" style="background-image: url(../Pictures/profile_pics/${pid}.jpg);"></div>
+                <div class="comment__wrapper">
+                    <div class="comment__text"><span style="color: rgb(56, 88, 152);font-weight: 600;">${name} </span>${text}</div>
+                    <div class="comment__date">
+                    	<span>${date_added}</span>
+                    	<i class="fas fa-circle" style="margin: 5px; font-size: 5px;padding:5px;"></i>
+                    	<span style="text-transform: capitalize;">${visibility}</span>
+                    </div>
                 </div>
-            </div>
-        </div>`
+            </div>`
+    } else {
+    	returned = 
+            `<div class="comment ${state}" data-cid="${cid}">
+                <div class="comment__pic" style="background-image: url(../Pictures/profile_pics/${pid}.jpg);"></div>
+                <div class="comment__wrapper">
+                    <div class="comment__text"><span style="color: rgb(56, 88, 152);font-weight: 600;">${name} </span>${text}</div>
+                    <div class="comment__date">
+                    	${replyButton}
+                    	<span>${date_added}</span>
+                    	<i class="fas fa-circle" style="margin: 5px; font-size: 5px;padding:5px;"></i>
+                    	<span style="text-transform: capitalize;">${visibility}</span>
+                    </div>
+                </div>
+            </div>`
+    }
     return returned;
 }
 
@@ -207,55 +225,63 @@ function addExpand() {
                 off();
             }, 150);
         });
-        inputSend.addEventListener("click", clickOnSend());
-        function clickOnSend() {
+        inputSend.addEventListener("click", () => {
             if(inputSelected.value.length > 0) {
-                function normalize(input){
-                    if (input.length == 1) {
-                        return "0"+input;
-                    }
-                    return input;
-                }
-                let idINeedToSendTo = post.getAttribute("data-id");
-                let contentINeedToSendTo = inputSelected.value;
-                let visibilityINeedToSendTo = visibility.value;
-                var today = new Date();
-                var year = today.getFullYear();
-                var month = today.getMonth()+1;
-                var day = today.getDate();
-                var hour = today.getHours();
-                var minute = today.getMinutes();
-                var second = today.getSeconds();
-                var date = year+'-'+normalize(""+month)+'-'+normalize(""+day)+ ' ' + normalize(""+hour) + ":" + normalize(""+minute) + ":" + normalize(""+second);
-                
-                let objectSent = {
-                        cid: 0,
-                        rid: idINeedToSendTo,
-                        pid: 0,
-                        visibility: visibilityINeedToSendTo,
-                        text: contentINeedToSendTo,
-                        date_added: date,
-                        parentid: 0
-                }
-                usePutComment(idINeedToSendTo, objectSent);
-                inputSelected.value = "";
-                let commentSectionText = post.getElementsByClassName("comments")[0];
-                let commentThreadsInTheCommentSec = commentSectionText.getElementsByClassName("comment__thread");
-                let yourCommentField = post.getElementsByClassName("comments__urs")[0];
-                let commentSecText = "";
-                Array.prototype.forEach.call( commentThreadsInTheCommentSec, (currentCommentThreadSelected)=>{
-                    if (currentCommentThreadSelected) {
-                        commentSecText += currentCommentThreadSelected.innerHTML;
-                    }
-                })
-                commentSecText += commentTemplate(objectSent);
-                commentSecText += '<div class="comments__urs">' + yourCommentField.innerHTML + '</div>';
-                commentSectionText.innerHTML = commentSecText;
-                let nameIWantToChange = post.getElementsByClassName("comment__text")[post.getElementsByClassName("comment__text").length-1].getElementsByTagName("span")[0];
-                nameIWantToChange.innerHTML = "You ";
-                inputSend.addEventListener("click", clickOnSend());
+            	
+            	function normalize(input){
+            		if (input.length == 1) {
+            			return "0"+input;
+            		}
+            		return input;
+            	}
+            	
+            	let idINeedToSendTo = post.getAttribute("data-id");
+            	let contentINeedToSendTo = inputSelected.value;
+            	let visibilityINeedToSendTo = visibility.value;
+            	
+            	var today = new Date();
+            	var year = today.getFullYear();
+            	var month = today.getMonth()+1;
+            	var day = today.getDate();
+            	var hour = today.getHours();
+            	var minute = today.getMinutes();
+            	var second = today.getSeconds();
+            	var date = year+'-'+normalize(""+month)+'-'+normalize(""+day)+ ' ' + normalize(""+hour) + ":" + normalize(""+minute) + ":" + normalize(""+second);
+            	
+            	let objectSent = {
+            			cid: 0,
+            			rid: idINeedToSendTo,
+            			pid: 0,
+            			visibility: visibilityINeedToSendTo,
+            			text: contentINeedToSendTo,
+            			date_added: date,
+            			parentid: 0
+            	}
+            	
+            	usePutComment(idINeedToSendTo, objectSent);
+            	
+            	inputSelected.value = "";
+            	let commentSectionText = post.getElementsByClassName("comments")[0];
+            	let commentThreadsInTheCommentSec = commentSectionText.getElementsByClassName("comment__thread");
+            	let yourCommentField = post.getElementsByClassName("comments__urs")[0];
+            	let commentSecText = "";
+            	
+            	Array.prototype.forEach.call( commentThreadsInTheCommentSec, (currentCommentThreadSelected)=>{
+            		if (currentCommentThreadSelected) {
+            			commentSecText += currentCommentThreadSelected.innerHTML;
+            		}
+            	})
+            	
+            	commentSecText += commentTemplate(objectSent);
+            	commentSecText += '<div class="comments__urs">' + yourCommentField.innerHTML + '</div>';
+            	commentSectionText.innerHTML = commentSecText;
+            	let nameIWantToChange = post.getElementsByClassName("comment__text")[post.getElementsByClassName("comment__text").length-1].getElementsByTagName("span")[0];
+            	nameIWantToChange.innerHTML = "You ";
+            	
+            	addClickEventExpandReplies();
+            	
             }
-        }
+        });
         let btnsOptions = visOptions.getElementsByClassName("visibility__select");
         Array.prototype.forEach.call(btnsOptions, (btn) => {
             btn.addEventListener("click", () => {
