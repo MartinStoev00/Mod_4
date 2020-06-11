@@ -15,7 +15,7 @@ import javax.xml.bind.JAXBElement;
 
 import model.Comment;
 
-@Path("comments/{recordid}")
+@Path("comment/{recordid}")
 public class CommentResource {
 	@PUT
 	@Consumes({MediaType.APPLICATION_JSON})
