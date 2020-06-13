@@ -70,6 +70,9 @@ function inputChanged(){
         save.style.border = "2px solid #434343";
         error.innerHTML = "";
     } else {
+        save.disabled = true;
+        save.style.color = "#b3b3b3";
+        save.style.border = "1px solid #b3b3b3";
         error.innerHTML = "Fields marked with ( * ) must be filled before saving";
     }
 }
