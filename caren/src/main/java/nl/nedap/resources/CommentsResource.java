@@ -18,11 +18,11 @@ import model.Comment;
 import nl.nedap.utility.CommentVisibility;
 import nl.nedap.utility.DatabaseManager;
 
-@Path("getcomments/{destaid}")
+@Path("getcomments/{destpid}")
 public class CommentsResource {
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
-	public List<Comment> getComments(@Context HttpServletRequest request, @PathParam("destaid") int destaid) {
+	public List<Comment> getComments(@Context HttpServletRequest request, @PathParam("destpid") int destpid) {
 		//The list of comments to be returned at the end.
 		List<Comment> comments = new ArrayList<>();
 				
@@ -30,12 +30,12 @@ public class CommentsResource {
 			return comments;
 		}
 		
-		int aid = (int)request.getSession().getAttribute("aid");
+		int loggedaid = (int)request.getSession().getAttribute("aid");
 		int loggedpid = (int)request.getSession().getAttribute("pid");
 		String aidType = (String)request.getSession().getAttribute("aidType");
 		
-		if (destaid == 0) {
-			destaid = aid;
+		if (destpid == 0) {
+			destpid = loggedpid;
 		}
 		
 		//The query to get all the comments belonging to a post.
@@ -46,7 +46,7 @@ public class CommentsResource {
 				+ "AND c.pid = p.pid;";
 		
 		//Resultset
-		ResultSet result = DatabaseManager.ReadQuery(query, ""+destaid);
+		ResultSet result = DatabaseManager.ReadQuery(query, ""+loggedpid);
 
 		try {
 			while (result.next()) {
@@ -65,10 +65,10 @@ public class CommentsResource {
 				
 				// Handling visibility.
 				if (aidType.equals("care_provider") && (visibility == CommentVisibility.PUBLIC || visibility == CommentVisibility.PRIVATE)) {
-					if (DatabaseManager.IsClient(aid, pid)) {
+					if (DatabaseManager.IsClient(loggedaid, pid)) {
 						addComment = true;
 					}
-				} else if (aid == pid) {
+				} else if (loggedaid == pid) {
 					addComment = true;
 				} else if ((DatabaseManager.IsAssociate(pid, loggedpid) || DatabaseManager.isBeingCareForBy(loggedpid, pid)) && (visibility.equals(CommentVisibility.PUBLIC))) {
 					addComment = true;

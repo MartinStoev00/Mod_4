@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import nl.nedap.utility.DatabaseManager;
+import nl.nedap.utility.ForeignCharactersChecker;
 
 /**
  * Servlet implementation class Signup
@@ -28,8 +29,6 @@ public class Signup extends HttpServlet {
 	private static String URL = "jdbc:mysql://localhost:3369/caren";
 	private static String DBUSERNAME = "root";
 	private static String DBPASS = "kze3jBXt7oW4";
-	
-	private static String passwordCharacters = "abdefghijklmnopqrstuvwxyz0123456789ABDEFGHIJKLMNOPQRSTUVWXYZ";
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -38,16 +37,7 @@ public class Signup extends HttpServlet {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	public boolean hasForeignCharacters(String p) {
-		for (int i = 0; i < p.length(); i++) {
-			if (!passwordCharacters.contains(p.substring(i, i+1))) {
-				return true;
-			}
-		}
-		
-		return false;
-	}
+
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -94,10 +84,19 @@ public class Signup extends HttpServlet {
 			} else if (!(email.contains("@") && email.contains("."))) {
 				out.println(docType + "<HTML> <body>Invalid email format: "+email+"</body> </HTML>");
 				return;
-			}  else if (hasForeignCharacters(password)) {
+			}else if (ForeignCharactersChecker.emailHasForeignCharacters(email)) { //sanitisation of email field
+				out.println(docType + "<HTML> <body>Email input fields can only contain the following characters: a->z, A->Z, 0->9, '@', '.', '-', '_' </body> </HTML>");
+				return;
+			}
+			else if (ForeignCharactersChecker.basicHasForeignCharacters(password)) {//sanitisation of password field
 				out.println(docType + "<HTML> <body>Password can only contain the following characters: a->z, A->Z, 0->9 </body> </HTML>");
 				return;
-			} else if (password.length() < 8) {
+			}else if (ForeignCharactersChecker.basicHasForeignCharacters(firstname) || ForeignCharactersChecker.basicHasForeignCharacters(lastname) || 
+					ForeignCharactersChecker.basicHasForeignCharacters(birthdate) || ForeignCharactersChecker.basicHasForeignCharacters(gender)||
+					ForeignCharactersChecker.basicHasForeignCharacters(passwordagn)) {//sanitisation of the rest of the fields
+				out.println(docType + "<HTML> <body>All (non email) input fields can only contain the following characters: a->z, A->Z, 0->9 </body> </HTML>");
+				return;
+			}else if (password.length() < 8) {
 				out.println(docType + "<HTML> <body>Password must at least be 8 characters long</HTML>");
 				return;
 			} else  if (!passwordagn.equals(password)) {
