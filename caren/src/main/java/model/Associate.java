@@ -13,6 +13,7 @@ public class Associate {
 		this.name = name;
 		this.description = description;
 		this.aid = aid;
+		this.pid = pid;
 	}
 
 	public String getName() {
