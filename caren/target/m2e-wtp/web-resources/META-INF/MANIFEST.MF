@@ -1,5 +1,10 @@
 Manifest-Version: 1.0
+<<<<<<< HEAD
 Built-By: wisha
 Build-Jdk: 11.0.5
+=======
+Built-By: Moham
+Build-Jdk: 11.0.7
+>>>>>>> a27a16616ccffb5e8eecd5cca5d90c6e65f1df0d
 Created-By: Maven Integration for Eclipse
 
