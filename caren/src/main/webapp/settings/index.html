@@ -19,7 +19,7 @@
                 <div class="card_title_wrapper">
                     <header class="card_header">
                         Account
-                        <span style="float: right; margin-right: 5%; text-align: center; font-size: 20px;">Welcome: undef</span>
+                        <span id="welcome" style="float: right; margin-right: 5%; text-align: center; font-size: 20px;">Welcome: Loading...</span>
                         <hr style="width: 35%; margin-top: 5px; margin-left: 0;">
                     </header>
                 </div>
@@ -31,33 +31,33 @@
                             <div class="setting_label">
                                 First Name:
                             </div>
-                            <input name="firt_name" class="setting_text_input" id="first_name_input" type="text" placeholder="John" style="background-image: url('icons/user.png'); background-position: 7px 2px; background-repeat: no-repeat; background-size: 6%;">
+                            <input name="firt_name" class="setting_text_input" id="first_name_input" type="text" placeholder="Loading..." style="background-image: url('icons/user.png'); background-position: 7px 2px; background-repeat: no-repeat; background-size: 6%;">
                         </div>
     
                         <div class="setting_field">
                             <div class="setting_label">
                                 Last Name:
                             </div>
-                            <input name="last_name" class="setting_text_input" id="last_name_input" type="text" placeholder="Doe" style="background-image: url('icons/user.png'); background-position: 7px 2px; background-repeat: no-repeat; background-size: 6%;">
+                            <input name="last_name" class="setting_text_input" id="last_name_input" type="text" placeholder="Loading..." style="background-image: url('icons/user.png'); background-position: 7px 2px; background-repeat: no-repeat; background-size: 6%;">
                         </div>
     
                         <div class="setting_field">
                             <div class="setting_label">
                                 E-mail:
                             </div>
-                            <input name="email" class="setting_text_input" id="email_input" type="text" placeholder="PH@mail.com" style="background-image: url('icons/mail.png'); background-position: 5px 0px; background-repeat: no-repeat; background-size: 7%;">
+                            <input name="email" class="setting_text_input" id="email_input" type="text" placeholder="Loading..." style="background-image: url('icons/mail.png'); background-position: 5px 0px; background-repeat: no-repeat; background-size: 7%;">
                         </div>
                         <!-- <hr style="margin-top: 30px; width: 50%;">-->
                         <div class="setting_field">
                             <div class="setting_label">
-                                Password:
+                                New Password:
                             </div>
                             <input name="password" class="setting_text_input"  id="password_input" type="password" placeholder="********" style="background-image: url('icons/lock.png'); background-position: 7px 2px; background-repeat: no-repeat; background-size: 6%;"">
                         </div>
 
                         <div class="setting_field">
                             <div class="setting_label">
-                                Old Password:
+                                Old Password*:
                             </div>
                             <input name="old_password" class="setting_text_input"  id="old_password_input" type="password" placeholder="********" style="background-image: url('icons/lock.png'); background-position: 7px 2px; background-repeat: no-repeat; background-size: 6%;"">
                         </div>
@@ -98,11 +98,14 @@
                                 <i>
                                     <span class="setting_description">Adjusts card view.</span>
                                 </i>
-                                <input name="RPL" type="range" id="RPL_input" min="1" max="7" value="4" class="setting_slider_input" id="myRange">
+                                <input name="rpl" type="range" id="RPL_input" min="1" max="7" value="4" class="setting_slider_input" id="myRange">
                             </span>
                         </div>
                     </div>
-                    <input class="submit_button" type="submit" value="Save" style="margin-right: 5%; margin-top: 5%;">
+                    <input class="submit_button" id="save" type="submit" value="Save" style="margin-right: 5%; margin-top: 5%;">
+                    <div class="settings_error" style="margin-top: 50px;">
+                        <label id="error" style="color: red; float: right; margin-right: 10%; font-family: Trebuchet MS;">Fields marked with ( * ) must be filled before saving</label>
+                    </div>
                 </form>
 
             </div>

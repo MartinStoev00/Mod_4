@@ -56,7 +56,7 @@ public class ProfileSettings {
 		this.password = password;
 	}
 
-	public int isDark_mode() {
+	public int getDark_mode() {
 		return dark_mode;
 	}
 

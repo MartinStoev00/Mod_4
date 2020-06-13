@@ -56,14 +56,14 @@
     float: left;
     font-family: Trebuchet MS;
     padding-left: 5%;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
 }
 
 .setting_text_input{
     font-family: Trebuchet MS;
     float: right;
     border-radius: 10px;
-    margin-right: 5%;
+    margin-right: 4%;
     width:55%;
     height: 25px;
     padding-right: 10px;
