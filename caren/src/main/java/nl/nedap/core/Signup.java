@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import nl.nedap.utility.DatabaseManager;
+import nl.nedap.utility.ForeignCharactersChecker;
 
 /**
  * Servlet implementation class Signup
@@ -28,8 +29,6 @@ public class Signup extends HttpServlet {
 	private static String URL = "jdbc:mysql://localhost:3369/caren";
 	private static String DBUSERNAME = "root";
 	private static String DBPASS = "kze3jBXt7oW4";
-	
-	private static String passwordCharacters = "abdefghijklmnopqrstuvwxyz0123456789ABDEFGHIJKLMNOPQRSTUVWXYZ";
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -38,16 +37,7 @@ public class Signup extends HttpServlet {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	public boolean hasForeignCharacters(String p) {
-		for (int i = 0; i < p.length(); i++) {
-			if (!passwordCharacters.contains(p.substring(i, i+1))) {
-				return true;
-			}
-		}
-		
-		return false;
-	}
+
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -94,7 +84,14 @@ public class Signup extends HttpServlet {
 			} else if (!(email.contains("@") && email.contains("."))) {
 				out.println(docType + "<HTML> <body>Invalid email format: "+email+"</body> </HTML>");
 				return;
-			}  else if (hasForeignCharacters(password)) {
+			} else if (ForeignCharactersChecker.hasForeignCharacters(firstname) || ForeignCharactersChecker.hasForeignCharacters(lastname) || 
+					ForeignCharactersChecker.hasForeignCharacters(birthdate) || ForeignCharactersChecker.hasForeignCharacters(gender)|| 
+					ForeignCharactersChecker.hasForeignCharacters(email) || ForeignCharactersChecker.hasForeignCharacters(passwordagn)) {
+				
+				out.println(docType + "<HTML> <body>All input fields can only contain the following characters: a->z, A->Z, 0->9 </body> </HTML>");
+				return;
+			}
+			else if (ForeignCharactersChecker.hasForeignCharacters(password)) {
 				out.println(docType + "<HTML> <body>Password can only contain the following characters: a->z, A->Z, 0->9 </body> </HTML>");
 				return;
 			} else if (password.length() < 8) {

@@ -1,6 +1,7 @@
 package nl.nedap.core;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import nl.nedap.utility.DatabaseManager;
+import nl.nedap.utility.ForeignCharactersChecker;
 
 /**
  * Servlet implementation class Login
@@ -31,6 +33,7 @@ public class Login extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+    
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -39,8 +42,16 @@ public class Login extends HttpServlet {
 		// TODO Auto-generated method stub
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
+		PrintWriter out = response.getWriter();
+		String docType = "<!DOCTYPE HTML>\n";
 		
 		try {
+			
+			if (ForeignCharactersChecker.hasForeignCharacters(email) || ForeignCharactersChecker.hasForeignCharacters(password)) {
+				out.println(docType + "<HTML> <body>All input fields can only contain the following characters: a->z, A->Z, 0->9 </body> </HTML>");
+				return;
+			}
+			
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn = DriverManager.getConnection(URL, DBUSERNAME, DBPASS);
 			
