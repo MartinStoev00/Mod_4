@@ -29,9 +29,9 @@ let config = {
         datasets: [{
             label: 'Height',
             fill: false,
-            backgroundColor: window.chartColors.red,
+            backgroundColor: window.chartColors.purple,
             borderColor: window.chartColors.blue,
-            data: [12, 19, 3, 19, 12, 1],
+            data: [12, 19, 3, 19, 12, 1]
         }]
     },
     options: {
@@ -53,14 +53,14 @@ let config = {
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: 'Month'
+                    labelString: 'Time'
                 }
             }],
             yAxes: [{
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: 'Value'
+                    labelString: 'Height (cm)'
                 }
             }]
         }
@@ -71,6 +71,13 @@ window.onload = function() {
     var ctx = document.getElementById('canvas').getContext('2d');
     getrecords("http://localhost:8080/caren/rest/getrecords/0").then((data) => {
         let parseData = JSON.parse(data);
+        parseData.sort((a, b) => {
+            let one = new Date(a.date);
+            let two = new Date(b.date)
+            if(one < two) { return -1; }
+            if(one > two) { return 1; }
+            return 0;
+        });
         parseData.forEach((report) => {
             let reportType = report.title;
             if (reportType == "height") {
@@ -105,31 +112,44 @@ window.onload = function() {
                 measurementData.bloodpressure.diastolic.push(diastolicobj);
             }
         });
+        displayGraph('Height');
         window.lineChart.update();
 
     }).catch((err) => {
         console.log(err);
     });
+    
     window.lineChart = new Chart(ctx, config);
-
+    console.log(measurementData);
+    window.lineChart.update();
 };
 
 let chosenbutton = document.getElementsByClassName('buttonMeasurement');
 Array.prototype.forEach.call(chosenbutton, (currentbutton) => {
     let typebutton = currentbutton.getAttribute('data-type');
-    if (measurementData[typebutton.toLowerCase()].length != 0) {
+    //SOMEONE DEAL WITH THIS. Make sure that measurementData is neither empty or undefined. ----------------------READ <<<<<<<<<<<<<<<<<<<<
+    if (typeof measurementData[typebutton.toLowerCase()] != 'undefined' || measurementData[bloodpressure] != 'undefined') {
         currentbutton.addEventListener('click', () => {
-            returnArray(typebutton);
-            config.options.title.text = typebutton;
-            console.log(measurementData[typebutton.toLowerCase()]);
-            config.data.datasets[0].label = typebutton + " ( " + measurementData[typebutton.toLowerCase()][0].unit + " )";
-            window.lineChart.update();
+        	displayGraph(typebutton);
         })
     }
 
 });
 
-
+function displayGraph(typebutton){
+    returnArray(typebutton);
+    config.options.title.text = typebutton;
+    if(typebutton == 'Height' || typebutton == 'Weight'){
+    	config.options.scales.yAxes[0].scaleLabel.labelString = typebutton + " ( " + measurementData[typebutton.toLowerCase()][0].unit + " )";
+        config.data.datasets[0].label = typebutton + " ( " + measurementData[typebutton.toLowerCase()][0].unit + " )";
+    } else {
+    	config.options.scales.yAxes[0].scaleLabel.labelString = typebutton + " ( " + measurementData.bloodpressure.systolic[0].unit + " )";
+        config.data.datasets[0].label = "Systolic" + " ( " + measurementData.bloodpressure.systolic[0].unit + " )";
+        config.data.datasets[1].label = "Diastolic" + " ( " + measurementData.bloodpressure.systolic[0].unit + " )";
+    }
+    
+    window.lineChart.update();
+}
 
 
 var colorNames = Object.keys(window.chartColors);
@@ -172,38 +192,47 @@ function returnArray(fieldname) {
         config.data.labels = date;
         window.lineChart.update();
     } else {
-        console.log(measurementData.bloodpressure);
-        measurementData.bloodpressure.forEach((fieldnamedata) => {
-            arrayvalue1.push(fieldnamedata.systolic);
-            arrayvalue2.push(fieldnamedata.diastolic);
+        measurementData.bloodpressure.systolic.forEach((fieldnamedata) => {
+            arrayvalue1.push(fieldnamedata.value);
             date.push(fieldnamedata.date);
         });
+        measurementData.bloodpressure.diastolic.forEach((fieldnamedata) => {
+            arrayvalue2.push(fieldnamedata.value);
+        });
         config.data.datasets[0].data = arrayvalue1;
-        addDataset(datasetvalue);
+        window.lineChart.update();
+        addDataset(arrayvalue2);
         config.data.labels = date;
-
+        window.lineChart.update();
     }
 
 }
 
-// UNDER CONSTRUCTION
+// UNDER CONSTRUCTION ADD AND REMOVE IS NOT FULLY FUNCTION
 function addDataset(datasetvalue) {
+	console.log(config.data.datasets[1]);	
+	if(config.data.datasets[1]=='Diastolic ( mm Hg )'){
+		removeDataset(config.data.datasets[1]);
+	}
     var newDataset = {
-        label: 'Dataset ' + config.data.datasets.length,
-        backgroundColor: newColor,
-        borderColor: newColor,
-        data: [],
-        fill: false
+    		label: 'Diastolic',
+            fill: false,
+            backgroundColor: window.chartColors.red,
+            borderColor: window.chartColors.orange,
+            data: []
     };
-
     for (var index = 0; index < config.data.labels.length; ++index) {
         newDataset.data.push(datasetvalue);
     }
 
     config.data.datasets.push(newDataset);
-    window.myLine.update();
+    window.lineChart.update();
 }
 
-function removeDataset() {
-
+function removeDataset(chart) {
+	chart.data.labels.pop();
+    chart.data.datasets.forEach((dataset) => {
+        config.data.dataset.data.pop();
+    });
+    window.lineChart.update()
 }
