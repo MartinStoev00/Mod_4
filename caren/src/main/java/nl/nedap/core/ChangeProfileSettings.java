@@ -50,6 +50,10 @@ public class ChangeProfileSettings extends HttpServlet {
 			return;
 		}
 		
+		if (!old_password_input.equals(pass)) {
+			return;
+		}
+		
 		System.out.println("Old pass: " + old_password_input);
 		System.out.println("Current pass: " + pass);
 		
@@ -118,7 +122,6 @@ public class ChangeProfileSettings extends HttpServlet {
 			
 			DatabaseManager.updateQuery(q, rpl_input, ""+loggedaid);
 		}
-		System.out.println(uQ);
 		
 		
 	}
