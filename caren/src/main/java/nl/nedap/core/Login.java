@@ -41,8 +41,7 @@ public class Login extends HttpServlet {
 		String docType = "<!DOCTYPE HTML>\n";
 		
 		try {
-			if (ForeignCharactersChecker.hasForeignCharacters(email) 
-					|| ForeignCharactersChecker.hasForeignCharacters(password)) {
+			if (ForeignCharactersChecker.hasForeignCharacters(password)) {
 				out.println(docType + "<HTML> <body>All input fields can only contain the following characters: a->z, A->Z, 0->9 </body> </HTML>");
 				return;
 			}
