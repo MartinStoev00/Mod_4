@@ -20,7 +20,6 @@ export default function postsTemplate(img, name, date, title, text, comments, nu
                             <input class="comments__urs-input"type="text" placeholder="Write your comment">
                             <input type="text" readonly class="comments__urs-click" value="public">
                             <div class="visibility__options">
-                                <p class="visibility__select">public</p>
                                 <p class="visibility__select">private</p>
                                 <p class="visibility__select">personal</p>
                             </div>

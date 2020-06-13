@@ -72,7 +72,10 @@ function visibilityAndReadMore(post) {
 
     Array.prototype.forEach.call(btnsOptions, (btn) => {
         btn.addEventListener("click", () => {
-            visibility.value = btn.innerHTML;
+            let originalValue = visibility.value;
+            let newValue = btn.innerHTML;
+            visibility.value = newValue;
+            btn.innerHTML = originalValue;
         });
     });
     let AcommentsSectionDownBelow = post.getElementsByClassName("comment__thread");
