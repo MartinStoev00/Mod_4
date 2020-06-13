@@ -27,7 +27,7 @@ public class AssociationsResource {
 		if (request.getSession().getAttribute("aid") != null) {
 			int aid = (int)request.getSession().getAttribute("aid");
 			
-			String query = "SELECT CONCAT(p2.first_name, \" \", p2.last_name), r.type, a.aid" + "\n"
+			String query = "SELECT CONCAT(p2.first_name, \" \", p2.last_name), r.type, a.aid, p.pid" + "\n"
 					+ "FROM people p1, people p2, relationships r, accounts a" + "\n"
 					+ "WHERE r.person_id = p1.pid" + "\n"
 					+ "AND r.related_person_id = p2.pid" + "\n"
@@ -44,8 +44,9 @@ public class AssociationsResource {
 					String name = records.getString(1);
 					String type = records.getString(2);
 					String aaid = records.getString(3);
+					String pid = records.getString(4);
 					
-					Associate associate = new Associate(name, type, aaid);
+					Associate associate = new Associate(name, type, aaid, pid);
 					as.add(associate);
 				}
 				
