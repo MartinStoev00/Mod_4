@@ -84,7 +84,7 @@ export default function sidebar(items, posts, comments) {
     items.forEach((item) => {
         let {name, pid, aid, description} = item;
         people.innerHTML += 
-            `<div data-name="${aid}" class="people__container">
+            `<div data-name="${pid}" class="people__container">
                 <div class="people__pic" style="background-image: url(../Pictures/profile_pics/${pid}.jpg);"></div>
                 <div class="people__name"><span>${name}</span><span style ="${stylingRoles}">${description.replace(",",'<i class="fas fa-circle" style="margin: 5px; font-size: 5px;padding:5px;"></i>').replace("_", " ")}</span></div>
             </div>`
