@@ -62,20 +62,20 @@ export default function sidebar(items, posts, comments) {
 	    		    link.style.backgroundColor = "rgba(66, 133, 244, 0.1)";
 	    		    link.style.color = "rgb(66, 133, 244)";
 	    		    link.getElementsByClassName("fa-check")[0].style.display = "block";
-	    		})
-		        
-			})
-		})
+	    		});		        
+			});
+		});
 	}
 
     fromDate.addEventListener("change", filteringDates);
     toDate.addEventListener("change", filteringDates);
 	
     items.forEach((item) => {
-        let {name, img, aid} = item;
+    	console.log(item)
+        let {name, pid, aid, description} = item;
         people.innerHTML += 
             `<div data-name="${aid}" class="people__container">
-                <div class="people__pic" style="background-image: url(../Pictures/profile_pics/${img}.jpg);"></div>
+                <div class="people__pic" style="background-image: url(../Pictures/profile_pics/${pid}.jpg);"></div>
                 <div class="people__name">${name}</div>
             </div>`
     });
@@ -84,7 +84,6 @@ export default function sidebar(items, posts, comments) {
     	let idiwannagoto = person.getAttribute("data-name");
     	person.addEventListener("click", () => {
     		gettingTheRaCOfPerson(idiwannagoto);
-    		
     	});
     	
     })

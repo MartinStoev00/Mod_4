@@ -1,5 +1,4 @@
 import {header, headerStyle} from "./scripts/header.js";
-import main from "./scripts/mainPage.js";
 import sidebar from "./scripts/sidebar.js";
 
 let notifications = [
@@ -96,35 +95,22 @@ let notifications = [
     }
 ];
 
-
-
 function init() {
+    stylize();
     let posts;
     let associations;
     let comments;
-    
-   
-
-   
-
     getrecords("http://localhost:8080/caren/rest/getassociations").then((data) => {
         associations = JSON.parse(data);
         getrecords("http://localhost:8080/caren/rest/getrecords/0").then((data) => {
             posts = JSON.parse(data);
             getrecords("http://localhost:8080/caren/rest/getcomments/0").then((data) => {
                 comments = JSON.parse(data);
-                
                 if(document.getElementsByClassName("sidebar").length > 0) {   
                     sidebar(associations, posts, comments);
                 }
-                
-                if(document.getElementsByClassName("main").length > 0) {   
-                    main(associations);
-                }
-                
                 if(document.getElementsByClassName("header").length > 0) {   
                     header(associations, notifications);
-                    headerStyle();
                 }
             }).catch((err) => {
                 console.log(err);
@@ -135,7 +121,6 @@ function init() {
     }).catch((err) => {
         console.log(err);
     });
-   
 }
 
 function stylize() {
@@ -171,7 +156,7 @@ export default function getrecords(location) {
   });
 }
 
-export function putcomment(location, content) {
+function putcomment(location, content) {
     return new Promise(function(resolve, reject){
     var xhr = new XMLHttpRequest();
     xhr.open("POST", location, true); 
@@ -194,4 +179,12 @@ export function putcomment(location, content) {
     xhr.setRequestHeader('Content-Type', 'application/json'); 
     xhr.send(JSON.stringify(content));
   });
+}
+
+export function usePutComment(input, content) {
+    putcomment("http://localhost:8080/caren/rest/comment/"+input, content).then((data) => {
+        console.log(input);
+    }).catch((err) => {
+        console.log(err);
+    });
 }

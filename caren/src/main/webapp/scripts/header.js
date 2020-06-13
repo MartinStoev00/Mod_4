@@ -89,10 +89,12 @@ export function headerStyle() {
     dropdown.style.top = (yInput - 3.5 + inputWHeight) + "px";
     tri.style.top = (notifyIconY - 7.5) + "px";
     tri.style.left = (notifyIconX + 84) + "px";
+    notifyNumber.style.display = "block";
     notifyNumber.style.top = (notifyIconY - 41) + "px";
     notifyNumber.style.left = (notifyIconX + 92) + "px";
     notifications.style.top = (notifyIconY) + "px";
     notifications.style.left = (notifyIconX - 240) + "px";
+    searchIcon.style.display = "block";
     searchIcon.style.top = yInput + "px";
     searchIcon.style.left  = xInput + "px";
 }
