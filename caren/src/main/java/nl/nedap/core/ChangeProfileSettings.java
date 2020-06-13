@@ -103,7 +103,7 @@ public class ChangeProfileSettings extends HttpServlet {
 
 		//dark_mode & rpl
 		if (old_password_input.equals(pass)) {
-			int dark_mode_value;
+			int dark_mode_value = 0;
 			if (dark_mode_input == null) {
 				dark_mode_value = 0;
 			} else {
