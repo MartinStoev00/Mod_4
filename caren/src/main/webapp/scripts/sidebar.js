@@ -17,9 +17,22 @@ let fromDate = document.getElementsByClassName("date__date")[0];
 let toDate = document.getElementsByClassName("date__date")[1];
 let btnReset = document.getElementsByClassName("filters__reset")[0];
 let searchRecords = document.getElementsByClassName("filters__search")[0];
+let searchBlockPeople = document.getElementsByClassName("people__search")[0];
+let searchBarPeople = document.getElementsByClassName("people__searchBar")[0];
 let caret = `<i class="fas fa-caret-down"></i>`;
 let chrono = "Oldest to Newest";
 let revChrono = "Newest to Oldest";
+let stylingRoles = ` 
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-content: stretch;
+    align-items: center;
+    text-transform: capitalize;
+    font-size: 12px;
+    color: #999;
+`
 
 sidebarBlock.style.top = headerH + "px";
 let dp = false;
@@ -29,7 +42,6 @@ filterBox.style.width = (filterBtns.getBoundingClientRect().width - 2) + "px";
 filterBox.style.top =  filterBoxTop + "px";
 people.style.height = (filterBtn.getBoundingClientRect().bottom) + "px";
 people.style.display = "none";
-filterBtn.style.backgroundColor = "#fff";
 let initData, data, commetsData;
 let startDate, endDate, order = chrono;
 
@@ -40,7 +52,6 @@ export default function sidebar(items, posts, comments) {
 			posts = JSON.parse(data);
 			getrecords("http://localhost:8080/caren/rest/getcomments/"+input).then((data) => {
 				comments = JSON.parse(data);
-				console.log(comments);
 				mainPosts(posts.sort((a, b) => {
 		            let one = new Date(a.date);
 		            let two = new Date(b.date)
@@ -62,21 +73,20 @@ export default function sidebar(items, posts, comments) {
 	    		    link.style.backgroundColor = "rgba(66, 133, 244, 0.1)";
 	    		    link.style.color = "rgb(66, 133, 244)";
 	    		    link.getElementsByClassName("fa-check")[0].style.display = "block";
-	    		})
-		        
-			})
-		})
+	    		});		        
+			});
+		});
 	}
 
     fromDate.addEventListener("change", filteringDates);
     toDate.addEventListener("change", filteringDates);
-	
+	people.innerHTML = `<div class="people__err">No Results Found</div>`
     items.forEach((item) => {
-        let {name, img, aid} = item;
+        let {name, pid, aid, description} = item;
         people.innerHTML += 
             `<div data-name="${aid}" class="people__container">
-                <div class="people__pic" style="background-image: url(../Pictures/profile_pics/${img}.jpg);"></div>
-                <div class="people__name">${name}</div>
+                <div class="people__pic" style="background-image: url(../Pictures/profile_pics/${pid}.jpg);"></div>
+                <div class="people__name"><span>${name}</span><span style ="${stylingRoles}">${description.replace(",",'<i class="fas fa-circle" style="margin: 5px; font-size: 5px;padding:5px;"></i>').replace("_", " ")}</span></div>
             </div>`
     });
     let peopleiwanttoclickon = document.getElementsByClassName("people__container");
@@ -84,7 +94,6 @@ export default function sidebar(items, posts, comments) {
     	let idiwannagoto = person.getAttribute("data-name");
     	person.addEventListener("click", () => {
     		gettingTheRaCOfPerson(idiwannagoto);
-    		
     	});
     	
     })
@@ -123,20 +132,28 @@ function mainWithComments(inputData) {
 
 Array.prototype.forEach.call(linkForPages, (link, index) => {
     let linkL = link.getAttribute("data-link");
+    let previousState = "selected";
     function on() {
-        link.style.backgroundColor = "rgba(66, 133, 244, 0.1)";
-        link.style.color = "rgb(66, 133, 244)";
+        link.setAttribute("data-state", "selected");
+        previousState = "selected";
         link.getElementsByClassName("fa-check")[0].style.display = "block";
     }
     function off() {
-        link.style.backgroundColor = "#fff";
-        link.style.color = "#444";
+        link.setAttribute("data-state", "deselected");
+        previousState = "deselected";
         link.getElementsByClassName("fa-check")[0].style.display = "none";
+    }
+    function mouseOverButton() {
+        let newState = previousState + "Hover";
+        link.setAttribute("data-state", newState);
+    }
+    function mouseOutButton() {
+        link.setAttribute("data-state", previousState);
     }
     on();
     link.addEventListener("click", () => {
         let postBlockMain = document.getElementsByClassName("post");
-        if(link.style.backgroundColor === "rgba(66, 133, 244, 0.1)") {
+        if(link.getAttribute("data-state") == "selected" || link.getAttribute("data-state") == "selectedHover") {
             off();
             Array.prototype.forEach.call(postBlockMain, (blockPost) => {
                 if(blockPost.getAttribute("data-link") == linkL) {
@@ -164,30 +181,76 @@ Array.prototype.forEach.call(linkForPages, (link, index) => {
             errBlock.style.display = "none";
         }
     });
-    link.addEventListener("mouseover", () => {
-        if(link.style.backgroundColor !== "rgba(66, 133, 244, 0.1)") {
-            link.style.backgroundColor = "#f5f5f5";
-        }
-    });
-    link.addEventListener("mouseout", () => {
-        if(link.style.backgroundColor !== "rgba(66, 133, 244, 0.1)") {
-            off(link);
-        }
-    })
-});
-filterBtn.addEventListener("click", () => {
-    people.style.display = "none";
-    settings.style.display = "block";
-    filterBtn.style.backgroundColor = "#fff";
-    peopleBtn.style.backgroundColor = "rgb(239, 239, 239)";
-});
-peopleBtn.addEventListener("click", () => {
-    people.style.display = "block";
-    settings.style.display = "none";
-    filterBtn.style.backgroundColor = "rgb(239, 239, 239)";
-    peopleBtn.style.backgroundColor = "#fff";
+    link.addEventListener("mouseover", mouseOverButton);
+    link.addEventListener("mouseout", mouseOutButton);
 });
 
+filterBtn.addEventListener("click", () => {
+    filterBtn.setAttribute("data-state", "selected");
+    peopleBtn.setAttribute("data-state", "deselected");
+    searchBlockPeople.style.display = "none";
+    people.style.display = "none";
+    settings.style.display = "block";
+});
+
+filterBtn.addEventListener("mouseover", () => {
+    if(filterBtn.getAttribute("data-state") == "deselected") {
+        filterBtn.setAttribute("data-state", "hovered");
+    }
+});
+
+filterBtn.addEventListener("mouseout", () => {
+    if(peopleBtn.getAttribute("data-state") == "selected") {
+        filterBtn.setAttribute("data-state", "deselected");
+    }
+});
+
+peopleBtn.addEventListener("click", () => {
+    filterBtn.setAttribute("data-state", "deselected");
+    peopleBtn.setAttribute("data-state", "selected");
+    searchBlockPeople.style.display = "block";
+    people.style.display = "block";
+    settings.style.display = "none";
+});
+
+peopleBtn.addEventListener("mouseover", () => {
+    if(peopleBtn.getAttribute("data-state") == "deselected") {
+        peopleBtn.setAttribute("data-state", "hovered");
+    }
+});
+
+peopleBtn.addEventListener("mouseout", () => {
+    if(filterBtn.getAttribute("data-state") == "selected") {
+        peopleBtn.setAttribute("data-state", "deselected");
+    }
+});
+
+searchBarPeople.addEventListener("keyup", () => {
+    let searchText = searchBarPeople.value.toLowerCase();
+    Array.prototype.forEach.call(document.getElementsByClassName("people__container"), (person) => {
+        let personName = person.getElementsByClassName("people__name")[0].getElementsByTagName("span")[0].innerHTML.toLowerCase();
+        let personRole = person.getElementsByClassName("people__name")[0].getElementsByTagName("span")[1].innerHTML.replace(`<i class="fas fa-circle" style="margin: 5px; font-size: 5px;padding:5px;"></i>`, "").toLowerCase()
+        let condition1 = searchText.includes(personName) || personName.includes(searchText);
+        let condition2 = searchText.includes(personRole) || personRole.includes(searchText);
+        if(!(condition1 || condition2)) {
+            person.style.display = "none";
+        } else {
+            person.style.display = "flex";
+        }
+    });
+    let someInThere = false;
+    let peopleErr = document.getElementsByClassName("people__err")[0];
+    Array.prototype.forEach.call(document.getElementsByClassName("people__container"), (person) => {
+        if(person.style.display == "flex") {
+            someInThere = true;
+        }
+    });
+    if(!someInThere) {
+        peopleErr.style.display = "block";
+    } else {
+        peopleErr.style.display = "none";
+    }
+});
 
 function filteringDates() {
     startDate = fromDate.value;

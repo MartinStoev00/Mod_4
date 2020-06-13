@@ -41,8 +41,12 @@ public class Login extends HttpServlet {
 		String docType = "<!DOCTYPE HTML>\n";
 		
 		try {
-			if (ForeignCharactersChecker.hasForeignCharacters(password)) {
-				out.println(docType + "<HTML> <body>All input fields can only contain the following characters: a->z, A->Z, 0->9 </body> </HTML>");
+			if (ForeignCharactersChecker.basicHasForeignCharacters(password)) {//sanitisation for password field
+				out.println(docType + "<HTML> <body>Password input fields can only contain the following characters: a->z, A->Z, 0->9 </body> </HTML>");
+				return;
+			}
+			if (ForeignCharactersChecker.emailHasForeignCharacters(email)) {//sanitisation for email field
+				out.println(docType + "<HTML> <body>Email input fields can only contain the following characters: a->z, A->Z, 0->9, '@', '.', '-', '_' </body> </HTML>");
 				return;
 			}
 			//TODO check if account already exists

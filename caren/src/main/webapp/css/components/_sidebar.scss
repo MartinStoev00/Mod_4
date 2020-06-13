@@ -17,12 +17,26 @@
 	    align-items: center;
 	}
 	&__control {
+		color: #666;
 		display: inline;
 		border: none;
 		padding: 10px 0;
 		width: 50%;
+		transition: .2s;
 		&:hover {
 			cursor: pointer;
+		}
+		&[data-state="selected"] {
+			color: #000;
+			background-color: #fff;
+		}
+		&[data-state="deselected"] {
+			color: #666;
+			background-color: rgb(239, 239, 239);
+		}
+		&[data-state="hovered"] {
+			color: #333;
+			background-color: rgb(245, 245, 245);
 		}
 	}
 	&__content {
@@ -57,10 +71,64 @@
 			width: 20px;
 			padding: 12px 24px;
 		}
+		&[data-state="selected"] {
+			background-color: rgba(66, 133, 244, 0.1);
+			color: rgb(66, 133, 244);
+		}
+		&[data-state="deselected"] {
+			background-color: #fff;
+			color: #444;
+		}
+		&[data-state="selectedHover"] {
+			background-color: rgba(66, 133, 244, 0.2);
+			color: rgb(66, 133, 244);
+		}
+		&[data-state="deselectedHover"] {
+			background-color: #f5f5f5;
+			color: #222;
+		}
 	}
 	.people {
 		width: calc(20vw);
 		overflow-y: auto;
+		transition: .2s;
+		&__err {
+			display: none;
+			padding: 5px 10px;
+			width: calc(100% - 20px);
+			font-family: 'Arial';
+			font-size: 18px;
+			text-align: center;
+			color: #ccc;
+			font-weight: 600;
+		}
+		&__search {
+			display: none;
+			width: 100%;
+		    flex-direction: row;
+		    flex-wrap: nowrap;
+		    justify-content: center;
+		    align-content: stretch;
+		    align-items: center;
+			&Bar {
+				transition: .2s;
+				border: .5px solid #fff;
+				background-color: rgb(231, 231, 231);
+				padding: 10px;
+				background-color: #f5f5f5;
+				width: calc(100% - 41px);
+				margin: 20px 10px 10px;
+				border-radius: 5px;
+				&:hover {
+					cursor: pointer;
+					background-color: rgb(221, 221, 221);
+				}
+				&:focus {
+					background-color: #fff;
+					border: .5px solid rgb(231, 231, 231);
+				}
+			}
+		}
 		&__container {
 			display: flex;
 		    flex-direction: row;
@@ -70,6 +138,10 @@
 		    align-items: stretch;
 			text-decoration: none;
 			color: #000;
+			&:hover {
+				background-color: #f5f5f5;
+				cursor: pointer;
+			}
 		}
 		&__pic {
 			margin: 10px;
@@ -93,6 +165,7 @@
 		}
 	}
 	.filters {
+		transition: .2s;
 		padding: 10px;	
 		background-color: #fff;
 		width: calc(100% - 20px);
@@ -104,12 +177,21 @@
 	    align-content: space-between;
 	    align-items: center;
 	    &__search {
+	    	transition: .2s;
 	    	margin-top: 10px;
 	    	width: calc(100% - 20px);
 		    padding: 10px;
 		    border-radius: 5px;
-		    border: none;
+			border: .5px solid #fff;
 		    background-color: #f5f5f5;
+			&:hover {
+				cursor: pointer;
+				background-color: rgb(221, 221, 221);
+			}
+			&:focus {
+				background-color: #fff;
+				border: .5px solid rgb(231, 231, 231);
+			}
 	    }
 	    &__filter, &__reset {
 	    	width: 100%;

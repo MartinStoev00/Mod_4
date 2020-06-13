@@ -84,17 +84,19 @@ public class Signup extends HttpServlet {
 			} else if (!(email.contains("@") && email.contains("."))) {
 				out.println(docType + "<HTML> <body>Invalid email format: "+email+"</body> </HTML>");
 				return;
-			} else if (ForeignCharactersChecker.hasForeignCharacters(firstname) || ForeignCharactersChecker.hasForeignCharacters(lastname) || 
-					ForeignCharactersChecker.hasForeignCharacters(birthdate) || ForeignCharactersChecker.hasForeignCharacters(gender)|| 
-					ForeignCharactersChecker.hasForeignCharacters(email) || ForeignCharactersChecker.hasForeignCharacters(passwordagn)) {
-				
-				out.println(docType + "<HTML> <body>All input fields can only contain the following characters: a->z, A->Z, 0->9 </body> </HTML>");
+			}else if (ForeignCharactersChecker.emailHasForeignCharacters(email)) { //sanitisation of email field
+				out.println(docType + "<HTML> <body>Email input fields can only contain the following characters: a->z, A->Z, 0->9, '@', '.', '-', '_' </body> </HTML>");
 				return;
 			}
-			else if (ForeignCharactersChecker.hasForeignCharacters(password)) {
+			else if (ForeignCharactersChecker.basicHasForeignCharacters(password)) {//sanitisation of password field
 				out.println(docType + "<HTML> <body>Password can only contain the following characters: a->z, A->Z, 0->9 </body> </HTML>");
 				return;
-			} else if (password.length() < 8) {
+			}else if (ForeignCharactersChecker.basicHasForeignCharacters(firstname) || ForeignCharactersChecker.basicHasForeignCharacters(lastname) || 
+					ForeignCharactersChecker.basicHasForeignCharacters(birthdate) || ForeignCharactersChecker.basicHasForeignCharacters(gender)||
+					ForeignCharactersChecker.basicHasForeignCharacters(passwordagn)) {//sanitisation of the rest of the fields
+				out.println(docType + "<HTML> <body>All (non email) input fields can only contain the following characters: a->z, A->Z, 0->9 </body> </HTML>");
+				return;
+			}else if (password.length() < 8) {
 				out.println(docType + "<HTML> <body>Password must at least be 8 characters long</HTML>");
 				return;
 			} else  if (!passwordagn.equals(password)) {
