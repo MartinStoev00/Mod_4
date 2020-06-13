@@ -19,10 +19,6 @@ import nl.nedap.utility.DatabaseManager;
  */
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	private static String URL = "jdbc:mysql://localhost:3369/caren";
-	private static String DBUSERNAME = "root";
-	private static String DBPASS = "kze3jBXt7oW4";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -41,8 +37,6 @@ public class Login extends HttpServlet {
 		String password = request.getParameter("password");
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn = DriverManager.getConnection(URL, DBUSERNAME, DBPASS);
 			
 			//TODO check if account already exists
 			//The query

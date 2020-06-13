@@ -1,19 +1,15 @@
 import {putcomment} from "../main.js";
 
-let mainPostsBlocks, postsMain;
+let mainPostsBlocks = document.getElementsByClassName("mainPosts")[0]
+let postsMain = mainPostsBlocks.getElementsByClassName("posts")[0];
 let headerBlock = document.getElementsByClassName("header")[0];
 let headerH = headerBlock.getBoundingClientRect().height;
 let data, initData;
-if(document.getElementsByClassName("mainPosts").length > 0) {
-    mainPostsBlocks = document.getElementsByClassName("mainPosts")[0];
-    postsMain = mainPostsBlocks.getElementsByClassName("posts")[0];
-}
+let charLimit = 400;
 let numDisplayed = 100;
 let readMore = `<span class="ReadMore">...<span  style="color: rgb(66, 133, 244);cursor:pointer;"> Read More</span></span>`;
-let charLimit = 400;
 
 function display(posts, comments) {
-	console.log(posts);
     postsMain.innerHTML = `<div class="post__err">No Results Found</div>`;
     posts.forEach((post) => {
         let {rid: postID, name, date, pid, text, title} = post;
@@ -23,12 +19,12 @@ function display(posts, comments) {
                 dataAboutComments.push(comment);
             }
         })
-        postsMain.innerHTML += postsTemplate(pid, name, date, title, JSON.stringify(text), allCommentsTemplate(dataAboutComments), numOfCommentsTemplate(dataAboutComments.length), postID);
+        postsMain.innerHTML += postsTemplate(pid, name, date, title, JSON.stringify(text), allCommentsTemplate(dataAboutComments),
+                                                numOfCommentsTemplate(dataAboutComments.length), postID);
     });
 }
 
 function postsTemplate(img, name, date, title, text, comments, num, rid) {
-	console.log(comments);
     let returned = 
         `<div class="post" data-link="${title}" data-id="${rid}">
             <div class="post__header">
@@ -101,7 +97,8 @@ function allCommentsTemplate(comments) {
             }
             commentsText += commentTemplate(comment);
             if(comment.parentid == 0 && index !== resultedComments.length - 1 && resultedComments[index + 1].parentid !== 0) {
-                commentsText += `<div class="comment__showReplies">Show Replies</div>`
+                
+                commentsText += `<div class="comment__showReplies" onclick="joe()">Show Replies</div>`
             }
         }
     });
@@ -112,7 +109,7 @@ function allCommentsTemplate(comments) {
 function commentTemplate(comment) {
     let {name, pid, text, date_added, parentid, visibility, cid} = comment;
     let state = parentid == 0 ? "" : "comment__response";
-    let replyButton = '<span style="color: blue; text-decoration: underline; margin-right: 15px;">Reply</span>'
+    let replyButton = '<span style="color: rgb(66, 133, 244); text-decoration: underline; margin-right: 15px;">Reply</span>'
     	let returned;
     if (parentid != 0) {
     	returned = 
@@ -144,7 +141,6 @@ function commentTemplate(comment) {
     }
     return returned;
 }
-
 
 function addExpand() {
     let posts = document.getElementsByClassName("post");
@@ -339,9 +335,6 @@ function fillPosts(posts) {
     });
 }
 
-mainPostsBlocks.style.marginTop = headerH + "px";
-document.getElementsByTagName("body")[0].style.backgroundColor = "#f5f5f5";
-
 function doEveryThing(posts, comments) {
     display(posts, comments);
     fillPosts(posts, comments);
@@ -349,6 +342,8 @@ function doEveryThing(posts, comments) {
 }
 
 export default function mainPosts(something, comments) {
+    mainPostsBlocks.style.marginTop = headerH + "px";
+    document.getElementsByTagName("body")[0].style.backgroundColor = "#f5f5f5";
     data = something;
     initData = something;
     doEveryThing(initData, comments);

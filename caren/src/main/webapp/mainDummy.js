@@ -266,7 +266,6 @@ let posts = [
         text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, sa sit amet, consectetur adipisicing elit. Sunt repellendus officiis repudiandae sed, tempora nesciunt, mollitia animi, saepe quaerat iure doloremque debitis ad. Illum iusto officiis hic voluptate earum, ad."
     }
 ];
-
 let comments = [
     {
         cid: 50,
@@ -305,7 +304,8 @@ let comments = [
         pid: 1,
         text: "Lorem ue? Quis dolor earum ut, nam  quo dignissimos tempora porro esse voluptates, reprehenderit repudiandae sed incidunt doloribus hic ab, quas.",
         date_added:"2009-11-14",
-        parentid: 1 
+        parentid: 1,
+        visibility:"private"
     },
     {
         cid: 3,
