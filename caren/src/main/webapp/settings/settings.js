@@ -12,6 +12,7 @@ let dark_mode_default = document.getElementById("dark_mode_input").value;
 let rpl_default = document.getElementById("RPL_input").value;
 
 let save = document.getElementById("save");
+let error = document.getElementById("error");
 
 
 first_name.addEventListener('change', inputChanged)
@@ -62,9 +63,16 @@ function inputChanged(){
         save.disabled = true;
         save.style.color = "#b3b3b3";
         save.style.border = "1px solid #b3b3b3";
+        error.innerHTML = "";
     } else if (old_password.value != "") {
         save.disabled = false;
         save.style.color = "#434343";
         save.style.border = "2px solid #434343";
+        error.innerHTML = "";
+    } else {
+        save.disabled = true;
+        save.style.color = "#b3b3b3";
+        save.style.border = "1px solid #b3b3b3";
+        error.innerHTML = "Fields marked with ( * ) must be filled before saving";
     }
 }

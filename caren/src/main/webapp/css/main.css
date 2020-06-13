@@ -22,11 +22,18 @@
   outline: none; }
 
 .header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-content: stretch;
+  align-items: center;
   background-color: #fff;
   border-bottom: .5px solid #ddd;
   width: calc(100vw);
   position: fixed;
   top: 0;
+  padding: 10px;
   display: inline-flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -35,39 +42,22 @@
   align-items: center;
   z-index: 5; }
   .header__logo {
-    width: calc(14vw);
-    margin: 0 35px 0; }
-  .header .form {
-    width: calc(60vw);
-    margin: 0 30px 0; }
-    .header .form__search {
-      display: block;
-      margin: 16px;
-      background-color: #f1f2f3;
-      width: calc(100% - 62px);
-      padding: 15px;
-      padding-left: 50px;
-      border: none;
-      border-radius: 8px;
-      border: .5px solid #fff; }
-    .header .form__btn {
-      transition: .3s;
-      position: absolute;
-      padding: 13px;
-      border: none;
-      color: #666;
-      border-radius: 50%;
-      background-color: rgba(0, 0, 0, 0); }
-      .header .form__btn:hover {
-        background-color: #e6e8ea;
-        color: #111; }
-  .header__buttons {
-    width: calc(30vw);
+    width: calc(14vw); }
+  .header__wrapper {
+    width: calc(20vw);
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: flex-start;
-    align-content: space-between;
+    justify-content: center;
+    align-content: stretch;
+    align-items: center; }
+  .header__buttons {
+    width: calc(20vw);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-content: stretch;
     align-items: center; }
   .header__myProfile, .header__notify, .header__logout, .header__home {
     cursor: pointer;
@@ -181,7 +171,7 @@
     color: #ccc;
     font-size: 10px; }
   .notifications__number {
-    display: block;
+    display: none;
     transition: 0.2s;
     position: absolute;
     background-color: red;
@@ -210,12 +200,23 @@
     align-content: stretch;
     align-items: center; }
   .sidebar__control {
+    color: #666;
     display: inline;
     border: none;
     padding: 10px 0;
-    width: 50%; }
+    width: 50%;
+    transition: .2s; }
     .sidebar__control:hover {
       cursor: pointer; }
+    .sidebar__control[data-state="selected"] {
+      color: #000;
+      background-color: #fff; }
+    .sidebar__control[data-state="deselected"] {
+      color: #666;
+      background-color: #efefef; }
+    .sidebar__control[data-state="hovered"] {
+      color: #333;
+      background-color: whitesmoke; }
   .sidebar__content {
     margin: calc(5vh) 0 calc(3.5vh);
     width: 95%;
@@ -245,9 +246,54 @@
       transition: .2s;
       width: 20px;
       padding: 12px 24px; }
+    .sidebar__link[data-state="selected"] {
+      background-color: rgba(66, 133, 244, 0.1);
+      color: #4285f4; }
+    .sidebar__link[data-state="deselected"] {
+      background-color: #fff;
+      color: #444; }
+    .sidebar__link[data-state="selectedHover"] {
+      background-color: rgba(66, 133, 244, 0.2);
+      color: #4285f4; }
+    .sidebar__link[data-state="deselectedHover"] {
+      background-color: #f5f5f5;
+      color: #222; }
   .sidebar .people {
     width: calc(20vw);
-    overflow-y: auto; }
+    overflow-y: auto;
+    transition: .2s; }
+    .sidebar .people__err {
+      display: none;
+      padding: 5px 10px;
+      width: calc(100% - 20px);
+      font-family: 'Arial';
+      font-size: 18px;
+      text-align: center;
+      color: #ccc;
+      font-weight: 600; }
+    .sidebar .people__search {
+      display: none;
+      width: 100%;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: center;
+      align-content: stretch;
+      align-items: center; }
+      .sidebar .people__searchBar {
+        transition: .2s;
+        border: .5px solid #fff;
+        background-color: #e7e7e7;
+        padding: 10px;
+        background-color: #f5f5f5;
+        width: calc(100% - 41px);
+        margin: 20px 10px 10px;
+        border-radius: 5px; }
+        .sidebar .people__searchBar:hover {
+          cursor: pointer;
+          background-color: #dddddd; }
+        .sidebar .people__searchBar:focus {
+          background-color: #fff;
+          border: 0.5px solid #e7e7e7; }
     .sidebar .people__container {
       display: flex;
       flex-direction: row;
@@ -257,6 +303,9 @@
       align-items: stretch;
       text-decoration: none;
       color: #000; }
+      .sidebar .people__container:hover {
+        background-color: #f5f5f5;
+        cursor: pointer; }
     .sidebar .people__pic {
       margin: 10px;
       padding: 10px;
@@ -276,6 +325,7 @@
       align-items: flex-start;
       width: calc(100% - 80px); }
   .sidebar .filters {
+    transition: .2s;
     padding: 10px;
     background-color: #fff;
     width: calc(100% - 20px);
@@ -287,12 +337,19 @@
     align-content: space-between;
     align-items: center; }
     .sidebar .filters__search {
+      transition: .2s;
       margin-top: 10px;
       width: calc(100% - 20px);
       padding: 10px;
       border-radius: 5px;
-      border: none;
+      border: .5px solid #fff;
       background-color: #f5f5f5; }
+      .sidebar .filters__search:hover {
+        cursor: pointer;
+        background-color: #dddddd; }
+      .sidebar .filters__search:focus {
+        background-color: #fff;
+        border: 0.5px solid #e7e7e7; }
     .sidebar .filters__filter, .sidebar .filters__reset {
       width: 100%;
       border-radius: 5px;
