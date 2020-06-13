@@ -120,7 +120,7 @@ public class ChangeProfileSettings extends HttpServlet {
 			+ "SET rpl = \"" + rpl_input + "\"\n"
 			+ "WHERE aid = ?" + "\n";
 			
-			DatabaseManager.updateQuery(q, rpl_input, ""+loggedaid);
+			DatabaseManager.updateQuery(q2, rpl_input, ""+loggedaid);
 		}
 		
 		
