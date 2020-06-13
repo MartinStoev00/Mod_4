@@ -27,7 +27,7 @@ public class AssociationsResource {
 		if (request.getSession().getAttribute("aid") != null) {
 			int aid = (int)request.getSession().getAttribute("aid");
 			
-			String query = "SELECT CONCAT(p2.first_name, \" \", p2.last_name), r.type, a.aid, p.pid" + "\n"
+			String query = "SELECT DISTINCT CONCAT(p2.first_name, \" \", p2.last_name), r.type, a.aid, p2.pid" + "\n"
 					+ "FROM people p1, people p2, relationships r, accounts a" + "\n"
 					+ "WHERE r.person_id = p1.pid" + "\n"
 					+ "AND r.related_person_id = p2.pid" + "\n"

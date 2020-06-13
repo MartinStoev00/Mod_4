@@ -40,7 +40,6 @@ export default function sidebar(items, posts, comments) {
 			posts = JSON.parse(data);
 			getrecords("http://localhost:8080/caren/rest/getcomments/"+input).then((data) => {
 				comments = JSON.parse(data);
-				console.log(comments);
 				mainPosts(posts.sort((a, b) => {
 		            let one = new Date(a.date);
 		            let two = new Date(b.date)
