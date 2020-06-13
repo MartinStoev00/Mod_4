@@ -32,7 +32,7 @@ public class RecordsResource {
 			
 			
 			
-			String query = "SELECT r.type, r.data, r.timestamp, cp.name, r.id" + "\n"
+			String query = "SELECT r.type, r.data, r.timestamp, cp.name, r.id, p.pid" + "\n"
 					+ "FROM reports r, people p, care_providers cp" + "\n"
 					+ "WHERE r.person_id = p.pid" + "\n"
 					+ "AND p.aid = ?" + "\n"
@@ -54,6 +54,7 @@ public class RecordsResource {
 					String timestamp = records.getString(3);
 					String care_provider = records.getString(4);
 					String rid = records.getString(5);
+					String pid = records.getString(6);
 					
 					if (firstRecord) {
 						firstRecord = false;
@@ -66,6 +67,7 @@ public class RecordsResource {
 							+ "\"title\": \""+ type + "\", "
 							+ "\"text\": "+ data + ", "
 							+ "\"date\": \""+ timestamp + "\", "
+							+ "\"pid\": \""+ pid + "\", "
 							+ "\"name\": \""+ care_provider
 							+ "\"}";
 				}

@@ -214,6 +214,8 @@
     border: none;
     padding: 10px 0;
     width: 50%; }
+    .sidebar__control:hover {
+      cursor: pointer; }
   .sidebar__content {
     margin: calc(5vh) 0 calc(3.5vh);
     width: 95%;
@@ -237,6 +239,8 @@
     width: calc(100%);
     font-family: 'Arial';
     font-size: 17px; }
+    .sidebar__link:hover {
+      cursor: pointer; }
     .sidebar__link i {
       transition: .2s;
       width: 20px;
@@ -297,7 +301,11 @@
       background-color: #f5f5f5;
       border: .5px #fff solid;
       position: relative;
-      z-index: 1; }
+      z-index: 1;
+      transition: .2s; }
+      .sidebar .filters__filter:hover, .sidebar .filters__reset:hover {
+        cursor: pointer;
+        background-color: #d8d8d8; }
       .sidebar .filters__filter .fas, .sidebar .filters__reset .fas {
         display: inline-block; }
     .sidebar .filters__filter, .sidebar .filters__search {
@@ -325,7 +333,11 @@
         border: none;
         padding: 10px;
         border-radius: 5px;
-        width: calc(100% - 30px); }
+        width: calc(100% - 30px);
+        transition: .2s; }
+        .sidebar .filters__date .date__date:hover {
+          cursor: pointer;
+          background-color: #f9f9f9; }
     .sidebar .filters__box {
       position: fixed;
       display: none;
@@ -433,9 +445,9 @@
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
-        justify-content: flex-start;
-        align-content: flex-start;
-        align-items: flex-start;
+        justify-content: space-between;
+        align-content: stretch;
+        align-items: stretch;
         margin: 0 15px; }
         .mainPosts .post .comments__urs-pic {
           height: 30px;
@@ -444,24 +456,52 @@
           background-size: cover;
           border-radius: 50%; }
         .mainPosts .post .comments__urs-input {
-          border-radius: 30px;
+          border-radius: 30px 0 0 30px;
           padding: 7px 12px;
           border: .5px solid #ddd;
           background-color: #fbfbfb;
-          width: calc(100%); }
+          border-right: none;
+          width: 60%; }
         .mainPosts .post .comments__urs-form {
           width: calc(100% - 65px);
-          margin: 0 10px; }
-        .mainPosts .post .comments__urs-click {
+          margin: 0 10px;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: nowrap;
+          justify-content: space-between;
+          align-content: center;
+          align-items: stretch; }
+        .mainPosts .post .comments__urs-wrapper {
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: nowrap;
+          justify-content: space-between;
+          align-content: stretch;
+          align-items: stretch; }
+        .mainPosts .post .comments__urs-send {
+          padding: 10px;
+          width: 30px;
+          height: 30px;
+          text-align: center;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: nowrap;
+          justify-content: center;
+          align-content: center;
+          align-items: center;
+          color: #ccc;
+          margin: 0 5px;
           border: none;
+          border-radius: 30px;
           background-color: #fbfbfb;
-          position: absolute;
+          border: .5px solid #ddd; }
+        .mainPosts .post .comments__urs-click {
+          width: 40%;
+          border: .5px solid #ddd;
+          background-color: #fbfbfb;
           border-radius: 0px 30px 30px 0px;
           text-align: center; }
-        .mainPosts .post .comments__urs-line {
-          width: .5px;
-          background-color: #ddd;
-          position: absolute; }
         .mainPosts .post .comments__urs .visibility__options {
           position: absolute;
           display: none;
@@ -501,17 +541,38 @@
         justify-content: flex-start;
         align-content: flex-start;
         align-items: flex-end; }
+      .mainPosts .post .comment__showReplies {
+        margin-top: -30px;
+        color: #4285f4;
+        text-decoration: underline;
+        text-align: left;
+        padding: 0 66px 10px; }
+      .mainPosts .post .comment__thread .comment__response {
+        display: none; }
       .mainPosts .post .comment__text {
         border-radius: 20px;
         padding: 10px;
         text-align: justify;
+        width: calc(100% - 20px);
         background-color: #f2f3f5; }
       .mainPosts .post .comment__date {
-        display: block;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
         color: #aaa;
         margin: 7px 20px 0;
         font-size: 13px;
         font-weight: 100; }
+        .mainPosts .post .comment__date * {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: nowrap;
+          justify-content: center;
+          align-content: center;
+          align-items: center; }
       .mainPosts .post .comment__viewall {
         cursor: pointer; }
 

@@ -140,6 +140,7 @@ public class Signup extends HttpServlet {
 				session.setAttribute("aid", aid);
 				session.setAttribute("aidType", "client");
 				session.setAttribute("aid", pid);
+				session.setAttribute("name", firstname + " " + lastname);
 				
 				//Redirect to posts page
 				response.sendRedirect("http://localhost:8080/caren/posts/");

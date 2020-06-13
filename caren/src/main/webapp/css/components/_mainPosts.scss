@@ -84,9 +84,9 @@
 			    display: flex;
 			    flex-direction: row;
 			    flex-wrap: nowrap;
-			    justify-content: flex-start;
-			    align-content: flex-start;
-			    align-items: flex-start;
+			    justify-content: space-between;
+			    align-content: stretch;
+			    align-items: stretch;
 			    margin: 0 15px;
 				&-pic {
 					height: 30px; width: 30px;
@@ -95,27 +95,56 @@
 					border-radius: 50%;
 				}
 				&-input {
-					border-radius: 30px;
+					border-radius: 30px 0 0 30px;
 					padding: 7px 12px;
 					border: .5px solid #ddd;
 					background-color: #fbfbfb;
-					width: calc(100%);
+					border-right: none;
+					width: 60%;
 				}
 				&-form {
-			      width: calc(100% - 65px);
-			      margin: 0 10px; 
+				    width: calc(100% - 65px);
+				    margin: 0 10px; 
+				    display: flex;
+				    flex-direction: row;
+				    flex-wrap: nowrap;
+				    justify-content: space-between;
+				    align-content: center;
+				    align-items: stretch;
+				}
+				&-wrapper {
+					width: 100%;
+				    display: flex;
+				    flex-direction: row;
+				    flex-wrap: nowrap;
+				    justify-content: space-between;
+				    align-content: stretch;
+				    align-items: stretch;
+				}
+				&-send {
+					padding: 10px;
+					width: 30px;
+					height: 30px;
+					text-align: center;
+					display: flex;
+				    flex-direction: row;
+				    flex-wrap: nowrap;
+				    justify-content: center;
+				    align-content: center;
+				    align-items: center;
+				    color: #ccc;
+				    margin: 0 5px;
+					border: none;
+					border-radius: 30px;
+					background-color: rgb(251, 251, 251);
+					border: .5px solid #ddd;
 				}
 				&-click {
-			      	border: none;
+					width: 40%;
+			      	border: .5px solid #ddd;
 			      	background-color: #fbfbfb;
-			      	position: absolute;
 			      	border-radius: 0px 30px 30px 0px;
 			      	text-align: center;
-				}
-				&-line {
-					width: .5px;
-					background-color: #ddd;
-					position: absolute;
 				}
 				.visibility {
 					&__options {
@@ -166,14 +195,40 @@
 			    align-content: flex-start;
 			    align-items: flex-end;
 			}
+			&__showReplies {
+				margin-top: -30px;
+				color: rgb(66,133,244);
+				text-decoration: underline;
+				text-align: left;
+				padding: 0 66px 10px;
+			}
+			&__thread {
+				.comment__response {
+					display: none;
+				}
+			}
 			&__text {
 				border-radius: 20px;
 				padding: 10px;
 				text-align: justify;
+				width: calc(100% - 20px);
 				background-color: rgb(242, 243, 245);
 			}
 			&__date {
-				display: block;
+				display: flex;
+			    flex-direction: row;
+			    flex-wrap: nowrap;
+			    justify-content: center;
+			    align-content: center;
+			    align-items: center;
+			    * {
+			    	display: flex;
+				    flex-direction: row;
+				    flex-wrap: nowrap;
+				    justify-content: center;
+				    align-content: center;
+				    align-items: center;
+			    }
 				color: #aaa;
 				margin: 7px 20px 0;
 				font-size: 13px;

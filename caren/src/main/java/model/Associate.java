@@ -7,11 +7,13 @@ public class Associate {
 	private String name;
 	private String description;
 	private String aid;
+	private String pid;
 	
-	public Associate(String name, String description, String aid) {
+	public Associate(String name, String description, String aid, String pid) {
 		this.name = name;
 		this.description = description;
 		this.aid = aid;
+		this.pid = pid;
 	}
 
 	public String getName() {
@@ -36,5 +38,13 @@ public class Associate {
 
 	public void setAid(String aid) {
 		this.aid = aid;
+	}
+	
+	public String getPid() {
+		return pid;
+	}
+
+	public void setPid(String pid) {
+		this.pid = pid;
 	}
 }

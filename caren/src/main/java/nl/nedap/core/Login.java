@@ -1,7 +1,6 @@
 package nl.nedap.core;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -14,17 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import nl.nedap.utility.DatabaseManager;
-import nl.nedap.utility.ForeignCharactersChecker;
 
 /**
  * Servlet implementation class Login
  */
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	private static String URL = "jdbc:mysql://localhost:3369/caren";
-	private static String DBUSERNAME = "root";
-	private static String DBPASS = "kze3jBXt7oW4";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -33,7 +27,6 @@ public class Login extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-    
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -42,18 +35,8 @@ public class Login extends HttpServlet {
 		// TODO Auto-generated method stub
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		PrintWriter out = response.getWriter();
-		String docType = "<!DOCTYPE HTML>\n";
 		
 		try {
-			
-			if (ForeignCharactersChecker.hasForeignCharacters(email) || ForeignCharactersChecker.hasForeignCharacters(password)) {
-				out.println(docType + "<HTML> <body>All input fields can only contain the following characters: a->z, A->Z, 0->9 </body> </HTML>");
-				return;
-			}
-			
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn = DriverManager.getConnection(URL, DBUSERNAME, DBPASS);
 			
 			//TODO check if account already exists
 			//The query
@@ -67,7 +50,7 @@ public class Login extends HttpServlet {
 			if (resultset.next()) { // has an account
 				System.out.println("Account with email: " + email + "; exists.");
 				
-				String accInfo = "SELECT a.aid, a.password, p.pid" + "\n"
+				String accInfo = "SELECT a.aid, a.password, p.pid, CONCAT(p.first_name, \" \", p.first_name)" + "\n"
 						+ "FROM accounts a, people p" + "\n"
 						+ "WHERE a.email = ?" + "\n"
 						+ "AND a.aid = p.aid;";
@@ -79,6 +62,7 @@ public class Login extends HttpServlet {
 				int aid = passResultset.getInt(1);
 				String pass = passResultset.getString(2);
 				int pid = passResultset.getInt(3);
+				String name = passResultset.getString(4);
 				
 				if (pass.equals(password)) {
 					//Make session
@@ -86,6 +70,7 @@ public class Login extends HttpServlet {
 					session.setAttribute("aid", aid);
 					session.setAttribute("pid", pid);
 					session.setAttribute("aidType", "client");
+					session.setAttribute("name", name);
 					
 					//Redirect to posts page
 					response.sendRedirect("http://localhost:8080/caren/posts/");

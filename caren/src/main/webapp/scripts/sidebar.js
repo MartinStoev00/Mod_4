@@ -67,7 +67,9 @@ export default function sidebar(items, posts, comments) {
 			})
 		})
 	}
-	
+
+    fromDate.addEventListener("change", filteringDates);
+    toDate.addEventListener("change", filteringDates);
 	
     items.forEach((item) => {
         let {name, img, aid} = item;
@@ -114,8 +116,6 @@ export default function sidebar(items, posts, comments) {
     sortingBlocks(posts);
     filteringSearch();
 }
-
-
 
 function mainWithComments(inputData) {
     mainPosts(inputData, commetsData)
@@ -187,8 +187,7 @@ peopleBtn.addEventListener("click", () => {
     filterBtn.style.backgroundColor = "rgb(239, 239, 239)";
     peopleBtn.style.backgroundColor = "#fff";
 });
-fromDate.addEventListener("change", filteringDates);
-toDate.addEventListener("change", filteringDates);
+
 
 function filteringDates() {
     startDate = fromDate.value;
@@ -277,38 +276,38 @@ function sortingBlocks(posts) {
                 off();
             }
         },150);
-    });
-
-    boxBtns[0].addEventListener("click", () => {
-        if(boxBtns[0].innerHTML.includes(chrono)) {
-            order = chrono;
-            boxBtns[0].innerHTML = revChrono;
-            filterBtns.innerHTML = order + " " + caret;
-            let newArr = data.sort((a, b) => {
-                let one = new Date(a.date);
-                let two = new Date(b.date)
-                if(one < two) { return -1; }
-                if(one > two) { return 1; }
-                return 0;
-            });
-            data = newArr;
-            mainWithComments(data);
-        } else {
-            order = revChrono;
-            boxBtns[0].innerHTML = chrono;
-            filterBtns.innerHTML = order + " " + caret;
-            let newArr = data.sort((a, b) => {
-                let one = new Date(a.date);
-                let two = new Date(b.date)
-                if(one > two) { return -1; }
-                if(one < two) { return 1; }
-                return 0;
-            });
-            data = newArr;
-            mainWithComments(data);
-        }
-    });
+    });    
 }
+
+boxBtns[0].addEventListener("click", () => {
+    if(boxBtns[0].innerHTML.includes(chrono)) {
+        order = chrono;
+        boxBtns[0].innerHTML = revChrono;
+        filterBtns.innerHTML = order + " " + caret;
+        let newArr = data.sort((a, b) => {
+            let one = new Date(a.date);
+            let two = new Date(b.date)
+            if(one < two) { return -1; }
+            if(one > two) { return 1; }
+            return 0;
+        });
+        data = newArr;
+        mainWithComments(data);
+    } else {
+        order = revChrono;
+        boxBtns[0].innerHTML = chrono;
+        filterBtns.innerHTML = order + " " + caret;
+        let newArr = data.sort((a, b) => {
+            let one = new Date(a.date);
+            let two = new Date(b.date)
+            if(one > two) { return -1; }
+            if(one < two) { return 1; }
+            return 0;
+        });
+        data = newArr;
+        mainWithComments(data);
+    }
+});
 
 btnReset.addEventListener("click", () => {
     let ordererdDates = initData.map((post) => {
@@ -343,5 +342,7 @@ btnReset.addEventListener("click", () => {
             if(one < two) { return -1; }
             if(one > two) { return 1; }
             return 0;
-        }));
+        })
+    );
 });
+
