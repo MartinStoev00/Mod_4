@@ -2,7 +2,7 @@ package nl.nedap.utility;
 
 public class ForeignCharactersChecker {
 
-	private static String passwordCharacters = "abdefghijklmnopqrstuvwxyz0123456789ABDEFGHIJKLMNOPQRSTUVWXYZ";
+	private static String passwordCharacters = "abcdefghijklmnopqrstuvwxyz0123456789ABDEFGHIJKLMNOPQRSTUVWXYZ";
 	private static String emailCharacters = passwordCharacters+"@.-_";
 	
 	public static boolean basicHasForeignCharacters(String p) {//checker for all input fields except email
