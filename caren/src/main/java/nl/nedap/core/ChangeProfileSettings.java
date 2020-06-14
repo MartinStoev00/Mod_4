@@ -54,9 +54,6 @@ public class ChangeProfileSettings extends HttpServlet {
 			return;
 		}
 		
-		System.out.println("Old pass: " + old_password_input);
-		System.out.println("Current pass: " + pass);
-		
 		//firstname
 		if (!first_name_input.equals("")) {
 			if (old_password_input.equals(pass)) {
@@ -103,7 +100,7 @@ public class ChangeProfileSettings extends HttpServlet {
 
 		//dark_mode & rpl
 		if (old_password_input.equals(pass)) {
-			int dark_mode_value;
+			int dark_mode_value = 0;
 			if (dark_mode_input == null) {
 				dark_mode_value = 0;
 			} else {
@@ -117,10 +114,10 @@ public class ChangeProfileSettings extends HttpServlet {
 			DatabaseManager.updateQuery(q, ""+dark_mode_value, ""+loggedaid);
 			
 			String q2 = "UPDATE accounts" + "\n"
-			+ "SET rpl = \"" + rpl_input + "\"\n"
+			+ "SET rpl = ?" + "\n"
 			+ "WHERE aid = ?" + "\n";
 			
-			DatabaseManager.updateQuery(q, rpl_input, ""+loggedaid);
+			DatabaseManager.updateQuery(q2, rpl_input, ""+loggedaid);
 		}
 		
 		
