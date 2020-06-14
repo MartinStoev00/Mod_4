@@ -15,6 +15,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import model.Record;
+import model.RecordData;
 import nl.nedap.utility.DatabaseManager;
 
 @Path("getrecords/{id}")
@@ -49,6 +50,7 @@ public class RecordsResource {
 					int record_id = records.getInt(4);
 					String type = records.getString(5);
 					String data = records.getString(6);
+					
 					String date_added = records.getString(7);
 					
 					Record record = new Record(posted_by_id, posted_for_id, posted_by_name, record_id, type, data, date_added);
