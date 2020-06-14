@@ -39,7 +39,7 @@ public class CommentsResource {
 		}
 		
 		//The query to get all the comments belonging to a post.
-		String query = "SELECT c.cid, c.rid, c.pid, CONCAT(p.first_name, \" \", p.last_name), c.visibility, c.text, c.date_added, c.parentid" + "\n"
+		String query = "SELECT c.cid, c.rid, c.pid, CONCAT(p.first_name, \" \", p.last_name), c.visibility, c.text, c.date_added, c.parentid, c.seen" + "\n"
 				+ "FROM comments c, reports r, people p" + "\n"
 				+ "WHERE r.person_id = ?"  + "\n"
 				+ "AND c.rid = r.id"  + "\n"
@@ -51,7 +51,7 @@ public class CommentsResource {
 		try {
 			while (result.next()) {
 				int cid, rid, pid; String visibility, date_added, text, name;
-				int parent;
+				int parent, seen;
 				cid = result.getInt(1);
 				rid = result.getInt(2);
 				pid = result.getInt(3);
@@ -60,6 +60,7 @@ public class CommentsResource {
 				text = result.getString(6);
 				date_added = result.getString(7);
 				parent = result.getInt(8);
+				seen = result.getInt(9);
 				
 				boolean addComment = false;
 				
@@ -77,7 +78,7 @@ public class CommentsResource {
 				}
 				
 				if (addComment) {
-					Comment comment = new Comment(cid, rid, pid, name, visibility, text, date_added, parent);
+					Comment comment = new Comment(cid, rid, pid, name, visibility, text, date_added, parent, seen);
 					comments.add(comment);
 				}
 			}

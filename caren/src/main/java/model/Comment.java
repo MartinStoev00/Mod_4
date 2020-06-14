@@ -12,12 +12,13 @@ public class Comment {
 	private String text;
 	private String date_added;
 	private int parentid;
+	private int seen;
 
 	public Comment() {
-		this(0, 0, 0, "PH", "public", "PH", "1999-01-01", 0);
+		this(0, 0, 0, "PH", "public", "PH", "1999-01-01", 0, 0);
 	}
 	
-	public Comment(int cid, int rid, int pid, String name, String visibility, String text, String date_added, int parentid) {
+	public Comment(int cid, int rid, int pid, String name, String visibility, String text, String date_added, int parentid, int seen) {
 		this.rid = rid;
 		this.cid = cid;
 		this.pid = pid;
@@ -26,6 +27,7 @@ public class Comment {
 		this.text = text;
 		this.date_added = date_added;
 		this.parentid = parentid;
+		this.seen = seen;
 	}
 
 	public int getCid() {
@@ -91,4 +93,14 @@ public class Comment {
 	public void setParentid(int parentid) {
 		this.parentid = parentid;
 	}
+
+	public int getSeen() {
+		return seen;
+	}
+
+	public void setSeen(int seen) {
+		this.seen = seen;
+	}
+	
+	
 }

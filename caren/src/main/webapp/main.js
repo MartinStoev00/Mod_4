@@ -110,7 +110,7 @@ function init() {
                     sidebar(associations, posts, comments);
                 }
                 if(document.getElementsByClassName("header").length > 0) {   
-                    header(associations, notifications);
+                    header(comments);
                 }
             }).catch((err) => {
                 console.log(err);

@@ -189,14 +189,14 @@ function fillPosts(posts) {
 function doEveryThing(posts, comments) {
     postsMain.innerHTML = `<div class="post__err">No Results Found</div>`;
     posts.forEach((post) => {
-        let {rid: postID, name, date, pid, text, title} = post;
+        let {record_id: postID, posted_by_id, posted_by_name, date_added, posted_for_id, data, type} = post;
         let dataAboutComments = [];
         comments.forEach((comment) => {
             if(postID == comment.rid) {
                 dataAboutComments.push(comment);
             }
         })
-        postsMain.innerHTML += postsTemplate(pid, name, date, title, JSON.stringify(text), dataAboutComments, dataAboutComments.length, postID);
+        postsMain.innerHTML += postsTemplate(posted_for_id, posted_by_id, posted_by_name, date_added, type, JSON.stringify(data), dataAboutComments, dataAboutComments.length, postID);
     });
     fillPosts(posts, comments);
     Array.prototype.forEach.call(document.getElementsByClassName("post"), (postBlock) => {
