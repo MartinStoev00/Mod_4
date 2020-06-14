@@ -433,7 +433,7 @@
   align-content: space-between;
   align-items: center;
   background-color: #f3f3f3;
-  min-height: 1000px; }
+  min-height: calc(100vh); }
   .mainPosts .post {
     font-family: 'Arial';
     border: 1px #ddd solid;
