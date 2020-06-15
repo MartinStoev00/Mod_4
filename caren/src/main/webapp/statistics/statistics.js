@@ -88,33 +88,41 @@ window.onload = function() {
             return 0;
         });
         parseData.forEach((report) => {
+        	
             let reportType = report.type;
+            dataformatted = report.data.replace(/\\/g, ``);
+            console.log(dataformatted);
+            if(!dataformatted.includes("text")){
+            	dataformatted = JSON.parse(dataformatted);
+            }
+            console.log(reportType);
             if (reportType == "height") {
                 let obj = {
-                    value: report.data.value,
+                    value: dataformatted.value,
                     date: report.date_added,
-                    unit: report.data.unit
+                    unit: dataformatted.unit
                 }
                 measurementData.height.push(obj);
+               // console.log(measurementData.height.value);
             } else if (reportType == "weight") {
                 let obj = {
-                    value: report.data.value,
+                    value: dataformatted.value,
                     date: report.date_added,
-                    unit: report.data.unit
+                    unit: dataformatted.unit
                 }
                 measurementData.weight.push(obj);
 
             } else if (reportType == "blood_pressure") {
                 let systolicobj = {
-                    value: report.data.systolic,
+                    value: dataformatted.systolic,
                     date: report.date_added,
-                    unit: report.data.unit
+                    unit: dataformatted.unit
 
                 }
                 let diastolicobj = {
-                    value: report.data.diastolic,
+                    value: dataformatted.diastolic,
                     date: report.date_added,
-                    unit: report.data.unit
+                    unit: dataformatted.unit
                 }
 
                 measurementData.bloodpressure.systolic.push(systolicobj);
@@ -151,8 +159,7 @@ function onclickData(event){
     if(content[0]){
     	var chartData= content[0]['_chart'].config.data;
     	var index = content[0]['_index'];
-    	console.log(content);
-    	console.log(chartData);
+    	//console.log(chartData);
     	if((chartData.datasets[0].label).includes('Height') || (chartData.datasets[0].label).includes('Weight')){
     		var measurement = chartData.datasets[0].label;
         	var date = chartData.labels[index];
