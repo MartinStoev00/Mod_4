@@ -42,7 +42,7 @@ notifyIcon.addEventListener("blur", () => {
             notifications.style.display = "none";
             tri.style.display = "none";
         }
-    }, 10)
+    }, 100)
 });
 Array.prototype.forEach.call(icons, (icon) => {
     icon.addEventListener("click", () => {
@@ -110,22 +110,38 @@ function fillNotifications() {
     }
 
     newArr.forEach((notification) => {
-        let {name, rid, pid, date_added} = notification;
+        let {name, cid, rid, pid, date_added} = notification;
         notifications.innerHTML +=
-            `<a class="notifications__item" href="" data-index-number="${name}">
+            `<div class="notifications__item" data-index-number="${name}" data-cid="${cid}">
                 <div style="background-image: url(../Pictures/profile_pics/${pid}.jpg);" class="notifications__img"></div>
                 <div class="notifications__container">
-                    <p class="notifications__text">${name}</p>
+                    <p class="notifications__text"><b>${name}</b> commented on your post.</p>
                     <p class="notifications__date">${date_added}</p>
                 </div>
-            </a>`;
+            </div>`;
     });
+    
+	
+    
+    let notifics = document.getElementsByClassName("notifications__item");
+    
+    for (var i = 0; i < notifics.length; i++) {
+		let notis = notifics[i];
+    	function notificationClicked(){
+    		let request = new XMLHttpRequest();
+    		request.open("PATCH", "http://localhost:8080/caren/rest/comment/" + notis.getAttribute("data-cid"), true);
+    		request.send();
+    		
+    		//remove(notis);
+    	}
+    	
+    	notifics[i].addEventListener('click', notificationClicked);
+    }
 
     notifyNumber.innerHTML = notificationsReceived.length !== 0 ? notificationsReceived.length : "";
     let items = document.getElementsByClassName("notifications__item");
     Array.prototype.forEach.call(items, (item) => {
         item.addEventListener("click", (event) => {
-            event.preventDefault();
             remove(item.dataset.indexNumber);
             if(document.getElementsByClassName("notifications__item").length == 0) {
                 notificationsDisplayed = false;
@@ -134,7 +150,6 @@ function fillNotifications() {
                 notifications.innerHTML = noNotifications;
             }
             notifyNumber.innerHTML = notificationsReceived.length !== 0 ? notificationsReceived.length : "";
-            location.href = item.href;
         });
     });
 }

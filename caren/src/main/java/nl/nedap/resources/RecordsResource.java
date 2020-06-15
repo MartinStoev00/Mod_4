@@ -15,6 +15,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import model.Record;
+import model.RecordData;
 import nl.nedap.utility.DatabaseManager;
 
 @Path("getrecords/{id}")

@@ -27,7 +27,7 @@ public class ProfileSettingsResource {
 		
 		int aid = (int)request.getSession().getAttribute("aid");
 		
-		String q = "SELECT p.first_name, p.last_name, a.email, a.password, a.dark_mode, a.rpl" + "\n"
+		String q = "SELECT p.pid, p.first_name, p.last_name, a.email, a.password, a.dark_mode, a.rpl" + "\n"
 		+ "FROM people p, accounts a" + "\n"
 		+ "WHERE p.pid = a.aid" + "\n"
 		+ "AND a.aid = ?";
@@ -36,14 +36,15 @@ public class ProfileSettingsResource {
 		
 		try {
 			while (result.next()) {
-				String first_name = result.getString(1);
-				String last_name = result.getString(2);
-				String email = result.getString(3);
-				String password = result.getString(4);
-				int dark_mode = result.getInt(5);
-				int rpl = result.getShort(6);
+				int pid = result.getShort(1);
+				String first_name = result.getString(2);
+				String last_name = result.getString(3);
+				String email = result.getString(4);
+				String password = result.getString(5);
+				int dark_mode = result.getInt(6);
+				int rpl = result.getShort(7);
 				
-				ps = new ProfileSettings(first_name, last_name, email, password, dark_mode, rpl);
+				ps = new ProfileSettings(pid, first_name, last_name, email, null, dark_mode, rpl);
 				
 				return ps;
 			}

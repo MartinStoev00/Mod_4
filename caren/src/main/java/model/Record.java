@@ -68,8 +68,4 @@ public class Record {
 	public void setDate_added(String date_added) {
 		this.date_added = date_added;
 	}
-	
-	
-	
-	
 }
