@@ -20,9 +20,6 @@
   </properties>
 
   <dependencies>
-  
-  
-  
 	<dependency>
 	  <groupId>javax.servlet</groupId>
 	  <artifactId>javax.servlet-api</artifactId>
@@ -36,13 +33,13 @@
       <scope>test</scope>
     </dependency>
     
-<<<<<<< HEAD
     <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
 	<dependency>
 	    <groupId>org.postgresql</groupId>
 	    <artifactId>postgresql</artifactId>
 	    <version>42.2.14</version>
-=======
+	 </dependency>
+	    
     <dependency>
       <groupId>javax.mail</groupId>
 	  <artifactId>mail</artifactId>
@@ -54,13 +51,6 @@
       <artifactId>javax.mail-api</artifactId>
       <version>1.6.2</version>
     </dependency>
-    
-    <dependency>
-	    <groupId>mysql</groupId>
-	    <artifactId>mysql-connector-java</artifactId>
-	    <version>8.0.20</version>
->>>>>>> ce0bc6de3d4220c96414da051d315fd4baceedd3
-	</dependency>
 
 	
 	<!-- https://mvnrepository.com/artifact/org.glassfish.jersey.core/jersey-server -->

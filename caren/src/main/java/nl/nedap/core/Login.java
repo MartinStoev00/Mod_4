@@ -59,14 +59,7 @@ public class Login extends HttpServlet {
 			if (resultset.next()) { // has an account
 				System.out.println("Account with email: " + email + "; exists.");
 				
-<<<<<<< HEAD
 				String accInfo = "SELECT * FROM caren.accountInfo(?);";
-=======
-				String accInfo = "SELECT a.aid, a.password, p.pid, CONCAT(p.first_name, \" \", p.first_name), a.verified" + "\n"
-						+ "FROM accounts a, people p" + "\n"
-						+ "WHERE a.email = ?" + "\n"
-						+ "AND a.aid = p.aid;";
->>>>>>> ce0bc6de3d4220c96414da051d315fd4baceedd3
 				
 				//Result set of statement execution
 				ResultSet passResultset = DatabaseManager.ReadQuery(accInfo, email);
