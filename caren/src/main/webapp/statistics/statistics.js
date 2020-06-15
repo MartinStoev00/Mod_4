@@ -6,8 +6,6 @@ window.chartColors = {
     yellow: 'rgb(255, 205, 86)',
     green: 'rgb(75, 192, 192)',
     blue: 'rgb(54, 162, 235)',
-    purple: 'rgb(153, 102, 255, 0.1)',
-    grey: 'rgb(201, 203, 207)'
 };
 
 let ctxgraph;
@@ -83,40 +81,45 @@ window.onload = function() {
     getrecords("http://localhost:8080/caren/rest/getrecords/0").then((data) => {
         let parseData = JSON.parse(data);
         parseData.sort((a, b) => {
-            let one = new Date(a.date);
-            let two = new Date(b.date)
+            let one = new Date(a.date_added);
+            let two = new Date(b.date_added)
             if(one < two) { return -1; }
             if(one > two) { return 1; }
             return 0;
         });
         parseData.forEach((report) => {
-            let reportType = report.title;
+        	
+            let reportType = report.type;
+            let dataformatted = report.data.replace(/\\/g, ``);
+            if(!dataformatted.includes("text")){
+            	dataformatted = JSON.parse(dataformatted);
+            }
             if (reportType == "height") {
                 let obj = {
-                    value: report.text.value,
-                    date: report.date,
-                    unit: report.text.unit
+                    value: dataformatted.value,
+                    date: report.date_added,
+                    unit: dataformatted.unit
                 }
                 measurementData.height.push(obj);
             } else if (reportType == "weight") {
                 let obj = {
-                    value: report.text.value,
-                    date: report.date,
-                    unit: report.text.unit
+                    value: dataformatted.value,
+                    date: report.date_added,
+                    unit: dataformatted.unit
                 }
                 measurementData.weight.push(obj);
 
             } else if (reportType == "blood_pressure") {
                 let systolicobj = {
-                    value: report.text.systolic,
-                    date: report.date,
-                    unit: report.text.unit
+                    value: dataformatted.systolic,
+                    date: report.date_added,
+                    unit: dataformatted.unit
 
                 }
                 let diastolicobj = {
-                    value: report.text.diastolic,
-                    date: report.date,
-                    unit: report.text.unit
+                    value: dataformatted.diastolic,
+                    date: report.date_added,
+                    unit: dataformatted.unit
                 }
 
                 measurementData.bloodpressure.systolic.push(systolicobj);
@@ -153,8 +156,7 @@ function onclickData(event){
     if(content[0]){
     	var chartData= content[0]['_chart'].config.data;
     	var index = content[0]['_index'];
-    	console.log(content);
-    	console.log(chartData);
+    	//console.log(chartData);
     	if((chartData.datasets[0].label).includes('Height') || (chartData.datasets[0].label).includes('Weight')){
     		var measurement = chartData.datasets[0].label;
         	var date = chartData.labels[index];
@@ -237,8 +239,8 @@ function addDataset(datasetvalue) {
     var secondDataset = {
     		label: 'Diastolic ( mm Hg )',
             fill: false,
-            backgroundColor: window.chartColors.red,
-            borderColor: window.chartColors.orange,
+            backgroundColor: window.chartColors.yellow,
+            borderColor: window.chartColors.yellow,
             data: []
     };
 
