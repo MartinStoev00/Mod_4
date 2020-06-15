@@ -90,12 +90,10 @@ window.onload = function() {
         parseData.forEach((report) => {
         	
             let reportType = report.type;
-            dataformatted = report.data.replace(/\\/g, ``);
-            console.log(dataformatted);
+            let dataformatted = report.data.replace(/\\/g, ``);
             if(!dataformatted.includes("text")){
             	dataformatted = JSON.parse(dataformatted);
             }
-            console.log(reportType);
             if (reportType == "height") {
                 let obj = {
                     value: dataformatted.value,
@@ -103,7 +101,6 @@ window.onload = function() {
                     unit: dataformatted.unit
                 }
                 measurementData.height.push(obj);
-               // console.log(measurementData.height.value);
             } else if (reportType == "weight") {
                 let obj = {
                     value: dataformatted.value,
