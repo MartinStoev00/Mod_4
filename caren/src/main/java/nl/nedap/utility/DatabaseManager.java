@@ -117,7 +117,7 @@ public static void updateRegularQuery(String q) {
 		//if (sessionId == id) {return true;}
 		
 		String q = "SELECT a.aid" + "\n"
-				+ "FROM accounts a, care_providers p, care_providers_people c" + "\n"
+				+ "FROM caren.accounts a, caren.care_providers p, caren.care_providers_people c" + "\n"
 				+ "WHERE c.care_provider_id = ? AND c.person_id = ?";
 		
 		ResultSet r = ReadQuery(q, ""+sessionId, ""+id);
@@ -136,7 +136,7 @@ public static void updateRegularQuery(String q) {
 
 	public static boolean isBeingCareForBy(int loggedpid, int pid) {
 		String q = "SELECT a.aid" + "\n"
-				+ "FROM accounts a, care_providers p, care_providers_people c" + "\n"
+				+ "FROM caren.accounts a, caren.care_providers p, caren.care_providers_people c" + "\n"
 				+ "WHERE c.care_provider_id = ? AND c.person_id = ?";
 		
 		ResultSet r = ReadQuery(q, ""+pid, ""+loggedpid);
