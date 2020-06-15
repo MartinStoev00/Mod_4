@@ -46,7 +46,6 @@ public class CommentResource {
 				+ "SET seen = 1" + "\n"
 				+ "WHERE cid = ?";
 		
-		System.out.println("peepeepoopoo");
 		DatabaseManager.updateQuery(q, ""+cid);
 	}
 	
