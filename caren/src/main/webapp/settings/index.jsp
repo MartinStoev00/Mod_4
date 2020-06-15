@@ -9,14 +9,13 @@
     </title>
 
     <body>
-    
 		<%
 			if (session.getAttribute("aid") == null) {
 				response.sendRedirect("http://localhost:8080/caren/login/");
 			}
 		%>
-
-        <div class="header" name="header">
+		
+		<div class="header" name="header">
 			<div class="header__wrapper"><img class="header__logo" src="../Pictures/website_icon.png" alt=""></div>
 			<div class="header__buttons">
 				<button class="header__myProfile fas fa-user-circle" onclick="location.href='http://localhost:8080/caren/posts/'"></button>
@@ -31,7 +30,6 @@
 				<div class="arrow"></div>
 			</div>
 		</div>
-
 
         <div class="title_content">
             <header class="root_header" style="margin-top: 150px; margin-bottom: 25px;">
