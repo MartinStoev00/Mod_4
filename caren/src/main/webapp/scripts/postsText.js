@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-export function postsTemplate(img, name, date, title, text, comments, num, rid) {
-=======
 export default function postsTemplate(posted_for_id, posted_by_id, posted_by_name, date_added, type, data, comments, record_id) {
->>>>>>> 3f1d1734339a7031084a8bb2051e2d816225db52
     let returned = 
         `<div class="post" data-link="${type}" data-id="${record_id}">
             <div class="post__header">
