@@ -9,9 +9,8 @@
 	border-bottom: .5px solid #ddd;
 	position: fixed;
 	top: 0;
-	//width: calc(100vw - 20px);
+	width: calc(100vw - 20px);
 	padding: 10px;
-	@include flex(row);
 	z-index: 5;
 	&__logo {
 		width: calc(14vw);

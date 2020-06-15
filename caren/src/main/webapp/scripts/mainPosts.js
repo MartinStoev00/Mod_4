@@ -99,27 +99,27 @@ function sendingDataFunctionality(post) {
     let inputSelected = post.getElementsByClassName("comments__urs-input")[0];
     let inputSend = post.getElementsByClassName("comments__urs-send")[0];
     let visibility = post.getElementsByClassName("comments__urs-click")[0];
+    let repliesTo;
+    function normalize(input){
+        if (input.length == 1) {
+            return "0"+input;
+        }
+        return input;
+    }
     inputSend.addEventListener("click", () => {
         if(inputSelected.value.length > 0) {
-            
-            function normalize(input){
-                if (input.length == 1) {
-                    return "0"+input;
-                }
-                return input;
-            }
             
             let idINeedToSendTo = post.getAttribute("data-id");
             let contentINeedToSendTo = inputSelected.value;
             let visibilityINeedToSendTo = visibility.value;
-            var today = new Date();
-            var year = today.getFullYear();
-            var month = today.getMonth()+1;
-            var day = today.getDate();
-            var hour = today.getHours();
-            var minute = today.getMinutes();
-            var second = today.getSeconds();
-            var date = year+'-'+normalize(""+month)+'-'+normalize(""+day)+ ' ' + normalize(""+hour) + ":" + normalize(""+minute) + ":" + normalize(""+second);
+            let today = new Date();
+            let year = today.getFullYear();
+            let month = today.getMonth()+1;
+            let day = today.getDate();
+            let hour = today.getHours();
+            let minute = today.getMinutes();
+            let second = today.getSeconds();
+            let date = year+'-'+normalize(""+month)+'-'+normalize(""+day)+ ' ' + normalize(""+hour) + ":" + normalize(""+minute) + ":" + normalize(""+second);
             let objectSent = {
                     cid: 0,
                     rid: idINeedToSendTo,
@@ -157,6 +157,7 @@ function sendingDataFunctionality(post) {
             createdDivWrapperTextName.setAttribute("style", "color: rgb(56, 88, 152);font-weight: 600;");
             createdDivWrapperDate.setAttribute("class", "comment__date");
             createdDivWrapperDateReply.setAttribute("style", "color: rgb(66, 133, 244); text-decoration: underline; margin-right: 7px;");
+            createdDivWrapperDateReply.setAttribute("class", "comment__replyBtn");
             createdDivWrapperDateIcon.setAttribute("class", "fas fa-circle");
             createdDivWrapperDateIcon.setAttribute("style", "margin: 5px; font-size: 5px;padding:5px;");
             createdDivWrapperDateVisibility.setAttribute("style", "text-transform: capitalize;");
@@ -176,6 +177,104 @@ function sendingDataFunctionality(post) {
             createdDiv.appendChild(createdDivWrapper);
             yourCommentSection.insertBefore(createdDiv, yourCommentField);
         }
+    });
+    let replyButtons = post.getElementsByClassName("comment__replyBtn");
+    Array.prototype.forEach.call(replyButtons, (replyButton, index) => {
+    	replyButton.addEventListener("click", () => {
+    		let selectedThread = post.getElementsByClassName("comment__thread")[index];
+    		if(selectedThread.getElementsByClassName("comment__showReplies").length > 0) {
+        		let currentThreadReplyBtn = selectedThread.getElementsByClassName("comment__showReplies")[0];
+        		currentThreadReplyBtn.click();
+    		}
+    		let everyThread = post.getElementsByClassName("comment__thread");
+    		Array.prototype.forEach.call(everyThread, (currentTread, i) => {
+    			if(i > index) {
+    				currentTread.style.display = "none";
+    			} else if(i == index) {
+    				repliesTo = currentTread.getElementsByClassName("comment")[0].getAttribute("data-cid");
+    			}
+    		});
+    		let viewTheRestOfTheComments = document.createElement("div");
+    		viewTheRestOfTheComments.setAttribute("class", "comment__showRest");
+    		viewTheRestOfTheComments.innerHTML = `Show The Rest Of The Comments <i class="fas fa-reply"></i>`;
+    		let yourCommentSection = post.getElementsByClassName("comments")[0];
+            let yourCommentField = yourCommentSection.getElementsByClassName("comments__urs")[0];
+            if(!post.innerHTML.includes(`Show The Rest Of The Comments <i class="fas fa-reply"></i>`)) {
+            	yourCommentSection.insertBefore(viewTheRestOfTheComments, yourCommentField);
+            } else {
+            	let showTheRestAgain = post.getElementsByClassName("comment__showRest")[0];
+            	showTheRestAgain.style.display = "block";
+            }
+            let replyBtnNewlyCreated = yourCommentField.getElementsByClassName("comments__urs-reply")[0];
+            let sendBtnOld = yourCommentField.getElementsByClassName("comments__urs-send")[0];
+            sendBtnOld.style.display = "none";
+            replyBtnNewlyCreated.style.display = "flex";
+            let yourCommentFieldInput = yourCommentField.getElementsByClassName("comments__urs-input")[0];
+            yourCommentFieldInput.focus();
+            let showTheRestBtn = post.getElementsByClassName("comment__showRest")[0];
+            showTheRestBtn.addEventListener("click", () => {
+            	showTheRestBtn.style.display = "none";
+            	Array.prototype.forEach.call(everyThread, (currentTread) => {
+            		currentTread.style.display = "block";
+        		});
+            	sendBtnOld.style.display = "flex";
+                replyBtnNewlyCreated.style.display = "none";
+            });
+    	});
+    });
+    let postReplyBtnForPost = post.getElementsByClassName("comments__urs-reply")[0];
+    postReplyBtnForPost.addEventListener("click", () => {
+    	let yourCommentSection = post.getElementsByClassName("comments")[0];
+        let yourCommentField = yourCommentSection.getElementsByClassName("comments__urs")[0];
+        let replyBtnNewlyCreated = yourCommentField.getElementsByClassName("comments__urs-reply")[0];
+        let sendBtnOld = yourCommentField.getElementsByClassName("comments__urs-send")[0];
+    	let idINeedToSendTo = post.getAttribute("data-id");
+        let contentINeedToSendTo = inputSelected.value;
+        let visibilityINeedToSendTo = visibility.value;
+        let today = new Date();
+        let year = today.getFullYear();
+        let month = today.getMonth()+1;
+        let day = today.getDate();
+        let hour = today.getHours();
+        let minute = today.getMinutes();
+        let second = today.getSeconds();
+        let date = year+'-'+normalize(""+month)+'-'+normalize(""+day)+ ' ' + normalize(""+hour) + ":" + normalize(""+minute) + ":" + normalize(""+second);
+        let objectSent = {
+                cid: 0,
+                rid: idINeedToSendTo,
+                pid: 0,
+                visibility: visibilityINeedToSendTo,
+                text: contentINeedToSendTo,
+                date_added: date,
+                parentid: repliesTo
+        }
+        usePutComment(idINeedToSendTo, objectSent);
+        let responseBlockCreated = document.createElement("div");
+        responseBlockCreated.setAttribute("class", "comment comment__response");
+        responseBlockCreated.setAttribute("style", "display: flex;");
+        responseBlockCreated.innerHTML = `
+        	<div class="comment__pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+            <div class="comment__wrapper">
+        		<div class="comment__text"><span style="color: rgb(56, 88, 152);font-weight: 600;">You </span>${contentINeedToSendTo}</div>
+                <div class="comment__date">
+        			<span>${date}</span>
+        			<i class="fas fa-circle" style="margin: 5px; font-size: 5px;padding:5px;"></i>
+        			<span style="text-transform: capitalize;">${visibilityINeedToSendTo}</span>
+        		</div>
+        	</div>
+        `
+        let allThreadsInThisPost = post.getElementsByClassName("comment__thread");
+        Array.prototype.forEach.call(allThreadsInThisPost, (givenThread) => {
+        	let frstElementInTheThread = givenThread.getElementsByClassName("comment")[0];
+        	if(frstElementInTheThread.getAttribute("data-cid") == repliesTo) {
+        		givenThread.appendChild(responseBlockCreated);
+        	}
+        });
+        inputSelected.value = "";
+    	sendBtnOld.style.display = "flex";
+        replyBtnNewlyCreated.style.display = "none";
+        let showRestOfTheCommentsBtn = post.getElementsByClassName("comment__showRest")[0];
+        showRestOfTheCommentsBtn.click();
     });
 }
 
