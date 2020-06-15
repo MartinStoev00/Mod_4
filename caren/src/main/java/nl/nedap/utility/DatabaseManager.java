@@ -95,7 +95,7 @@ public static void updateRegularQuery(String q) {
 		//if (sessionId == id) {return true;}
 		
 		String q = "SELECT a.aid" + "\n"
-				+ "FROM accounts a, relationships r" + "\n"
+				+ "FROM caren.accounts a, caren.relationships r" + "\n"
 				+ "WHERE r.person_id = ?" + "\n"
 				+ "AND r.related_person_id = ?";
 		
