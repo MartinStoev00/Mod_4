@@ -24,7 +24,7 @@ export function postsTemplate(posted_for_id, posted_by_id, posted_by_name, date_
                         </div>
                     </div>
     				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
-    				<button class="comments__urs-reply"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
                 </div>
             </div>
         </div>`

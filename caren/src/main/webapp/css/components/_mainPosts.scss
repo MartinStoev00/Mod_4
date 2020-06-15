@@ -137,12 +137,15 @@
 				    justify-content: center;
 				    align-content: center;
 				    align-items: center;
-				    color: #ccc;
+				    color: #fff;
 				    margin: 0 5px;
 					border: none;
 					border-radius: 30px;
-					background-color: red;
+					background-color:rgb(40, 196, 76);
 					border: .5px solid #ddd;
+					&:hover {
+						cursor: pointer;
+					}
 				}
 				&-send {
 					flex: 0 1 auto;
@@ -156,12 +159,15 @@
 				    justify-content: center;
 				    align-content: center;
 				    align-items: center;
-				    color: #ccc;
+				    color: #fff;
 				    margin: 0 5px;
 					border: none;
 					border-radius: 30px;
-					background-color: rgb(251, 251, 251);
+					background-color: rgb(66, 133, 244);
 					border: .5px solid #ddd;
+					&:hover {
+						cursor: pointer;
+					}
 				}
 				&-click {
 					width: 40%;
@@ -200,6 +206,11 @@
 		    align-content: flex-start;
 		    align-items: flex-start;
 		    margin: 10px 15px 15px;
+			&__replyBtn {
+				&:hover {
+					cursor: pointer;
+				}
+			}
 			&__pic {
 				height: 30px; width: 30px;
 				background-position: center;

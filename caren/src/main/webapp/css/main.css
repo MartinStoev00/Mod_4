@@ -547,12 +547,14 @@
           justify-content: center;
           align-content: center;
           align-items: center;
-          color: #ccc;
+          color: #fff;
           margin: 0 5px;
           border: none;
           border-radius: 30px;
-          background-color: red;
+          background-color: #28c44c;
           border: .5px solid #ddd; }
+          .mainPosts .post .comments__urs-reply:hover {
+            cursor: pointer; }
         .mainPosts .post .comments__urs-send {
           flex: 0 1 auto;
           padding: 10px;
@@ -565,12 +567,14 @@
           justify-content: center;
           align-content: center;
           align-items: center;
-          color: #ccc;
+          color: #fff;
           margin: 0 5px;
           border: none;
           border-radius: 30px;
-          background-color: #fbfbfb;
+          background-color: #4285f4;
           border: .5px solid #ddd; }
+          .mainPosts .post .comments__urs-send:hover {
+            cursor: pointer; }
         .mainPosts .post .comments__urs-click {
           width: 40%;
           border: .5px solid #ddd;
@@ -599,6 +603,8 @@
       align-content: flex-start;
       align-items: flex-start;
       margin: 10px 15px 15px; }
+      .mainPosts .post .comment__replyBtn:hover {
+        cursor: pointer; }
       .mainPosts .post .comment__pic {
         height: 30px;
         width: 30px;
