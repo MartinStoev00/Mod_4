@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import nl.nedap.utility.DatabaseManager;
+import nl.nedap.utility.EmailVerification;
 import nl.nedap.utility.ForeignCharactersChecker;
 
 /**
@@ -26,7 +27,7 @@ import nl.nedap.utility.ForeignCharactersChecker;
 public class Signup extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private static String URL = "jdbc:mysql://localhost:3369/caren";
+	private static String URL = "jdbc:mysql://80.115.229.32:3369/caren";
 	private static String DBUSERNAME = "root";
 	private static String DBPASS = "kze3jBXt7oW4";
 
@@ -92,7 +93,6 @@ public class Signup extends HttpServlet {
 				out.println(docType + "<HTML> <body>Password can only contain the following characters: a->z, A->Z, 0->9 </body> </HTML>");
 				return;
 			}else if (ForeignCharactersChecker.basicHasForeignCharacters(firstname) || ForeignCharactersChecker.basicHasForeignCharacters(lastname) || 
-					ForeignCharactersChecker.basicHasForeignCharacters(birthdate) || ForeignCharactersChecker.basicHasForeignCharacters(gender)||
 					ForeignCharactersChecker.basicHasForeignCharacters(passwordagn)) {//sanitisation of the rest of the fields
 				out.println(docType + "<HTML> <body>All (non email) input fields can only contain the following characters: a->z, A->Z, 0->9 </body> </HTML>");
 				return;
@@ -126,8 +126,19 @@ public class Signup extends HttpServlet {
 				persCreationSt.setString(1, ""+aid); persCreationSt.setString(2, firstname); persCreationSt.setString(3, lastname); persCreationSt.setString(4, birthdate); persCreationSt.setString(5, gender);
 				persCreationSt.executeUpdate();
 				
-				out.println(docType + "<HTML> <body>Account created.</body> </HTML>");
 				
+				out.println(docType + "<HTML> <body>Account created. Check your email to verify your account</body> </HTML>");
+				
+				EmailVerification verifying = new EmailVerification(email);
+				String token = verifying.tokenGenerator(25);
+				
+				String insertToken = "UPDATE accounts SET verification_token = ? WHERE aid = ?";
+				
+				DatabaseManager.updateQuery(insertToken, token , ""+aid);
+				
+				EmailVerification.sendEmail(verifying);
+				
+				/*
 				//Make session
 				String pidQ = "SELECT p.pid"
 						+ "FROM people p, accounts a"
@@ -145,7 +156,7 @@ public class Signup extends HttpServlet {
 				session.setAttribute("name", firstname + " " + lastname);
 				
 				//Redirect to posts page
-				response.sendRedirect("http://localhost:8080/caren/posts/");
+				response.sendRedirect("http://localhost:8080/caren/posts/"); */
 				
 			} else { // cannot create acc
 				out.println(docType + "<HTML> <body> Email: "+ email +" already in use. Please go back and try another one. </body> </HTML>");
