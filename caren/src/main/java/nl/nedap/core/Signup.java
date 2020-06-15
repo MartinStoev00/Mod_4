@@ -138,6 +138,9 @@ public class Signup extends HttpServlet {
 				
 				EmailVerification.sendEmail(verifying);
 				
+				
+				
+				//mohammad shall decide the fate of that, I think it should be deleted, no need for it anymore
 				/*
 				//Make session
 				String pidQ = "SELECT p.pid"

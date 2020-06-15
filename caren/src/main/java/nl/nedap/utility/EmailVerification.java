@@ -13,7 +13,7 @@ public class EmailVerification {
 	private String password = "Team2passissecure";
 	private String recepient = "";
 	private String link ="";
-	private String token="sadasd";
+	private String token="";
 	
 	private Properties mailProp;
 	private Session mailSession;
@@ -76,23 +76,5 @@ public class EmailVerification {
 		return token;
 	}
 	
-	/*
-	//for testing purposes
-	public static void main(String[] args) throws SQLException, ClassNotFoundException {
-		
-		//email test
-		try {
-			EmailVerification em = new EmailVerification("team2nedap@gmail.com");
-			System.out.println("email successfully sent");
-		} catch (AddressException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//token test
-		
-	}*/
 	
 }
