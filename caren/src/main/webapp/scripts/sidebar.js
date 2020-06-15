@@ -159,7 +159,7 @@ Array.prototype.forEach.call(linkForPages, (link, index) => {
             on();
             Array.prototype.forEach.call(postBlockMain, (blockPost) => {
                 if(blockPost.getAttribute("data-link") == linkL) {
-                    blockPost.style.display = "block";
+                    blockPost.style.display = "flex";
                 }
             });
         }
@@ -293,7 +293,7 @@ function filteringSearch() {
             if(!(currTitle.includes(curr) || curr.includes(currTitle))) {
                 post.style.display = "none";
             } else{
-                post.style.display = "block";
+                post.style.display = "flex";
                 present++;
             }
         });

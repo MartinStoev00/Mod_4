@@ -93,6 +93,28 @@ function visibilityAndReadMore(post) {
             })
         }
     });
+    let commentInfoButton = post.getElementsByClassName("comments__info")[0];
+    let originalText = commentInfoButton.innerHTML;
+    commentInfoButton.addEventListener("click", () => {
+    	let allThreads = post.getElementsByClassName("comment__thread");
+    	let urCommentSection = post.getElementsByClassName("comments__urs")[0];
+    	if(commentInfoButton.innerHTML != "Collapse Comments") {
+    		commentInfoButton.style.borderBottom = ".5px solid #ddd";
+    		commentInfoButton.innerHTML = "Collapse Comments";
+        	urCommentSection.style.display = "flex";
+        	Array.prototype.forEach.call(allThreads, (singleThread) => {
+        		singleThread.style.display = "block";
+        	});
+    	} else {
+    		commentInfoButton.style.borderBottom = "none";
+    		commentInfoButton.innerHTML = originalText;
+    		urCommentSection.style.display = "none";
+        	Array.prototype.forEach.call(allThreads, (singleThread) => {
+        		singleThread.style.display = "none";
+        	});
+    	}
+    	
+    });
 }
 
 function sendingDataFunctionality(post) {

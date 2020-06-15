@@ -429,6 +429,14 @@
   align-items: center;
   background-color: #f3f3f3;
   min-height: calc(100vh); }
+  .mainPosts .posts {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: stretch;
+    align-items: stretch; }
   .mainPosts .post {
     transition: .2s;
     font-family: 'Arial';
@@ -436,9 +444,17 @@
     border-radius: 3px;
     margin: 20px;
     background-color: #fff;
-    width: calc(40vw);
-    min-height: 120px; }
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: center;
+    align-items: stretch; }
     .mainPosts .post__header {
+      margin: 0 50px;
+      flex: 0 1 auto;
+      align-self: stretch;
       display: flex;
       flex-direction: row;
       flex-wrap: nowrap;
@@ -446,7 +462,7 @@
       align-content: flex-start;
       align-items: center; }
     .mainPosts .post__pic {
-      margin: 15px;
+      margin: 15px 15px 15px 0;
       padding: 7px;
       height: 30px;
       width: 30px;
@@ -455,6 +471,8 @@
       border-radius: 50%;
       display: inline-block; }
     .mainPosts .post__title {
+      flex: 0 1 auto;
+      align-self: stretch;
       text-align: center;
       font-size: 22px;
       font-weight: 600;
@@ -477,31 +495,125 @@
       font-weight: 600;
       display: none;
       padding: 30px; }
+    .mainPosts .post__type-height {
+      align-self: auto;
+      flex: 1 1 auto;
+      display: grid;
+      grid-template-columns: auto;
+      grid-template-rows: auto;
+      grid-template-areas: "img text"; }
+      .mainPosts .post__type-height .content {
+        font-size: 25px;
+        font-weight: 900;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-content: stretch;
+        align-items: center;
+        grid-area: text; }
+      .mainPosts .post__type-height .height {
+        width: 100px;
+        height: 100px;
+        background-image: url(../Pictures/height.png);
+        background-position: center;
+        background-size: cover;
+        margin: auto;
+        grid-area: img; }
+    .mainPosts .post__type-weight {
+      align-self: auto;
+      flex: 1 2 auto;
+      display: grid;
+      grid-template-columns: auto;
+      grid-template-rows: auto;
+      grid-template-areas: "text" "img"; }
+      .mainPosts .post__type-weight .content {
+        font-size: 25px;
+        font-weight: 900;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-content: stretch;
+        align-items: center;
+        grid-area: text; }
+      .mainPosts .post__type-weight .weight {
+        width: calc(100px*(980/876));
+        height: 100px;
+        background-image: url(../Pictures/weight.png);
+        background-position: center;
+        margin: auto;
+        background-size: cover;
+        grid-area: img; }
+    .mainPosts .post__type-blood_pressure {
+      align-self: auto;
+      flex: 1 2 auto;
+      display: grid;
+      grid-template-columns: auto;
+      grid-template-rows: auto;
+      grid-template-areas: "text" "img"; }
+      .mainPosts .post__type-blood_pressure .content {
+        font-size: 25px;
+        font-weight: 900;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-content: stretch;
+        align-items: center;
+        grid-area: text; }
+      .mainPosts .post__type-blood_pressure .blood_pressure {
+        width: calc(100px*(980/972));
+        height: 100px;
+        background-image: url(../Pictures/blood_pressure.png);
+        background-position: center;
+        background-size: cover;
+        margin: auto;
+        grid-area: img; }
+    .mainPosts .post__type-text {
+      align-self: auto;
+      flex: 1 2 auto; }
+      .mainPosts .post__type-text .content {
+        text-align: left; }
+    .mainPosts .post__type-other {
+      align-self: auto;
+      flex: 1 2 auto; }
+      .mainPosts .post__type-other .content {
+        text-align: left; }
     .mainPosts .post .comments {
-      border-top: 0.5px solid #ddd;
-      padding: 8px 0;
+      align-self: stretch;
+      flex: 0 5 auto;
+      border-top: .5px solid #ddd;
       text-align: center; }
       .mainPosts .post .comments__info {
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
-        justify-content: space-between;
-        align-content: flex-start;
-        align-items: flex-start;
-        padding: 7px 15px;
-        font-size: 13px; }
+        justify-content: center;
+        align-content: stretch;
+        align-items: center;
+        font-size: 13px;
+        width: 100%;
+        color: #aaa;
+        font-weight: 600;
+        padding: 10px 0;
+        transition: .2s; }
+        .mainPosts .post .comments__info:hover {
+          cursor: pointer;
+          background-color: #f0f0f0; }
       .mainPosts .post .comments__viewall {
         color: rgba(66, 133, 244, 0.9);
         text-decoration: underline;
         cursor: pointer; }
       .mainPosts .post .comments__urs {
-        display: flex;
+        display: none;
         flex-direction: row;
         flex-wrap: nowrap;
         justify-content: space-between;
         align-content: center;
         align-items: center;
-        margin: 0 15px; }
+        margin: 0 15px;
+        padding: 8px 0; }
         .mainPosts .post .comments__urs-pic {
           height: 30px;
           width: 35px;
@@ -633,8 +745,10 @@
         text-decoration: underline;
         margin-top: 7px;
         font-size: 14px; }
-      .mainPosts .post .comment__thread .comment__response {
+      .mainPosts .post .comment__thread {
         display: none; }
+        .mainPosts .post .comment__thread .comment__response {
+          display: none; }
       .mainPosts .post .comment__text {
         border-radius: 20px;
         padding: 10px;
