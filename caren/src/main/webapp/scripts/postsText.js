@@ -9,7 +9,6 @@ export function postsTemplate(posted_for_id, posted_by_id, posted_by_name, date_
                     <div class="post__date">${date_added}</div>
                 </div>
             </div>
-            <div class="post__title">${type.replace("_", " ")}</div>
             <div class="post__text">${constructData(data.replace(/\\/g, ``), type)}</div>
             <div class="comments">
                 <div class="comments__info">${commentsNum}</div>

@@ -96,9 +96,11 @@ function visibilityAndReadMore(post) {
     let commentInfoButton = post.getElementsByClassName("comments__info")[0];
     let originalText = commentInfoButton.innerHTML;
     commentInfoButton.addEventListener("click", () => {
+    	let postsBlock = document.getElementsByClassName("posts")[0];
     	let allThreads = post.getElementsByClassName("comment__thread");
     	let urCommentSection = post.getElementsByClassName("comments__urs")[0];
     	if(commentInfoButton.innerHTML != "Collapse Comments") {
+    		postsBlock.style.alignItems = "baseline";
     		commentInfoButton.style.borderBottom = ".5px solid #ddd";
     		commentInfoButton.innerHTML = "Collapse Comments";
         	urCommentSection.style.display = "flex";
@@ -106,6 +108,7 @@ function visibilityAndReadMore(post) {
         		singleThread.style.display = "block";
         	});
     	} else {
+    		postsBlock.style.alignItems = "stretch";
     		commentInfoButton.style.borderBottom = "none";
     		commentInfoButton.innerHTML = originalText;
     		urCommentSection.style.display = "none";
