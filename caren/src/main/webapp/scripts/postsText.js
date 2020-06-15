@@ -24,6 +24,7 @@ export function postsTemplate(posted_for_id, posted_by_id, posted_by_name, date_
                         </div>
                     </div>
     				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-paper-plane"></i></button>
                 </div>
             </div>
         </div>`
@@ -77,7 +78,7 @@ function allCommentsTemplate(comments) {
 
 export function commentTemplate(comment, hasReplies) {
     let {name, pid, text, date_added, parentid, visibility, cid} = comment;
-    let replyButton = '<span style="color: rgb(66, 133, 244); text-decoration: underline; margin-right: 7px;">Reply</span>'
+    let replyButton = '<span class="comment__replyBtn" style="color: rgb(66, 133, 244); text-decoration: underline; margin-right: 7px;">Reply</span>'
     let returned;
     if (parentid != 0) {
     	returned = 
