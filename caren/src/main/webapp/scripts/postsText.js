@@ -1,4 +1,5 @@
 export function postsTemplate(posted_for_id, posted_by_id, posted_by_name, date_added, type, data, comments, num, record_id) {
+	let commentsNum = num == 0 ? "No Comments" : (num == 1 ? "1 Comment" : `${num} Comments`);
     let returned = 
         `<div class="post" data-link="${type}" data-id="${record_id}">
             <div class="post__header">
@@ -9,9 +10,9 @@ export function postsTemplate(posted_for_id, posted_by_id, posted_by_name, date_
                 </div>
             </div>
             <div class="post__title">${type.replace("_", " ")}</div>
-            <div class="post__text">${data.replace(/"/g, ``)}</div>
+            <div class="post__text">${constructData(data.replace(/\\/g, ``), type)}</div>
             <div class="comments">
-                <!--  numOfCommentsTemplate(num) was here-->
+                <div class="comments__info">${commentsNum}</div>
                 ${allCommentsTemplate(comments)}
                 <div class="comments__urs">
                     <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
@@ -31,15 +32,55 @@ export function postsTemplate(posted_for_id, posted_by_id, posted_by_name, date_
     return returned;
 }
 
-let numDisplayed = 100;
-
-function numOfCommentsTemplate(length) {
-    let returned = length > 3 ? ` 
-        <div class="comments__info">
-            <div class="comments__viewall">View All Comments</div>
-            <div class="comments__count">${numDisplayed} out of ${length}</div>
-        </div>` : ``;
-    return returned;
+function constructData(input, type) {
+	let inputLen = input.length;
+	let givenInput = input.substring(1, inputLen - 1);
+	let anObj = JSON.parse(givenInput);
+	let contentInfo = ``;
+	switch(type) {
+	case "height":
+		let {value: heightValue, unit: heightUnit} = anObj;
+		let dataTextHeight = "" + heightValue + heightUnit;
+		contentInfo += `
+				<div class="content">${dataTextHeight}</div>
+				<div class="height"></div>
+			`;
+		break;
+	case "weight":
+		let {value: weightValue, unit: weightUnit} = anObj;
+		let dataTextWeight = "" + weightValue + weightUnit;
+		contentInfo += `
+				<div class="content">${dataTextWeight}</div>
+				<div class="weight"></div>
+			`;
+		break;
+	case "text":
+		let {text} = anObj;
+		contentInfo += `
+				<div class="content">${text}</div>
+			`;
+		break;
+	case "blood_pressure":
+		let {systolic, diastolic, unit: bloodPressureUnit} = anObj;
+		let dataTextBloodPressure = "S: " + systolic + " " + bloodPressureUnit + "<br>D: " + diastolic + " " + bloodPressureUnit;
+		contentInfo += `
+				<div class="content">${dataTextBloodPressure}</div>
+				<div class="blood_pressure"></div>
+			`;
+		break;
+	case "other":
+		let {value: valueOther, unit: unitOther, description: descriptionOther} = anObj;
+		let valueAndUnit = "" + (valueOther == null ? "" : valueOther) + (unitOther == null ? "" : unitOther);
+		contentInfo += `
+			<div class="content">${descriptionOther}${valueAndUnit=="" ? "" : ":"} <b>${valueAndUnit}</b></div>
+		`;
+		break;
+	}
+	let returned = `
+		<div class="post__type-${type}">${contentInfo}
+		</div>
+	`;
+	return returned;
 }
 
 function allCommentsTemplate(comments) {
@@ -65,12 +106,10 @@ function allCommentsTemplate(comments) {
         })
     })
     resultedComments.forEach((comment, index) => {
-        if(index < numDisplayed) {
-            if(comment.parentid == 0 && index !== 0) {
-                commentsText += `</div><div class="comment__thread">`;
-            }
-            commentsText += commentTemplate(comment, comment.parentid == 0 && index !== resultedComments.length - 1 && resultedComments[index + 1].parentid !== 0);
-        }
+    	if(comment.parentid == 0 && index !== 0) {
+    		commentsText += `</div><div class="comment__thread">`;
+    	}
+    	commentsText += commentTemplate(comment, comment.parentid == 0 && index !== resultedComments.length - 1 && resultedComments[index + 1].parentid !== 0);
     });
     commentsText += "</div>";
     return commentsText;
