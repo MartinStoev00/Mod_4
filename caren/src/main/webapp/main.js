@@ -182,9 +182,7 @@ function putcomment(location, content) {
 }
 
 export function usePutComment(input, content) {
-    putcomment("http://localhost:8080/caren/rest/comment/"+input, content).then((data) => {
-        console.log(input);
-    }).catch((err) => {
+    putcomment("http://localhost:8080/caren/rest/comment/"+input, content).catch((err) => {
         console.log(err);
     });
 }

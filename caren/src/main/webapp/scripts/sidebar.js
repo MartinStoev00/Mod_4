@@ -44,6 +44,20 @@ people.style.height = (filterBtn.getBoundingClientRect().bottom) + "px";
 people.style.display = "none";
 let initData, data, commetsData;
 let startDate, endDate, order = chrono;
+let oldestToNewestFun = (a, b) => {
+    let one = new Date(a.date_added);
+    let two = new Date(b.date_added)
+    if(one < two) { return -1; }
+    if(one > two) { return 1; }
+    return 0;
+}
+let newestToOldestFun = (a, b) => {
+    let one = new Date(a.date_added);
+    let two = new Date(b.date_added)
+    if(one > two) { return -1; }
+    if(one < two) { return 1; }
+    return 0;
+}
 
 export default function sidebar(items, posts, comments) {
 	function gettingTheRaCOfPerson(input) {
@@ -52,13 +66,7 @@ export default function sidebar(items, posts, comments) {
 			posts = JSON.parse(data);
 			getrecords("http://localhost:8080/caren/rest/getcomments/"+input).then((data) => {
 				comments = JSON.parse(data);
-				mainPosts(posts.sort((a, b) => {
-		            let one = new Date(a.date_added);
-		            let two = new Date(b.date_added)
-		            if(one < two) { return -1; }
-		            if(one > two) { return 1; }
-		            return 0;
-		        }), comments)
+				mainPosts(posts.sort(oldestToNewestFun), comments)
 		        
 		        initData = posts;
 	    		data = initData;
@@ -100,13 +108,7 @@ export default function sidebar(items, posts, comments) {
     let ordererdDates = posts.map((post) => {
         let {date_added} = post;
         return date_added.split(" ")[0];
-    }).sort((a, b) => {
-        let one = new Date(a);
-        let two = new Date(b)
-        if(one < two) { return -1; }
-        if(one > two) { return 1; }
-        return 0;
-    });
+    }).sort(oldestToNewestFun);
     commetsData = comments;
     initData = posts;
     data = posts;
@@ -114,14 +116,7 @@ export default function sidebar(items, posts, comments) {
     fromDate.value = startDate;
     endDate = ordererdDates.pop();
     toDate.value = endDate;
-    mainWithComments(
-        posts.sort((a, b) => {
-            let one = new Date(a.date_added);
-            let two = new Date(b.date_added)
-            if(one < two) { return -1; }
-            if(one > two) { return 1; }
-            return 0;
-        }));
+    mainWithComments(posts.sort(oldestToNewestFun));
     sortingBlocks(posts);
     filteringSearch();
 }
@@ -347,26 +342,14 @@ boxBtns[0].addEventListener("click", () => {
         order = chrono;
         boxBtns[0].innerHTML = revChrono;
         filterBtns.innerHTML = order + " " + caret;
-        let newArr = data.sort((a, b) => {
-            let one = new Date(a.date_added);
-            let two = new Date(b.date_added)
-            if(one < two) { return -1; }
-            if(one > two) { return 1; }
-            return 0;
-        });
+        let newArr = data.sort(oldestToNewestFun);
         data = newArr;
         mainWithComments(data);
     } else {
         order = revChrono;
         boxBtns[0].innerHTML = chrono;
         filterBtns.innerHTML = order + " " + caret;
-        let newArr = data.sort((a, b) => {
-            let one = new Date(a.date_added);
-            let two = new Date(b.date_added)
-            if(one > two) { return -1; }
-            if(one < two) { return 1; }
-            return 0;
-        });
+        let newArr = data.sort(newestToOldestFun);
         data = newArr;
         mainWithComments(data);
     }
@@ -376,13 +359,7 @@ btnReset.addEventListener("click", () => {
     let ordererdDates = initData.map((post) => {
         let {date_added} = post;
         return date_added.split(" ")[0];
-    }).sort((a, b) => {
-        let one = new Date(a);
-        let two = new Date(b)
-        if(one < two) { return -1; }
-        if(one > two) { return 1; }
-        return 0;
-    });
+    }).sort(oldestToNewestFun);
     data = initData;
     order = chrono;
 
@@ -398,14 +375,6 @@ btnReset.addEventListener("click", () => {
         link.style.color = "rgb(66, 133, 244)";
         link.getElementsByClassName("fa-check")[0].style.display = "block";
     })
-    mainWithComments(
-        initData.sort((a, b) => {
-            let one = new Date(a.date_added);
-            let two = new Date(b.date_added)
-            if(one < two) { return -1; }
-            if(one > two) { return 1; }
-            return 0;
-        })
-    );
+    mainWithComments(initData.sort(oldestToNewestFun));
 });
 

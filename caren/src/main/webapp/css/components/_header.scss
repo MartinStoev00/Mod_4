@@ -7,9 +7,9 @@
     align-items: center;
 	background-color: #fff;
 	border-bottom: .5px solid #ddd;
-	width: calc(100vw);
 	position: fixed;
 	top: 0;
+	//width: calc(100vw - 20px);
 	padding: 10px;
 	@include flex(row);
 	z-index: 5;
@@ -26,13 +26,14 @@
 	    align-items: center;
 	}
 	&__buttons {
-		width: calc(20vw);
+		width: calc(40vw);
 		display: flex;
 	    flex-direction: row;
 	    flex-wrap: nowrap;
-	    justify-content: center;
+	    justify-content: flex-end;
 	    align-content: stretch;
 	    align-items: center;
+		padding: 0 15px;
 	}
 	&__myProfile, &__notify, &__logout, &__home {
 		cursor: pointer;

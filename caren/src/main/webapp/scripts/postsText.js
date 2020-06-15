@@ -1,4 +1,4 @@
-export default function postsTemplate(posted_for_id, posted_by_id, posted_by_name, date_added, type, data, comments, record_id) {
+export function postsTemplate(posted_for_id, posted_by_id, posted_by_name, date_added, type, data, comments, num, record_id) {
     let returned = 
         `<div class="post" data-link="${type}" data-id="${record_id}">
             <div class="post__header">
@@ -15,17 +15,15 @@ export default function postsTemplate(posted_for_id, posted_by_id, posted_by_nam
                 ${allCommentsTemplate(comments)}
                 <div class="comments__urs">
                     <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
-                    <div class="comments__urs-form">
-                        <div class="comments__urs-wrapper">
-                            <input class="comments__urs-input"type="text" placeholder="Write your comment">
-                            <input type="text" readonly class="comments__urs-click" value="public">
-                            <div class="visibility__options">
-                                <p class="visibility__select">private</p>
-                                <p class="visibility__select">personal</p>
-                            </div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input"type="text" placeholder="Write your comment">
+                        <input type="text" readonly class="comments__urs-click" value="public">
+                        <div class="visibility__options">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
                         </div>
-                        <button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
                     </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
                 </div>
             </div>
         </div>`
@@ -70,25 +68,20 @@ function allCommentsTemplate(comments) {
             if(comment.parentid == 0 && index !== 0) {
                 commentsText += `</div><div class="comment__thread">`;
             }
-            commentsText += commentTemplate(comment);
-            if(comment.parentid == 0 && index !== resultedComments.length - 1 && resultedComments[index + 1].parentid !== 0) {
-                
-                commentsText += `<div class="comment__showReplies" onclick="joe()">Show Replies</div>`
-            }
+            commentsText += commentTemplate(comment, comment.parentid == 0 && index !== resultedComments.length - 1 && resultedComments[index + 1].parentid !== 0);
         }
     });
     commentsText += "</div>";
     return commentsText;
 }
 
-function commentTemplate(comment) {
+export function commentTemplate(comment, hasReplies) {
     let {name, pid, text, date_added, parentid, visibility, cid} = comment;
-    let state = parentid == 0 ? "" : "comment__response";
-    let replyButton = '<span style="color: rgb(66, 133, 244); text-decoration: underline; margin-right: 15px;">Reply</span>'
-    	let returned;
+    let replyButton = '<span style="color: rgb(66, 133, 244); text-decoration: underline; margin-right: 7px;">Reply</span>'
+    let returned;
     if (parentid != 0) {
     	returned = 
-            `<div class="comment ${state}" data-cid="${cid}">
+            `<div class="comment comment__response" data-cid="${cid}">
                 <div class="comment__pic" style="background-image: url(../Pictures/profile_pics/${pid}.jpg);"></div>
                 <div class="comment__wrapper">
                     <div class="comment__text"><span style="color: rgb(56, 88, 152);font-weight: 600;">${name} </span>${text}</div>
@@ -100,19 +93,38 @@ function commentTemplate(comment) {
                 </div>
             </div>`
     } else {
-    	returned = 
-            `<div class="comment ${state}" data-cid="${cid}">
-                <div class="comment__pic" style="background-image: url(../Pictures/profile_pics/${pid}.jpg);"></div>
-                <div class="comment__wrapper">
-                    <div class="comment__text"><span style="color: rgb(56, 88, 152);font-weight: 600;">${name} </span>${text}</div>
-                    <div class="comment__date">
-                    	${replyButton}
-                    	<span>${date_added}</span>
-                    	<i class="fas fa-circle" style="margin: 5px; font-size: 5px;padding:5px;"></i>
-                    	<span style="text-transform: capitalize;">${visibility}</span>
+    	if(hasReplies) {
+    		returned = 
+                `<div class="comment" data-cid="${cid}">
+                    <div class="comment__pic" style="background-image: url(../Pictures/profile_pics/${pid}.jpg);"></div>
+                    <div class="comment__wrapper">
+                        <div class="comment__text"><span style="color: rgb(56, 88, 152);font-weight: 600;">${name} </span>${text}</div>
+                        <div class="comment__data">
+                        	<div class="comment__showReplies">Show Replies</div>
+	                        <div class="comment__date">
+	                        	${replyButton}
+	                        	<span>${date_added}</span>
+	                        	<i class="fas fa-circle" style="margin: 5px; font-size: 5px;padding:5px;"></i>
+	                        	<span style="text-transform: capitalize;">${visibility}</span>
+	                        </div>
+                        </div>
                     </div>
-                </div>
-            </div>`
+                </div>`
+    	} else {
+    		returned = 
+    		`<div class="comment" data-cid="${cid}">
+	            <div class="comment__pic" style="background-image: url(../Pictures/profile_pics/${pid}.jpg);"></div>
+	            <div class="comment__wrapper">
+	                <div class="comment__text"><span style="color: rgb(56, 88, 152);font-weight: 600;">${name} </span>${text}</div>
+	                <div class="comment__date">
+	                	${replyButton}
+	                	<span>${date_added}</span>
+	                	<i class="fas fa-circle" style="margin: 5px; font-size: 5px;padding:5px;"></i>
+	                	<span style="text-transform: capitalize;">${visibility}</span>
+	                </div>
+	            </div>
+	        </div>`
+    	}
     }
     return returned;
 }

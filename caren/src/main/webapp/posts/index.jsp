@@ -18,11 +18,11 @@
 	<div class="header" name="header">
 		<div class="header__wrapper"><img class="header__logo" src="../Pictures/website_icon.png" alt=""></div>
 		<div class="header__buttons">
-			<button class="header__myProfile" onclick="location.href='http://localhost:8080/caren/posts/'" style="background-image: url('../icons/profile.png'); background-size: contain;"></button>
-			<button class="header__notify"  style="background-image: url('../icons/bell.png'); background-size: contain;"></button>
-			<button class="header__home"  style="background-image: url('../icons/settings.png'); background-size: contain;" onclick="location.href='http://localhost:8080/caren/settings/'"></button>
+			<button class="header__myProfile fas fa-user-circle" onclick="location.href='http://localhost:8080/caren/posts/'"></button>
+			<button class="header__notify fas fa-bell"></button>
+			<button class="header__home fas fa-cog" onclick="location.href='http://localhost:8080/caren/main/'"></button>
 			<form action="../signout">
-				<button type="submit" class="header__logout"  style="background-image: url('../icons/logout.png'); background-size: contain;"></button>
+				<button type="submit" class="header__logout fas fa-sign-out-alt"></button>
 			</form>
 			<div class="notifications"></div>
 			<div class="notifications__triangle"></div>

@@ -1,5 +1,5 @@
 import {usePutComment} from "../main.js";
-import postsTemplate from "./postsText.js";
+import {postsTemplate, commentTemplate} from "./postsText.js";
 
 let mainPostsBlocks = document.getElementsByClassName("mainPosts")[0]
 let postsMain = mainPostsBlocks.getElementsByClassName("posts")[0];
@@ -88,6 +88,8 @@ function visibilityAndReadMore(post) {
                     responseComment.style.display = "flex";
                 })
                 AshowMoreRep.style.display = "none";
+                let dataBlock = currentCommentThread.getElementsByClassName("comment__data")[0];
+                dataBlock.style.justifyContent = "flex-end";
             })
         }
     });
@@ -97,7 +99,6 @@ function sendingDataFunctionality(post) {
     let inputSelected = post.getElementsByClassName("comments__urs-input")[0];
     let inputSend = post.getElementsByClassName("comments__urs-send")[0];
     let visibility = post.getElementsByClassName("comments__urs-click")[0];
-    let visOptions = post.getElementsByClassName("visibility__options")[0];
     inputSend.addEventListener("click", () => {
         if(inputSelected.value.length > 0) {
             
@@ -130,22 +131,50 @@ function sendingDataFunctionality(post) {
             }
             usePutComment(idINeedToSendTo, objectSent);
             inputSelected.value = "";
-            let commentSectionText = post.getElementsByClassName("comments")[0];
-            let commentThreadsInTheCommentSec = commentSectionText.getElementsByClassName("comment__thread");
-            let yourCommentField = post.getElementsByClassName("comments__urs")[0];
-            let commentSecText = "";
-            
-            Array.prototype.forEach.call( commentThreadsInTheCommentSec, (currentCommentThreadSelected)=>{
-                if (currentCommentThreadSelected) {
-                    commentSecText += currentCommentThreadSelected.innerHTML;
-                }
-            })
-            
-            commentSecText += commentTemplate(objectSent);
-            commentSecText += '<div class="comments__urs">' + yourCommentField.innerHTML + '</div>';
-            commentSectionText.innerHTML = commentSecText;
-            let nameIWantToChange = post.getElementsByClassName("comment__text")[post.getElementsByClassName("comment__text").length-1].getElementsByTagName("span")[0];
-            nameIWantToChange.innerHTML = "You ";
+            let yourCommentSection = post.getElementsByClassName("comments")[0];
+            let yourCommentField = yourCommentSection.getElementsByClassName("comments__urs")[0];
+            let createdDiv = document.createElement("div");
+            let createdDivPic = document.createElement("div");
+            let createdDivWrapper = document.createElement("div");
+            let createdDivWrapperText = document.createElement("div");
+            let createdDivWrapperTextName = document.createElement("span");
+            let createdDivWrapperDate = document.createElement("div");
+            let createdDivWrapperDateReply = document.createElement("span");
+            let createdDivWrapperDateDate = document.createElement("span");
+            let createdDivWrapperDateIcon = document.createElement("i");
+            let createdDivWrapperDateVisibility = document.createElement("span");
+            let createdDivWrapperTextContent = document.createTextNode(objectSent.text);
+            let createdDivWrapperDateDateContent = document.createTextNode(objectSent.date_added);
+            let createdDivWrapperTextNameContent = document.createTextNode("You ");
+            let createdDivWrapperDateReplyContent = document.createTextNode("Reply");
+            let createdDivWrapperDateVisibilityContent = document.createTextNode(objectSent.visibility);
+            createdDiv.setAttribute("data-cid", "0");
+            createdDiv.setAttribute("class", "comment");
+            createdDivPic.setAttribute("class", "comment__pic");
+            createdDivPic.setAttribute("style", "background-image: url(../Pictures/profile_pics/1.jpg);");
+            createdDivWrapper.setAttribute("class", "comment__wrapper");
+            createdDivWrapperText.setAttribute("class", "comment__text");
+            createdDivWrapperTextName.setAttribute("style", "color: rgb(56, 88, 152);font-weight: 600;");
+            createdDivWrapperDate.setAttribute("class", "comment__date");
+            createdDivWrapperDateReply.setAttribute("style", "color: rgb(66, 133, 244); text-decoration: underline; margin-right: 7px;");
+            createdDivWrapperDateIcon.setAttribute("class", "fas fa-circle");
+            createdDivWrapperDateIcon.setAttribute("style", "margin: 5px; font-size: 5px;padding:5px;");
+            createdDivWrapperDateVisibility.setAttribute("style", "text-transform: capitalize;");
+            createdDivWrapperTextName.appendChild(createdDivWrapperTextNameContent);
+            createdDivWrapperText.appendChild(createdDivWrapperTextName);
+            createdDivWrapperText.appendChild(createdDivWrapperTextContent);
+            createdDivWrapperDateReply.appendChild(createdDivWrapperDateReplyContent);
+            createdDivWrapperDateDate.appendChild(createdDivWrapperDateDateContent);
+            createdDivWrapperDateVisibility.appendChild(createdDivWrapperDateVisibilityContent);
+            createdDivWrapperDate.appendChild(createdDivWrapperDateReply);
+            createdDivWrapperDate.appendChild(createdDivWrapperDateDate);
+            createdDivWrapperDate.appendChild(createdDivWrapperDateIcon);
+            createdDivWrapperDate.appendChild(createdDivWrapperDateVisibility);
+            createdDivWrapper.appendChild(createdDivWrapperText);
+            createdDivWrapper.appendChild(createdDivWrapperDate);
+            createdDiv.appendChild(createdDivPic);
+            createdDiv.appendChild(createdDivWrapper);
+            yourCommentSection.insertBefore(createdDiv, yourCommentField);
         }
     });
 }
@@ -189,14 +218,14 @@ function fillPosts(posts) {
 function doEveryThing(posts, comments) {
     postsMain.innerHTML = `<div class="post__err">No Results Found</div>`;
     posts.forEach((post) => {
-        let {record_id: postID, posted_by_id, posted_by_name, date_added, posted_for_id, data, type} = post;
+        let {record_id, posted_by_id, posted_by_name, date_added, posted_for_id, data, type} = post;
         let dataAboutComments = [];
         comments.forEach((comment) => {
-            if(postID == comment.rid) {
+            if(record_id == comment.rid) {
                 dataAboutComments.push(comment);
             }
-        })
-        postsMain.innerHTML += postsTemplate(posted_for_id, posted_by_id, posted_by_name, date_added, type, JSON.stringify(data), dataAboutComments, dataAboutComments.length, postID);
+        });
+        postsMain.innerHTML += postsTemplate(posted_for_id, posted_by_id, posted_by_name, date_added, type, JSON.stringify(data), dataAboutComments, dataAboutComments.length, record_id);
     });
     fillPosts(posts, comments);
     Array.prototype.forEach.call(document.getElementsByClassName("post"), (postBlock) => {
