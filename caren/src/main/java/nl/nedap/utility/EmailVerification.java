@@ -73,7 +73,7 @@ public class EmailVerification {
 			result.append(ALPHANUMERIC[new Random().nextInt(ALPHANUMERIC.length)]);
 		}
 		this.token = result.toString();
-		return result.toString();
+		return token;
 	}
 	
 	/*
