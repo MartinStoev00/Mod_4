@@ -50,10 +50,6 @@ public class ChangeProfileSettings extends HttpServlet {
 			return;
 		}
 		
-		if (!old_password_input.equals(pass)) {
-			return;
-		}
-		
 		//firstname
 		if (!first_name_input.equals("")) {
 			if (old_password_input.equals(pass)) {
@@ -62,6 +58,9 @@ public class ChangeProfileSettings extends HttpServlet {
 				+ "WHERE aid = ?" + "\n";
 				
 				DatabaseManager.updateQuery(q, first_name_input, ""+loggedaid);
+			} else {
+				response.sendRedirect("http://localhost:8080/caren/settings/failure.html");
+				return;
 			}
 		}
 		
@@ -73,6 +72,9 @@ public class ChangeProfileSettings extends HttpServlet {
 				+ "WHERE aid = ?" + "\n";
 				
 				DatabaseManager.updateQuery(q, last_name_input, ""+loggedaid);
+			} else {
+				response.sendRedirect("http://localhost:8080/caren/settings/failure.html");
+				return;
 			}
 		}
 		
@@ -84,6 +86,9 @@ public class ChangeProfileSettings extends HttpServlet {
 				+ "WHERE aid = ?" + "\n";
 				
 				DatabaseManager.updateQuery(q, email_input, ""+loggedaid);
+			} else {
+				response.sendRedirect("http://localhost:8080/caren/settings/failure.html");
+				return;
 			}
 		}
 		
@@ -95,6 +100,9 @@ public class ChangeProfileSettings extends HttpServlet {
 				+ "WHERE aid = ?" + "\n";
 				
 				DatabaseManager.updateQuery(q, password_input, ""+loggedaid);
+			} else {
+				response.sendRedirect("http://localhost:8080/caren/settings/failure.html");
+				return;
 			}
 		}
 
@@ -120,7 +128,7 @@ public class ChangeProfileSettings extends HttpServlet {
 			DatabaseManager.updateQuery(q2, rpl_input, ""+loggedaid);
 		}
 		
-		
+		response.sendRedirect("http://localhost:8080/caren/settings/success.html");
 	}
 	
 }

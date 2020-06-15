@@ -30,16 +30,10 @@
   align-items: center;
   background-color: #fff;
   border-bottom: .5px solid #ddd;
-  width: calc(100vw);
   position: fixed;
   top: 0;
+  width: calc(100vw - 20px);
   padding: 10px;
-  display: inline-flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  align-content: center;
-  align-items: center;
   z-index: 5; }
   .header__logo {
     width: calc(14vw); }
@@ -52,13 +46,14 @@
     align-content: stretch;
     align-items: center; }
   .header__buttons {
-    width: calc(20vw);
+    width: calc(40vw);
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: center;
+    justify-content: flex-end;
     align-content: stretch;
-    align-items: center; }
+    align-items: center;
+    padding: 0 15px; }
   .header__myProfile, .header__notify, .header__logout, .header__home {
     cursor: pointer;
     transition: 0.2s;
@@ -433,8 +428,9 @@
   align-content: space-between;
   align-items: center;
   background-color: #f3f3f3;
-  min-height: 1000px; }
+  min-height: calc(100vh); }
   .mainPosts .post {
+    transition: .2s;
     font-family: 'Arial';
     border: 1px #ddd solid;
     border-radius: 3px;
@@ -503,15 +499,17 @@
         flex-direction: row;
         flex-wrap: nowrap;
         justify-content: space-between;
-        align-content: stretch;
-        align-items: stretch;
+        align-content: center;
+        align-items: center;
         margin: 0 15px; }
         .mainPosts .post .comments__urs-pic {
           height: 30px;
-          width: 30px;
+          width: 35px;
           background-position: center;
           background-size: cover;
-          border-radius: 50%; }
+          border-radius: 50%;
+          margin: 0 5px;
+          flex: 0 1 auto; }
         .mainPosts .post .comments__urs-input {
           border-radius: 30px 0 0 30px;
           padding: 7px 12px;
@@ -529,6 +527,7 @@
           align-content: center;
           align-items: stretch; }
         .mainPosts .post .comments__urs-wrapper {
+          flex: 1 1 auto;
           width: 100%;
           display: flex;
           flex-direction: row;
@@ -536,7 +535,28 @@
           justify-content: space-between;
           align-content: stretch;
           align-items: stretch; }
+        .mainPosts .post .comments__urs-reply {
+          flex: 0 1 auto;
+          padding: 10px;
+          width: 30px;
+          height: 30px;
+          text-align: center;
+          display: none;
+          flex-direction: row;
+          flex-wrap: nowrap;
+          justify-content: center;
+          align-content: center;
+          align-items: center;
+          color: #fff;
+          margin: 0 5px;
+          border: none;
+          border-radius: 30px;
+          background-color: #28c44c;
+          border: .5px solid #ddd; }
+          .mainPosts .post .comments__urs-reply:hover {
+            cursor: pointer; }
         .mainPosts .post .comments__urs-send {
+          flex: 0 1 auto;
           padding: 10px;
           width: 30px;
           height: 30px;
@@ -547,12 +567,14 @@
           justify-content: center;
           align-content: center;
           align-items: center;
-          color: #ccc;
+          color: #fff;
           margin: 0 5px;
           border: none;
           border-radius: 30px;
-          background-color: #fbfbfb;
+          background-color: #4285f4;
           border: .5px solid #ddd; }
+          .mainPosts .post .comments__urs-send:hover {
+            cursor: pointer; }
         .mainPosts .post .comments__urs-click {
           width: 40%;
           border: .5px solid #ddd;
@@ -581,8 +603,8 @@
       align-content: flex-start;
       align-items: flex-start;
       margin: 10px 15px 15px; }
-      .mainPosts .post .comment__response {
-        margin-left: 65px; }
+      .mainPosts .post .comment__replyBtn:hover {
+        cursor: pointer; }
       .mainPosts .post .comment__pic {
         height: 30px;
         width: 30px;
@@ -598,12 +620,19 @@
         justify-content: flex-start;
         align-content: flex-start;
         align-items: flex-end; }
-      .mainPosts .post .comment__showReplies {
-        margin-top: -30px;
+      .mainPosts .post .comment__showRest {
+        width: 100%;
         color: #4285f4;
         text-decoration: underline;
         text-align: left;
-        padding: 0 66px 10px; }
+        margin-bottom: 10px;
+        margin-left: 60px;
+        font-size: 12px; }
+      .mainPosts .post .comment__showReplies {
+        color: #4285f4;
+        text-decoration: underline;
+        margin-top: 7px;
+        font-size: 14px; }
       .mainPosts .post .comment__thread .comment__response {
         display: none; }
       .mainPosts .post .comment__text {
@@ -620,7 +649,7 @@
         align-content: center;
         align-items: center;
         color: #aaa;
-        margin: 7px 20px 0;
+        margin: 7px 0 0;
         font-size: 13px;
         font-weight: 100; }
         .mainPosts .post .comment__date * {
@@ -630,6 +659,16 @@
           justify-content: center;
           align-content: center;
           align-items: center; }
+      .mainPosts .post .comment__data {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-content: stretch;
+        align-items: center; }
+      .mainPosts .post .comment__response {
+        margin-left: 65px; }
       .mainPosts .post .comment__viewall {
         cursor: pointer; }
 

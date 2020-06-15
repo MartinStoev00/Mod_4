@@ -3,6 +3,8 @@ package nl.nedap.resources;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
@@ -12,79 +14,53 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
+import model.Record;
+import model.RecordData;
 import nl.nedap.utility.DatabaseManager;
 
 @Path("getrecords/{id}")
 public class RecordsResource {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public String showTime(
-	    @Context HttpServletRequest request, @PathParam("id") int id
-	) {
+	public List<Record> showTime(@Context HttpServletRequest request, @PathParam("id") int id) {
+		List<Record> result = new ArrayList<Record>();
+
 		if (request.getSession().getAttribute("aid") != null) {
-			int aid = (int)request.getSession().getAttribute("aid");
-			
+			int loggedaid = (int) request.getSession().getAttribute("aid");
+			int loggedpid = (int) request.getSession().getAttribute("pid");
+
 			if (id == 0) {
-				id = aid;
-			} else if (!DatabaseManager.IsAssociate(aid, id)) {
-				return "[]";
+				id = loggedpid;
+			} else if (!DatabaseManager.IsAssociate(loggedpid, id)) {
+				return result;
 			}
-			
-			
-			
-			String query = "SELECT r.type, r.data, r.timestamp, cp.name, r.id, p.pid" + "\n"
-					+ "FROM reports r, people p, care_providers cp" + "\n"
-					+ "WHERE r.person_id = p.pid" + "\n"
-					+ "AND p.aid = ?" + "\n"
-					+ "AND r.care_provider_id = cp.id;";
-			
-			ResultSet records = DatabaseManager.ReadQuery(query, ""+id);
-			
-			
-			
-			String result = "[";
+
+			String query = "SELECT r.care_provider_id, r.person_id, CONCAT(cp.first_name, \" \", cp.last_name), r.id, r.type, r.data, r.timestamp"+ "\n"
+			+ "FROM reports r, people cp" + "\n"
+			+ "WHERE r.care_provider_id = cp.pid"  + "\n"
+			+ "AND r.person_id = ?";
+
+			ResultSet records = DatabaseManager.ReadQuery(query, "" + id);
+
 			try {
-				
-				boolean firstRecord = true;
-				
 				while (records.next()) {
-					//ResultSetMetaData metadata = records.getMetaData();
-					String type = records.getString(1);
-					String data = records.getString(2);
-					String timestamp = records.getString(3);
-					String care_provider = records.getString(4);
-					String rid = records.getString(5);
-					String pid = records.getString(6);
+					int posted_by_id = records.getInt(1);
+					int posted_for_id = records.getInt(2);
+					String posted_by_name = records.getString(3);
+					int record_id = records.getInt(4);
+					String type = records.getString(5);
+					String data = records.getString(6);
+					String date_added = records.getString(7);
 					
-					if (firstRecord) {
-						firstRecord = false;
-					} else {
-						result = result + ", "; 
-					}
-					
-					result = result + "{"
-							+ "\"rid\": \""+ rid + "\", "
-							+ "\"title\": \""+ type + "\", "
-							+ "\"text\": "+ data + ", "
-							+ "\"date\": \""+ timestamp + "\", "
-							+ "\"pid\": \""+ pid + "\", "
-							+ "\"name\": \""+ care_provider
-							+ "\"}";
+					Record record = new Record(posted_by_id, posted_for_id, posted_by_name, record_id, type, data, date_added);
+					result.add(record);
 				}
-				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			result = result + "]";
-			while (result.contains("\n")) {
-				result = result.substring(0, result.indexOf("\n")) + result.substring(result.indexOf("\n")+2, result.length());
-			}
-			return result;
-			
-		} else {
-			return "[]";
 		}
+		
+		return result;
 	}
 }

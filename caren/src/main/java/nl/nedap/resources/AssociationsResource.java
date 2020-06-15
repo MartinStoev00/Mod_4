@@ -20,8 +20,6 @@ import nl.nedap.utility.DatabaseManager;
 public class AssociationsResource {
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
-	
-	
 	public List<Associate> getAssociations(@Context HttpServletRequest request) {
 		
 		if (request.getSession().getAttribute("aid") != null) {

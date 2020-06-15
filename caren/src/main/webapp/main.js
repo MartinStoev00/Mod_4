@@ -110,7 +110,7 @@ function init() {
                     sidebar(associations, posts, comments);
                 }
                 if(document.getElementsByClassName("header").length > 0) {   
-                    header(associations, notifications);
+                    header(comments);
                 }
             }).catch((err) => {
                 console.log(err);
@@ -182,9 +182,7 @@ function putcomment(location, content) {
 }
 
 export function usePutComment(input, content) {
-    putcomment("http://localhost:8080/caren/rest/comment/"+input, content).then((data) => {
-        console.log(input);
-    }).catch((err) => {
+    putcomment("http://localhost:8080/caren/rest/comment/"+input, content).catch((err) => {
         console.log(err);
     });
 }

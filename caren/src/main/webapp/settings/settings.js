@@ -69,6 +69,11 @@ function inputChanged(){
         save.style.color = "#434343";
         save.style.border = "2px solid #434343";
         error.innerHTML = "";
+    } else if (first_name.value == "" && last_name.value == "" && email.value == "" && password.value == "" && (dark_mode.checked != dark_mode_default || rpl.value != rpl_default)){
+        save.disabled = false;
+        save.style.color = "#434343";
+        save.style.border = "2px solid #434343";
+        error.innerHTML = "";
     } else {
         save.disabled = true;
         save.style.color = "#b3b3b3";

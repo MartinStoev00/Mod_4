@@ -88,7 +88,7 @@ public static void updateRegularQuery(String q) {
 		
 }
 	
-	public static Boolean IsAssociate(int sessionId, int id) {
+	public static Boolean IsAssociate(int assTo, int ass) {
 		//if (sessionId == id) {return true;}
 		
 		String q = "SELECT a.aid" + "\n"
@@ -96,7 +96,7 @@ public static void updateRegularQuery(String q) {
 				+ "WHERE r.person_id = ?" + "\n"
 				+ "AND r.related_person_id = ?";
 		
-		ResultSet r = ReadQuery(q, ""+sessionId, ""+id);
+		ResultSet r = ReadQuery(q, ""+assTo, ""+ass);
 		try {
 			if (r.next()) {
 				return true;
