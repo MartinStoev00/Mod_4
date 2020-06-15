@@ -9,14 +9,17 @@ import java.sql.Statement;
 
 public class DatabaseManager {
 	
-	private static String URL = "jdbc:mysql://localhost:3369/caren";
-	private static String DBUSERNAME = "root";
-	private static String DBPASS = "kze3jBXt7oW4";
+	
+	private static final String HOST = "bronto.ewi.utwente.nl";
+	private static final String DBNAME = "dab_di19202b_340";
+	private static final String DBUSERNAME = "dab_di19202b_340";
+	private static final String DBPASS = "pYMCMcw6zBx7xaxH";
+	private static final String URL = "jdbc:postgresql://" + HOST + ":5432/" + DBNAME;
 	
 	public static ResultSet ReadQuery(String q, String ... vars) {
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName("org.postgresql.Driver");
 			Connection conn = DriverManager.getConnection(URL, DBUSERNAME, DBPASS);
 			
 			//Create prepared statement object
@@ -47,8 +50,8 @@ public class DatabaseManager {
 public static void updateQuery(String q, String ... vars) {
 		
 	try {
-		Class.forName("com.mysql.cj.jdbc.Driver");
-		Connection conn = DriverManager.getConnection(URL, DBUSERNAME, DBPASS);
+		Class.forName("org.postgresql.Driver");
+		Connection conn = DriverManager.getConnection(URL, DBNAME, DBPASS);
 		
 		//Create prepared statement object
 		PreparedStatement statement = conn.prepareStatement(q);
@@ -73,8 +76,8 @@ public static void updateQuery(String q, String ... vars) {
 public static void updateRegularQuery(String q) {
 	
 	try {
-		Class.forName("com.mysql.cj.jdbc.Driver");
-		Connection conn = DriverManager.getConnection(URL, DBUSERNAME, DBPASS);
+		Class.forName("org.postgresql.Driver");
+		Connection conn = DriverManager.getConnection(URL, DBNAME, DBPASS);
 		
 		//Create prepared statement object
 		Statement statement = conn.createStatement();

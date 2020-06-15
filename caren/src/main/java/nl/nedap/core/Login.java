@@ -51,9 +51,7 @@ public class Login extends HttpServlet {
 			}
 			//TODO check if account already exists
 			//The query
-			String q = "SELECT a.email" + "\n"
-					+ "FROM accounts a" + "\n"
-					+ "WHERE a.email = ?;";
+			String q = "SELECT caren.accountExists(?);";
 			
 			ResultSet resultset = DatabaseManager.ReadQuery(q, email);
 			System.out.println("Attempted login by: email: " + email + "; password: " + password + ";");
@@ -61,15 +59,11 @@ public class Login extends HttpServlet {
 			if (resultset.next()) { // has an account
 				System.out.println("Account with email: " + email + "; exists.");
 				
-				String accInfo = "SELECT a.aid, a.password, p.pid, CONCAT(p.first_name, \" \", p.first_name)" + "\n"
-						+ "FROM accounts a, people p" + "\n"
-						+ "WHERE a.email = ?" + "\n"
-						+ "AND a.aid = p.aid;";
+				String accInfo = "SELECT * FROM caren.accountInfo(?);";
 				
 				//Result set of statement execution
 				ResultSet passResultset = DatabaseManager.ReadQuery(accInfo, email);
 				passResultset.next();
-				
 				int aid = passResultset.getInt(1);
 				String pass = passResultset.getString(2);
 				int pid = passResultset.getInt(3);

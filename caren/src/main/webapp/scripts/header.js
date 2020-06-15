@@ -115,7 +115,8 @@ function fillNotifications() {
             `<div class="notifications__item" data-index-number="${name}" data-cid="${cid}">
                 <div style="background-image: url(../Pictures/profile_pics/${pid}.jpg);" class="notifications__img"></div>
                 <div class="notifications__container">
-                    <p class="notifications__text"><b>${name}</b> commented on your post.</p>
+                    <p class="notifications__text"><b>${name}</b> commented on your record.</p>
+                    <p class="notifications__text"><b>Click here to view.</p>
                     <p class="notifications__date">${date_added}</p>
                 </div>
             </div>`;

@@ -39,11 +39,7 @@ public class CommentsResource {
 		}
 		
 		//The query to get all the comments belonging to a post.
-		String query = "SELECT c.cid, c.rid, c.pid, CONCAT(p.first_name, \" \", p.last_name), c.visibility, c.text, c.date_added, c.parentid, c.seen" + "\n"
-				+ "FROM comments c, reports r, people p" + "\n"
-				+ "WHERE r.person_id = ?"  + "\n"
-				+ "AND c.rid = r.id"  + "\n"
-				+ "AND c.pid = p.pid;";
+		String query = "SELECT * FROM caren.getcomments(?);";
 		
 		//Resultset
 		ResultSet result = DatabaseManager.ReadQuery(query, ""+loggedpid);

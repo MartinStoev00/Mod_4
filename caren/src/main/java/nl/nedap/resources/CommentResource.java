@@ -28,8 +28,7 @@ public class CommentResource {
 		
 		int pid = (int)request.getSession().getAttribute("pid");
 		
-		String q = "INSERT INTO comments(rid, pid, visibility, text, date_added, parentid)" + "\n"
-				+ "VALUES(?, ?, ?, ?, ?, ?)";
+		String q = "SELECT caren.makecomment(?, ?, ?, ?, ?, ?)";
 		
 		DatabaseManager.updateQuery(q, ""+comment.getRid(), ""+pid, comment.getVisibility(), comment.getText(), comment.getDate_added(), ""+comment.getParentid());
 	}
@@ -42,9 +41,7 @@ public class CommentResource {
 		int aid = (int)request.getSession().getAttribute("aid");
 		int pid = (int)request.getSession().getAttribute("pid");
 		
-		String q = "UPDATE comments" + "\n"
-				+ "SET seen = 1" + "\n"
-				+ "WHERE cid = ?";
+		String q = "SELECT caren.seencomment(?);";
 		
 		DatabaseManager.updateQuery(q, ""+cid);
 	}
