@@ -35,10 +35,7 @@ public class RecordsResource {
 				return result;
 			}
 
-			String query = "SELECT r.care_provider_id, r.person_id, CONCAT(cp.first_name, \" \", cp.last_name), r.id, r.type, r.data, r.timestamp"+ "\n"
-			+ "FROM reports r, people cp" + "\n"
-			+ "WHERE r.care_provider_id = cp.pid"  + "\n"
-			+ "AND r.person_id = ?";
+			String query = "SELECT * FROM caren.getrecords(?);";
 
 			ResultSet records = DatabaseManager.ReadQuery(query, "" + id);
 

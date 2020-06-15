@@ -51,9 +51,7 @@ public class Login extends HttpServlet {
 			}
 			//TODO check if account already exists
 			//The query
-			String q = "SELECT a.email" + "\n"
-					+ "FROM accounts a" + "\n"
-					+ "WHERE a.email = ?;";
+			String q = "SELECT caren.accountExists(?);";
 			
 			ResultSet resultset = DatabaseManager.ReadQuery(q, email);
 			System.out.println("Attempted login by: email: " + email + "; password: " + password + ";");
@@ -61,21 +59,27 @@ public class Login extends HttpServlet {
 			if (resultset.next()) { // has an account
 				System.out.println("Account with email: " + email + "; exists.");
 				
-				String accInfo = "SELECT a.aid, a.password, p.pid, CONCAT(p.first_name, \" \", p.first_name)" + "\n"
-						+ "FROM accounts a, people p" + "\n"
-						+ "WHERE a.email = ?" + "\n"
-						+ "AND a.aid = p.aid;";
+				String accInfo = "SELECT * FROM caren.accountInfo(?);";
 				
 				//Result set of statement execution
 				ResultSet passResultset = DatabaseManager.ReadQuery(accInfo, email);
 				passResultset.next();
-				
 				int aid = passResultset.getInt(1);
 				String pass = passResultset.getString(2);
 				int pid = passResultset.getInt(3);
 				String name = passResultset.getString(4);
+				int verified = passResultset.getInt(5);
 				
-				if (pass.equals(password)) {
+				
+				//if account is not verified
+				if (verified != 1) {
+					out.println(docType + "<HTML> <body>Please check your email to verify account </body> </HTML>");
+					return;
+				}
+				
+				
+				//if password matches and account is verified
+				if (pass.equals(password) && verified == 1) {
 					//Make session
 					HttpSession session = request.getSession();
 					session.setAttribute("aid", aid);

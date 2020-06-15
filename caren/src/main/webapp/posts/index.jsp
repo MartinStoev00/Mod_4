@@ -20,7 +20,7 @@
 		<div class="header__buttons">
 			<button class="header__myProfile fas fa-user-circle" onclick="location.href='http://localhost:8080/caren/posts/'"></button>
 			<button class="header__notify fas fa-bell"></button>
-			<button class="header__home fas fa-cog" onclick="location.href='http://localhost:8080/caren/main/'"></button>
+			<button class="header__home fas fa-cog" onclick="location.href='http://localhost:8080/caren/settings/'"></button>
 			<form action="../signout">
 				<button type="submit" class="header__logout fas fa-sign-out-alt"></button>
 			</form>

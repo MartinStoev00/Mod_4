@@ -25,13 +25,7 @@ public class AssociationsResource {
 		if (request.getSession().getAttribute("aid") != null) {
 			int aid = (int)request.getSession().getAttribute("aid");
 			
-			String query = "SELECT CONCAT(p2.first_name, \" \", p2.last_name), GROUP_CONCAT(r.type), a.aid, p2.pid" + "\n"
-					+ "FROM people p1, people p2, relationships r, accounts a" + "\n"
-					+ "WHERE r.person_id = p1.pid" + "\n"
-					+ "AND r.related_person_id = p2.pid" + "\n"
-					+ "AND p2.aid = a.aid" + "\n"
-					+ "AND p1.aid = ?" + "\n"
-					+ "GROUP BY CONCAT(p2.first_name, \" \", p2.last_name), a.aid, p2.pid";
+			String query = "SELECT * FROM caren.getassociations(?)";
 			
 			ResultSet records = DatabaseManager.ReadQuery(query, ""+aid);
 			List<Associate> as = new ArrayList<>();

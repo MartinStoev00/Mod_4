@@ -27,10 +27,7 @@ public class ProfileSettingsResource {
 		
 		int aid = (int)request.getSession().getAttribute("aid");
 		
-		String q = "SELECT p.pid, p.first_name, p.last_name, a.email, a.password, a.dark_mode, a.rpl" + "\n"
-		+ "FROM people p, accounts a" + "\n"
-		+ "WHERE p.pid = a.aid" + "\n"
-		+ "AND a.aid = ?";
+		String q = "SELECT * FROM caren.getprofilesettings(?);";
 		
 		ResultSet result = DatabaseManager.ReadQuery(q, ""+aid);
 		
