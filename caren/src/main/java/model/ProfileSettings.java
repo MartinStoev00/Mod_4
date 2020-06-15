@@ -4,6 +4,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class ProfileSettings {
+	private int pid;
 	private String first_name;
 	private String last_name;
 	private String email;
@@ -12,16 +13,25 @@ public class ProfileSettings {
 	private int rpl;
 	
 	public ProfileSettings() {
-		this("John", "Doe", "PH@gmail.com", "Hello123", 0, 4);
+		this(0, "John", "Doe", "PH@gmail.com", "Hello123", 0, 4);
 	}
 	
-	public ProfileSettings(String first_name, String last_name, String email, String password, int dark_mode, int rpl) {
+	public ProfileSettings(int pid, String first_name, String last_name, String email, String password, int dark_mode, int rpl) {
+		this.pid = pid;
 		this.first_name = first_name;
 		this.last_name = last_name;
 		this.email = email;
 		this.password = password;
 		this.dark_mode = dark_mode;
 		this.rpl = rpl;
+	}
+
+	public int getPid() {
+		return pid;
+	}
+
+	public void setPid(int pid) {
+		this.pid = pid;
 	}
 
 	public String getFirst_name() {
