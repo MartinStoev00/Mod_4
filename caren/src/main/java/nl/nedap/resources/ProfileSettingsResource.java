@@ -43,7 +43,7 @@ public class ProfileSettingsResource {
 				int dark_mode = result.getInt(5);
 				int rpl = result.getShort(6);
 				
-				ps = new ProfileSettings(first_name, last_name, email, password, dark_mode, rpl);
+				ps = new ProfileSettings(first_name, last_name, email, null, dark_mode, rpl);
 				
 				return ps;
 			}
