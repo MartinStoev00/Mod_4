@@ -1,15 +1,19 @@
+<<<<<<< HEAD
 export function postsTemplate(img, name, date, title, text, comments, num, rid) {
+=======
+export default function postsTemplate(posted_for_id, posted_by_id, posted_by_name, date_added, type, data, comments, record_id) {
+>>>>>>> 3f1d1734339a7031084a8bb2051e2d816225db52
     let returned = 
-        `<div class="post" data-link="${title}" data-id="${rid}">
+        `<div class="post" data-link="${type}" data-id="${record_id}">
             <div class="post__header">
-                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/${img}.jpg);"></div>
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/${posted_by_id}.jpg);"></div>
                 <div class="post__info">
-                    <div class="post__uploader">${name}</div>
-                    <div class="post__date">${date}</div>
+                    <div class="post__uploader">${posted_by_name}</div>
+                    <div class="post__date">${date_added}</div>
                 </div>
             </div>
-            <div class="post__title">${title.replace("_", " ")}</div>
-            <div class="post__text">${text.replace(/"/g, ``)}</div>
+            <div class="post__title">${type.replace("_", " ")}</div>
+            <div class="post__text">${data.replace(/"/g, ``)}</div>
             <div class="comments">
                 <!--  numOfCommentsTemplate(num) was here-->
                 ${allCommentsTemplate(comments)}

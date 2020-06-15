@@ -53,8 +53,8 @@ export default function sidebar(items, posts, comments) {
 			getrecords("http://localhost:8080/caren/rest/getcomments/"+input).then((data) => {
 				comments = JSON.parse(data);
 				mainPosts(posts.sort((a, b) => {
-		            let one = new Date(a.date);
-		            let two = new Date(b.date)
+		            let one = new Date(a.date_added);
+		            let two = new Date(b.date_added)
 		            if(one < two) { return -1; }
 		            if(one > two) { return 1; }
 		            return 0;
@@ -98,8 +98,8 @@ export default function sidebar(items, posts, comments) {
     	
     })
     let ordererdDates = posts.map((post) => {
-        let {date} = post;
-        return date.split(" ")[0];
+        let {date_added} = post;
+        return date_added.split(" ")[0];
     }).sort((a, b) => {
         let one = new Date(a);
         let two = new Date(b)
@@ -116,8 +116,8 @@ export default function sidebar(items, posts, comments) {
     toDate.value = endDate;
     mainWithComments(
         posts.sort((a, b) => {
-            let one = new Date(a.date);
-            let two = new Date(b.date)
+            let one = new Date(a.date_added);
+            let two = new Date(b.date_added)
             if(one < two) { return -1; }
             if(one > two) { return 1; }
             return 0;
@@ -256,8 +256,8 @@ function filteringDates() {
     startDate = fromDate.value;
     endDate = toDate.value;
     data = initData.sort((a, b) => {
-        let one = new Date(a.date);
-        let two = new Date(b.date);
+        let one = new Date(a.date_added);
+        let two = new Date(b.date_added);
         if(order == chrono) {
             if(one < two) { return -1; }
             if(one > two) { return 1; }
@@ -268,7 +268,7 @@ function filteringDates() {
             return 0;
         }
     }).filter((postItem) => {
-        let postDate = new Date(postItem.date);
+        let postDate = new Date(postItem.date_added);
         let from = new Date(startDate);
         let to = new Date(endDate);
         return postDate > from && postDate < to;
@@ -348,8 +348,8 @@ boxBtns[0].addEventListener("click", () => {
         boxBtns[0].innerHTML = revChrono;
         filterBtns.innerHTML = order + " " + caret;
         let newArr = data.sort((a, b) => {
-            let one = new Date(a.date);
-            let two = new Date(b.date)
+            let one = new Date(a.date_added);
+            let two = new Date(b.date_added)
             if(one < two) { return -1; }
             if(one > two) { return 1; }
             return 0;
@@ -361,8 +361,8 @@ boxBtns[0].addEventListener("click", () => {
         boxBtns[0].innerHTML = chrono;
         filterBtns.innerHTML = order + " " + caret;
         let newArr = data.sort((a, b) => {
-            let one = new Date(a.date);
-            let two = new Date(b.date)
+            let one = new Date(a.date_added);
+            let two = new Date(b.date_added)
             if(one > two) { return -1; }
             if(one < two) { return 1; }
             return 0;
@@ -374,8 +374,8 @@ boxBtns[0].addEventListener("click", () => {
 
 btnReset.addEventListener("click", () => {
     let ordererdDates = initData.map((post) => {
-        let {date} = post;
-        return date.split(" ")[0];
+        let {date_added} = post;
+        return date_added.split(" ")[0];
     }).sort((a, b) => {
         let one = new Date(a);
         let two = new Date(b)
@@ -400,8 +400,8 @@ btnReset.addEventListener("click", () => {
     })
     mainWithComments(
         initData.sort((a, b) => {
-            let one = new Date(a.date);
-            let two = new Date(b.date)
+            let one = new Date(a.date_added);
+            let two = new Date(b.date_added)
             if(one < two) { return -1; }
             if(one > two) { return 1; }
             return 0;
