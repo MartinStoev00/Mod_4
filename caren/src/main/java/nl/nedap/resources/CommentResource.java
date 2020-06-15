@@ -43,11 +43,11 @@ public class CommentResource {
 		int pid = (int)request.getSession().getAttribute("pid");
 		
 		String q = "UPDATE comments" + "\n"
-				+ "seen = 1" + "\n"
-				+ "WHERE cid = ?" + "\n"
-				+ "AND pid = ?";
+				+ "SET seen = 1" + "\n"
+				+ "WHERE cid = ?";
 		
-		DatabaseManager.updateQuery(q, ""+cid, ""+pid);
+		System.out.println("peepeepoopoo");
+		DatabaseManager.updateQuery(q, ""+cid);
 	}
 	
 	@DELETE
