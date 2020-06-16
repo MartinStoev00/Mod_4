@@ -126,7 +126,7 @@
                             </span>
                         </div>
                     </div>
-                    <input class="submit_button" id="save" type="submit" value="Save" style="margin-right: 5%; margin-top: 5%;">
+                    <input class="submit_button" id="save" type="submit" value="Save" style="margin-right: 5%; margin-top: 5%;" disabled>
                     <div class="settings_error" style="margin-top: 50px;">
                         <label id="error" style="color: red; float: right; margin-right: 10%; font-family: Trebuchet MS;"></label>
                     </div>

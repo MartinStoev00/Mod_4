@@ -112,7 +112,7 @@ function fillNotifications() {
     newArr.forEach((notification) => {
         let {name, cid, rid, pid, date_added} = notification;
         notifications.innerHTML +=
-            `<div class="notifications__item" data-index-number="${name}" data-cid="${cid}">
+            `<div class="notifications__item" data-index-number="${name}" data-cid="${cid}" data-rid="${rid}">
                 <div style="background-image: url(../Pictures/profile_pics/${pid}.jpg);" class="notifications__img"></div>
                 <div class="notifications__container">
                     <p class="notifications__text"><b>${name}</b> commented on your record.</p>
@@ -132,8 +132,6 @@ function fillNotifications() {
     		let request = new XMLHttpRequest();
     		request.open("PATCH", "http://localhost:8080/caren/rest/comment/" + notis.getAttribute("data-cid"), true);
     		request.send();
-    		
-    		//remove(notis);
     	}
     	
     	notifics[i].addEventListener('click', notificationClicked);
