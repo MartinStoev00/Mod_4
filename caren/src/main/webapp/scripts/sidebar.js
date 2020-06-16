@@ -141,6 +141,7 @@ Array.prototype.forEach.call(linkForPages, (link, index) => {
         link.getElementsByClassName("fa-check")[0].style.display = "none";
     }
     function mouseOverButton() {
+    	previousState = link.getAttribute("data-state");
         let newState = previousState + "Hover";
         link.setAttribute("data-state", newState);
     }
@@ -186,7 +187,6 @@ Array.prototype.forEach.call(linkForPages, (link, index) => {
         	});
         	link.setAttribute("data-state", "selected");
     		link.getElementsByTagName("i")[1].style.display = "block";
-        	
         	Array.prototype.forEach.call(postBlockMain, (blockPost) => {
                 if(blockPost.getAttribute("data-link") == linkL) {
                     blockPost.style.display = "none";

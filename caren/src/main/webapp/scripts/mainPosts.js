@@ -112,8 +112,8 @@ function visibilityAndReadMore(post) {
     		commentInfoButton.style.borderBottom = "none";
     		commentInfoButton.innerHTML = originalText;
     		urCommentSection.style.display = "none";
-        	Array.prototype.forEach.call(allThreads, (singleThread) => {
-        		singleThread.style.display = "none";
+        	Array.prototype.forEach.call(post.getElementsByClassName("comment"), (comment) => {
+        		comment.style.display = "none";
         	});
     	}
     	
