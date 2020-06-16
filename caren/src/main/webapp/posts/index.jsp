@@ -69,12 +69,8 @@
 		<div class="people"></div>
 	</div>
 	<div class="mainPosts">
-		<div class="charts">
-			 <button data-type = 'Height' class="buttonMeasurement">Height</button>
-			  <button data-type = 'Weight' class="buttonMeasurement">Weight</button>
-			  <button data-type = 'BloodPressure' class="buttonMeasurement">Blood Pressure</button>
-			  <canvas id="canvas" width="350" height="200"></canvas>
-			  <div class = "report__clicked"></div>
+		<div class="charts" style="width: 500px; height: 300px;">
+			 <canvas id="canvas" width="650" height="400"></canvas>
 		</div>
 		<div class="posts"></div>
 	</div>

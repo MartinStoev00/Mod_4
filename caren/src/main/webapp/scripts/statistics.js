@@ -27,6 +27,7 @@ let config = {
         datasets: [{
             label: 'default',
             fill: false,
+            pointRadius: 6,
             backgroundColor: window.chartColors.blue,
             borderColor: window.chartColors.blue,
             data: [],
@@ -35,11 +36,6 @@ let config = {
     },
     options: {
         responsive: true,
-        title: {
-        	
-            display: true,
-            text: 'default'
-        },
         tooltips: {
             mode: 'index',
             intersect: false,
@@ -128,21 +124,8 @@ export default function statistics(records) {
     });
     
     window.lineChart = new Chart(ctx, config);
-    displayGraph('Height');
+    displayGraph('height');
 };
-
-let chosenbutton = document.getElementsByClassName('buttonMeasurement');
-Array.prototype.forEach.call(chosenbutton, (currentbutton) => {
-    let typebutton = currentbutton.getAttribute('data-type');
-    //SOMEONE DEAL WITH THIS. Make sure that measurementData is neither empty or undefined. ----------------------READ <<<<<<<<<<<<<<<<<<<<
-    if (typeof measurementData[typebutton.toLowerCase()] != 'undefined' || measurementData[bloodpressure] != 'undefined') {
-        currentbutton.addEventListener('click', () => {
-        	displayGraph(typebutton);
-        })
-    }
-
-});
-
 //R
 function onclickData(event){
 	let reportselectedblock = document.getElementsByClassName("report__clicked")[0];
@@ -150,41 +133,40 @@ function onclickData(event){
     if(content[0]){
     	var chartData= content[0]['_chart'].config.data;
     	var index = content[0]['_index'];
-    	//console.log(chartData);
+    	let rid;
     	if((chartData.datasets[0].label).includes('Height') || (chartData.datasets[0].label).includes('Weight')){
     		var measurement = chartData.datasets[0].label;
         	var date = chartData.labels[index];
             var value = chartData.datasets[0].data[index];
-            var rid = chartData.datasets[0].rid[index];
-    		console.log(rid);
+            rid = chartData.datasets[0].rid[index];
     	} else {
+            rid = chartData.datasets[0].rid[index];
     		var measurement1 = chartData.datasets[0].label;
     		var measurement2 = chartData.datasets[1].label;
     		var value1 = chartData.datasets[0].data[index];
     		var value2 = chartData.datasets[1].data[index];
     		var date = chartData.labels[index];
-    		let returned = `
-    			<div> Systolic: ${measurement1}</div>
-        		`
-    		
-    		reportselectedblock.innerHTML= returned;
     	}
-    	
-    	
+		console.log("What we have:" + rid);
+		let postsBlocks = document.getElementsByClassName("post");
+		Array.prototype.forEach.call(postsBlocks, (block) => {
+			block.style.display = "none";
+			if(block.getAttribute("data-id") == rid) {
+				block.style.display = "flex";
+			}
+		});
     }
 }
 
 
 
-function displayGraph(typebutton){
+export function displayGraph(typebutton){
     returnArray(typebutton);
-    config.options.title.text = typebutton;
-    console.log(measurementData);
-    if(typebutton == 'Height' || typebutton == 'Weight'){
-    	config.options.scales.yAxes[0].scaleLabel.labelString = typebutton + " ( " + measurementData[typebutton.toLowerCase()][0].unit + " )";
-        config.data.datasets[0].label = typebutton + " ( " + measurementData[typebutton.toLowerCase()][0].unit + " )";
+    if(typebutton == 'height' || typebutton == 'weight'){
+    	config.options.scales.yAxes[0].scaleLabel.labelString = typebutton.replace("h", "H").replace("w","W") + " ( " + measurementData[typebutton.toLowerCase()][0].unit + " )";
+        config.data.datasets[0].label = typebutton.replace("h", "H").replace("w","W") + " ( " + measurementData[typebutton.toLowerCase()][0].unit + " )";
     } else {
-    	config.options.scales.yAxes[0].scaleLabel.labelString = typebutton + " ( " + measurementData.bloodpressure.systolic[0].unit + " )";
+    	config.options.scales.yAxes[0].scaleLabel.labelString = typebutton.replace("_", " ").replace("b","B").replace("p","P") + " ( " + measurementData.bloodpressure.systolic[0].unit + " )";
         config.data.datasets[0].label = "Systolic" + " ( " + measurementData.bloodpressure.systolic[0].unit + " )";
         config.data.datasets[1].label = "Diastolic" + " ( " + measurementData.bloodpressure.systolic[0].unit + " )";
     }
@@ -201,7 +183,7 @@ function returnArray(fieldname) {
     if(config.data.datasets.length > 1) {
 	    config.data.datasets.splice(1, 1);
 	}
-    if (fieldname == 'Height' || fieldname == 'Weight') {
+    if (fieldname == 'height' || fieldname == 'weight') {
         measurementData[fieldname.toLowerCase()].forEach((fieldnamedata) => {
             arrayvalue1.push(fieldnamedata.value);
             ridvalue.push(fieldnamedata.rid);
@@ -237,18 +219,16 @@ function returnArray(fieldname) {
 
 //Adds a dataset to the line chart. Used to visualize both Systolic and Diastolic.
 function addDataset(datasetvalue, ridvalue) {
-	
 	//Creates the dataset with unfilled data values.
-	
     var secondDataset = {
     		label: 'Diastolic ( mm Hg )',
             fill: false,
+            pointRadius: 6,
             backgroundColor: window.chartColors.yellow,
             borderColor: window.chartColors.yellow,
             data: [],
             rid: []
     };
-
     //Adding data  values into the second dataset. Loops the array datasetvalue.
     for (var index = 0; index < datasetvalue.length; ++index) {
         secondDataset.data.push(datasetvalue[index]);
@@ -256,29 +236,4 @@ function addDataset(datasetvalue, ridvalue) {
     }
 
     config.data.datasets.push(secondDataset);
-}
-
-
-function getrecords(location) {
-    return new Promise(function(resolve, reject) {
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", location, true);
-        xhr.onload = function() {
-            if (this.status >= 200 && this.status < 300) {
-                resolve(xhr.response);
-            } else {
-                reject({
-                    status: this.status,
-                    statusText: xhr.statusText
-                });
-            }
-        };
-        xhr.onerror = function() {
-            reject({
-                status: this.status,
-                statusText: xhr.statusText
-            });
-        };
-        xhr.send();
-    });
 }

@@ -1,5 +1,6 @@
 import mainPosts from "./mainPosts.js";
 import getrecords from "../main.js";
+import {displayGraph} from "./statistics.js";
 
 let headerBlock = document.getElementsByClassName("header")[0];
 let sidebarBlock = document.getElementsByClassName("sidebar")[0];
@@ -149,32 +150,62 @@ Array.prototype.forEach.call(linkForPages, (link, index) => {
     on();
     link.addEventListener("click", () => {
         let postBlockMain = document.getElementsByClassName("post");
-        if(link.getAttribute("data-state") == "selected" || link.getAttribute("data-state") == "selectedHover") {
-            off();
+        if(chartButton.getAttribute("data-set") == "off") {
+        	if(link.getAttribute("data-state") == "selected" || link.getAttribute("data-state") == "selectedHover") {
+                off();
+                Array.prototype.forEach.call(postBlockMain, (blockPost) => {
+                    if(blockPost.getAttribute("data-link") == linkL) {
+                        blockPost.style.display = "none";
+                    }
+                });
+            } else {
+                on();
+                Array.prototype.forEach.call(postBlockMain, (blockPost) => {
+                    if(blockPost.getAttribute("data-link") == linkL) {
+                        blockPost.style.display = "flex";
+                    }
+                });
+            }
+            let noone = true;
             Array.prototype.forEach.call(postBlockMain, (blockPost) => {
+                if(blockPost.style.display !== "none") {
+                    noone = false;
+                }
+            });
+            let errBlock = document.getElementsByClassName("post__err")[0];
+            if(noone) {
+                errBlock.style.display = "block";
+            } else {
+                errBlock.style.display = "none";
+            }
+        } else {
+        	let chartsBlock = document.getElementsByClassName("charts")[0];
+        	Array.prototype.forEach.call(linkForPages, (linkForPage) => {
+        		linkForPage.setAttribute("data-state", "deselected");
+        		linkForPage.getElementsByTagName("i")[1].style.display = "none";
+        	});
+        	link.setAttribute("data-state", "selected");
+    		link.getElementsByTagName("i")[1].style.display = "block";
+        	
+        	Array.prototype.forEach.call(postBlockMain, (blockPost) => {
                 if(blockPost.getAttribute("data-link") == linkL) {
                     blockPost.style.display = "none";
                 }
             });
-        } else {
-            on();
-            Array.prototype.forEach.call(postBlockMain, (blockPost) => {
-                if(blockPost.getAttribute("data-link") == linkL) {
-                    blockPost.style.display = "flex";
-                }
-            });
-        }
-        let noone = true;
-        Array.prototype.forEach.call(postBlockMain, (blockPost) => {
-            if(blockPost.style.display !== "none") {
-                noone = false;
-            }
-        });
-        let errBlock = document.getElementsByClassName("post__err")[0];
-        if(noone) {
-            errBlock.style.display = "block";
-        } else {
-            errBlock.style.display = "none";
+        	if(linkL == "text" || linkL == "other") {
+        		Array.prototype.forEach.call(postBlockMain, (blockPost) => {
+                    if(blockPost.getAttribute("data-link") == linkL) {
+                        blockPost.style.display = "flex";
+                    }
+                });
+        		chartsBlock.style.display = "none";
+        	} else {
+        		chartsBlock.style.display = "block";
+        		Array.prototype.forEach.call(postBlockMain, (blockPost) => {
+        			blockPost.style.display = "none";
+                });
+        		displayGraph(linkL);
+        	}
         }
     });
     link.addEventListener("mouseover", mouseOverButton);
@@ -232,8 +263,8 @@ chartButton.addEventListener("click", () => {
 			currentPage.setAttribute("data-state", "deselected");
 			currentPage.getElementsByTagName("i")[1].style.display = "none";
 		});
-		linkForPages[0].setAttribute("data-state", "selected");
-		linkForPages[0].getElementsByTagName("i")[1].style.display = "block";
+		linkForPages[1].setAttribute("data-state", "selected");
+		linkForPages[1].getElementsByTagName("i")[1].style.display = "block";
 		chartsBlock.style.display = "block";
 		let postsBlocks = document.getElementsByClassName("post");
 		Array.prototype.forEach.call(postsBlocks, (currentReport) => {
@@ -406,8 +437,7 @@ btnReset.addEventListener("click", () => {
     searchRecords.value = "";
     filterBtns.innerHTML = order + " " + caret;
     Array.prototype.forEach.call(linkForPages, (link) => {
-        link.style.backgroundColor = "rgba(66, 133, 244, 0.1)";
-        link.style.color = "rgb(66, 133, 244)";
+        link.setAttribute("data-state", "selected");
         link.getElementsByClassName("fa-check")[0].style.display = "block";
     })
     mainWithComments(initData.sort(oldestToNewestFun));
