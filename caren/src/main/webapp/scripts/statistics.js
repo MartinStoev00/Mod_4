@@ -63,7 +63,15 @@ let config = {
     }
 };
 
-export default function statistics(records) {
+export function statistics(records) {
+	measurementData = {
+		weight: [],
+		height: [],
+		bloodpressure: {
+			systolic: [],
+			diastolic: []
+		}
+	};
 	Chart.defaults.global.defaultFontColor = '#434343';
 	Chart.defaults.global.defaultFontFamily = 'Arial';
 	//Chart.defaults.global.defaultFontSize = '20';

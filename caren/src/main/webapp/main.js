@@ -1,6 +1,6 @@
 import {header, headerStyle} from "./scripts/header.js";
 import sidebar from "./scripts/sidebar.js";
-import statistics from "./scripts/statistics.js";
+import {statistics} from "./scripts/statistics.js";
 
 function init() {
     stylize();

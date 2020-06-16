@@ -1,6 +1,6 @@
 import mainPosts from "./mainPosts.js";
 import getrecords from "../main.js";
-import {displayGraph} from "./statistics.js";
+import {displayGraph, statistics} from "./statistics.js";
 
 let headerBlock = document.getElementsByClassName("header")[0];
 let sidebarBlock = document.getElementsByClassName("sidebar")[0];
@@ -69,7 +69,12 @@ export default function sidebar(items, posts, comments) {
 			getrecords("http://localhost:8080/caren/rest/getcomments/"+input).then((data) => {
 				comments = JSON.parse(data);
 				mainPosts(posts.sort(oldestToNewestFun), comments)
-		        
+				statistics(posts);
+				let statisticsBtn = document.getElementsByClassName("header__chart")[0];
+				if(statisticsBtn.getAttribute("data-set") == "on") {
+					statisticsBtn.click();
+					statisticsBtn.click();
+				}
 		        initData = posts;
 	    		data = initData;
 	    		order = chrono;startDate = ordererdDates.shift();
@@ -141,6 +146,7 @@ Array.prototype.forEach.call(linkForPages, (link, index) => {
         link.getElementsByClassName("fa-check")[0].style.display = "none";
     }
     function mouseOverButton() {
+    	previousState = link.getAttribute("data-state");
         let newState = previousState + "Hover";
         link.setAttribute("data-state", newState);
     }
@@ -186,7 +192,6 @@ Array.prototype.forEach.call(linkForPages, (link, index) => {
         	});
         	link.setAttribute("data-state", "selected");
     		link.getElementsByTagName("i")[1].style.display = "block";
-        	
         	Array.prototype.forEach.call(postBlockMain, (blockPost) => {
                 if(blockPost.getAttribute("data-link") == linkL) {
                     blockPost.style.display = "none";
