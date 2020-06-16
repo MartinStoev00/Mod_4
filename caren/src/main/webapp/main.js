@@ -1,5 +1,6 @@
 import {header, headerStyle} from "./scripts/header.js";
 import sidebar from "./scripts/sidebar.js";
+import statistics from "./scripts/statistics.js";
 
 function init() {
     stylize();
@@ -14,10 +15,10 @@ function init() {
                 comments = JSON.parse(data);
                 if(document.getElementsByClassName("sidebar").length > 0) {   
                     sidebar(associations, posts, comments);
-                }
-                if(document.getElementsByClassName("header").length > 0) {   
                     header(comments);
+                    statistics(posts);
                 }
+                
             }).catch((err) => {
                 console.log(err);
             });

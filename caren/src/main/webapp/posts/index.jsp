@@ -6,6 +6,7 @@
 	<link rel="stylesheet" href="../css/main.css">
 	<meta name='viewport' content='width=device-width, initial-scale=1'>
 	<link rel="stylesheet" href="../fontawesome-free-5.13.0-web/css/all.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 </head>
 <body>
 
@@ -68,7 +69,13 @@
 		<div class="people"></div>
 	</div>
 	<div class="mainPosts">
-		<div class="charts">123</div>
+		<div class="charts">
+			 <button data-type = 'Height' class="buttonMeasurement">Height</button>
+			  <button data-type = 'Weight' class="buttonMeasurement">Weight</button>
+			  <button data-type = 'BloodPressure' class="buttonMeasurement">Blood Pressure</button>
+			  <canvas id="canvas" width="350" height="200"></canvas>
+			  <div class = "report__clicked"></div>
+		</div>
 		<div class="posts"></div>
 	</div>
 </body>

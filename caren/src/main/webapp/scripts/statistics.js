@@ -1,4 +1,3 @@
-
 //Different colors
 window.chartColors = {
     red: 'rgb(255, 99, 132)',
@@ -30,7 +29,8 @@ let config = {
             fill: false,
             backgroundColor: window.chartColors.blue,
             borderColor: window.chartColors.blue,
-            data: []
+            data: [],
+            rid: []
         }]
     },
     options: {
@@ -67,8 +67,7 @@ let config = {
     }
 };
 
-//On load function
-window.onload = function() {
+export default function statistics(records) {
 	Chart.defaults.global.defaultFontColor = '#434343';
 	Chart.defaults.global.defaultFontFamily = 'Arial';
 	//Chart.defaults.global.defaultFontSize = '20';
@@ -77,64 +76,59 @@ window.onload = function() {
     //To retrieve values from the canvas. Calls onclickData();
     ctxgraph = document.getElementById('canvas');
     ctxgraph.onclick = onclickData;
-    
-    getrecords("http://localhost:8080/caren/rest/getrecords/0").then((data) => {
-        let parseData = JSON.parse(data);
-        parseData.sort((a, b) => {
-            let one = new Date(a.date_added);
-            let two = new Date(b.date_added)
-            if(one < two) { return -1; }
-            if(one > two) { return 1; }
-            return 0;
-        });
-        parseData.forEach((report) => {
-        	
-            let reportType = report.type;
-            let dataformatted = report.data.replace(/\\/g, ``);
-            if(!dataformatted.includes("text")){
-            	dataformatted = JSON.parse(dataformatted);
+
+    records.sort((a, b) => {
+        let one = new Date(a.date_added);
+        let two = new Date(b.date_added)
+        if(one < two) { return -1; }
+        if(one > two) { return 1; }
+        return 0;
+    });
+    records.forEach((report) => {
+    	
+        let reportType = report.type;
+        let dataformatted = report.data.replace(/\\/g, ``);
+        if(!dataformatted.includes("text")){
+        	dataformatted = JSON.parse(dataformatted);
+        }
+        if (reportType == "height") {
+            let obj = {
+                value: dataformatted.value,
+                date: report.date_added,
+                unit: dataformatted.unit,
+                rid: report.record_id
             }
-            if (reportType == "height") {
-                let obj = {
-                    value: dataformatted.value,
-                    date: report.date_added,
-                    unit: dataformatted.unit
-                }
-                measurementData.height.push(obj);
-            } else if (reportType == "weight") {
-                let obj = {
-                    value: dataformatted.value,
-                    date: report.date_added,
-                    unit: dataformatted.unit
-                }
-                measurementData.weight.push(obj);
-
-            } else if (reportType == "blood_pressure") {
-                let systolicobj = {
-                    value: dataformatted.systolic,
-                    date: report.date_added,
-                    unit: dataformatted.unit
-
-                }
-                let diastolicobj = {
-                    value: dataformatted.diastolic,
-                    date: report.date_added,
-                    unit: dataformatted.unit
-                }
-
-                measurementData.bloodpressure.systolic.push(systolicobj);
-                measurementData.bloodpressure.diastolic.push(diastolicobj);
+            measurementData.height.push(obj);
+        } else if (reportType == "weight") {
+            let obj = {
+                value: dataformatted.value,
+                date: report.date_added,
+                unit: dataformatted.unit,
+                rid: report.record_id
             }
-        });
-        displayGraph('Height');
+            measurementData.weight.push(obj);
 
-    }).catch((err) => {
-        console.log(err);
+        } else if (reportType == "blood_pressure") {
+            let systolicobj = {
+                value: dataformatted.systolic,
+                date: report.date_added,
+                unit: dataformatted.unit,
+                rid: report.record_id
+
+            }
+            let diastolicobj = {
+                value: dataformatted.diastolic,
+                date: report.date_added,
+                unit: dataformatted.unit,
+                
+            }
+            measurementData.bloodpressure.systolic.push(systolicobj);
+            measurementData.bloodpressure.diastolic.push(diastolicobj);
+        }
     });
     
     window.lineChart = new Chart(ctx, config);
-    console.log(measurementData);
-    window.lineChart.update();
+    displayGraph('Height');
 };
 
 let chosenbutton = document.getElementsByClassName('buttonMeasurement');
@@ -161,6 +155,8 @@ function onclickData(event){
     		var measurement = chartData.datasets[0].label;
         	var date = chartData.labels[index];
             var value = chartData.datasets[0].data[index];
+            var rid = chartData.datasets[0].rid[index];
+    		console.log(rid);
     	} else {
     		var measurement1 = chartData.datasets[0].label;
     		var measurement2 = chartData.datasets[1].label;
@@ -170,6 +166,7 @@ function onclickData(event){
     		let returned = `
     			<div> Systolic: ${measurement1}</div>
         		`
+    		
     		reportselectedblock.innerHTML= returned;
     	}
     	
@@ -182,6 +179,7 @@ function onclickData(event){
 function displayGraph(typebutton){
     returnArray(typebutton);
     config.options.title.text = typebutton;
+    console.log(measurementData);
     if(typebutton == 'Height' || typebutton == 'Weight'){
     	config.options.scales.yAxes[0].scaleLabel.labelString = typebutton + " ( " + measurementData[typebutton.toLowerCase()][0].unit + " )";
         config.data.datasets[0].label = typebutton + " ( " + measurementData[typebutton.toLowerCase()][0].unit + " )";
@@ -198,6 +196,7 @@ function displayGraph(typebutton){
 function returnArray(fieldname) {
     let arrayvalue1 = [];
     let arrayvalue2 = [];
+    let ridvalue = [];
     let date = [];
     if(config.data.datasets.length > 1) {
 	    config.data.datasets.splice(1, 1);
@@ -205,14 +204,17 @@ function returnArray(fieldname) {
     if (fieldname == 'Height' || fieldname == 'Weight') {
         measurementData[fieldname.toLowerCase()].forEach((fieldnamedata) => {
             arrayvalue1.push(fieldnamedata.value);
+            ridvalue.push(fieldnamedata.rid);
             date.push(fieldnamedata.date.split(" ")[0]);
         });
         config.data.datasets[0].data = arrayvalue1;
+        config.data.datasets[0].rid = ridvalue;
         config.data.labels = date;
         
     } else {
         measurementData.bloodpressure.systolic.forEach((fieldnamedata) => {
             arrayvalue1.push(fieldnamedata.value);
+            ridvalue.push(fieldnamedata.rid);
             date.push((fieldnamedata.date.split(" ")[0]));
         });
         measurementData.bloodpressure.diastolic.forEach((fieldnamedata) => {
@@ -221,11 +223,12 @@ function returnArray(fieldname) {
         
         //Adding the systolic values into dataset[0]
         config.data.datasets[0].data = arrayvalue1;
+        config.data.datasets[0].rid = ridvalue;
         
     	if(config.data.datasets.length > 1) {
     	    config.data.datasets.splice(1, 1);
     	}
-        addDataset(arrayvalue2);
+        addDataset(arrayvalue2, ridvalue);
         config.data.labels = date;
     }
 
@@ -233,20 +236,23 @@ function returnArray(fieldname) {
 
 
 //Adds a dataset to the line chart. Used to visualize both Systolic and Diastolic.
-function addDataset(datasetvalue) {
+function addDataset(datasetvalue, ridvalue) {
 	
 	//Creates the dataset with unfilled data values.
+	
     var secondDataset = {
     		label: 'Diastolic ( mm Hg )',
             fill: false,
             backgroundColor: window.chartColors.yellow,
             borderColor: window.chartColors.yellow,
-            data: []
+            data: [],
+            rid: []
     };
 
     //Adding data  values into the second dataset. Loops the array datasetvalue.
     for (var index = 0; index < datasetvalue.length; ++index) {
         secondDataset.data.push(datasetvalue[index]);
+        secondDataset.rid.push(ridvalue[index]);
     }
 
     config.data.datasets.push(secondDataset);
