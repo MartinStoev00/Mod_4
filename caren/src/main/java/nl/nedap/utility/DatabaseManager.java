@@ -96,8 +96,8 @@ public static void updateRegularQuery(String q) {
 		
 		String q = "SELECT a.aid" + "\n"
 				+ "FROM caren.accounts a, caren.relationships r" + "\n"
-				+ "WHERE r.person_id = ?" + "\n"
-				+ "AND r.related_person_id = ?";
+				+ "WHERE r.person_id = CAST(? AS int)" + "\n"
+				+ "AND r.related_person_id = CAST(? AS int)";
 		
 		ResultSet r = ReadQuery(q, ""+assTo, ""+ass);
 		try {
@@ -118,7 +118,7 @@ public static void updateRegularQuery(String q) {
 		
 		String q = "SELECT a.aid" + "\n"
 				+ "FROM caren.accounts a, caren.care_providers p, caren.care_providers_people c" + "\n"
-				+ "WHERE c.care_provider_id = ? AND c.person_id = ?";
+				+ "WHERE c.care_provider_id = CAST(? AS int) AND c.person_id = CAST(? AS int)";
 		
 		ResultSet r = ReadQuery(q, ""+sessionId, ""+id);
 		try {
@@ -137,7 +137,7 @@ public static void updateRegularQuery(String q) {
 	public static boolean isBeingCareForBy(int loggedpid, int pid) {
 		String q = "SELECT a.aid" + "\n"
 				+ "FROM caren.accounts a, caren.care_providers p, caren.care_providers_people c" + "\n"
-				+ "WHERE c.care_provider_id = ? AND c.person_id = ?";
+				+ "WHERE c.care_provider_id = CAST(? AS int) AND c.person_id = CAST(? AS int)";
 		
 		ResultSet r = ReadQuery(q, ""+pid, ""+loggedpid);
 		try {
