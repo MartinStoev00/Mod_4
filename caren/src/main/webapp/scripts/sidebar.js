@@ -19,6 +19,7 @@ let btnReset = document.getElementsByClassName("filters__reset")[0];
 let searchRecords = document.getElementsByClassName("filters__search")[0];
 let searchBlockPeople = document.getElementsByClassName("people__search")[0];
 let searchBarPeople = document.getElementsByClassName("people__searchBar")[0];
+let chartButton = document.getElementsByClassName("header__chart")[0];
 let caret = `<i class="fas fa-caret-down"></i>`;
 let chrono = "Oldest to Newest";
 let revChrono = "Newest to Oldest";
@@ -218,6 +219,40 @@ peopleBtn.addEventListener("mouseout", () => {
     if(filterBtn.getAttribute("data-state") == "selected") {
         peopleBtn.setAttribute("data-state", "deselected");
     }
+});
+chartButton.addEventListener("click", () => {
+	let sidebarNavBlock = document.getElementsByClassName("sidebar__nav")[0];
+	let chartsBlock = document.getElementsByClassName("charts")[0];
+	if(chartButton.getAttribute("data-set") == "off") {
+		chartButton.setAttribute("data-set", "on");
+		chartButton.style.color = "red";
+		peopleBtn.click();
+		sidebarNavBlock.style.display = "none";
+		Array.prototype.forEach.call(linkForPages, (currentPage) => {
+			currentPage.setAttribute("data-state", "deselected");
+			currentPage.getElementsByTagName("i")[1].style.display = "none";
+		});
+		linkForPages[0].setAttribute("data-state", "selected");
+		linkForPages[0].getElementsByTagName("i")[1].style.display = "block";
+		chartsBlock.style.display = "block";
+		let postsBlocks = document.getElementsByClassName("post");
+		Array.prototype.forEach.call(postsBlocks, (currentReport) => {
+			currentReport.style.display = "none";
+		});
+	} else {
+		chartButton.setAttribute("data-set", "off");
+		chartButton.style.color = "#444";
+		sidebarNavBlock.style.display = "flex";
+	    people.style.display = "block";
+	    settings.style.display = "block";
+	    filterBtn.click();
+		Array.prototype.forEach.call(linkForPages, (currentPage) => {
+			currentPage.setAttribute("data-state", "selected");
+			currentPage.getElementsByTagName("i")[1].style.display = "block";
+		});
+		chartsBlock.style.display = "none";
+		btnReset.click();
+	}
 });
 
 searchBarPeople.addEventListener("keyup", () => {

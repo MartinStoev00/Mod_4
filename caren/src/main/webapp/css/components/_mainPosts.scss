@@ -8,6 +8,9 @@
     align-items: center;
     background-color: #f3f3f3;
 	min-height: calc(100vh);
+	.charts {
+		display:none;
+	}
 	.posts {
 		width:100%;
 		display: flex;

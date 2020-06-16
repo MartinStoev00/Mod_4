@@ -18,6 +18,7 @@
 	<div class="header" name="header">
 		<div class="header__wrapper"><img class="header__logo" src="../Pictures/website_icon.png" alt=""></div>
 		<div class="header__buttons">
+			<button class="header__chart fas fa-chart-line" data-set="off"></button>
 			<button class="header__myProfile fas fa-user-circle" onclick="location.href='http://localhost:8080/caren/posts/'"></button>
 			<button class="header__notify fas fa-bell"></button>
 			<button class="header__home fas fa-cog" onclick="location.href='http://localhost:8080/caren/settings/'"></button>
@@ -67,6 +68,7 @@
 		<div class="people"></div>
 	</div>
 	<div class="mainPosts">
+		<div class="charts">123</div>
 		<div class="posts"></div>
 	</div>
 </body>
