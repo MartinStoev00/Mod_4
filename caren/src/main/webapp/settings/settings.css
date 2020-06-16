@@ -1,18 +1,38 @@
 body{
-	background-color: rgb(243, 243, 243);
+    background-color: rgb(243, 243, 243);
+}
+
+.body_wrapper{
+    max-width:65vh;
+    min-width:575px;
+    height: 70vh;
+    margin: auto;
+}
+
+.empty_space{
+    width: 100%;
+    float: left;
+}
+
+.welcome{
+    max-height: 4vh;
+    font-family: Trebuchet MS;
+    font-variant: small-caps;
+    text-align: right;
 }
 
 .title_content{
     margin: auto;
-    width: 50%;
+    width: 100%;
     text-align: center;
 }
 
 .root_header{
     font-weight: bold;
+    width: 100%;
     font-family: Trebuchet MS;
     font-variant: small-caps;
-    font-size: 4.5rem;
+    font-size: 8vh;
 }
 
 .card_header{
@@ -20,14 +40,16 @@ body{
     font-weight: bold;
     font-family: Trebuchet MS;
     font-variant: small-caps;
-    font-size: 2rem;
+    font-size: 4vh;
     padding-top: 10px;
 }
 
 .panel{
-    margin: auto;
-    height: 660px;
-    width: 600px;
+    width: 100%;
+    min-width: 650px;
+    min-height: 650px;
+    height: 100%;
+    float: left;
 }
 
 .settings_card{
@@ -43,17 +65,20 @@ body{
 
 .settings_wrapper{
     width: 100%;
+    min-height: 300px;
+    max-height: 550px;
 }
 
 .setting_field{
     margin-top: 30px;
     display: block;
-    padding-bottom: 20px;
+    padding-bottom: 3vh;
 }
 
 .settings_note{
     font-family: Trebuchet MS;
     text-align: center;
+    font-size: 1.75vh;
 }
 
 .setting_label{
@@ -61,7 +86,7 @@ body{
     float: left;
     font-family: Trebuchet MS;
     padding-left: 5%;
-    font-size: 1.4rem;
+    font-size: 2.4vh;
 }
 
 .setting_text_input{
@@ -69,10 +94,13 @@ body{
     float: right;
     border-radius: 10px;
     margin-right: 4%;
-    width:55%;
-    height: 25px;
+    width:25vh;
+    max-width: 475px;
+    min-width: 340px;
+    height: 2.75vh;
     padding-right: 10px;
-    padding-left: 40px;
+    padding-left: 2.4vh;
+    font-size: 1.75vh;
 }
 
 .setting_checkbox_input{
@@ -81,7 +109,9 @@ body{
     height: 25px;
     float: right;
     cursor: pointer;
-    margin-right: 20%;
+    margin-right: 19%;
+    transform: scale(2);
+    height: 3.5vh;
 }
 
 .setting_description{
@@ -111,19 +141,14 @@ body{
     background-position-x: 3px;
     background-position-y: -87px;
     background-repeat: no-repeat;
+    height: 3.5vh;
 }
 
 .setting_slider_input:hover{
+    transform: scale(2);
     opacity: 1;
 }
 
-.setting_slider_input::-moz-range-thumb {
-    width: 13px; /* Set a specific slider handle width */
-    height: 13px; /* Slider handle height */
-    outline: white;
-    background: #ffa600;
-    cursor: pointer; /* Cursor on hover */
-}
 
 .submit_button {
     font-family: Trebuchet MS;
