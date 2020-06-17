@@ -36,9 +36,9 @@ public class ChangeProfileSettings extends HttpServlet {
 		int loggedaid = (int)request.getSession().getAttribute("aid");
 		
 		String passwordQ = "SELECT a.password" + "\n"
-		+ "FROM people p, accounts a" + "\n"
+		+ "FROM caren.people p, caren.accounts a" + "\n"
 		+ "WHERE a.aid = p.aid" + "\n"
-		+ "AND a.aid = ?";
+		+ "AND a.aid = CAST(? AS int)";
 		
 		ResultSet passwordR = DatabaseManager.ReadQuery(passwordQ, ""+loggedaid);
 		String pass;
@@ -53,9 +53,9 @@ public class ChangeProfileSettings extends HttpServlet {
 		//firstname
 		if (!first_name_input.equals("")) {
 			if (old_password_input.equals(pass)) {
-				String q = "UPDATE people" + "\n"
+				String q = "UPDATE caren.people" + "\n"
 				+ "SET first_name = ?" + "\n"
-				+ "WHERE aid = ?" + "\n";
+				+ "WHERE aid = CAST(? AS int)" + "\n";
 				
 				DatabaseManager.updateQuery(q, first_name_input, ""+loggedaid);
 			} else {
@@ -67,9 +67,9 @@ public class ChangeProfileSettings extends HttpServlet {
 		//lastname
 		if (!last_name_input.equals("")) {
 			if (old_password_input.equals(pass)) {
-				String q = "UPDATE people" + "\n"
+				String q = "UPDATE caren.people" + "\n"
 				+ "SET last_name = ?" + "\n"
-				+ "WHERE aid = ?" + "\n";
+				+ "WHERE aid = CAST(? AS int)" + "\n";
 				
 				DatabaseManager.updateQuery(q, last_name_input, ""+loggedaid);
 			} else {
@@ -81,9 +81,9 @@ public class ChangeProfileSettings extends HttpServlet {
 		//email
 		if (!email_input.equals("")) {
 			if (old_password_input.equals(pass)) {
-				String q = "UPDATE accounts" + "\n"
+				String q = "UPDATE caren.accounts" + "\n"
 				+ "SET email = ?" + "\n"
-				+ "WHERE aid = ?" + "\n";
+				+ "WHERE aid = CAST(? AS int)" + "\n";
 				
 				DatabaseManager.updateQuery(q, email_input, ""+loggedaid);
 			} else {
@@ -95,9 +95,9 @@ public class ChangeProfileSettings extends HttpServlet {
 		//password
 		if (!password_input.equals("")) {
 			if (old_password_input.equals(pass)) {
-				String q = "UPDATE accounts" + "\n"
+				String q = "UPDATE caren.accounts" + "\n"
 				+ "SET password = ?" + "\n"
-				+ "WHERE aid = ?" + "\n";
+				+ "WHERE aid = CAST(? AS int)" + "\n";
 				
 				DatabaseManager.updateQuery(q, password_input, ""+loggedaid);
 			} else {
@@ -115,15 +115,15 @@ public class ChangeProfileSettings extends HttpServlet {
 				dark_mode_value = 1;
 			}
 			
-			String q = "UPDATE accounts" + "\n"
-			+ "SET dark_mode = ?" + "\n"
-			+ "WHERE aid = ?" + "\n";
+			String q = "UPDATE caren.accounts" + "\n"
+			+ "SET dark_mode = CAST(? AS int)" + "\n"
+			+ "WHERE aid = CAST(? AS int)" + "\n";
 			
 			DatabaseManager.updateQuery(q, ""+dark_mode_value, ""+loggedaid);
 			
-			String q2 = "UPDATE accounts" + "\n"
-			+ "SET rpl = ?" + "\n"
-			+ "WHERE aid = ?" + "\n";
+			String q2 = "UPDATE caren.accounts" + "\n"
+			+ "SET rpl = CAST(? AS int)" + "\n"
+			+ "WHERE aid = CAST(? AS int)" + "\n";
 			
 			DatabaseManager.updateQuery(q2, rpl_input, ""+loggedaid);
 		}

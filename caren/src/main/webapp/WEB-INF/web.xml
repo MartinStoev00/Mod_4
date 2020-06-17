@@ -64,6 +64,6 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ChangeProfileSettings</servlet-name>
-		<url-pattern>/settings/changesettings</url-pattern>
+		<url-pattern>/posts/changesettings</url-pattern>
 	</servlet-mapping>
 </web-app>
