@@ -8,17 +8,23 @@
 	<link rel="stylesheet" href="../fontawesome-free-5.13.0-web/css/all.min.css">
 </head>
 <body>
+
+	<%
+	if (session.getAttribute("aid") != null) {
+		response.sendRedirect("http://localhost:8080/caren/posts/");
+	}
+	%>
 	<div class="welcome">
 		<div class="welcome__container">
 			<img class="welcome__logo" src="../Pictures/logo.png" alt="Nedap">
 			<h2 class="welcome__heading">Welcome</h2>
 			<div class="options">
-				<div class="options__box">
+				<div class="options__box" style="cursor: pointer;">
 					<p class="options__text">Would you like to log in?</p>
 					<i class="options__icon fas fa-sign-in-alt"></i>
 				</div>
 				<p class="options__or">OR</p>
-				<div class="options__box">
+				<div class="options__box" style="cursor: pointer;">
 					<p class="options__text">Would you like to sign up?</p>
 					<i class="options__icon fas fa-user-plus"></i>
 				</div>
@@ -50,9 +56,9 @@
 		});
 		option.addEventListener("click", function(){
 			if(index == 0) {
-				location.href = "../login/index.html";
+				location.href = "../login/index.jsp";
 			} else {
-				location.href = "../signup/index.html";
+				location.href = "../signup/index.jsp";
 			}
 		});
     });
