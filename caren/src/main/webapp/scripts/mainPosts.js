@@ -189,6 +189,7 @@ function sendingDataFunctionality(post) {
             let createdDivWrapperDateVisibilityContent = document.createTextNode(objectSent.visibility);
             createdDiv.setAttribute("data-cid", "0");
             createdDiv.setAttribute("class", "comment");
+            createdDiv.setAttribute("style","display: flex;");
             createdDivPic.setAttribute("class", "comment__pic");
             createdDivPic.setAttribute("style", "background-image: url(../Pictures/profile_pics/1.jpg);");
             createdDivWrapper.setAttribute("class", "comment__wrapper");
@@ -375,6 +376,7 @@ function doEveryThing(posts, comments) {
 export default function mainPosts(something, comments) {
     document.getElementsByTagName("body")[0].style.backgroundColor = "#f5f5f5";
     document.getElementsByClassName("posts")[0].style.marginTop = headerH + "px";
+    document.getElementsByClassName("settings")[0].style.marginTop = headerH + "px";
     data = something;
     initData = something;
     doEveryThing(initData, comments);

@@ -42,8 +42,7 @@ let filterBoxTop = filterBtns.getBoundingClientRect().top + filterBtns.getBoundi
 filterBox.style.left = filterBtns.getBoundingClientRect().left + "px";
 filterBox.style.width = (filterBtns.getBoundingClientRect().width - 2) + "px";
 filterBox.style.top =  filterBoxTop + "px";
-people.style.height = (filterBtn.getBoundingClientRect().bottom) + "px";
-console.log(filterBtn.getBoundingClientRect().bottom);
+people.style.height = "calc(100vh - " + (filterBtn.getBoundingClientRect().top + filterBtn.getBoundingClientRect().height) + "px)";
 people.style.display = "none";
 let initData, data, commetsData;
 let startDate, endDate, order = chrono;
@@ -107,7 +106,11 @@ export default function sidebar(items, posts, comments) {
         people.innerHTML += 
             `<div data-name="${pid}" class="people__container">
                 <div class="people__pic" style="background-image: url(../Pictures/profile_pics/${pid}.jpg);"></div>
+<<<<<<< HEAD
                 <div class="people__name"><span>${name}</span><span style ="${stylingRoles}">${description.replace("care_giver,child,neighbour,other,parent", "client").replace(/,/g,'<i class="fas fa-circle" style="margin: 5px; font-size: 5px;padding:5px;"></i>').replace("_", " ")}</span></div>
+=======
+                <div class="people__name"><span>${name}</span><span style ="${stylingRoles}">${description.replace(/,/g,'<i class="fas fa-circle" style="margin: 5px; font-size: 5px;padding:5px;"></i>').replace("_", " ")}</span></div>
+>>>>>>> c9326d0038fa87a705ad06e4c5315f2bc481fae2
             </div>`
     });
     let peopleiwanttoclickon = document.getElementsByClassName("people__container");
@@ -251,6 +254,7 @@ peopleBtn.addEventListener("click", () => {
     searchBlockPeople.style.display = "block";
     people.style.display = "block";
     settings.style.display = "none";
+    console.log(filterBtn.getBoundingClientRect().bottom);
 });
 
 peopleBtn.addEventListener("mouseover", () => {
@@ -374,7 +378,7 @@ function filteringSearch() {
         let curr = searchRecords.value.toLowerCase();
         let postsBlocks = document.getElementsByClassName("post");
         Array.prototype.forEach.call(postsBlocks, (post) => {
-            let currTitle = post.getElementsByClassName("post__text")[0].innerHTML.toLowerCase();
+            let currTitle = post.getElementsByClassName("post__text")[0].innerHTML.toLowerCase() + post.getElementsByClassName("post__uploader")[0].innerHTML.toLowerCase();
             if(!(currTitle.includes(curr) || curr.includes(currTitle))) {
                 post.style.display = "none";
             } else{
@@ -382,9 +386,11 @@ function filteringSearch() {
                 present++;
             }
         });
+    	console.log(errBlock)
         if(present == 0) {
             errBlock.style.display = "block";
         } else {
+        	console.log(present)
             errBlock.style.display = "none";
         }
     });
