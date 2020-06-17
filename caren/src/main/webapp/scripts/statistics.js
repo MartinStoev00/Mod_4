@@ -1,3 +1,5 @@
+Chart.defaults.global.defaultFontColor = '#434343';
+Chart.defaults.global.defaultFontFamily = 'Arial';
 //Different colors
 window.chartColors = {
     red: 'rgb(255, 99, 132)',
@@ -7,7 +9,15 @@ window.chartColors = {
     blue: 'rgb(54, 162, 235)',
 };
 
-let ctxgraph;
+let ctxgraph = document.getElementById('canvas');
+//To retrieve values from the canvas. Calls onclickData();
+ctxgraph.onclick = onclickData;
+var ctx = ctxgraph.getContext('2d');
+
+let initData;
+let from_date = document.getElementsByClassName("statistics__date")[0];
+let end_date = document.getElementsByClassName("statistics__date")[1];
+
 
 //JSON format for all graph data
 let measurementData = {
@@ -64,77 +74,66 @@ let config = {
 };
 
 export function statistics(records) {
-	measurementData = {
-		weight: [],
-		height: [],
-		bloodpressure: {
-			systolic: [],
-			diastolic: []
-		}
-	};
-	Chart.defaults.global.defaultFontColor = '#434343';
-	Chart.defaults.global.defaultFontFamily = 'Arial';
-	//Chart.defaults.global.defaultFontSize = '20';
-    var ctx = document.getElementById('canvas').getContext('2d');
-    
-    //To retrieve values from the canvas. Calls onclickData();
-    ctxgraph = document.getElementById('canvas');
-    ctxgraph.onclick = onclickData;
-
-    records.sort((a, b) => {
-        let one = new Date(a.date_added);
-        let two = new Date(b.date_added)
-        if(one < two) { return -1; }
-        if(one > two) { return 1; }
-        return 0;
-    });
-    records.forEach((report) => {
-    	
-        let reportType = report.type;
-        let dataformatted = report.data.replace(/\\/g, ``);
-        if(!dataformatted.includes("text")){
-        	dataformatted = JSON.parse(dataformatted);
-        }
-        if (reportType == "height") {
-            let obj = {
-                value: dataformatted.value,
-                date: report.date_added,
-                unit: dataformatted.unit,
-                rid: report.record_id
-            }
-            measurementData.height.push(obj);
-        } else if (reportType == "weight") {
-            let obj = {
-                value: dataformatted.value,
-                date: report.date_added,
-                unit: dataformatted.unit,
-                rid: report.record_id
-            }
-            measurementData.weight.push(obj);
-
-        } else if (reportType == "blood_pressure") {
-            let systolicobj = {
-                value: dataformatted.systolic,
-                date: report.date_added,
-                unit: dataformatted.unit,
-                rid: report.record_id
-
-            }
-            let diastolicobj = {
-                value: dataformatted.diastolic,
-                date: report.date_added,
-                unit: dataformatted.unit,
-                
-            }
-            measurementData.bloodpressure.systolic.push(systolicobj);
-            measurementData.bloodpressure.diastolic.push(diastolicobj);
-        }
-    });
+	
+	if(window.lineChart){
+		window.lineChart.destroy();
+	}
+	initData = records;
+	
+	insertIntoJSON(records);
     
     window.lineChart = new Chart(ctx, config);
     displayGraph('height');
 };
-//R
+
+function insertIntoJSON(records){
+	measurementData = {
+			weight: [],
+			height: [],
+			bloodpressure: {
+				systolic: [],
+				diastolic: []
+			}
+		};
+		
+	    records.forEach((report) => {
+	    	
+	        let reportType = report.type;
+	        let dataformatted = report.data.replace(/\\/g, ``);
+	        if(!dataformatted.includes("text")){
+	        	dataformatted = JSON.parse(dataformatted);
+	        }
+	        if (reportType == "height" || reportType == "weight") {
+	        	
+	            let obj = {
+	                value: dataformatted.value,
+	                date: report.date_added,
+	                unit: dataformatted.unit,
+	                rid: report.record_id
+	            }
+	            measurementData[reportType].push(obj);
+
+	        } else if (reportType == "blood_pressure") {
+	            let systolicobj = {
+	                value: dataformatted.systolic,
+	                date: report.date_added,
+	                unit: dataformatted.unit,
+	                rid: report.record_id
+
+	            }
+	            let diastolicobj = {
+	                value: dataformatted.diastolic,
+	                date: report.date_added,
+	                unit: dataformatted.unit,
+	                
+	            }
+	            measurementData.bloodpressure.systolic.push(systolicobj);
+	            measurementData.bloodpressure.diastolic.push(diastolicobj);
+	        }
+	    });
+}
+
+
 function onclickData(event){
 	let reportselectedblock = document.getElementsByClassName("report__clicked")[0];
     var content = lineChart.getElementAtEvent(event);
@@ -166,17 +165,20 @@ function onclickData(event){
     }
 }
 
-
-
 export function displayGraph(typebutton){
     returnArray(typebutton);
     if(typebutton == 'height' || typebutton == 'weight'){
     	config.options.scales.yAxes[0].scaleLabel.labelString = typebutton.replace("h", "H").replace("w","W") + " ( " + measurementData[typebutton.toLowerCase()][0].unit + " )";
         config.data.datasets[0].label = typebutton.replace("h", "H").replace("w","W") + " ( " + measurementData[typebutton.toLowerCase()][0].unit + " )";
+        from_date.value = measurementData[typebutton.toLowerCase()][0].date.split(" ")[0];
+        end_date.value = measurementData[typebutton.toLowerCase()][measurementData[typebutton.toLowerCase()].length - 1].date.split(" ")[0];
+        
     } else {
     	config.options.scales.yAxes[0].scaleLabel.labelString = typebutton.replace("_", " ").replace("b","B").replace("p","P") + " ( " + measurementData.bloodpressure.systolic[0].unit + " )";
         config.data.datasets[0].label = "Systolic" + " ( " + measurementData.bloodpressure.systolic[0].unit + " )";
         config.data.datasets[1].label = "Diastolic" + " ( " + measurementData.bloodpressure.systolic[0].unit + " )";
+        from_date.value = measurementData.bloodpressure.systolic[0].date.split(" ")[0];
+        end_date.value = measurementData.bloodpressure.systolic[measurementData.bloodpressure.systolic.length - 1].date.split(" ")[0];
     }
     
     window.lineChart.update();
@@ -245,3 +247,26 @@ function addDataset(datasetvalue, ridvalue) {
 
     config.data.datasets.push(secondDataset);
 }
+
+function dataChange() {
+	let start = new Date(from_date.value);
+	let finish = new Date(end_date.value);
+	console.log(start < finish);
+	let otherData = initData;
+	otherData = otherData.filter((recordItem)=>{
+		let recordDate = new Date(recordItem.date_added.split(" ")[0]);
+		return recordDate > start && recordDate < finish;
+	});
+	insertIntoJSON(otherData);
+	let currentState = "";
+	for(let num = 1; num < 4; num++) {
+		if(document.getElementsByClassName("sidebar__link")[num].getAttribute("data-state") == "selected") {
+			currentState = document.getElementsByClassName("sidebar__link")[num].getAttribute("data-link");
+		}
+	}
+	console.log(currentState);
+	displayGraph(currentState);
+}
+
+from_date.addEventListener("change", dataChange);
+end_date.addEventListener("change", dataChange);

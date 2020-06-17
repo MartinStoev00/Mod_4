@@ -67,12 +67,16 @@ export default function sidebar(items, posts, comments) {
 		getrecords("http://localhost:8080/caren/rest/getrecords/"+input).then((data) => {
 			posts = JSON.parse(data);
 			getrecords("http://localhost:8080/caren/rest/getcomments/"+input).then((data) => {
-				comments = JSON.parse(data);
-				mainPosts(posts.sort(oldestToNewestFun), comments)
-				statistics(posts);
+				let previousSet = "off";
 				let statisticsBtn = document.getElementsByClassName("header__chart")[0];
 				if(statisticsBtn.getAttribute("data-set") == "on") {
 					statisticsBtn.click();
+					previousSet = "on";
+				}
+				comments = JSON.parse(data);
+				mainPosts(posts.sort(oldestToNewestFun), comments);
+				statistics(posts.sort(oldestToNewestFun));
+				if(previousSet == "on") {
 					statisticsBtn.click();
 				}
 		        initData = posts;
@@ -85,8 +89,7 @@ export default function sidebar(items, posts, comments) {
 	    		searchRecords.value = "";
 	    		filterBtns.innerHTML = order + " " + caret;
 	    		Array.prototype.forEach.call(linkForPages, (link) => {
-	    		    link.style.backgroundColor = "rgba(66, 133, 244, 0.1)";
-	    		    link.style.color = "rgb(66, 133, 244)";
+	    		    link.setAttribute("data-state", "selected");
 	    		    link.getElementsByClassName("fa-check")[0].style.display = "block";
 	    		});		        
 			});
@@ -190,8 +193,7 @@ Array.prototype.forEach.call(linkForPages, (link, index) => {
         		linkForPage.setAttribute("data-state", "deselected");
         		linkForPage.getElementsByTagName("i")[1].style.display = "none";
         	});
-        	link.setAttribute("data-state", "selected");
-    		link.getElementsByTagName("i")[1].style.display = "block";
+        	on();
         	Array.prototype.forEach.call(postBlockMain, (blockPost) => {
                 if(blockPost.getAttribute("data-link") == linkL) {
                     blockPost.style.display = "none";
