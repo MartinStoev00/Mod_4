@@ -180,16 +180,9 @@
 	            </div>
 	        </div> 
 		</div>
-	
-	
-	
-<<<<<<< HEAD
-		<div class="charts">
+		<div id="charts" class="charts">
 			<div class="statistics" style="width: 500px; height: 300px;">
-=======
-		<div id="charts" class="charts" style="width: 500px; height: 300px;">
->>>>>>> b70a27a75032dd44dea1c41a446715e5c0bcb93e
-			 <canvas id="canvas" width="650" height="400"></canvas>
+			 	<canvas id="canvas" width="650" height="400"></canvas>
 			</div>
 			<input type = "date" class = "statistics__date">
 			<input type = "date" class = "statistics__date">
