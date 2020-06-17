@@ -248,24 +248,25 @@ function addDataset(datasetvalue, ridvalue) {
     config.data.datasets.push(secondDataset);
 }
 
-from_date.addEventListener("change", ()=>{
-	let start = new Date(from_date.value).toISOString().split("T")[0];
-	let finish = new Date(end_date.value).toISOString().split("T")[0];
-	//console.log(start);
+function dataChange() {
+	let start = new Date(from_date.value);
+	let finish = new Date(end_date.value);
+	console.log(start < finish);
 	let otherData = initData;
-	otherData.filter((recordItem)=>{
-		let recordDate = new Date(recordItem.date_added.split(" ")[0]).toISOString().split("T")[0];
-		//console.log("Record Date: "+ recordDate);
-		console.log(recordDate > start && recordDate < finish);
+	otherData = otherData.filter((recordItem)=>{
+		let recordDate = new Date(recordItem.date_added.split(" ")[0]);
 		return recordDate > start && recordDate < finish;
 	});
-	console.log(initData);
-	console.log(otherData);
 	insertIntoJSON(otherData);
-	console.log(measurementData);
-});
+	let currentState = "";
+	for(let num = 1; num < 4; num++) {
+		if(document.getElementsByClassName("sidebar__link")[num].getAttribute("data-state") == "selected") {
+			currentState = document.getElementsByClassName("sidebar__link")[num].getAttribute("data-link");
+		}
+	}
+	console.log(currentState);
+	displayGraph(currentState);
+}
 
-from_date.addEventListener("change",()=>{
-	
-	
-});
+from_date.addEventListener("change", dataChange);
+end_date.addEventListener("change", dataChange);
