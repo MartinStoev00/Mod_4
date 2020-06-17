@@ -77,7 +77,7 @@
 	
 		<div id="settings" class="settings" style="display: none;">
         	<div class="title_content">
-	            <header class="root_header" style="margin-top: 150px; margin-bottom: 25px;">
+	            <header class="root_header" style="margin-top: 150px; margin-bottom: 25px; display: none;">
 	                Settings
 	                
 	            </header>

@@ -69,6 +69,7 @@ public class Login extends HttpServlet {
 				int pid = passResultset.getInt(3);
 				String name = passResultset.getString(4);
 				int verified = passResultset.getInt(5);
+				String type = passResultset.getString(6);
 				
 				
 				//if account is not verified
@@ -84,7 +85,13 @@ public class Login extends HttpServlet {
 					HttpSession session = request.getSession();
 					session.setAttribute("aid", aid);
 					session.setAttribute("pid", pid);
-					session.setAttribute("aidType", "client");
+					
+					if (type.equals("client")) {
+						session.setAttribute("aidType", "client");
+					} else {
+						session.setAttribute("aidType", "provider");
+					}
+					
 					session.setAttribute("name", name);
 					
 					//Redirect to posts page
