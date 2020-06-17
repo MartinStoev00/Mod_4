@@ -14,10 +14,12 @@ function init() {
             posts = JSON.parse(data);
             getrecords("http://localhost:8080/caren/rest/getcomments/0").then((data) => {
                 comments = JSON.parse(data);
-                if(document.getElementsByClassName("sidebar").length > 0) {   
-                    sidebar(associations, posts, comments);
-                    header(comments);
-                    statistics(posts);
+                if(document.getElementsByClassName("sidebar").length > 0) { 
+                	if (posts != "[]"){
+                		sidebar(associations, posts, comments);
+                        header(comments);
+                        statistics(posts);
+                	}
                 }
                 
             }).catch((err) => {
