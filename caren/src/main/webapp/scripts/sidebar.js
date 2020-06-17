@@ -106,11 +106,7 @@ export default function sidebar(items, posts, comments) {
         people.innerHTML += 
             `<div data-name="${pid}" class="people__container">
                 <div class="people__pic" style="background-image: url(../Pictures/profile_pics/${pid}.jpg);"></div>
-<<<<<<< HEAD
-                <div class="people__name"><span>${name}</span><span style ="${stylingRoles}">${description.replace("care_giver,child,neighbour,other,parent", "client").replace(/,/g,'<i class="fas fa-circle" style="margin: 5px; font-size: 5px;padding:5px;"></i>').replace("_", " ")}</span></div>
-=======
-                <div class="people__name"><span>${name}</span><span style ="${stylingRoles}">${description.replace(/,/g,'<i class="fas fa-circle" style="margin: 5px; font-size: 5px;padding:5px;"></i>').replace("_", " ")}</span></div>
->>>>>>> c9326d0038fa87a705ad06e4c5315f2bc481fae2
+                <div class="people__name"><span>${name}</span><span style ="${stylingRoles}">${description.replace("care_giver,child,neighbour,other,parent", "client").replace(/,/g,'<i class="fas fa-circle" style="margin: 5px; font-size: 5px;padding:5px;"></i>').replace("_", " ")}</span></div>  
             </div>`
     });
     let peopleiwanttoclickon = document.getElementsByClassName("people__container");
