@@ -4,6 +4,7 @@ import {statistics} from "./scripts/statistics.js";
 
 function init() {
     stylize();
+    onloadedSettings();
     let posts;
     let associations;
     let comments;

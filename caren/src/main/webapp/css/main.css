@@ -54,7 +54,7 @@
     align-content: stretch;
     align-items: center;
     padding: 0 15px; }
-  .header__myProfile, .header__notify, .header__logout, .header__home, .header__chart {
+  .header__myProfile, .header__notify, .header__logout, .header__settings, .header__chart {
     cursor: pointer;
     transition: 0.2s;
     margin: 0 6px 0;

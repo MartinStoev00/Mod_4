@@ -264,9 +264,13 @@ peopleBtn.addEventListener("mouseout", () => {
     }
 });
 chartButton.addEventListener("click", () => {
+	let settingsToggle = document.getElementById("settingsToggle");
 	let sidebarNavBlock = document.getElementsByClassName("sidebar__nav")[0];
 	let chartsBlock = document.getElementsByClassName("charts")[0];
 	if(chartButton.getAttribute("data-set") == "off") {
+		if (settingsToggle.getAttribute("data-set") == "on") {
+			settingsToggle.click();
+		}
 		chartButton.setAttribute("data-set", "on");
 		chartButton.style.color = "red";
 		peopleBtn.click();

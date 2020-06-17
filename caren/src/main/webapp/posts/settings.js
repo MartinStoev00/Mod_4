@@ -14,6 +14,12 @@ let rpl_default = document.getElementById("RPL_input").value;
 let save = document.getElementById("save");
 let error = document.getElementById("error");
 
+let settingsDiv = document.getElementById("settings");
+let chartsDiv = document.getElementById("charts");
+let postsDiv = document.getElementById("posts");
+
+let settingsButton = document.getElementById("settingsToggle");
+let chartsButton = document.getElementById("chartsToggle");
 
 first_name.addEventListener('change', inputChanged)
 last_name.addEventListener('change', inputChanged)
@@ -22,8 +28,9 @@ password.addEventListener('change', inputChanged)
 old_password.addEventListener('change', inputChanged)
 dark_mode.addEventListener('change', inputChanged)
 rpl.addEventListener('change', inputChanged)
+settingsButton.addEventListener('click', ToggleSettings)
 
-window.onload = function (){
+function onloadedSettings (){
 	save.disabled = true;
     save.style.color = "#b3b3b3";
     save.style.border = "1px solid #b3b3b3";
@@ -40,6 +47,33 @@ window.onload = function (){
         }
     }
     request.send();
+}
+
+function ToggleSettings(){
+	if (settingsButton.getAttribute("data-set") == "off") {
+		settingsButton.setAttribute("data-set", "on");
+		settingsButton.style.color = "red";
+
+		if (chartsButton.getAttribute("data-set") == "on") {
+			chartsButton.click();
+		}
+		
+		showSettings();
+	} else {
+		settingsButton.setAttribute("data-set", "off");
+		settingsButton.style.color = "#444";
+		hideSettings();
+	}
+}
+
+function showSettings(){
+	settings.style.display = "block";
+	postsDiv.style.display = "none";
+}
+
+function hideSettings(){
+	settings.style.display = "none";
+	postsDiv.style.display = "flex";
 }
 
 

@@ -21,10 +21,10 @@
 	<div class="header" name="header">
 		<div class="header__wrapper"><img class="header__logo" src="../Pictures/website_icon.png" alt=""></div>
 		<div class="header__buttons">
-			<button class="header__chart fas fa-chart-line" data-set="off"></button>
+			<button id="chartsToggle" class="header__chart fas fa-chart-line" data-set="off"></button>
 			<button class="header__myProfile fas fa-user-circle" onclick="location.href='http://localhost:8080/caren/posts/'"></button>
 			<button class="header__notify fas fa-bell"></button>
-			<button class="header__home fas fa-cog" onclick="location.href='http://localhost:8080/caren/settings/'"></button>
+			<button id="settingsToggle" class="header__settings fas fa-cog" data-set="off"></button>
 			<form action="../signout">
 				<button type="submit" class="header__logout fas fa-sign-out-alt"></button>
 			</form>
@@ -75,7 +75,7 @@
 	</div>
 	<div class="mainPosts">
 	
-		<div class="settings" style="display: none;">
+		<div id="settings" class="settings" style="display: none;">
         	<div class="title_content">
 	            <header class="root_header" style="margin-top: 150px; margin-bottom: 25px;">
 	                Settings
@@ -178,21 +178,25 @@
 	                </form>
 	
 	            </div>
-	        </div>
-	        <script src="settings.js"></script> 
+	        </div> 
 		</div>
 	
 	
 	
+<<<<<<< HEAD
 		<div class="charts">
 			<div class="statistics" style="width: 500px; height: 300px;">
+=======
+		<div id="charts" class="charts" style="width: 500px; height: 300px;">
+>>>>>>> b70a27a75032dd44dea1c41a446715e5c0bcb93e
 			 <canvas id="canvas" width="650" height="400"></canvas>
 			</div>
 			<input type = "date" class = "statistics__date">
 			<input type = "date" class = "statistics__date">
 		</div>
-		<div class="posts"></div>
+		<div id="posts" class="posts"></div>
 	</div>
 </body>
+<script src="settings.js"></script>
 <script type="module" src="../main.js"></script>
 </html>
