@@ -14,9 +14,12 @@ let rpl_default = document.getElementById("RPL_input").value;
 let save = document.getElementById("save");
 let error = document.getElementById("error");
 
-let mainDiv = document.getElementById("settings");
+let settingsDiv = document.getElementById("settings");
+let chartsDiv = document.getElementById("charts");
+let postsDiv = document.getElementById("posts");
 
-let button = document.getElementById("settingsToggle");
+let settingsButton = document.getElementById("settingsToggle");
+let chartsButton = document.getElementById("chartsToggle");
 
 first_name.addEventListener('change', inputChanged)
 last_name.addEventListener('change', inputChanged)
@@ -25,7 +28,7 @@ password.addEventListener('change', inputChanged)
 old_password.addEventListener('change', inputChanged)
 dark_mode.addEventListener('change', inputChanged)
 rpl.addEventListener('change', inputChanged)
-button.addEventListener('click', ToggleSettings)
+settingsButton.addEventListener('click', ToggleSettings)
 
 function onloadedSettings (){
 	save.disabled = true;
@@ -47,23 +50,30 @@ function onloadedSettings (){
 }
 
 function ToggleSettings(){
-	if (button.getAttribute("data-set") == "off") {
-		button.setAttribute("data-set", "on");
-		button.style.color = "red";
+	if (settingsButton.getAttribute("data-set") == "off") {
+		settingsButton.setAttribute("data-set", "on");
+		settingsButton.style.color = "red";
+
+		chartsButton.setAttribute("data-set", "off");
+		chartsButton.style.color = "black";
+		
 		showSettings();
 	} else {
-		button.setAttribute("data-set", "off");
-		button.style.color = "black";
+		settingsButton.setAttribute("data-set", "off");
+		settingsButton.style.color = "black";
 		hideSettings();
 	}
 }
 
 function showSettings(){
 	settings.style.display = "block";
+	postsDiv.style.display = "none";
+	chartsDiv.style.display = "none";
 }
 
 function hideSettings(){
 	settings.style.display = "none";
+	postsDiv.style.display = "flex";
 }
 
 

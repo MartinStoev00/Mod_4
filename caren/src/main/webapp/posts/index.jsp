@@ -21,7 +21,7 @@
 	<div class="header" name="header">
 		<div class="header__wrapper"><img class="header__logo" src="../Pictures/website_icon.png" alt=""></div>
 		<div class="header__buttons">
-			<button class="header__chart fas fa-chart-line" data-set="off"></button>
+			<button id="chartsToggle" class="header__chart fas fa-chart-line" data-set="off"></button>
 			<button class="header__myProfile fas fa-user-circle" onclick="location.href='http://localhost:8080/caren/posts/'"></button>
 			<button class="header__notify fas fa-bell"></button>
 			<button id="settingsToggle" class="header__settings fas fa-cog" data-set="off"></button>
@@ -178,19 +178,19 @@
 	                </form>
 	
 	            </div>
-	        </div>
-	        <script src="settings.js"></script> 
+	        </div> 
 		</div>
 	
 	
 	
-		<div class="charts" style="width: 500px; height: 300px;">
+		<div id="charts" class="charts" style="width: 500px; height: 300px;">
 			 <canvas id="canvas" width="650" height="400"></canvas>
 			 <input type = "date" class = "statistics__date">
 			 <input type = "date" class = "statistics__date">
 		</div>
-		<div class="posts"></div>
+		<div id="posts" class="posts"></div>
 	</div>
 </body>
+<script src="settings.js"></script>
 <script type="module" src="../main.js"></script>
 </html>
