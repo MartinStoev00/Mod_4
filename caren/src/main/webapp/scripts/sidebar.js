@@ -88,10 +88,12 @@ export default function sidebar(items, posts, comments) {
 	    		boxBtns[0].innerHTML = revChrono;
 	    		searchRecords.value = "";
 	    		filterBtns.innerHTML = order + " " + caret;
-	    		Array.prototype.forEach.call(linkForPages, (link) => {
-	    		    link.setAttribute("data-state", "selected");
-	    		    link.getElementsByClassName("fa-check")[0].style.display = "block";
-	    		});		        
+	    		if(statisticsBtn.getAttribute("data-set") !== "on") {
+		    		Array.prototype.forEach.call(linkForPages, (link) => {
+		    		    link.setAttribute("data-state", "selected");
+		    		    link.getElementsByClassName("fa-check")[0].style.display = "block";
+		    		});
+				}		        
 			});
 		});
 	}
@@ -159,6 +161,7 @@ Array.prototype.forEach.call(linkForPages, (link, index) => {
     on();
     link.addEventListener("click", () => {
         let postBlockMain = document.getElementsByClassName("post");
+        window.scrollTo(0, 0);
         if(chartButton.getAttribute("data-set") == "off") {
         	if(link.getAttribute("data-state") == "selected" || link.getAttribute("data-state") == "selectedHover") {
                 off();
@@ -203,6 +206,8 @@ Array.prototype.forEach.call(linkForPages, (link, index) => {
         		Array.prototype.forEach.call(postBlockMain, (blockPost) => {
                     if(blockPost.getAttribute("data-link") == linkL) {
                         blockPost.style.display = "flex";
+                    } else {
+                        blockPost.style.display = "none";
                     }
                 });
         		chartsBlock.style.display = "none";
@@ -274,6 +279,8 @@ chartButton.addEventListener("click", () => {
 		linkForPages[1].getElementsByTagName("i")[1].style.display = "block";
 		chartsBlock.style.display = "block";
 		let postsBlocks = document.getElementsByClassName("post");
+		let postErr = document.getElementsByClassName("post__err")[0];
+		postErr.style.display = "none";
 		Array.prototype.forEach.call(postsBlocks, (currentReport) => {
 			currentReport.style.display = "none";
 		});

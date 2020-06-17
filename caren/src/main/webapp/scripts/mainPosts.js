@@ -96,24 +96,38 @@ function visibilityAndReadMore(post) {
     let commentInfoButton = post.getElementsByClassName("comments__info")[0];
     let originalText = commentInfoButton.innerHTML;
     commentInfoButton.addEventListener("click", () => {
-    	let postsBlock = document.getElementsByClassName("posts")[0];
-    	let allThreads = post.getElementsByClassName("comment__thread");
     	let urCommentSection = post.getElementsByClassName("comments__urs")[0];
     	if(commentInfoButton.innerHTML != "Collapse Comments") {
-    		postsBlock.style.alignItems = "baseline";
     		commentInfoButton.style.borderBottom = ".5px solid #ddd";
     		commentInfoButton.innerHTML = "Collapse Comments";
         	urCommentSection.style.display = "flex";
-        	Array.prototype.forEach.call(allThreads, (singleThread) => {
-        		singleThread.style.display = "block";
+        	Array.prototype.forEach.call(document.getElementsByClassName("post"), (postGiven) => {
+        		if(postGiven.getBoundingClientRect().top == post.getBoundingClientRect().top) {
+        			postGiven.style.alignSelf = "flex-start";
+        		}
         	});
-    	} else {
-    		postsBlock.style.alignItems = "stretch";
+        	Array.prototype.forEach.call(post.getElementsByClassName("comment"), (commentSelected) => {
+        		if(commentSelected.getAttribute("class") == "comment") {
+        			commentSelected.style.display = "flex";
+        		}
+        	});
+        	
+        	Array.prototype.forEach.call(document.getElementsByClassName("comment__data"), (commentData) => {
+        		commentData.style.justifyContent = "space-between";
+        		
+        		commentData.getElementsByClassName("comment__showReplies")[0].style.display = "flex";
+        	})
+    	} else {	
     		commentInfoButton.style.borderBottom = "none";
     		commentInfoButton.innerHTML = originalText;
     		urCommentSection.style.display = "none";
         	Array.prototype.forEach.call(post.getElementsByClassName("comment"), (comment) => {
         		comment.style.display = "none";
+        	});
+        	Array.prototype.forEach.call(document.getElementsByClassName("post"), (postGiven) => {
+        		if(postGiven.getBoundingClientRect().top == post.getBoundingClientRect().top) {
+        			postGiven.style.alignSelf = "auto";
+        		}
         	});
     	}
     	
@@ -360,7 +374,7 @@ function doEveryThing(posts, comments) {
 
 export default function mainPosts(something, comments) {
     document.getElementsByTagName("body")[0].style.backgroundColor = "#f5f5f5";
-    mainPostsBlocks.style.marginTop = headerH + "px";
+    document.getElementsByClassName("posts")[0].style.marginTop = headerH + "px";
     data = something;
     initData = something;
     doEveryThing(initData, comments);

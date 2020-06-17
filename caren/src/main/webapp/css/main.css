@@ -105,12 +105,10 @@
     text-decoration: none;
     border-top: .5px solid #ddd; }
     .notifications__item:hover {
-      background-color: #f5f5f5;
-      cursor: pointer;}
+      background-color: #f5f5f5; }
     .notifications__item:nth-child(1) {
       border-top: none;
       border-radius: 8px 0px 0px 0px; }
-  
   .notifications__img {
     margin: 10px;
     padding: 10px;
@@ -391,8 +389,8 @@
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
-  justify-content: flex-start;
-  align-content: space-between;
+  justify-content: center;
+  align-content: center;
   align-items: center;
   background-color: #f3f3f3;
   min-height: calc(100vh); }
@@ -678,7 +676,7 @@
           .mainPosts .post .comments__urs .visibility__select:hover {
             background-color: #eeeeee; }
     .mainPosts .post .comment {
-      display: flex;
+      display: none;
       flex-direction: row;
       flex-wrap: nowrap;
       justify-content: space-between;
@@ -711,12 +709,22 @@
         margin-left: 60px;
         font-size: 12px; }
       .mainPosts .post .comment__showReplies {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
         color: #4285f4;
         text-decoration: underline;
         margin-top: 7px;
-        font-size: 14px; }
+        font-size: 12px;
+        align-self: stretch;
+        flex: 1 1 auto; }
+        .mainPosts .post .comment__showReplies:hover {
+          cursor: pointer; }
       .mainPosts .post .comment__thread {
-        display: none; }
+        display: block; }
         .mainPosts .post .comment__thread .comment__response {
           display: none; }
       .mainPosts .post .comment__text {

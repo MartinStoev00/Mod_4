@@ -142,17 +142,9 @@ function onclickData(event){
     	var index = content[0]['_index'];
     	let rid;
     	if((chartData.datasets[0].label).includes('Height') || (chartData.datasets[0].label).includes('Weight')){
-    		var measurement = chartData.datasets[0].label;
-        	var date = chartData.labels[index];
-            var value = chartData.datasets[0].data[index];
             rid = chartData.datasets[0].rid[index];
     	} else {
             rid = chartData.datasets[0].rid[index];
-    		var measurement1 = chartData.datasets[0].label;
-    		var measurement2 = chartData.datasets[1].label;
-    		var value1 = chartData.datasets[0].data[index];
-    		var value2 = chartData.datasets[1].data[index];
-    		var date = chartData.labels[index];
     	}
 		console.log("What we have:" + rid);
 		let postsBlocks = document.getElementsByClassName("post");
@@ -168,8 +160,14 @@ function onclickData(event){
 export function displayGraph(typebutton){
     returnArray(typebutton);
     if(typebutton == 'height' || typebutton == 'weight'){
-    	config.options.scales.yAxes[0].scaleLabel.labelString = typebutton.replace("h", "H").replace("w","W") + " ( " + measurementData[typebutton.toLowerCase()][0].unit + " )";
-        config.data.datasets[0].label = typebutton.replace("h", "H").replace("w","W") + " ( " + measurementData[typebutton.toLowerCase()][0].unit + " )";
+    	
+        if(typebutton == 'height') {
+        	config.options.scales.yAxes[0].scaleLabel.labelString = typebutton.replace("h", "H") + " ( " + measurementData[typebutton.toLowerCase()][0].unit + " )";
+        	config.data.datasets[0].label = typebutton.replace("h", "H") + " ( " + measurementData[typebutton.toLowerCase()][0].unit + " )";
+        } else {
+        	config.options.scales.yAxes[0].scaleLabel.labelString = typebutton.replace("w", "W") + " ( " + measurementData[typebutton.toLowerCase()][0].unit + " )";
+        	config.data.datasets[0].label = typebutton.replace("w", "W") + " ( " + measurementData[typebutton.toLowerCase()][0].unit + " )";
+        }
         from_date.value = measurementData[typebutton.toLowerCase()][0].date.split(" ")[0];
         end_date.value = measurementData[typebutton.toLowerCase()][measurementData[typebutton.toLowerCase()].length - 1].date.split(" ")[0];
         
@@ -255,7 +253,7 @@ function dataChange() {
 	let otherData = initData;
 	otherData = otherData.filter((recordItem)=>{
 		let recordDate = new Date(recordItem.date_added.split(" ")[0]);
-		return recordDate > start && recordDate < finish;
+		return recordDate >= start && recordDate <= finish;
 	});
 	insertIntoJSON(otherData);
 	let currentState = "";
