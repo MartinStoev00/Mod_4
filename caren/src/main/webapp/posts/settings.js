@@ -54,8 +54,9 @@ function ToggleSettings(){
 		settingsButton.setAttribute("data-set", "on");
 		settingsButton.style.color = "red";
 
-		chartsButton.setAttribute("data-set", "off");
-		chartsButton.style.color = "black";
+		if (chartsButton.getAttribute("data-set") == "on") {
+			chartsButton.click();
+		}
 		
 		showSettings();
 	} else {
@@ -68,7 +69,6 @@ function ToggleSettings(){
 function showSettings(){
 	settings.style.display = "block";
 	postsDiv.style.display = "none";
-	chartsDiv.style.display = "none";
 }
 
 function hideSettings(){
