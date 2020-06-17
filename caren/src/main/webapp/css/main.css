@@ -54,7 +54,7 @@
     align-content: stretch;
     align-items: center;
     padding: 0 15px; }
-  .header__myProfile, .header__notify, .header__logout, .header__settings, .header__chart {
+  .header__myProfile, .header__notify, .header__logout, .header__home, .header__chart {
     cursor: pointer;
     transition: 0.2s;
     margin: 0 6px 0;
@@ -105,8 +105,7 @@
     text-decoration: none;
     border-top: .5px solid #ddd; }
     .notifications__item:hover {
-      background-color: #f5f5f5;
-      cursor: pointer;}
+      background-color: #f5f5f5; }
     .notifications__item:nth-child(1) {
       border-top: none;
       border-radius: 8px 0px 0px 0px; }
@@ -525,10 +524,10 @@
         font-size: 25px;
         font-weight: 900;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         flex-wrap: nowrap;
         justify-content: center;
-        align-content: stretch;
+        align-content: center;
         align-items: center;
         grid-area: text; }
       .mainPosts .post__type-blood_pressure .blood_pressure {

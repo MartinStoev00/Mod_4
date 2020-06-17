@@ -61,7 +61,7 @@ function constructData(input, type) {
 		break;
 	case "blood_pressure":
 		let {systolic, diastolic, unit: bloodPressureUnit} = anObj;
-		let dataTextBloodPressure = "S: " + systolic + " " + bloodPressureUnit + "<br>D: " + diastolic + " " + bloodPressureUnit;
+		let dataTextBloodPressure = "<p>S: " + systolic + " " + bloodPressureUnit + "</p><p>D: " + diastolic + " " + bloodPressureUnit + "</p>";
 		contentInfo += `
 				<div class="content">${dataTextBloodPressure}</div>
 				<div class="blood_pressure"></div>

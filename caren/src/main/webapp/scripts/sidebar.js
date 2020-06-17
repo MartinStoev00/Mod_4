@@ -374,19 +374,36 @@ function filteringSearch() {
         let curr = searchRecords.value.toLowerCase();
         let postsBlocks = document.getElementsByClassName("post");
         Array.prototype.forEach.call(postsBlocks, (post) => {
-            let currTitle = post.getElementsByClassName("post__text")[0].innerHTML.toLowerCase() + post.getElementsByClassName("post__uploader")[0].innerHTML.toLowerCase();
+            post.getElementsByClassName("post__text")[0].innerHTML = post.getElementsByClassName("post__text")[0].innerHTML.replace(`<span style="background-color:yellow;font-weight: 900;">`,"").replace(`</span>`,"");
+            post.getElementsByClassName("post__uploader")[0].innerHTML = post.getElementsByClassName("post__uploader")[0].innerHTML.replace(`<span style="background-color:yellow;font-weight: 900;">`,"").replace(`</span>`,"");
+        });
+        Array.prototype.forEach.call(postsBlocks, (post) => {
+            let currTitle = post.getElementsByClassName("content")[0].innerHTML.toLowerCase() + post.getElementsByClassName("post__uploader")[0].innerHTML.toLowerCase();
+            let reportType = post.getElementsByClassName("post__text")[0].getElementsByTagName("div")[0].className.split("-")[1];
+            currTitle += reportType;
             if(!(currTitle.includes(curr) || curr.includes(currTitle))) {
                 post.style.display = "none";
-            } else{
+            } else {
+                if(post.getElementsByClassName("content")[0].innerHTML.includes(curr)) {
+                	post.getElementsByClassName("content")[0].innerHTML = post.getElementsByClassName("content")[0].innerHTML.replace(`${curr}`, `<span style="background-color:yellow;font-weight: 900;">${curr}</span>`);
+                } else if(post.getElementsByClassName("post__uploader")[0].innerHTML.toLowerCase().includes(curr)) {
+                	let original = post.getElementsByClassName("post__uploader")[0].innerHTML;
+                	let firstLetters = post.getElementsByClassName("post__uploader")[0].innerHTML.toLowerCase().split(curr)[0].length;
+                	let currLength = curr.length;
+                	let result = original.substring(0, firstLetters);
+                	result += `<span style="background-color:yellow;font-weight: 900;">`;
+                	result += original.substring(firstLetters, firstLetters + currLength);
+                	result += "</span>";
+                	result += original.substring(firstLetters + currLength, original.length + 1);
+                	post.getElementsByClassName("post__uploader")[0].innerHTML = result;
+                }
                 post.style.display = "flex";
                 present++;
             }
         });
-    	console.log(errBlock)
         if(present == 0) {
             errBlock.style.display = "block";
         } else {
-        	console.log(present)
             errBlock.style.display = "none";
         }
     });
