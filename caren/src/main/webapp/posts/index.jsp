@@ -24,7 +24,7 @@
 			<button class="header__chart fas fa-chart-line" data-set="off"></button>
 			<button class="header__myProfile fas fa-user-circle" onclick="location.href='http://localhost:8080/caren/posts/'"></button>
 			<button class="header__notify fas fa-bell"></button>
-			<button class="header__home fas fa-cog" onclick="location.href='http://localhost:8080/caren/settings/'"></button>
+			<button id="settingsToggle" class="header__settings fas fa-cog" data-set="off"></button>
 			<form action="../signout">
 				<button type="submit" class="header__logout fas fa-sign-out-alt"></button>
 			</form>
@@ -75,7 +75,7 @@
 	</div>
 	<div class="mainPosts">
 	
-		<div class="settings" style="display: none;">
+		<div id="settings" class="settings" style="display: none;">
         	<div class="title_content">
 	            <header class="root_header" style="margin-top: 150px; margin-bottom: 25px;">
 	                Settings

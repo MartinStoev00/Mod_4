@@ -14,6 +14,9 @@ let rpl_default = document.getElementById("RPL_input").value;
 let save = document.getElementById("save");
 let error = document.getElementById("error");
 
+let mainDiv = document.getElementById("settings");
+
+let button = document.getElementById("settingsToggle");
 
 first_name.addEventListener('change', inputChanged)
 last_name.addEventListener('change', inputChanged)
@@ -22,8 +25,9 @@ password.addEventListener('change', inputChanged)
 old_password.addEventListener('change', inputChanged)
 dark_mode.addEventListener('change', inputChanged)
 rpl.addEventListener('change', inputChanged)
+button.addEventListener('click', ToggleSettings)
 
-rpl.onload = function (){
+function onloadedSettings (){
 	save.disabled = true;
     save.style.color = "#b3b3b3";
     save.style.border = "1px solid #b3b3b3";
@@ -40,6 +44,26 @@ rpl.onload = function (){
         }
     }
     request.send();
+}
+
+function ToggleSettings(){
+	if (button.getAttribute("data-set") == "off") {
+		button.setAttribute("data-set", "on");
+		button.style.color = "red";
+		showSettings();
+	} else {
+		button.setAttribute("data-set", "off");
+		button.style.color = "black";
+		hideSettings();
+	}
+}
+
+function showSettings(){
+	settings.style.display = "block";
+}
+
+function hideSettings(){
+	settings.style.display = "none";
 }
 
 
