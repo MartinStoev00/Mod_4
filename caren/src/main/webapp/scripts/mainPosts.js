@@ -189,6 +189,7 @@ function sendingDataFunctionality(post) {
             let createdDivWrapperDateVisibilityContent = document.createTextNode(objectSent.visibility);
             createdDiv.setAttribute("data-cid", "0");
             createdDiv.setAttribute("class", "comment");
+            createdDiv.setAttribute("style","display: flex;");
             createdDivPic.setAttribute("class", "comment__pic");
             createdDivPic.setAttribute("style", "background-image: url(../Pictures/profile_pics/1.jpg);");
             createdDivWrapper.setAttribute("class", "comment__wrapper");

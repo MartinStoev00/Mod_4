@@ -373,7 +373,7 @@ function filteringSearch() {
         let curr = searchRecords.value.toLowerCase();
         let postsBlocks = document.getElementsByClassName("post");
         Array.prototype.forEach.call(postsBlocks, (post) => {
-            let currTitle = post.getElementsByClassName("post__text")[0].innerHTML.toLowerCase();
+            let currTitle = post.getElementsByClassName("post__text")[0].innerHTML.toLowerCase() + post.getElementsByClassName("post__uploader")[0].innerHTML.toLowerCase();
             if(!(currTitle.includes(curr) || curr.includes(currTitle))) {
                 post.style.display = "none";
             } else{
