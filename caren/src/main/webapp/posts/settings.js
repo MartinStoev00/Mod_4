@@ -61,7 +61,7 @@ function ToggleSettings(){
 		showSettings();
 	} else {
 		settingsButton.setAttribute("data-set", "off");
-		settingsButton.style.color = "black";
+		settingsButton.style.color = "#444";
 		hideSettings();
 	}
 }
