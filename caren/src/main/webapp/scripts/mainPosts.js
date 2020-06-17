@@ -376,6 +376,7 @@ function doEveryThing(posts, comments) {
 export default function mainPosts(something, comments) {
     document.getElementsByTagName("body")[0].style.backgroundColor = "#f5f5f5";
     document.getElementsByClassName("posts")[0].style.marginTop = headerH + "px";
+    document.getElementsByClassName("settings")[0].style.marginTop = headerH + "px";
     data = something;
     initData = something;
     doEveryThing(initData, comments);

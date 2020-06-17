@@ -42,7 +42,7 @@ let filterBoxTop = filterBtns.getBoundingClientRect().top + filterBtns.getBoundi
 filterBox.style.left = filterBtns.getBoundingClientRect().left + "px";
 filterBox.style.width = (filterBtns.getBoundingClientRect().width - 2) + "px";
 filterBox.style.top =  filterBoxTop + "px";
-people.style.height = (filterBtn.getBoundingClientRect().bottom) + "px";
+people.style.height = "calc(100vh - " + (filterBtn.getBoundingClientRect().top + filterBtn.getBoundingClientRect().height) + "px)";
 people.style.display = "none";
 let initData, data, commetsData;
 let startDate, endDate, order = chrono;
@@ -106,7 +106,7 @@ export default function sidebar(items, posts, comments) {
         people.innerHTML += 
             `<div data-name="${pid}" class="people__container">
                 <div class="people__pic" style="background-image: url(../Pictures/profile_pics/${pid}.jpg);"></div>
-                <div class="people__name"><span>${name}</span><span style ="${stylingRoles}">${description.replace(",",'<i class="fas fa-circle" style="margin: 5px; font-size: 5px;padding:5px;"></i>').replace("_", " ")}</span></div>
+                <div class="people__name"><span>${name}</span><span style ="${stylingRoles}">${description.replace(/,/g,'<i class="fas fa-circle" style="margin: 5px; font-size: 5px;padding:5px;"></i>').replace("_", " ")}</span></div>
             </div>`
     });
     let peopleiwanttoclickon = document.getElementsByClassName("people__container");
@@ -250,6 +250,7 @@ peopleBtn.addEventListener("click", () => {
     searchBlockPeople.style.display = "block";
     people.style.display = "block";
     settings.style.display = "none";
+    console.log(filterBtn.getBoundingClientRect().bottom);
 });
 
 peopleBtn.addEventListener("mouseover", () => {
@@ -381,9 +382,11 @@ function filteringSearch() {
                 present++;
             }
         });
+    	console.log(errBlock)
         if(present == 0) {
             errBlock.style.display = "block";
         } else {
+        	console.log(present)
             errBlock.style.display = "none";
         }
     });
