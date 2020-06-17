@@ -74,9 +74,8 @@ export default function sidebar(items, posts, comments) {
 					previousSet = "on";
 				}
 				comments = JSON.parse(data);
-				mainPosts(posts.sort(oldestToNewestFun), comments)
-				window.lineChart.destroy();
-				statistics(posts);
+				mainPosts(posts.sort(oldestToNewestFun), comments);
+				statistics(posts.sort(oldestToNewestFun));
 				if(previousSet == "on") {
 					statisticsBtn.click();
 				}
