@@ -23,7 +23,7 @@ old_password.addEventListener('change', inputChanged)
 dark_mode.addEventListener('change', inputChanged)
 rpl.addEventListener('change', inputChanged)
 
-window.onload = function (){
+rpl.onload = function (){
 	save.disabled = true;
     save.style.color = "#b3b3b3";
     save.style.border = "1px solid #b3b3b3";
