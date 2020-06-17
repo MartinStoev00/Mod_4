@@ -67,12 +67,17 @@ export default function sidebar(items, posts, comments) {
 		getrecords("http://localhost:8080/caren/rest/getrecords/"+input).then((data) => {
 			posts = JSON.parse(data);
 			getrecords("http://localhost:8080/caren/rest/getcomments/"+input).then((data) => {
+				let previousSet = "off";
+				let statisticsBtn = document.getElementsByClassName("header__chart")[0];
+				if(statisticsBtn.getAttribute("data-set") == "on") {
+					statisticsBtn.click();
+					previousSet = "on";
+				}
 				comments = JSON.parse(data);
 				mainPosts(posts.sort(oldestToNewestFun), comments)
 				window.lineChart.destroy();
 				statistics(posts);
-				let statisticsBtn = document.getElementsByClassName("header__chart")[0];
-				if(statisticsBtn.getAttribute("data-set") == "on") {
+				if(previousSet == "on") {
 					statisticsBtn.click();
 				}
 		        initData = posts;
