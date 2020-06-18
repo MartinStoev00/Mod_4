@@ -30,9 +30,8 @@ public class VerificationPage {
 			String id = resultSetToken.getString(1);
 			String email = resultSetToken.getString(2);
 			
-			//System.out.println(id);
 			
-			String insertToken = "UPDATE caren.accounts SET verified = CAST(? AS int) WHERE aid = CAST(? AS int)";
+			String insertToken = "UPDATE caren.accounts SET verified = CAST(? AS int), verification_token = NULL WHERE aid = CAST(? AS int)";
 			DatabaseManager.updateQuery(insertToken, ""+1 , ""+id);
 			
 			

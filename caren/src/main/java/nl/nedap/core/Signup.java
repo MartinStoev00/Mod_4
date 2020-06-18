@@ -122,7 +122,7 @@ public class Signup extends HttpServlet {
 				pkeySet.next();
 				int maxpKeyPeople = pkeySet.getInt(1);
 				
-				 Date birthDateFormatted = Date.valueOf(birthdate);
+				Date birthDateFormatted = Date.valueOf(birthdate);
 				
 				out.println(docType + "<HTML> <body>Creating account..</body> </HTML>");
 				
@@ -155,11 +155,6 @@ public class Signup extends HttpServlet {
 				String token = verifying.tokenGenerator(25);
 				
 				String insertToken = "UPDATE caren.accounts SET verification_token = ? WHERE aid = CAST(? AS int)";
-				
-				/*
-				PreparedStatement updateToken = conn.prepareStatement(insertToken);
-				updateToken.setString(1, token); updateToken.setInt(2, aid);
-				updateToken.executeUpdate();*/
 				
 				DatabaseManager.updateQuery(insertToken, token, ""+aid);
 				
