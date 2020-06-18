@@ -25,18 +25,22 @@ public class VerificationPage {
 		String queryReadToken = "SELECT a.aid , a.email FROM caren.accounts a WHERE a.verification_token = ?";
 		
 		ResultSet resultSetToken = DatabaseManager.ReadQuery(queryReadToken, token);
-		resultSetToken.next();
-		String id = resultSetToken.getString(1);
-		String email = resultSetToken.getString(2);
 		
-		//System.out.println(id);
+		if (resultSetToken.next()) {
+			String id = resultSetToken.getString(1);
+			String email = resultSetToken.getString(2);
+			
+			//System.out.println(id);
+			
+			String insertToken = "UPDATE caren.accounts SET verified = CAST(? AS int) WHERE aid = CAST(? AS int)";
+			DatabaseManager.updateQuery(insertToken, ""+1 , ""+id);
+			
+			
+			System.out.println(id);
+			return "Email successfully Verified " + email;
+		}
+		return "Token invalid";
 		
-		String insertToken = "UPDATE caren.accounts SET verified = CAST(? AS int) WHERE aid = CAST(? AS int)";
-		DatabaseManager.updateQuery(insertToken, ""+1 , ""+id);
-		
-		
-		System.out.println(id);
-		return "Email successfully Verified " + email;
 	}
 
 }
