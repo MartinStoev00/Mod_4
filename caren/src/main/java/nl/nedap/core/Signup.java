@@ -21,15 +21,20 @@ import nl.nedap.utility.DatabaseManager;
 import nl.nedap.utility.EmailVerification;
 import nl.nedap.utility.ForeignCharactersChecker;
 
+import java.sql.Date;
+
+
 /**
  * Servlet implementation class Signup
  */
 public class Signup extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private static String URL = "jdbc:mysql://80.115.229.32:3369/caren";
-	private static String DBUSERNAME = "root";
-	private static String DBPASS = "kze3jBXt7oW4";
+	private static final String HOST = "bronto.ewi.utwente.nl";
+	private static final String DBNAME = "dab_di19202b_340";
+	private static final String DBUSERNAME = "dab_di19202b_340";
+	private static final String DBPASS = "pYMCMcw6zBx7xaxH";
+	private static final String URL = "jdbc:postgresql://" + HOST + ":5432/" + DBNAME;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -60,14 +65,14 @@ public class Signup extends HttpServlet {
 		String passwordagn = request.getParameter("passwordagn");
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName("org.postgresql.Driver");
 			Connection conn = DriverManager.getConnection(URL, DBUSERNAME, DBPASS);
 			
 			
 			//TODO check if account already exists
 			//The query
 			String q = "SELECT a.email" + "\n"
-					+ "FROM accounts a" + "\n"
+					+ "FROM caren.accounts a" + "\n"
 					+ "WHERE a.email = ?;";
 			
 			//Create prepared statement object
@@ -105,25 +110,42 @@ public class Signup extends HttpServlet {
 			}
 			
 			if (!resultset.next()) { // can create acc
+				//get max p_key for accounts and for people
+				String pKeyGet = "SELECT MAX(a.aid) FROM caren.accounts a";
+				PreparedStatement pKeyStat = conn.prepareStatement(pKeyGet);
+				ResultSet pkeySet = pKeyStat.executeQuery();
+				pkeySet.next();
+				int maxpKeyAccounts = pkeySet.getInt(1);
+				pKeyGet = "SELECT MAX(p.pid) FROM caren.people p";
+				pKeyStat = conn.prepareStatement(pKeyGet);
+				pkeySet = pKeyStat.executeQuery();
+				pkeySet.next();
+				int maxpKeyPeople = pkeySet.getInt(1);
+				
+				 Date birthDateFormatted = Date.valueOf(birthdate);
+				
 				out.println(docType + "<HTML> <body>Creating account..</body> </HTML>");
 				
 				//Making call to database to make account.
-				String createAccQ = "INSERT INTO accounts (`email`, `password`) VALUES (?, ?)"; // email, password.
+				String createAccQ = "INSERT INTO caren.accounts (aid, email, password) VALUES (?,?, ?)"; // email, password.
 				PreparedStatement accCreationSt = conn.prepareStatement(createAccQ);
-				accCreationSt.setString(1, email); accCreationSt.setString(2, password);
+				accCreationSt.setInt(1, maxpKeyAccounts + 1); accCreationSt.setString(2, email); accCreationSt.setString(3, password);
+				//fix
 				accCreationSt.executeUpdate();
+				out.println(docType + "<HTML> <body>Creating account..</body> </HTML>");
 				//Retrieving the new account's aid.
-				String aidQ = "SELECT a.aid FROM accounts a WHERE a.email = ?"; // email.
+				String aidQ = "SELECT a.aid FROM caren.accounts a WHERE a.email = ?"; // email.
 				PreparedStatement aidSt = conn.prepareStatement(aidQ);
 				aidSt.setString(1, email);
 				ResultSet aidResultSet = aidSt.executeQuery();
 				aidResultSet.next();
 				int aid = aidResultSet.getInt(1);
-				
+				System.out.println(aid);
 				//Making call to database to make person in people.
-				String createPersQ = "INSERT INTO people (aid, first_name, last_name, date_of_birth, gender) VALUES (?, ?, ?, ?, ?)";
+				String createPersQ = "INSERT INTO caren.people (pid,aid, first_name, last_name, date_of_birth, gender) VALUES (?,?, ?, ?, ?, ?)";
 				PreparedStatement persCreationSt = conn.prepareStatement(createPersQ);
-				persCreationSt.setString(1, ""+aid); persCreationSt.setString(2, firstname); persCreationSt.setString(3, lastname); persCreationSt.setString(4, birthdate); persCreationSt.setString(5, gender);
+				persCreationSt.setInt(1, maxpKeyPeople +1); persCreationSt.setInt(2, aid); persCreationSt.setString(3, firstname); persCreationSt.setString(4,lastname); persCreationSt.setDate(5, birthDateFormatted);
+				persCreationSt.setString(6, gender);
 				persCreationSt.executeUpdate();
 				
 				
@@ -132,9 +154,14 @@ public class Signup extends HttpServlet {
 				EmailVerification verifying = new EmailVerification(email);
 				String token = verifying.tokenGenerator(25);
 				
-				String insertToken = "UPDATE accounts SET verification_token = ? WHERE aid = ?";
+				String insertToken = "UPDATE caren.accounts SET verification_token = ? WHERE aid = CAST(? AS int)";
 				
-				DatabaseManager.updateQuery(insertToken, token , ""+aid);
+				/*
+				PreparedStatement updateToken = conn.prepareStatement(insertToken);
+				updateToken.setString(1, token); updateToken.setInt(2, aid);
+				updateToken.executeUpdate();*/
+				
+				DatabaseManager.updateQuery(insertToken, token, ""+aid);
 				
 				EmailVerification.sendEmail(verifying);
 				

@@ -22,7 +22,7 @@ public class VerificationPage {
 	@GET
 	@Produces({MediaType.TEXT_PLAIN})
 	public String Verify(@Context HttpServletRequest request, @PathParam("token") String token) throws SQLException {
-		String queryReadToken = "SELECT a.aid , a.email FROM accounts a WHERE a.verification_token = ?";
+		String queryReadToken = "SELECT a.aid , a.email FROM caren.accounts a WHERE a.verification_token = ?";
 		
 		ResultSet resultSetToken = DatabaseManager.ReadQuery(queryReadToken, token);
 		resultSetToken.next();
@@ -31,7 +31,7 @@ public class VerificationPage {
 		
 		//System.out.println(id);
 		
-		String insertToken = "UPDATE accounts SET verified = ? WHERE aid = ?";
+		String insertToken = "UPDATE caren.accounts SET verified = CAST(? AS int) WHERE aid = CAST(? AS int)";
 		DatabaseManager.updateQuery(insertToken, ""+1 , ""+id);
 		
 		
