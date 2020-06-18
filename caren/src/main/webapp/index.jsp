@@ -8,9 +8,9 @@
 		}
 		%>
 	</body>
-<script>
-	window.onload = function() {
-		location.href = "http://localhost:8080/caren/welcome/index.jsp";
-	}
-</script>
+	<script>
+		window.onload = function() {
+			location.href = "http://localhost:8080/caren/welcome/index.jsp";
+		}
+	</script>
 </html>
