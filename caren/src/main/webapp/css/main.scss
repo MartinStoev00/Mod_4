@@ -2,7 +2,8 @@
 
 @import
   'abstracts/variables',
-  'abstracts/mixins';
+  'abstracts/mixins',
+  'abstracts/loader';
 
 @import
  'vendors/scrollbar';
@@ -23,3 +24,7 @@
   'pages/login',
   'pages/signup',
   'pages/welcome';
+.all {
+	pointer-events: none;
+	opacity: 0;
+}

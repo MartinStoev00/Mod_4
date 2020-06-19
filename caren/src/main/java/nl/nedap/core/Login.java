@@ -74,7 +74,9 @@ public class Login extends HttpServlet {
 				
 				//if account is not verified
 				if (verified != 1) {
-					out.println(docType + "<HTML> <body>Please check your email to verify account </body> </HTML>");
+					String resendVerificationLink = "http://localhost:8080/caren/rest/resendEmail/" + email;
+					out.println(docType + "<HTML> <body>Please check your email to verify account <a href ='" + resendVerificationLink + "'> or click here"
+							+ " to resend verification link </a> </body> </HTML>");
 					return;
 				}
 				
