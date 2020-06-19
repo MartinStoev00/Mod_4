@@ -1,0 +1,1 @@
+THIS IIS HIGHLY NOT FUNCTIONAL WITHOUT A SERVER RUNNING. All quirks and bugs when viewing them as is are solved in a server environment.

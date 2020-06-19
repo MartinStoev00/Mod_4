@@ -35,7 +35,7 @@ let stylingRoles = `
     font-size: 12px;
     color: #999;
 `
-
+let receivedItems;
 sidebarBlock.style.top = headerH + "px";
 let dp = false;
 let filterBoxTop = filterBtns.getBoundingClientRect().top + filterBtns.getBoundingClientRect().height - 1;
@@ -61,8 +61,9 @@ let newestToOldestFun = (a, b) => {
     return 0;
 }
 
-export default function sidebar(items, posts, comments) {
-	function gettingTheRaCOfPerson(input) {
+
+export function sidebar(items, posts, comments) {
+	 function gettingTheRaCOfPerson(input) {
 		let all = document.getElementsByClassName("all")[0];
 		let loaderBody = document.getElementsByClassName("loaderBody")[0];
 		all.style.opacity = "0";
@@ -72,9 +73,9 @@ export default function sidebar(items, posts, comments) {
 		getrecords("http://localhost:8080/caren/rest/getrecords/"+input).then((data) => {
 			posts = JSON.parse(data);
 			getrecords("http://localhost:8080/caren/rest/getcomments/"+input).then((data) => {
-        		loaderBody.style.display="none";
-        		all.style.opacity = "1";
-        		all.style.pointerEvents = "auto";
+	    		loaderBody.style.display="none";
+	    		all.style.opacity = "1";
+	    		all.style.pointerEvents = "auto";
 				let previousSet = "off";
 				let statisticsBtn = document.getElementsByClassName("header__chart")[0];
 				if(statisticsBtn.getAttribute("data-set") == "on") {
@@ -105,10 +106,14 @@ export default function sidebar(items, posts, comments) {
 			});
 		});
 	}
-
+	 
+	 receivedItems = items;
+	
+	
     fromDate.addEventListener("change", filteringDates);
     toDate.addEventListener("change", filteringDates);
-	people.innerHTML = `<div class="people__err">No Results Found</div>`
+	people.innerHTML = `<div class="people__err">No Results Found</div>`;
+	console.log(items);
     items.forEach((item) => {
         let {name, pid, aid, description} = item;
         people.innerHTML += 
@@ -140,6 +145,44 @@ export default function sidebar(items, posts, comments) {
     sortingBlocks(posts);
     filteringSearch();
 }
+
+export function sidebarWithPeople(input, rid){
+	let all = document.getElementsByClassName("all")[0];
+	let loaderBody = document.getElementsByClassName("loaderBody")[0];
+	all.style.opacity = "0";
+	all.style.pointerEvents = "none";
+	loaderBody.style.display = "flex";
+	
+	
+	let posts, comments;
+	getrecords("http://localhost:8080/caren/rest/getrecords/"+input).then((data) => {
+		posts = JSON.parse(data);
+		getrecords("http://localhost:8080/caren/rest/getcomments/"+input).then((data) => {
+			loaderBody.style.display="none";
+    		all.style.opacity = "1";
+    		all.style.pointerEvents = "auto";
+			let statisticsBtn = document.getElementsByClassName("header__chart")[0];
+			if(statisticsBtn.getAttribute("data-set") == "on") {
+				statisticsBtn.click();
+			}
+			comments = JSON.parse(data);
+			sidebar(receivedItems, posts, comments);
+			
+			let allPosts = document.getElementsByClassName("post");
+			
+			//Hide
+			Array.prototype.forEach.call(allPosts, (p) => {
+				console.log(p);
+				if (p.getAttribute("data-id") != rid) {
+					p.style.display = "none";
+				}
+				
+			})
+			//
+			
+		})
+	})
+} 
 
 function mainWithComments(inputData) {
     mainPosts(inputData, commetsData)

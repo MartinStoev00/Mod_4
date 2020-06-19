@@ -159,7 +159,9 @@ public class Signup extends HttpServlet {
 				DatabaseManager.updateQuery(insertToken, token, ""+aid);
 				
 				EmailVerification.sendEmail(verifying);
-				
+				String resendVerificationLink = "http://localhost:8080/caren/rest/resendEmail/" + email;
+				out.println(docType + "<HTML> <body><br><br> in case you didn't recieve an email from us <a href ='" + resendVerificationLink + "'> click here </a> "
+						+ " to recieve a new verification email</body> </HTML>");
 				
 				
 				//mohammad shall decide the fate of that, I think it should be deleted, no need for it anymore
