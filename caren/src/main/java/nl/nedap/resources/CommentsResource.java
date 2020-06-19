@@ -61,15 +61,14 @@ public class CommentsResource {
 				boolean addComment = false;
 				
 				// Handling visibility.
-				
-				if (aidType.equals("provider") && (visibility.equals(CommentVisibility.PUBLIC) || visibility.equals(CommentVisibility.PRIVATE))) {
+				if (loggedpid == pid) {
+					addComment = true;
+				} else if (aidType.equals("provider") && (visibility.equals(CommentVisibility.PUBLIC) || visibility.equals(CommentVisibility.PRIVATE))) {
 					System.out.println(DatabaseManager.IsClient(loggedpid, pid));
 					if (DatabaseManager.IsClient(loggedpid, pid)) {
 						addComment = true;
 					}
-				} else if (loggedaid == pid) {
-					addComment = true;
-				} else if ((DatabaseManager.IsAssociate(pid, loggedpid) || DatabaseManager.isBeingCaredForBy(loggedpid, pid)) && (visibility.equals(CommentVisibility.PUBLIC))) {
+				} else if ( ( DatabaseManager.IsAssociate(pid, loggedpid) && visibility.equals(CommentVisibility.PUBLIC) )|| ( DatabaseManager.isBeingCaredForBy(loggedpid, pid) && !visibility.equals(CommentVisibility.PERSONAL)) ) {
 					addComment = true;
 				} else {
 					
