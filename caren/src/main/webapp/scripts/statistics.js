@@ -5,14 +5,21 @@ window.chartColors = {
     red: 'rgb(255, 99, 132)',
     orange: 'rgb(255, 159, 64)',
     yellow: 'rgb(255, 205, 86)',
+    yellowopacity: 'rgb(255, 205, 86, 0.65)',
     green: 'rgb(75, 192, 192)',
     blue: 'rgb(54, 162, 235)',
+    blueopacity: 'rgb(54, 162, 235, 0.65)'
 };
 
 let ctxgraph = document.getElementById('canvas');
 //To retrieve values from the canvas. Calls onclickData();
 ctxgraph.onclick = onclickData;
 var ctx = ctxgraph.getContext('2d');
+
+
+let ctxgraphbar = document.getElementById('changescanvas');
+var ctxbar = ctxgraphbar.getContext('2d');
+
 
 let initData;
 let from_date = document.getElementsByClassName("statistics__date")[0];
@@ -29,8 +36,8 @@ let measurementData = {
     }
 };
 
-//Configuration for the graph
-let config = {
+//line Graph Configuration
+let lineConfig = {
     type: 'line',
     data: {
         labels: ['default'],
@@ -73,6 +80,61 @@ let config = {
     }
 };
 
+let barConfig = {
+		type: 'bar',
+		title: 'Changes since last measurement',
+		data: {
+			labels: ['Previous','Current'],
+			datasets: [{
+				backgroundColor: window.chartColors.blueopacity,
+	            borderColor: window.chartColors.blue,
+				label: 'default',
+				fill: true,
+				data:[]
+			}]
+		},
+		options: {
+			legend: {
+	            display: false
+	         },
+	        responsive: true,
+	        tooltips: {
+	            mode: 'index',
+	            intersect: false,
+	        },
+	        hover: {
+	            mode: 'nearest',
+	            intersect: true
+	        },
+	        scales: {
+	            xAxes: [{
+	            	gridLines: {
+	                    color: "rgba(0, 0, 0, 0)",
+	                },
+	                display: true,
+	                scaleLabel: {
+	                    display: true,
+	                    labelString: 'Date'
+	                }
+	            }],
+	            yAxes: [{
+	            	ticks : {
+	            		suggestedMin: 0,
+		            	suggestMax: 250
+	            	},
+	            	gridLines: {
+	                    color: "rgba(0, 0, 0, 0)",
+	                },
+	                display: true,
+	                scaleLabel: {
+	                    display: true,
+	                    labelString: 'default'
+	                }
+	            }]
+	        }
+	    }
+}
+
 export function statistics(records) {
 
 	if(window.lineChart){
@@ -81,7 +143,12 @@ export function statistics(records) {
 	initData = records;
 	
 	insertIntoJSON(records);
-	window.lineChart = new Chart(ctx, config);
+	window.lineChart = new Chart(ctx, lineConfig);
+	
+	window.barChart = new Chart(ctxbar, barConfig);
+
+	console.log(measurementData);
+	
 	
 	displayGraph('height');
     
@@ -133,6 +200,7 @@ function insertIntoJSON(records){
 	            measurementData.bloodpressure.diastolic.push(diastolicobj);
 	        }
 	    });
+
 }
 
 
@@ -140,6 +208,7 @@ function onclickData(event){
 	let reportselectedblock = document.getElementsByClassName("report__clicked")[0];
     var content = lineChart.getElementAtEvent(event);
     if(content[0]){
+    	console.log(content[0]);
     	var chartData= content[0]['_chart'].config.data;
     	var index = content[0]['_index'];
     	let rid;
@@ -157,35 +226,48 @@ function onclickData(event){
 			}
 		});
     }
+    
 }
 
 export function displayGraph(typebutton){
     if(typebutton == 'height' || typebutton == 'weight' ){
     	if(!measurementData[typebutton].length == 0){
     		returnArray(typebutton);
-    		config.options.scales.yAxes[0].scaleLabel.labelString = typebutton.charAt(0).toUpperCase() + typebutton.slice(1) + " ( " + measurementData[typebutton.toLowerCase()][0].unit + " )";
-            config.data.datasets[0].label = typebutton.charAt(0).toUpperCase() + typebutton.slice(1) + " ( " + measurementData[typebutton.toLowerCase()][0].unit + " )";
+    		lineConfig.options.scales.yAxes[0].scaleLabel.labelString = typebutton.charAt(0).toUpperCase() + typebutton.slice(1) + " ( " + measurementData[typebutton.toLowerCase()][0].unit + " )";
+            lineConfig.data.datasets[0].label = typebutton.charAt(0).toUpperCase() + typebutton.slice(1) + " ( " + measurementData[typebutton.toLowerCase()][0].unit + " )";
             from_date.value = measurementData[typebutton.toLowerCase()][0].date.split(" ")[0];
             end_date.value = measurementData[typebutton.toLowerCase()][measurementData[typebutton.toLowerCase()].length - 1].date.split(" ")[0];
+
+            barConfig.options.scales.yAxes[0].scaleLabel.labelString = typebutton.charAt(0).toUpperCase() + typebutton.slice(1) + " ( " + measurementData[typebutton.toLowerCase()][0].unit + " )";
+            barConfig.data.datasets[0].label = typebutton.charAt(0).toUpperCase() + typebutton.slice(1) + " ( " + measurementData[typebutton.toLowerCase()][0].unit + " )";
+            
     	} else {
-    		window.lineChart.display = 'none';
+    		chart.clear();
+    		
     		console.log("No records nibba");
     	}  
     } else {
     	if(!measurementData.bloodpressure.systolic.length == 0){
     		returnArray(typebutton);
-        	config.options.scales.yAxes[0].scaleLabel.labelString = typebutton.replace("_", " ").replace("b","B").replace("p","P") + " ( " + measurementData.bloodpressure.systolic[0].unit + " )";
-            config.data.datasets[0].label = "Systolic" + " ( " + measurementData.bloodpressure.systolic[0].unit + " )";
-            config.data.datasets[1].label = "Diastolic" + " ( " + measurementData.bloodpressure.systolic[0].unit + " )";
+        	lineConfig.options.scales.yAxes[0].scaleLabel.labelString = typebutton.charAt(0).toUpperCase() + typebutton.slice(1) + " ( " + measurementData.bloodpressure.systolic[0].unit + " )";
+            lineConfig.data.datasets[0].label = "Systolic" + " ( " + measurementData.bloodpressure.systolic[0].unit + " )";
+            lineConfig.data.datasets[1].label = "Diastolic" + " ( " + measurementData.bloodpressure.systolic[0].unit + " )";
             from_date.value = measurementData.bloodpressure.systolic[0].date.split(" ")[0];
             end_date.value = measurementData.bloodpressure.systolic[measurementData.bloodpressure.systolic.length - 1].date.split(" ")[0];
+
+         barConfig.options.scales.yAxes[0].scaleLabel.labelString = typebutton.charAt(0).toUpperCase() + typebutton.slice(1) + " ( " + measurementData.bloodpressure.systolic[0].unit + " )";
+            barConfig.data.datasets[0].label = "Systolic" + " ( " + measurementData.bloodpressure.systolic[0].unit + " )";
+            barConfig.data.datasets[1].label = "Diastolic" + " ( " + measurementData.bloodpressure.systolic[0].unit + " )";
+            
     	}else {
+    		
     		console.log("No records nibba");
     	}
     	
     }
     
     window.lineChart.update();
+    window.barChart.update();
 }
 
 
@@ -194,19 +276,26 @@ function returnArray(fieldname) {
     let arrayvalue2 = [];
     let ridvalue = [];
     let date = [];
-    if(config.data.datasets.length > 1) {
-	    config.data.datasets.splice(1, 1);
+    if(lineConfig.data.datasets.length > 1 || barConfig.data.datasets.length > 1) {
+	    lineConfig.data.datasets.splice(1, 1);
+	    barConfig.data.datasets.splice(1, 1);
 	}
+    
     if (fieldname == 'height' || fieldname == 'weight') {
     		measurementData[fieldname].forEach((fieldnamedata) => {
                 arrayvalue1.push(fieldnamedata.value);
                 ridvalue.push(fieldnamedata.rid);
                 date.push(fieldnamedata.date.split(" ")[0]);
             });
-            config.data.datasets[0].data = arrayvalue1;
-            config.data.datasets[0].rid = ridvalue;
-            config.data.labels = date;
+            lineConfig.data.datasets[0].data = arrayvalue1;
+            lineConfig.data.datasets[0].rid = ridvalue;
+            lineConfig.data.labels = date;
         
+          if(arrayvalue1.length > 1){
+            	barConfig.data.datasets[0].data = arrayvalue1.slice(arrayvalue1.length-2, arrayvalue1.length);
+            }
+            
+            
         
     } else {
     		measurementData.bloodpressure.systolic.forEach((fieldnamedata) => {
@@ -219,14 +308,20 @@ function returnArray(fieldname) {
             });
             
             //Adding the systolic values into dataset[0]
-            config.data.datasets[0].data = arrayvalue1;
-            config.data.datasets[0].rid = ridvalue;
+            lineConfig.data.datasets[0].data = arrayvalue1;
+            lineConfig.data.datasets[0].rid = ridvalue;
             
-        	if(config.data.datasets.length > 1) {
-        	    config.data.datasets.splice(1, 1);
+        	if(lineConfig.data.datasets.length > 1) {
+        	    lineConfig.data.datasets.splice(1, 1);
         	}
-            addDataset(arrayvalue2, ridvalue);
-            config.data.labels = date;
+            addLineDataset(arrayvalue2, ridvalue);
+            lineConfig.data.labels = date;
+            
+            
+            if(arrayvalue1.length > 1){
+            	barConfig.data.datasets[0].data = arrayvalue1.slice(arrayvalue1.length-2, arrayvalue1.length);
+            	addBarDataset(arrayvalue2.slice(arrayvalue2.length-2, arrayvalue2.length));
+            }
 
     	}
         
@@ -235,7 +330,7 @@ function returnArray(fieldname) {
 
 
 //Adds a dataset to the line chart. Used to visualize both Systolic and Diastolic.
-function addDataset(datasetvalue, ridvalue) {
+function addLineDataset(datasetvalue, ridvalue) {
 	//Creates the dataset with unfilled data values.
     var secondDataset = {
     		label: 'Diastolic ( mm Hg )',
@@ -246,13 +341,32 @@ function addDataset(datasetvalue, ridvalue) {
             data: [],
             rid: []
     };
-    //Adding data  values into the second dataset. Loops the array datasetvalue.
+    //Adding data  values into the line graph's second dataset. Loops the array datasetvalue.
     for (var index = 0; index < datasetvalue.length; ++index) {
         secondDataset.data.push(datasetvalue[index]);
         secondDataset.rid.push(ridvalue[index]);
     }
+    lineConfig.data.datasets.push(secondDataset);
+}
 
-    config.data.datasets.push(secondDataset);
+function addBarDataset(datasetvalue){
+    
+    var secondDatasetBar = {
+    	backgroundColor: window.chartColors.yellowopacity,
+        borderColor: window.chartColors.yellow,	
+		label: 'Diastolic ( mm Hg )',
+		fill: true,
+		data:[]
+	}
+    
+    console.log(datasetvalue);
+    
+    for(var index = 0; index < datasetvalue.length; index++){
+    	secondDatasetBar.data.push(datasetvalue[index]);
+    }
+    barConfig.data.datasets.push(secondDatasetBar);
+    
+    
 }
 
 function dataChange() {

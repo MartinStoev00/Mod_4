@@ -225,7 +225,7 @@ function returnArray(fieldname) {
     	if(config.data.datasets.length > 1) {
     	    config.data.datasets.splice(1, 1);
     	}
-        addDataset(arrayvalue2);
+        addLineDataset(arrayvalue2);
         config.data.labels = date;
     }
 
