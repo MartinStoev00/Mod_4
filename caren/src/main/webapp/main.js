@@ -16,6 +16,11 @@ function init() {
                 comments = JSON.parse(data);
                 if(document.getElementsByClassName("sidebar").length > 0) { 
                 	if (posts != "[]"){
+                		let all = document.getElementsByClassName("all")[0];
+                		let loaderBody = document.getElementsByClassName("loaderBody")[0];
+                		loaderBody.style.display="none";
+                		all.style.opacity = "1";
+                		all.style.pointerEvents = "auto";
                 		sidebar(associations, posts, comments);
                         header(comments);
                         statistics(posts);

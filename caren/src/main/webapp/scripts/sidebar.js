@@ -63,10 +63,18 @@ let newestToOldestFun = (a, b) => {
 
 export default function sidebar(items, posts, comments) {
 	function gettingTheRaCOfPerson(input) {
+		let all = document.getElementsByClassName("all")[0];
+		let loaderBody = document.getElementsByClassName("loaderBody")[0];
+		all.style.opacity = "0";
+		all.style.pointerEvents = "none";
+		loaderBody.style.display = "flex";
 		let posts, comments;
 		getrecords("http://localhost:8080/caren/rest/getrecords/"+input).then((data) => {
 			posts = JSON.parse(data);
 			getrecords("http://localhost:8080/caren/rest/getcomments/"+input).then((data) => {
+        		loaderBody.style.display="none";
+        		all.style.opacity = "1";
+        		all.style.pointerEvents = "auto";
 				let previousSet = "off";
 				let statisticsBtn = document.getElementsByClassName("header__chart")[0];
 				if(statisticsBtn.getAttribute("data-set") == "on") {
