@@ -64,9 +64,11 @@ let newestToOldestFun = (a, b) => {
 export default function sidebar(items, posts, comments) {
 	function gettingTheRaCOfPerson(input) {
 		let posts, comments;
+		console.log("bye");
 		getrecords("http://localhost:8080/caren/rest/getrecords/"+input).then((data) => {
 			posts = JSON.parse(data);
 			getrecords("http://localhost:8080/caren/rest/getcomments/"+input).then((data) => {
+				console.log("byeeeeeee");
 				let previousSet = "off";
 				let statisticsBtn = document.getElementsByClassName("header__chart")[0];
 				if(statisticsBtn.getAttribute("data-set") == "on") {
@@ -123,9 +125,15 @@ export default function sidebar(items, posts, comments) {
     initData = posts;
     data = posts;
     startDate = ordererdDates.shift();
-    fromDate.value = startDate;
+
+    if(startDate){
+        fromDate.value = startDate;
+    }
     endDate = ordererdDates.pop();
-    toDate.value = endDate;
+    
+    if(endDate){
+    	toDate.value = endDate;
+    }
     mainWithComments(posts.sort(oldestToNewestFun));
     sortingBlocks(posts);
     filteringSearch();

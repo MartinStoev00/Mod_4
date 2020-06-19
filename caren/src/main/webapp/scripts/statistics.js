@@ -81,9 +81,11 @@ export function statistics(records) {
 	initData = records;
 	
 	insertIntoJSON(records);
+	window.lineChart = new Chart(ctx, config);
+	
+	displayGraph('height');
     
-    window.lineChart = new Chart(ctx, config);
-    displayGraph('height');
+    
 };
 
 function insertIntoJSON(records){
@@ -166,19 +168,29 @@ function onclickData(event){
 }
 
 export function displayGraph(typebutton){
-    returnArray(typebutton);
-    if(typebutton == 'height' || typebutton == 'weight'){
-    	config.options.scales.yAxes[0].scaleLabel.labelString = typebutton.replace("h", "H").replace("w","W") + " ( " + measurementData[typebutton.toLowerCase()][0].unit + " )";
-        config.data.datasets[0].label = typebutton.replace("h", "H").replace("w","W") + " ( " + measurementData[typebutton.toLowerCase()][0].unit + " )";
-        from_date.value = measurementData[typebutton.toLowerCase()][0].date.split(" ")[0];
-        end_date.value = measurementData[typebutton.toLowerCase()][measurementData[typebutton.toLowerCase()].length - 1].date.split(" ")[0];
-        
+    if(typebutton == 'height' || typebutton == 'weight' ){
+    	if(!measurementData[typebutton].length == 0){
+    		returnArray(typebutton);
+    		config.options.scales.yAxes[0].scaleLabel.labelString = typebutton.charAt(0).toUpperCase() + typebutton.slice(1) + " ( " + measurementData[typebutton.toLowerCase()][0].unit + " )";
+            config.data.datasets[0].label = typebutton.charAt(0).toUpperCase() + typebutton.slice(1) + " ( " + measurementData[typebutton.toLowerCase()][0].unit + " )";
+            from_date.value = measurementData[typebutton.toLowerCase()][0].date.split(" ")[0];
+            end_date.value = measurementData[typebutton.toLowerCase()][measurementData[typebutton.toLowerCase()].length - 1].date.split(" ")[0];
+    	} else {
+    		window.lineChart.display = 'none';
+    		console.log("No records nibba");
+    	}  
     } else {
-    	config.options.scales.yAxes[0].scaleLabel.labelString = typebutton.replace("_", " ").replace("b","B").replace("p","P") + " ( " + measurementData.bloodpressure.systolic[0].unit + " )";
-        config.data.datasets[0].label = "Systolic" + " ( " + measurementData.bloodpressure.systolic[0].unit + " )";
-        config.data.datasets[1].label = "Diastolic" + " ( " + measurementData.bloodpressure.systolic[0].unit + " )";
-        from_date.value = measurementData.bloodpressure.systolic[0].date.split(" ")[0];
-        end_date.value = measurementData.bloodpressure.systolic[measurementData.bloodpressure.systolic.length - 1].date.split(" ")[0];
+    	if(!measurementData.bloodpressure.systolic.length == 0){
+    		returnArray(typebutton);
+        	config.options.scales.yAxes[0].scaleLabel.labelString = typebutton.replace("_", " ").replace("b","B").replace("p","P") + " ( " + measurementData.bloodpressure.systolic[0].unit + " )";
+            config.data.datasets[0].label = "Systolic" + " ( " + measurementData.bloodpressure.systolic[0].unit + " )";
+            config.data.datasets[1].label = "Diastolic" + " ( " + measurementData.bloodpressure.systolic[0].unit + " )";
+            from_date.value = measurementData.bloodpressure.systolic[0].date.split(" ")[0];
+            end_date.value = measurementData.bloodpressure.systolic[measurementData.bloodpressure.systolic.length - 1].date.split(" ")[0];
+    	}else {
+    		console.log("No records nibba");
+    	}
+    	
     }
     
     window.lineChart.update();
@@ -194,35 +206,38 @@ function returnArray(fieldname) {
 	    config.data.datasets.splice(1, 1);
 	}
     if (fieldname == 'height' || fieldname == 'weight') {
-        measurementData[fieldname.toLowerCase()].forEach((fieldnamedata) => {
-            arrayvalue1.push(fieldnamedata.value);
-            ridvalue.push(fieldnamedata.rid);
-            date.push(fieldnamedata.date.split(" ")[0]);
-        });
-        config.data.datasets[0].data = arrayvalue1;
-        config.data.datasets[0].rid = ridvalue;
-        config.data.labels = date;
+    		measurementData[fieldname].forEach((fieldnamedata) => {
+                arrayvalue1.push(fieldnamedata.value);
+                ridvalue.push(fieldnamedata.rid);
+                date.push(fieldnamedata.date.split(" ")[0]);
+            });
+            config.data.datasets[0].data = arrayvalue1;
+            config.data.datasets[0].rid = ridvalue;
+            config.data.labels = date;
+        
         
     } else {
-        measurementData.bloodpressure.systolic.forEach((fieldnamedata) => {
-            arrayvalue1.push(fieldnamedata.value);
-            ridvalue.push(fieldnamedata.rid);
-            date.push((fieldnamedata.date.split(" ")[0]));
-        });
-        measurementData.bloodpressure.diastolic.forEach((fieldnamedata) => {
-            arrayvalue2.push(fieldnamedata.value);
-        });
-        
-        //Adding the systolic values into dataset[0]
-        config.data.datasets[0].data = arrayvalue1;
-        config.data.datasets[0].rid = ridvalue;
-        
-    	if(config.data.datasets.length > 1) {
-    	    config.data.datasets.splice(1, 1);
+    		measurementData.bloodpressure.systolic.forEach((fieldnamedata) => {
+                arrayvalue1.push(fieldnamedata.value);
+                ridvalue.push(fieldnamedata.rid);
+                date.push((fieldnamedata.date.split(" ")[0]));
+            });
+            measurementData.bloodpressure.diastolic.forEach((fieldnamedata) => {
+                arrayvalue2.push(fieldnamedata.value);
+            });
+            
+            //Adding the systolic values into dataset[0]
+            config.data.datasets[0].data = arrayvalue1;
+            config.data.datasets[0].rid = ridvalue;
+            
+        	if(config.data.datasets.length > 1) {
+        	    config.data.datasets.splice(1, 1);
+        	}
+            addDataset(arrayvalue2, ridvalue);
+            config.data.labels = date;
+
     	}
-        addDataset(arrayvalue2, ridvalue);
-        config.data.labels = date;
-    }
+        
 
 }
 
@@ -255,7 +270,7 @@ function dataChange() {
 	let otherData = initData;
 	otherData = otherData.filter((recordItem)=>{
 		let recordDate = new Date(recordItem.date_added.split(" ")[0]);
-		return recordDate > start && recordDate < finish;
+		return recordDate >= start && recordDate <= finish;
 	});
 	insertIntoJSON(otherData);
 	let currentState = "";
