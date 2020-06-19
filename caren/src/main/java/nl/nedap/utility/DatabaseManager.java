@@ -126,11 +126,11 @@ public static void updateRegularQuery(String q) {
 	}
 	
 	public static Boolean IsClient(int sessionId, int id) {
-		//if (sessionId == id) {return true;}
-		
-		String q = "SELECT a.aid" + "\n"
-				+ "FROM caren.accounts a, caren.care_providers p, caren.care_providers_people c" + "\n"
-				+ "WHERE c.care_provider_id = CAST(? AS int) AND c.person_id = CAST(? AS int)";
+		String q = "SELECT p.aid" + "\n"
+				+ "FROM caren.accounts a, caren.people p, caren.relationships r" + "\n"
+				+ "WHERE r.person_id = CAST(? AS int)" + "\n"
+				+ "AND r.related_person_id = CAST(? AS int)" + "\n"
+				+ "AND p.pid = r.related_person_id AND p.type = 'client'";
 		
 		ResultSet r = ReadQuery(q, ""+sessionId, ""+id);
 		try {
@@ -146,10 +146,12 @@ public static void updateRegularQuery(String q) {
 		return false;
 	}
 
-	public static boolean isBeingCareForBy(int loggedpid, int pid) {
-		String q = "SELECT a.aid" + "\n"
-				+ "FROM caren.accounts a, caren.care_providers p, caren.care_providers_people c" + "\n"
-				+ "WHERE c.care_provider_id = CAST(? AS int) AND c.person_id = CAST(? AS int)";
+	public static boolean isBeingCaredForBy(int loggedpid, int pid) {
+		String q = "SELECT p.aid" + "\n"
+				+ "FROM caren.accounts a, caren.people p, caren.relationships r" + "\n"
+				+ "WHERE r.person_id = CAST(? AS int)" + "\n"
+				+ "AND r.related_person_id = CAST(? AS int)" + "\n"
+				+ "AND p.pid = r.related_person_id AND p.type = 'client'";
 		
 		ResultSet r = ReadQuery(q, ""+pid, ""+loggedpid);
 		try {
@@ -162,6 +164,16 @@ public static void updateRegularQuery(String q) {
 		}
 		
 		
+		return false;
+	}
+
+	public static boolean recordBelongsToLoggedInUser(int loggedpid, int rid) {
+		String q = "SELECT r.id" + "\n"
+				+ "FROM r caren.reports" + "\n"
+				+ "WHERE r.person_id = CAST(? AS int)" + "\n"
+				+ "AND r.id = CAST(? AS int);";
+		
+		ResultSet r = ReadQuery(q, ""+loggedpid, ""+rid);
 		return false;
 	}
 }
