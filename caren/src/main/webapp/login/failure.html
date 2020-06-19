@@ -6,7 +6,7 @@
 
     <body>
         <div class="main_message" style="text-align: center; margin: auto; margin-top: 45vh;">
-            <label style="color: #ff82b2; font-family: Trebuchet MS;  font-size: 4rem; font-variant: small-caps; text-shadow: 2px 2px #434343;">Your password did not match the account's password.</label>
+            <label style="color: #ff82b2; font-family: Trebuchet MS;  font-size: 4rem; font-variant: small-caps; text-shadow: 2px 2px #434343;">no accounts match your credentials.</label>
         </div>
 
         <div class="sub_message" style="text-align: center;  margin: auto;">
@@ -27,7 +27,7 @@
         function countDown(){
             if (timer <= 0) {
                 window.clearInterval(int);
-                window.location.href = "http://localhost:8080/caren/posts/";
+                window.location.href = "http://localhost:8080/caren/login/";
             } else {
                 timer = timer - 1;
                 txt.innerHTML = "Redirecting in " + timer + " seconds."

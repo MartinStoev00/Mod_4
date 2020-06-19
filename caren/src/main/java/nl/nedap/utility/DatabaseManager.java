@@ -169,7 +169,7 @@ public static void updateRegularQuery(String q) {
 
 	public static boolean recordBelongsToLoggedInUser(int loggedpid, int rid) {
 		String q = "SELECT r.id" + "\n"
-				+ "FROM r caren.reports" + "\n"
+				+ "FROM caren.reports r" + "\n"
 				+ "WHERE r.person_id = CAST(? AS int)" + "\n"
 				+ "AND r.id = CAST(? AS int);";
 		
