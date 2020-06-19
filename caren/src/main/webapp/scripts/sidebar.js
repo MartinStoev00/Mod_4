@@ -70,12 +70,9 @@ export function sidebar(items, posts, comments) {
 		all.style.pointerEvents = "none";
 		loaderBody.style.display = "flex";
 		let postsA, commentsA;
-		console.log("bye");
 		getrecords("http://localhost:8080/caren/rest/getrecords/"+input).then((data) => {
-			console.log("==========================")
 			postsA = JSON.parse(data);
 			getrecords("http://localhost:8080/caren/rest/getcomments/"+input).then((data) => {
-				console.log(postsA);
 	    		loaderBody.style.display="none";
 	    		all.style.opacity = "1";
 	    		all.style.pointerEvents = "auto";
@@ -86,8 +83,6 @@ export function sidebar(items, posts, comments) {
 					previousSet = "on";
 				}
 				commentsA = JSON.parse(data);
-				console.log("==========================")
-				console.log(commentsA);
 				mainPosts(postsA.sort(oldestToNewestFun), commentsA);
 				statistics(postsA.sort(oldestToNewestFun));
 				if(previousSet == "on") {
@@ -118,7 +113,6 @@ export function sidebar(items, posts, comments) {
     fromDate.addEventListener("change", filteringDates);
     toDate.addEventListener("change", filteringDates);
 	people.innerHTML = `<div class="people__err">No Results Found</div>`;
-	console.log(items);
     items.forEach((item) => {
         let {name, pid, aid, description} = item;
         people.innerHTML += 

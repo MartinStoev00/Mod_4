@@ -132,6 +132,31 @@ function visibilityAndReadMore(post) {
     	}
     	
     });
+    post.addEventListener("click", () => {
+    	let originalDisplay = [];
+    	let allPostsOnPageCurrent = document.getElementsByClassName("post");
+    	let goBackBtn = document.getElementsByClassName("post__goBack")[0];
+    	Array.prototype.forEach.call(allPostsOnPageCurrent, (postSelectedCurrent) => {
+    		if(postSelectedCurrent.getAttribute("data-id") !== post.getAttribute("data-id") && postSelectedCurrent.style.display != "none") {
+    			postSelectedCurrent.style.display = "none";
+    			originalDisplay.push(postSelectedCurrent.getAttribute("data-id"));
+    		}
+    	});
+    	goBackBtn.style.display = "block";
+    	goBackBtn.addEventListener("click", () => {
+    		if(post.getElementsByClassName("comments__info")[0].innerHTML == "Collapse Comments") {
+    			post.getElementsByClassName("comments__info")[0].click();
+    		}
+    		originalDisplay.forEach((postID) => {
+    			Array.prototype.forEach.call(allPostsOnPageCurrent,(postSelectedCurrently) => {
+    				if(postSelectedCurrently.getAttribute("data-id") == postID) {
+    					postSelectedCurrently.style.display = "flex";
+    				}
+    			});
+    		});
+    		goBackBtn.style.display = "none";
+    	});
+    });
 }
 
 function sendingDataFunctionality(post) {
@@ -318,44 +343,9 @@ function sendingDataFunctionality(post) {
     });
 }
 
-function fillPosts(posts) {
-    let postsBlocks = document.getElementsByClassName("post");
-    Array.prototype.forEach.call(postsBlocks, (block, i) => {
-        if(block.getElementsByClassName("comments__viewall").length > 0) {
-            let viewall = block.getElementsByClassName("comments__viewall")[0];
-            let dp = false;
-            viewall.addEventListener("click", () => {
-                let info = block.getElementsByClassName("comments__info")[0];
-                let section = block.getElementsByClassName("comments__section")[0];
-                let count = info.getElementsByClassName("comments__count")[0];
-                let commentsText = ``;
-                section.innerHTML = ``;
-                if(!dp) {
-                    viewall.innerHTML = `Collapse Menu`;
-                    count.innerHTML = `${posts[i].comments.length} out of ${posts[i].comments.length}`;
-                    posts[i].comments.forEach((comment) => {
-                        commentsText += commentTemplate(comment);
-                    });
-                    section.innerHTML = commentsText;
-                    dp = true;
-                } else {
-                    viewall.innerHTML = `View All Comments`;
-                    count.innerHTML = `${numDisplayed} out of ${posts[i].comments.length}`;
-                    posts[i].comments.forEach((comment, num) => {
-                        if(num < numDisplayed) {
-                            commentsText += commentTemplate(comment);
-                        }
-                    });
-                    section.innerHTML = commentsText;
-                    dp = false;
-                }
-            });
-        }
-    });
-}
-
 function doEveryThing(posts, comments) {
-    postsMain.innerHTML = `<div class="post__err">No Results Found</div>`;
+    postsMain.innerHTML = `<div class="post__err">No Results Found</div>
+<div class="post__goBack">Go Back</div>`;
     posts.forEach((post) => {
         let {record_id, posted_by_id, posted_by_name, date_added, posted_for_id, data, type} = post;
         let dataAboutComments = [];
@@ -366,7 +356,6 @@ function doEveryThing(posts, comments) {
         });
         postsMain.innerHTML += postsTemplate(posted_for_id, posted_by_id, posted_by_name, date_added, type, JSON.stringify(data), dataAboutComments, dataAboutComments.length, record_id);
     });
-    fillPosts(posts, comments);
     Array.prototype.forEach.call(document.getElementsByClassName("post"), (postBlock) => {
         visibilityAndReadMore(postBlock);
         sendingDataFunctionality(postBlock);
@@ -380,6 +369,9 @@ export default function mainPosts(something, comments) {
     data = something;
     initData = something;
     doEveryThing(initData, comments);
+    let sidebarW = document.getElementsByClassName("sidebar")[0].getBoundingClientRect().width;
+    document.getElementsByClassName("post__goBack")[0].style.top = (headerH + 6) + "px";
+    document.getElementsByClassName("post__goBack")[0].style.left = (sidebarW + 6) + "px";
 }
 
 
