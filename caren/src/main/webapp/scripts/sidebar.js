@@ -69,10 +69,13 @@ export function sidebar(items, posts, comments) {
 		all.style.opacity = "0";
 		all.style.pointerEvents = "none";
 		loaderBody.style.display = "flex";
-		let posts, comments;
+		let postsA, commentsA;
+		console.log("bye");
 		getrecords("http://localhost:8080/caren/rest/getrecords/"+input).then((data) => {
-			posts = JSON.parse(data);
+			console.log("==========================")
+			postsA = JSON.parse(data);
 			getrecords("http://localhost:8080/caren/rest/getcomments/"+input).then((data) => {
+				console.log(postsA);
 	    		loaderBody.style.display="none";
 	    		all.style.opacity = "1";
 	    		all.style.pointerEvents = "auto";
@@ -82,13 +85,15 @@ export function sidebar(items, posts, comments) {
 					statisticsBtn.click();
 					previousSet = "on";
 				}
-				comments = JSON.parse(data);
-				mainPosts(posts.sort(oldestToNewestFun), comments);
-				statistics(posts.sort(oldestToNewestFun));
+				commentsA = JSON.parse(data);
+				console.log("==========================")
+				console.log(commentsA);
+				mainPosts(postsA.sort(oldestToNewestFun), commentsA);
+				statistics(postsA.sort(oldestToNewestFun));
 				if(previousSet == "on") {
 					statisticsBtn.click();
 				}
-		        initData = posts;
+		        initData = postsA;
 	    		data = initData;
 	    		order = chrono;startDate = ordererdDates.shift();
 	    		fromDate.value = startDate;
@@ -138,9 +143,15 @@ export function sidebar(items, posts, comments) {
     initData = posts;
     data = posts;
     startDate = ordererdDates.shift();
-    fromDate.value = startDate;
+
+    if(startDate){
+        fromDate.value = startDate;
+    }
     endDate = ordererdDates.pop();
-    toDate.value = endDate;
+    
+    if(endDate){
+    	toDate.value = endDate;
+    }
     mainWithComments(posts.sort(oldestToNewestFun));
     sortingBlocks(posts);
     filteringSearch();
