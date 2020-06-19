@@ -68,7 +68,7 @@ public class CommentsResource {
 					if (DatabaseManager.IsClient(loggedpid, pid)) {
 						addComment = true;
 					}
-				} else if ( ( DatabaseManager.IsAssociate(pid, loggedpid) && visibility.equals(CommentVisibility.PUBLIC) )|| ( DatabaseManager.isBeingCaredForBy(loggedpid, pid) && !visibility.equals(CommentVisibility.PERSONAL)) ) {
+				} else if ( ( DatabaseManager.IsAssociate(pid, loggedpid) && visibility.equals(CommentVisibility.PUBLIC) )|| ( DatabaseManager.isBeingCaredForBy(loggedpid, pid) && !visibility.equals(CommentVisibility.PERSONAL) && DatabaseManager.recordBelongsToLoggedInUser(loggedpid, rid)) ) {
 					addComment = true;
 				} else {
 					
