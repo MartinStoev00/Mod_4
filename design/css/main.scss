@@ -1,0 +1,25 @@
+@charset 'UTF-8';
+
+@import
+  'abstracts/variables',
+  'abstracts/mixins';
+
+@import
+ 'vendors/scrollbar';
+
+@import
+  'base/base',
+  'base/fonts',
+  'base/typography',
+  'base/animation';
+
+@import
+  'components/header',
+  'components/notifications',
+  'components/sidebar',
+  'components/mainPosts';
+
+@import 
+  'pages/login',
+  'pages/signup',
+  'pages/welcome';
