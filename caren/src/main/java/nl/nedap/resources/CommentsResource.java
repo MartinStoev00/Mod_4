@@ -42,7 +42,7 @@ public class CommentsResource {
 		String query = "SELECT * FROM caren.getcomments(?);";
 		
 		//Resultset
-		ResultSet result = DatabaseManager.ReadQuery(query, ""+loggedpid);
+		ResultSet result = DatabaseManager.ReadQuery(query, ""+destpid);
 
 		try {
 			while (result.next()) {

@@ -51,17 +51,6 @@ CREATE TABLE caren.care_providers_categories (
 
 INSERT INTO caren.care_providers_categories VALUES (43,1),(44,2),(45,6),(46,3),(47,5),(48,7),(49,1),(50,4),(51,6),(52,7);
 
--- caren.care_providers_people //REQUIRES caren.people
-DROP TABLE IF EXISTS caren.care_providers_people;
-CREATE TABLE caren.care_providers_people (
-  person_id int DEFAULT NULL,
-  care_provider_id int DEFAULT NULL,
-  PRIMARY KEY (person_id, care_provider_id),
-  FOREIGN KEY (person_id) REFERENCES caren.people(pid),
-  FOREIGN KEY (care_provider_id) REFERENCES caren.people(pid)
-);
-
-INSERT INTO caren.care_providers_people VALUES (1,44),(1,46),(1,51),(2,47),(3,50),(3,51),(3,52),(4,43),(4,44),(4,46),(4,47),(5,43),(5,45),(5,47),(5,48),(5,50),(5,51),(6,45),(6,46),(6,48),(6,50),(7,49),(7,51),(8,44),(8,48),(8,52),(9,43),(9,45),(9,51),(10,43),(10,44),(10,45),(10,49),(10,51),(11,49),(11,52),(12,47),(12,51),(12,52),(13,44),(13,51),(14,48),(15,47),(15,52),(16,45),(16,46),(16,48),(16,52),(17,43),(17,46),(17,51),(18,44),(18,46),(19,44),(19,45),(19,47),(19,51),(20,43),(20,46),(20,48),(20,51),(21,51),(22,45),(22,48),(22,49),(22,51),(22,52),(23,45),(23,50),(23,51),(24,43),(24,49),(24,52),(25,43),(25,46),(25,47),(25,49),(26,43),(26,44),(26,45),(26,49),(26,52),(27,47),(27,48),(27,49),(28,49),(29,43),(29,45),(29,46),(29,49),(30,43),(30,44),(30,47),(30,48);
 
 --caren.relationships //REQUIRES caren.people
 DROP TABLE IF EXISTS caren.relationships;
@@ -75,6 +64,8 @@ CREATE TABLE caren.relationships (
 );
 
 INSERT INTO caren.relationships VALUES (101,1,8,'neighbour'),(153,1,20,'parent'),(165,1,21,'child'),(157,2,8,'child'),(128,3,4,'child'),(131,3,7,'parent'),(108,3,8,'neighbour'),(185,3,17,'neighbour'),(163,3,22,'care_giver'),(121,3,29,'other'),(138,4,10,'care_giver'),(182,4,13,'parent'),(162,4,17,'parent'),(164,4,20,'neighbour'),(161,4,22,'neighbour'),(184,5,21,'child'),(168,5,22,'other'),(186,5,29,'child'),(106,6,3,'care_giver'),(133,6,7,'care_giver'),(174,6,8,'care_giver'),(177,6,17,'neighbour'),(143,7,2,'other'),(179,8,1,'other'),(199,8,4,'care_giver'),(118,8,4,'other'),(109,8,9,'parent'),(175,8,14,'parent'),(187,8,29,'child'),(189,9,3,'other'),(160,9,5,'care_giver'),(156,9,10,'parent'),(159,10,28,'other'),(144,11,2,'other'),(116,11,18,'child'),(170,12,14,'neighbour'),(193,12,24,'neighbour'),(176,13,11,'neighbour'),(147,13,12,'neighbour'),(190,13,17,'neighbour'),(111,13,21,'parent'),(146,13,29,'other'),(197,13,30,'neighbour'),(136,14,16,'parent'),(135,14,16,'neighbour'),(140,14,19,'child'),(137,15,1,'child'),(127,15,8,'parent'),(126,16,11,'neighbour'),(107,16,28,'care_giver'),(117,16,29,'neighbour'),(150,17,1,'parent'),(158,17,8,'neighbour'),(115,17,9,'other'),(152,17,10,'child'),(122,17,18,'child'),(191,17,26,'care_giver'),(155,18,3,'neighbour'),(149,18,10,'neighbour'),(148,18,18,'neighbour'),(103,18,26,'other'),(113,19,18,'neighbour'),(102,19,21,'care_giver'),(154,20,21,'care_giver'),(139,20,28,'parent'),(105,21,25,'child'),(166,21,26,'care_giver'),(167,22,7,'parent'),(181,22,18,'child'),(112,22,22,'parent'),(114,23,23,'parent'),(141,23,29,'neighbour'),(134,23,30,'parent'),(119,24,8,'child'),(120,24,15,'care_giver'),(172,24,28,'child'),(124,25,4,'parent'),(183,25,9,'care_giver'),(195,25,26,'parent'),(151,26,1,'other'),(145,26,7,'neighbour'),(130,26,12,'child'),(196,26,17,'parent'),(123,26,20,'parent'),(129,26,25,'parent'),(188,27,6,'care_giver'),(178,27,8,'child'),(180,27,8,'parent'),(171,27,21,'care_giver'),(192,27,22,'other'),(169,27,25,'child'),(200,28,10,'neighbour'),(173,29,11,'parent'),(194,29,19,'child'),(132,29,19,'neighbour'),(125,29,25,'other'),(142,30,7,'child'),(110,30,13,'care_giver'),(104,30,20,'other');
+
+INSERT INTO caren.relationships (person_id, related_person_id, type) VALUES (44,1,'client'),(46,1,'client'),(51,1,'client'),(47,2,'client'),(50,3,'client'),(51,3,'client'),(52,3,'client'),(43,4,'client'),(44,4,'client'),(46,4,'client'),(47,4,'client'),(43,5,'client'),(45,5,'client'),(47,5,'client'),(48,5,'client'),(50,5,'client'),(51,5,'client'),(45,6,'client'),(46,6,'client'),(48,6,'client'),(50,6,'client'),(49,7,'client'),(51,7,'client'),(44,8,'client'),(48,8,'client'),(52,8,'client'),(43,9,'client'),(45,9,'client'),(51,9,'client'),(43,10,'client'),(44,10,'client'),(45,10,'client'),(49,10,'client'),(51,10,'client'),(49,11,'client'),(52,11,'client'),(47,12,'client'),(51,12,'client'),(52,12,'client'),(44,13,'client'),(51,13,'client'),(48,14,'client'),(47,15,'client'),(52,15,'client'),(45,16,'client'),(46,16,'client'),(48,16,'client'),(52,16,'client'),(43,17,'client'),(46,17,'client'),(51,17,'client'),(44,18,'client'),(46,18,'client'),(44,19,'client'),(45,19,'client'),(47,19,'client'),(51,19,'client'),(43,20,'client'),(46,20,'client'),(48,20,'client'),(51,20,'client'),(51,21,'client'),(45,22,'client'),(48,22,'client'),(49,22,'client'),(51,22,'client'),(52,22,'client'),(45,23,'client'),(50,23,'client'),(51,23,'client'),(43,24,'client'),(49,24,'client'),(52,24,'client'),(43,25,'client'),(46,25,'client'),(47,25,'client'),(49,25,'client'),(43,26,'client'),(44,26,'client'),(45,26,'client'),(49,26,'client'),(52,26,'client'),(47,27,'client'),(48,27,'client'),(49,27,'client'),(49,28,'client'),(43,29,'client'),(45,29,'client'),(46,29,'client'),(49,29,'client'),(43,30,'client'),(44,30,'client'),(47,30,'client'),(48,30,'client');
 
 
 --caren.reports //REQUIRES caren.people
