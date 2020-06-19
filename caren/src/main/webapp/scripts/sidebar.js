@@ -35,14 +35,14 @@ let stylingRoles = `
     font-size: 12px;
     color: #999;
 `
-
+let receivedItems;
 sidebarBlock.style.top = headerH + "px";
 let dp = false;
 let filterBoxTop = filterBtns.getBoundingClientRect().top + filterBtns.getBoundingClientRect().height - 1;
 filterBox.style.left = filterBtns.getBoundingClientRect().left + "px";
 filterBox.style.width = (filterBtns.getBoundingClientRect().width - 2) + "px";
 filterBox.style.top =  filterBoxTop + "px";
-people.style.height = (filterBtn.getBoundingClientRect().bottom) + "px";
+people.style.height = "calc(100vh - " + (filterBtn.getBoundingClientRect().top + filterBtn.getBoundingClientRect().height) + "px)";
 people.style.display = "none";
 let initData, data, commetsData;
 let startDate, endDate, order = chrono;
@@ -61,14 +61,22 @@ let newestToOldestFun = (a, b) => {
     return 0;
 }
 
-export default function sidebar(items, posts, comments) {
-	function gettingTheRaCOfPerson(input) {
+
+export function sidebar(items, posts, comments) {
+	 function gettingTheRaCOfPerson(input) {
+		let all = document.getElementsByClassName("all")[0];
+		let loaderBody = document.getElementsByClassName("loaderBody")[0];
+		all.style.opacity = "0";
+		all.style.pointerEvents = "none";
+		loaderBody.style.display = "flex";
 		let posts, comments;
 		console.log("bye");
 		getrecords("http://localhost:8080/caren/rest/getrecords/"+input).then((data) => {
 			posts = JSON.parse(data);
 			getrecords("http://localhost:8080/caren/rest/getcomments/"+input).then((data) => {
-				console.log("byeeeeeee");
+	    		loaderBody.style.display="none";
+	    		all.style.opacity = "1";
+	    		all.style.pointerEvents = "auto";
 				let previousSet = "off";
 				let statisticsBtn = document.getElementsByClassName("header__chart")[0];
 				if(statisticsBtn.getAttribute("data-set") == "on") {
@@ -90,23 +98,29 @@ export default function sidebar(items, posts, comments) {
 	    		boxBtns[0].innerHTML = revChrono;
 	    		searchRecords.value = "";
 	    		filterBtns.innerHTML = order + " " + caret;
-	    		Array.prototype.forEach.call(linkForPages, (link) => {
-	    		    link.setAttribute("data-state", "selected");
-	    		    link.getElementsByClassName("fa-check")[0].style.display = "block";
-	    		});		        
+	    		if(statisticsBtn.getAttribute("data-set") !== "on") {
+		    		Array.prototype.forEach.call(linkForPages, (link) => {
+		    		    link.setAttribute("data-state", "selected");
+		    		    link.getElementsByClassName("fa-check")[0].style.display = "block";
+		    		});
+				}		        
 			});
 		});
 	}
-
+	 
+	 receivedItems = items;
+	
+	
     fromDate.addEventListener("change", filteringDates);
     toDate.addEventListener("change", filteringDates);
-	people.innerHTML = `<div class="people__err">No Results Found</div>`
+	people.innerHTML = `<div class="people__err">No Results Found</div>`;
+	console.log(items);
     items.forEach((item) => {
         let {name, pid, aid, description} = item;
         people.innerHTML += 
             `<div data-name="${pid}" class="people__container">
                 <div class="people__pic" style="background-image: url(../Pictures/profile_pics/${pid}.jpg);"></div>
-                <div class="people__name"><span>${name}</span><span style ="${stylingRoles}">${description.replace(",",'<i class="fas fa-circle" style="margin: 5px; font-size: 5px;padding:5px;"></i>').replace("_", " ")}</span></div>
+                <div class="people__name"><span>${name}</span><span style ="${stylingRoles}">${description.replace("care_giver,child,neighbour,other,parent", "client").replace(/,/g,'<i class="fas fa-circle" style="margin: 5px; font-size: 5px;padding:5px;"></i>').replace("_", " ")}</span></div>  
             </div>`
     });
     let peopleiwanttoclickon = document.getElementsByClassName("people__container");
@@ -139,6 +153,44 @@ export default function sidebar(items, posts, comments) {
     filteringSearch();
 }
 
+export function sidebarWithPeople(input, rid){
+	let all = document.getElementsByClassName("all")[0];
+	let loaderBody = document.getElementsByClassName("loaderBody")[0];
+	all.style.opacity = "0";
+	all.style.pointerEvents = "none";
+	loaderBody.style.display = "flex";
+	
+	
+	let posts, comments;
+	getrecords("http://localhost:8080/caren/rest/getrecords/"+input).then((data) => {
+		posts = JSON.parse(data);
+		getrecords("http://localhost:8080/caren/rest/getcomments/"+input).then((data) => {
+			loaderBody.style.display="none";
+    		all.style.opacity = "1";
+    		all.style.pointerEvents = "auto";
+			let statisticsBtn = document.getElementsByClassName("header__chart")[0];
+			if(statisticsBtn.getAttribute("data-set") == "on") {
+				statisticsBtn.click();
+			}
+			comments = JSON.parse(data);
+			sidebar(receivedItems, posts, comments);
+			
+			let allPosts = document.getElementsByClassName("post");
+			
+			//Hide
+			Array.prototype.forEach.call(allPosts, (p) => {
+				console.log(p);
+				if (p.getAttribute("data-id") != rid) {
+					p.style.display = "none";
+				}
+				
+			})
+			//
+			
+		})
+	})
+} 
+
 function mainWithComments(inputData) {
     mainPosts(inputData, commetsData)
 }
@@ -167,6 +219,7 @@ Array.prototype.forEach.call(linkForPages, (link, index) => {
     on();
     link.addEventListener("click", () => {
         let postBlockMain = document.getElementsByClassName("post");
+        window.scrollTo(0, 0);
         if(chartButton.getAttribute("data-set") == "off") {
         	if(link.getAttribute("data-state") == "selected" || link.getAttribute("data-state") == "selectedHover") {
                 off();
@@ -211,6 +264,8 @@ Array.prototype.forEach.call(linkForPages, (link, index) => {
         		Array.prototype.forEach.call(postBlockMain, (blockPost) => {
                     if(blockPost.getAttribute("data-link") == linkL) {
                         blockPost.style.display = "flex";
+                    } else {
+                        blockPost.style.display = "none";
                     }
                 });
         		chartsBlock.style.display = "none";
@@ -253,6 +308,7 @@ peopleBtn.addEventListener("click", () => {
     searchBlockPeople.style.display = "block";
     people.style.display = "block";
     settings.style.display = "none";
+    console.log(filterBtn.getBoundingClientRect().bottom);
 });
 
 peopleBtn.addEventListener("mouseover", () => {
@@ -267,9 +323,13 @@ peopleBtn.addEventListener("mouseout", () => {
     }
 });
 chartButton.addEventListener("click", () => {
+	let settingsToggle = document.getElementById("settingsToggle");
 	let sidebarNavBlock = document.getElementsByClassName("sidebar__nav")[0];
 	let chartsBlock = document.getElementsByClassName("charts")[0];
 	if(chartButton.getAttribute("data-set") == "off") {
+		if (settingsToggle.getAttribute("data-set") == "on") {
+			settingsToggle.click();
+		}
 		chartButton.setAttribute("data-set", "on");
 		chartButton.style.color = "red";
 		peopleBtn.click();
@@ -282,6 +342,8 @@ chartButton.addEventListener("click", () => {
 		linkForPages[1].getElementsByTagName("i")[1].style.display = "block";
 		chartsBlock.style.display = "block";
 		let postsBlocks = document.getElementsByClassName("post");
+		let postErr = document.getElementsByClassName("post__err")[0];
+		postErr.style.display = "none";
 		Array.prototype.forEach.call(postsBlocks, (currentReport) => {
 			currentReport.style.display = "none";
 		});
@@ -370,10 +432,29 @@ function filteringSearch() {
         let curr = searchRecords.value.toLowerCase();
         let postsBlocks = document.getElementsByClassName("post");
         Array.prototype.forEach.call(postsBlocks, (post) => {
-            let currTitle = post.getElementsByClassName("post__text")[0].innerHTML.toLowerCase();
+            post.getElementsByClassName("post__text")[0].innerHTML = post.getElementsByClassName("post__text")[0].innerHTML.replace(`<span style="background-color:yellow;font-weight: 900;">`,"").replace(`</span>`,"");
+            post.getElementsByClassName("post__uploader")[0].innerHTML = post.getElementsByClassName("post__uploader")[0].innerHTML.replace(`<span style="background-color:yellow;font-weight: 900;">`,"").replace(`</span>`,"");
+        });
+        Array.prototype.forEach.call(postsBlocks, (post) => {
+            let currTitle = post.getElementsByClassName("content")[0].innerHTML.toLowerCase() + post.getElementsByClassName("post__uploader")[0].innerHTML.toLowerCase();
+            let reportType = post.getElementsByClassName("post__text")[0].getElementsByTagName("div")[0].className.split("-")[1];
+            currTitle += reportType;
             if(!(currTitle.includes(curr) || curr.includes(currTitle))) {
                 post.style.display = "none";
-            } else{
+            } else {
+                if(post.getElementsByClassName("content")[0].innerHTML.includes(curr)) {
+                	post.getElementsByClassName("content")[0].innerHTML = post.getElementsByClassName("content")[0].innerHTML.replace(`${curr}`, `<span style="background-color:yellow;font-weight: 900;">${curr}</span>`);
+                } else if(post.getElementsByClassName("post__uploader")[0].innerHTML.toLowerCase().includes(curr)) {
+                	let original = post.getElementsByClassName("post__uploader")[0].innerHTML;
+                	let firstLetters = post.getElementsByClassName("post__uploader")[0].innerHTML.toLowerCase().split(curr)[0].length;
+                	let currLength = curr.length;
+                	let result = original.substring(0, firstLetters);
+                	result += `<span style="background-color:yellow;font-weight: 900;">`;
+                	result += original.substring(firstLetters, firstLetters + currLength);
+                	result += "</span>";
+                	result += original.substring(firstLetters + currLength, original.length + 1);
+                	post.getElementsByClassName("post__uploader")[0].innerHTML = result;
+                }
                 post.style.display = "flex";
                 present++;
             }

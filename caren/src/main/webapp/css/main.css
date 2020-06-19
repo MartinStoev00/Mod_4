@@ -1,3 +1,36 @@
+.loaderBody {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 100vh;
+  min-width: calc(100vw - 50px); }
+
+.loader {
+  height: 50px;
+  transform-origin: bottom center;
+  animation: rotate 3s linear infinite; }
+
+.circle {
+  display: inline-block;
+  background-color: purple;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: grow 1.5s linear infinite;
+  margin: -10px; }
+
+.circle:nth-child(2) {
+  background-color: palevioletred;
+  animation-delay: 0.75s; }
+
+@keyframes rotate {
+  to {
+    transform: rotate(360deg); } }
+@keyframes grow {
+  50% {
+    transform: scale(1); } }
 .notifications::-webkit-scrollbar, .people::-webkit-scrollbar {
   width: 8px;
   border-radius: 8px; }
@@ -54,7 +87,7 @@
     align-content: stretch;
     align-items: center;
     padding: 0 15px; }
-  .header__myProfile, .header__notify, .header__logout, .header__home, .header__chart {
+  .header__myProfile, .header__notify, .header__logout, .header__settings, .header__chart {
     cursor: pointer;
     transition: 0.2s;
     margin: 0 6px 0;
@@ -110,7 +143,6 @@
     .notifications__item:nth-child(1) {
       border-top: none;
       border-radius: 8px 0px 0px 0px; }
-  
   .notifications__img {
     margin: 10px;
     padding: 10px;
@@ -295,7 +327,7 @@
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-content: space-between;
     align-items: center; }
     .sidebar .filters__search {
@@ -391,8 +423,8 @@
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
-  justify-content: flex-start;
-  align-content: space-between;
+  justify-content: center;
+  align-content: center;
   align-items: center;
   background-color: #f3f3f3;
   min-height: calc(100vh); }
@@ -526,10 +558,10 @@
         font-size: 25px;
         font-weight: 900;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         flex-wrap: nowrap;
         justify-content: center;
-        align-content: stretch;
+        align-content: center;
         align-items: center;
         grid-area: text; }
       .mainPosts .post__type-blood_pressure .blood_pressure {
@@ -678,7 +710,7 @@
           .mainPosts .post .comments__urs .visibility__select:hover {
             background-color: #eeeeee; }
     .mainPosts .post .comment {
-      display: flex;
+      display: none;
       flex-direction: row;
       flex-wrap: nowrap;
       justify-content: space-between;
@@ -711,12 +743,22 @@
         margin-left: 60px;
         font-size: 12px; }
       .mainPosts .post .comment__showReplies {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
         color: #4285f4;
         text-decoration: underline;
         margin-top: 7px;
-        font-size: 14px; }
+        font-size: 12px;
+        align-self: stretch;
+        flex: 1 1 auto; }
+        .mainPosts .post .comment__showReplies:hover {
+          cursor: pointer; }
       .mainPosts .post .comment__thread {
-        display: none; }
+        display: block; }
         .mainPosts .post .comment__thread .comment__response {
           display: none; }
       .mainPosts .post .comment__text {
@@ -1037,5 +1079,9 @@
           background-color: #e6e6e6;
           width: 15px;
           height: .3px; }
+
+.all {
+  pointer-events: none;
+  opacity: 0; }
 
 /*# sourceMappingURL=main.css.map */

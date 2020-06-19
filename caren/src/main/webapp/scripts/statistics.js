@@ -74,7 +74,7 @@ let config = {
 };
 
 export function statistics(records) {
-	
+
 	if(window.lineChart){
 		window.lineChart.destroy();
 	}
@@ -144,17 +144,9 @@ function onclickData(event){
     	var index = content[0]['_index'];
     	let rid;
     	if((chartData.datasets[0].label).includes('Height') || (chartData.datasets[0].label).includes('Weight')){
-    		var measurement = chartData.datasets[0].label;
-        	var date = chartData.labels[index];
-            var value = chartData.datasets[0].data[index];
             rid = chartData.datasets[0].rid[index];
     	} else {
             rid = chartData.datasets[0].rid[index];
-    		var measurement1 = chartData.datasets[0].label;
-    		var measurement2 = chartData.datasets[1].label;
-    		var value1 = chartData.datasets[0].data[index];
-    		var value2 = chartData.datasets[1].data[index];
-    		var date = chartData.labels[index];
     	}
 		console.log("What we have:" + rid);
 		let postsBlocks = document.getElementsByClassName("post");

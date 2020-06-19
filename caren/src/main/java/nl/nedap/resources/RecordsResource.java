@@ -28,6 +28,7 @@ public class RecordsResource {
 		if (request.getSession().getAttribute("aid") != null) {
 			int loggedaid = (int) request.getSession().getAttribute("aid");
 			int loggedpid = (int) request.getSession().getAttribute("pid");
+			String loggedtype = (String)request.getSession().getAttribute("aidType");
 
 			if (id == 0) {
 				id = loggedpid;

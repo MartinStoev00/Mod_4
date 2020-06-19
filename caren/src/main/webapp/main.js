@@ -1,9 +1,10 @@
 import {header, headerStyle} from "./scripts/header.js";
-import sidebar from "./scripts/sidebar.js";
+import {sidebar} from "./scripts/sidebar.js";
 import {statistics} from "./scripts/statistics.js";
 
 function init() {
     stylize();
+    onloadedSettings();
     let posts;
     let associations;
     let comments;
@@ -13,10 +14,17 @@ function init() {
             posts = JSON.parse(data);
             getrecords("http://localhost:8080/caren/rest/getcomments/0").then((data) => {
                 comments = JSON.parse(data);
-                if(document.getElementsByClassName("sidebar").length > 0) {   
-                    sidebar(associations, posts, comments);
-                    header(comments);
-                    statistics(posts);
+                if(document.getElementsByClassName("sidebar").length > 0) { 
+                	if (posts != "[]"){
+                		let all = document.getElementsByClassName("all")[0];
+                		let loaderBody = document.getElementsByClassName("loaderBody")[0];
+                		loaderBody.style.display="none";
+                		all.style.opacity = "1";
+                		all.style.pointerEvents = "auto";
+                		sidebar(associations, posts, comments);
+                        header(comments);
+                        statistics(posts);
+                	}
                 }
                 
             }).catch((err) => {

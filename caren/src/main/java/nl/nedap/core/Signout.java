@@ -23,7 +23,7 @@ public class Signout extends HttpServlet {
 		s.setAttribute("aidType", null);
 		s.setAttribute("pid", null);
 		s.setAttribute("name", null);
-		response.sendRedirect("http://localhost:8080/caren/login/");
+		response.sendRedirect("http://localhost:8080/caren/welcome/");
 	}
 
 }
