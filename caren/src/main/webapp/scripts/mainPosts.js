@@ -6,12 +6,11 @@ let postsMain = mainPostsBlocks.getElementsByClassName("posts")[0];
 let headerBlock = document.getElementsByClassName("header")[0];
 let headerH = headerBlock.getBoundingClientRect().height;
 let data, initData;
-let charLimit = 400;
-let readMore = `<span class="ReadMore">...<span  style="color: rgb(66, 133, 244);cursor:pointer;"> Read More</span></span>`;
+let charLimit = 300;
+let readMore = `<span class="ReadMore" style="color: rgb(66, 133, 244);"> Read More</span>`;
 
 function visibilityAndReadMore(post) {
     let dp = false;
-    let readMoreBlock = post.getElementsByClassName("ReadMore");
     let postTextBlock = post.getElementsByClassName("post__text"); 
     let visibility = post.getElementsByClassName("comments__urs-click")[0];
     let visOptions = post.getElementsByClassName("visibility__options")[0];
@@ -27,29 +26,6 @@ function visibilityAndReadMore(post) {
         visibility.style.borderRadius = "0 30px 30px 0";
         visibility.style.borderBottom = ".5px solid #ddd";
         dp = false;
-    }
-    if(postTextBlock.length > 0 && postTextBlock[0].innerHTML.length > 400) {
-        let postText = post.getElementsByClassName("post__text")[0];
-        let text = postText.innerHTML;
-        let firstHalf = text.substring(0, charLimit);
-        let secondHalf = `<span class="more" style="display:none;">${text.substring(charLimit, text.length)}</span>`;
-        postText.innerHTML = firstHalf + secondHalf + readMore;
-    }
-    if(readMoreBlock.length > 0) {
-        let dpied = false;
-        let click = readMoreBlock[0];
-        let more = post.getElementsByClassName("more")[0];
-        click.addEventListener("click",() => {
-            if(!dpied) {
-                more.style.display = "inline";
-                dpied = true;
-                click.innerHTML = `<span style="color: rgb(66, 133, 244);cursor:pointer;"> Read Less</span>`;
-            } else {
-                click.innerHTML = `...<span style="color: rgb(66, 133, 244);cursor:pointer;"> Read More</span>`;
-                more.style.display = "none";
-                dpied = false;
-            }
-        });
     }
     visOptions.style.top = (visibility.offsetTop + visibility.getBoundingClientRect().height - .5) + "px";
     visOptions.style.left = (visibility.getBoundingClientRect().left) + "px"; 
@@ -101,11 +77,6 @@ function visibilityAndReadMore(post) {
     		commentInfoButton.style.borderBottom = ".5px solid #ddd";
     		commentInfoButton.innerHTML = "Collapse Comments";
         	urCommentSection.style.display = "flex";
-        	Array.prototype.forEach.call(document.getElementsByClassName("post"), (postGiven) => {
-        		if(postGiven.getBoundingClientRect().top == post.getBoundingClientRect().top) {
-        			postGiven.style.alignSelf = "flex-start";
-        		}
-        	});
         	Array.prototype.forEach.call(post.getElementsByClassName("comment"), (commentSelected) => {
         		if(commentSelected.getAttribute("class") == "comment") {
         			commentSelected.style.display = "flex";
@@ -124,14 +95,18 @@ function visibilityAndReadMore(post) {
         	Array.prototype.forEach.call(post.getElementsByClassName("comment"), (comment) => {
         		comment.style.display = "none";
         	});
-        	Array.prototype.forEach.call(document.getElementsByClassName("post"), (postGiven) => {
-        		if(postGiven.getBoundingClientRect().top == post.getBoundingClientRect().top) {
-        			postGiven.style.alignSelf = "auto";
-        		}
-        	});
     	}
     	
     });
+    
+
+    if(postTextBlock[0].innerHTML.length > charLimit) {
+        let text = postTextBlock[0].getElementsByClassName("content")[0].innerHTML;
+        let firstHalf = text.substring(0, charLimit);
+        let secondHalf = `<span class="more" style="display:none;">${text.substring(charLimit, text.length)}</span>`;
+        postTextBlock[0].getElementsByClassName("content")[0].innerHTML = firstHalf + readMore + secondHalf;
+    }
+    
     post.addEventListener("click", () => {
     	let originalDisplay = [];
     	let allPostsOnPageCurrent = document.getElementsByClassName("post");
@@ -142,6 +117,11 @@ function visibilityAndReadMore(post) {
     			originalDisplay.push(postSelectedCurrent.getAttribute("data-id"));
     		}
     	});
+    	if(post.getElementsByClassName("more")[0]) {
+    		post.getElementsByClassName("more")[0].style.display = "inline";
+    		post.getElementsByClassName("ReadMore")[0].style.display = "none";
+    	}
+    	document.getElementsByClassName("sidebar")[0].style.pointerEvents =  "none";
     	goBackBtn.style.display = "block";
     	goBackBtn.addEventListener("click", () => {
     		if(post.getElementsByClassName("comments__info")[0].innerHTML == "Collapse Comments") {
@@ -154,9 +134,17 @@ function visibilityAndReadMore(post) {
     				}
     			});
     		});
+        	if(post.getElementsByClassName("more")[0]) {
+        		post.getElementsByClassName("more")[0].style.display = "none";
+        		post.getElementsByClassName("ReadMore")[0].style.display = "inline";
+        	}
+        	document.getElementsByClassName("sidebar")[0].style.pointerEvents =  "auto";
     		goBackBtn.style.display = "none";
     	});
     });
+    
+
+    
 }
 
 function sendingDataFunctionality(post) {
@@ -345,7 +333,7 @@ function sendingDataFunctionality(post) {
 
 function doEveryThing(posts, comments) {
     postsMain.innerHTML = `<div class="post__err">No Results Found</div>
-<div class="post__goBack">Go Back</div>`;
+<div class="post__goBack"><i class="fas fa-arrow-left"></i> Go Back</div>`;
     posts.forEach((post) => {
         let {record_id, posted_by_id, posted_by_name, date_added, posted_for_id, data, type} = post;
         let dataAboutComments = [];
@@ -370,8 +358,8 @@ export default function mainPosts(something, comments) {
     initData = something;
     doEveryThing(initData, comments);
     let sidebarW = document.getElementsByClassName("sidebar")[0].getBoundingClientRect().width;
-    document.getElementsByClassName("post__goBack")[0].style.top = (headerH + 6) + "px";
-    document.getElementsByClassName("post__goBack")[0].style.left = (sidebarW + 6) + "px";
+    document.getElementsByClassName("post__goBack")[0].style.top = (headerH + 8) + "px";
+    document.getElementsByClassName("post__goBack")[0].style.left = (sidebarW + 10) + "px";
 }
 
 

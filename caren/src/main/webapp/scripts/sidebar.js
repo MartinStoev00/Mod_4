@@ -102,14 +102,12 @@ export function sidebar(items, posts, comments) {
 		    		    link.setAttribute("data-state", "selected");
 		    		    link.getElementsByClassName("fa-check")[0].style.display = "block";
 		    		});
-				}		        
+				}		 
+	    		filterBtn.click();
 			});
 		});
 	}
-	 
-	 receivedItems = items;
-	
-	
+	receivedItems = items;
     fromDate.addEventListener("change", filteringDates);
     toDate.addEventListener("change", filteringDates);
 	people.innerHTML = `<div class="people__err">No Results Found</div>`;
@@ -129,15 +127,18 @@ export function sidebar(items, posts, comments) {
     	});
     	
     })
-    let ordererdDates = posts.map((post) => {
-        let {date_added} = post;
-        return date_added.split(" ")[0];
-    }).sort(oldestToNewestFun);
+    let ordererdDates = posts.map((post) => post.date_added.split(" ")[0]).sort((a, b) => {
+    		let one = new Date(a);
+    		let two = new Date(b)
+    		if(one < two) { return -1; }
+    		if(one > two) { return 1; }
+    		return 0;
+    	}
+    );
     commetsData = comments;
     initData = posts;
     data = posts;
     startDate = ordererdDates.shift();
-
     if(startDate){
         fromDate.value = startDate;
     }
@@ -148,7 +149,6 @@ export function sidebar(items, posts, comments) {
     }
     mainWithComments(posts.sort(oldestToNewestFun));
     sortingBlocks(posts);
-    filteringSearch();
 }
 
 export function sidebarWithPeople(input, rid){
@@ -172,21 +172,13 @@ export function sidebarWithPeople(input, rid){
 			}
 			comments = JSON.parse(data);
 			sidebar(receivedItems, posts, comments);
-			
-			let allPosts = document.getElementsByClassName("post");
-			
-			//Hide
-			Array.prototype.forEach.call(allPosts, (p) => {
-				console.log(p);
+			Array.prototype.forEach.call(document.getElementsByClassName("post"), (p) => {
 				if (p.getAttribute("data-id") != rid) {
 					p.style.display = "none";
 				}
-				
-			})
-			//
-			
-		})
-	})
+			});
+		});
+	});
 } 
 
 function mainWithComments(inputData) {
@@ -234,6 +226,19 @@ Array.prototype.forEach.call(linkForPages, (link, index) => {
                     }
                 });
             }
+            Array.prototype.forEach.call(postBlockMain, (blockPost) => {
+            	let currDate = new Date(blockPost.getElementsByClassName("post__date")[0].innerHTML.split(" ")[0]);
+                let fromDateObj = new Date(fromDate.value);
+                let toDateObj = new Date(toDate.value);
+                let currSearch = document.getElementsByClassName("filters__search")[0].value.toLowerCase();
+                let currPerson = blockPost.getElementsByClassName("post__uploader")[0].innerHTML.toLowerCase();
+                let currText = blockPost.getElementsByClassName("content")[0].innerHTML.toLowerCase();
+                let bool1 = currSearch.includes(currPerson) || currPerson.includes(currSearch);
+                let bool2 = currSearch.includes(currText) || currText.includes(currSearch);
+            	if(!(currDate >= fromDateObj && currDate <= toDateObj && (bool1 || bool2))) {
+            		blockPost.style.display = "none";
+            	}
+            });
             let noone = true;
             Array.prototype.forEach.call(postBlockMain, (blockPost) => {
                 if(blockPost.style.display !== "none") {
@@ -377,7 +382,7 @@ searchBarPeople.addEventListener("keyup", () => {
     let someInThere = false;
     let peopleErr = document.getElementsByClassName("people__err")[0];
     Array.prototype.forEach.call(document.getElementsByClassName("people__container"), (person) => {
-        if(person.style.display == "flex") {
+        if(person.style.display == "flex") {	
             someInThere = true;
         }
     });
@@ -410,8 +415,26 @@ function filteringDates() {
         return postDate > from && postDate < to;
     });
     mainWithComments(data);
-    let people = 0;
     let postBlockMain = document.getElementsByClassName("post");
+    Array.prototype.forEach.call(postBlockMain, (blockPost) => {
+    	let isType = true;
+        Array.prototype.forEach.call(linkForPages, (linkForAPage) => {
+        	if(linkForAPage.getAttribute("data-link") == blockPost.getAttribute("data-link")) {
+        		if(linkForAPage.getAttribute("data-state") !== "selected") {
+            		isType =  false;
+        		}
+        	}
+        });
+        let currSearch = document.getElementsByClassName("filters__search")[0].value.toLowerCase();
+        let currPerson = blockPost.getElementsByClassName("post__uploader")[0].innerHTML.toLowerCase();
+        let currText = blockPost.getElementsByClassName("content")[0].innerHTML.toLowerCase();
+        let bool1 = currSearch.includes(currPerson) || currPerson.includes(currSearch);
+        let bool2 = currSearch.includes(currText) || currText.includes(currSearch);
+    	if(!(isType && (bool1 || bool2))) {
+    		blockPost.style.display = "none";
+    	}
+    });
+    let people = 0;
     Array.prototype.forEach.call(postBlockMain, (blockPost) => {
         people++;
     });
@@ -423,21 +446,33 @@ function filteringDates() {
     }
 }
 
-function filteringSearch() {
-    let errBlock = document.getElementsByClassName("post__err")[0];
-    searchRecords.addEventListener("keyup", () => {
-        let present = 0;
-        let curr = searchRecords.value.toLowerCase();
-        let postsBlocks = document.getElementsByClassName("post");
-        Array.prototype.forEach.call(postsBlocks, (post) => {
-            post.getElementsByClassName("post__text")[0].innerHTML = post.getElementsByClassName("post__text")[0].innerHTML.replace(`<span style="background-color:yellow;font-weight: 900;">`,"").replace(`</span>`,"");
-            post.getElementsByClassName("post__uploader")[0].innerHTML = post.getElementsByClassName("post__uploader")[0].innerHTML.replace(`<span style="background-color:yellow;font-weight: 900;">`,"").replace(`</span>`,"");
+searchRecords.addEventListener("keyup", () => {
+    let curr = searchRecords.value.toLowerCase();
+    let postsBlocks = document.getElementsByClassName("post");
+    Array.prototype.forEach.call(postsBlocks, (post) => {
+    	if(post.getElementsByClassName("content")[0].innerHTML.includes(`<span style="background-color:yellow;font-weight: 900;">`,"")) {
+    		let oldText = post.getElementsByClassName("content")[0].innerHTML.split(`<span style="background-color:yellow;font-weight: 900;">`)[1].replace(`</span>`,"");
+            post.getElementsByClassName("content")[0].innerHTML = post.getElementsByClassName("content")[0].innerHTML.split(`<span style="background-color:yellow;font-weight: 900;">`)[0] + oldText;
+    	}
+        post.getElementsByClassName("post__uploader")[0].innerHTML = post.getElementsByClassName("post__uploader")[0].innerHTML.replace(`<span style="background-color:yellow;font-weight: 900;">`,"").replace(`</span>`,"");
+    });
+    Array.prototype.forEach.call(postsBlocks, (post) => {
+        let currTitle = post.getElementsByClassName("content")[0].innerHTML.toLowerCase() + post.getElementsByClassName("post__uploader")[0].innerHTML.toLowerCase();
+        let reportType = post.getElementsByClassName("post__text")[0].getElementsByTagName("div")[0].className.split("-")[1];
+        currTitle += reportType;
+        let currDate = new Date(post.getElementsByClassName("post__date")[0].innerHTML.split(" ")[0]);
+        let fromDateObj = new Date(fromDate.value);
+        let toDateObj = new Date(toDate.value);
+        let isType = true;
+        Array.prototype.forEach.call(linkForPages, (linkForAPage) => {
+        	if(linkForAPage.getAttribute("data-link") == post.getAttribute("data-link")) {
+        		if(linkForAPage.getAttribute("data-state") !== "selected") {
+            		isType =  false;
+        		}
+        	}
         });
-        Array.prototype.forEach.call(postsBlocks, (post) => {
-            let currTitle = post.getElementsByClassName("content")[0].innerHTML.toLowerCase() + post.getElementsByClassName("post__uploader")[0].innerHTML.toLowerCase();
-            let reportType = post.getElementsByClassName("post__text")[0].getElementsByTagName("div")[0].className.split("-")[1];
-            currTitle += reportType;
-            if(!(currTitle.includes(curr) || curr.includes(currTitle))) {
+        if(currDate >=  fromDateObj && currDate <= toDateObj && isType) {
+        	if(!(currTitle.includes(curr) || curr.includes(currTitle)) ) {
                 post.style.display = "none";
             } else {
                 if(post.getElementsByClassName("content")[0].innerHTML.includes(curr)) {
@@ -454,16 +489,24 @@ function filteringSearch() {
                 	post.getElementsByClassName("post__uploader")[0].innerHTML = result;
                 }
                 post.style.display = "flex";
-                present++;
             }
-        });
-        if(present == 0) {
-            errBlock.style.display = "block";
         } else {
-            errBlock.style.display = "none";
+        	post.style.display = "none";
         }
     });
-}
+    let atLeastOneDp = false;
+    Array.prototype.forEach.call(postsBlocks, (postToBeFiltered) => {
+    	if(postToBeFiltered.style.display == "flex") {
+    		atLeastOneDp = true;
+    	}
+    });
+    let errBlock = document.getElementsByClassName("post__err")[0];
+    if(atLeastOneDp) {
+        errBlock.style.display = "none";
+    } else {
+        errBlock.style.display = "block";
+    }
+});
 
 function sortingBlocks(posts) {
     function on() {
