@@ -85,27 +85,34 @@ public class Signup extends HttpServlet {
 			ResultSet resultset = statement.executeQuery();
 			
 			if (email == "" || firstname == "" || lastname == ""  || birthdate == "" || gender == "" || password == "" || passwordagn == "") {
-				out.println(docType + "<HTML> <body>Please make sure all fields are filled. </body> </HTML>");
+				String error = "Please make sure all field are filled.";
+				response.sendRedirect("http://localhost:8080/caren/signup/error.html?error=" + error);
 				return;
 			} else if (!(email.contains("@") && email.contains("."))) {
-				out.println(docType + "<HTML> <body>Invalid email format: "+email+"</body> </HTML>");
+				String error = "Invalid email format: "+email;
+				response.sendRedirect("http://localhost:8080/caren/signup/error.html?error=" + error);
 				return;
 			}else if (ForeignCharactersChecker.emailHasForeignCharacters(email)) { //sanitisation of email field
-				out.println(docType + "<HTML> <body>Email input fields can only contain the following characters: a->z, A->Z, 0->9, '@', '.', '-', '_' </body> </HTML>");
+				String error = "Email input fields can only contain the following characters: a->z, A->Z, 0->9, '@', '.', '-', '_' ";
+				response.sendRedirect("http://localhost:8080/caren/signup/error.html?error=" + error);
 				return;
 			}
 			else if (ForeignCharactersChecker.basicHasForeignCharacters(password)) {//sanitisation of password field
-				out.println(docType + "<HTML> <body>Password can only contain the following characters: a->z, A->Z, 0->9 </body> </HTML>");
+				String error = "Password can only contain the following characters: a->z, A->Z, 0->9";
+				response.sendRedirect("http://localhost:8080/caren/signup/error.html?error=" + error);
 				return;
 			}else if (ForeignCharactersChecker.basicHasForeignCharacters(firstname) || ForeignCharactersChecker.basicHasForeignCharacters(lastname) || 
 					ForeignCharactersChecker.basicHasForeignCharacters(passwordagn)) {//sanitisation of the rest of the fields
-				out.println(docType + "<HTML> <body>All (non email) input fields can only contain the following characters: a->z, A->Z, 0->9 </body> </HTML>");
+				String error = "All (non email) input fields can only contain the following characters: a->z, A->Z, 0->9 ";
+				response.sendRedirect("http://localhost:8080/caren/signup/error.html?error=" + error);
 				return;
 			}else if (password.length() < 8) {
-				out.println(docType + "<HTML> <body>Password must at least be 8 characters long</HTML>");
+				String error = "Password must at least be 8 characters long";
+				response.sendRedirect("http://localhost:8080/caren/signup/error.html?error=" + error);
 				return;
 			} else  if (!passwordagn.equals(password)) {
-				out.println(docType + "<HTML> <body>Passwords do not match</body> </HTML>");
+				String error = "Passwords do not match";
+				response.sendRedirect("http://localhost:8080/caren/signup/error.html?error=" + error);
 				return;
 			}
 			
@@ -124,15 +131,12 @@ public class Signup extends HttpServlet {
 				
 				Date birthDateFormatted = Date.valueOf(birthdate);
 				
-				out.println(docType + "<HTML> <body>Creating account..</body> </HTML>");
-				
 				//Making call to database to make account.
 				String createAccQ = "INSERT INTO caren.accounts (aid, email, password) VALUES (?,?, ?)"; // email, password.
 				PreparedStatement accCreationSt = conn.prepareStatement(createAccQ);
 				accCreationSt.setInt(1, maxpKeyAccounts + 1); accCreationSt.setString(2, email); accCreationSt.setString(3, password);
 				//fix
 				accCreationSt.executeUpdate();
-				out.println(docType + "<HTML> <body>Creating account..</body> </HTML>");
 				//Retrieving the new account's aid.
 				String aidQ = "SELECT a.aid FROM caren.accounts a WHERE a.email = ?"; // email.
 				PreparedStatement aidSt = conn.prepareStatement(aidQ);
@@ -149,7 +153,6 @@ public class Signup extends HttpServlet {
 				persCreationSt.executeUpdate();
 				
 				
-				out.println(docType + "<HTML> <body>Account created. Check your email to verify your account</body> </HTML>");
 				
 				EmailVerification verifying = new EmailVerification(email);
 				String token = verifying.tokenGenerator(25);
@@ -160,33 +163,12 @@ public class Signup extends HttpServlet {
 				
 				EmailVerification.sendEmail(verifying);
 				String resendVerificationLink = "http://localhost:8080/caren/rest/resendEmail/" + email;
-				out.println(docType + "<HTML> <body><br><br> in case you didn't recieve an email from us <a href ='" + resendVerificationLink + "'> click here </a> "
-						+ " to recieve a new verification email</body> </HTML>");
 				
-				
-				//mohammad shall decide the fate of that, I think it should be deleted, no need for it anymore
-				/*
-				//Make session
-				String pidQ = "SELECT p.pid"
-						+ "FROM people p, accounts a"
-						+ "WHERE p.aid = a.aid"
-						+ "AND p.aid = ?";
-				
-				ResultSet rsForpid = DatabaseManager.ReadQuery(pidQ, ""+aid);
-				rsForpid.next();
-				int pid = rsForpid.getInt(1);
-				
-				HttpSession session = request.getSession();
-				session.setAttribute("aid", aid);
-				session.setAttribute("aidType", "client");
-				session.setAttribute("aid", pid);
-				session.setAttribute("name", firstname + " " + lastname);
-				
-				//Redirect to posts page
-				response.sendRedirect("http://localhost:8080/caren/posts/"); */
+				response.sendRedirect("http://localhost:8080/caren/signup/success.html");
 				
 			} else { // cannot create acc
-				out.println(docType + "<HTML> <body> Email: "+ email +" already in use. Please go back and try another one. </body> </HTML>");
+				String error = " Email: "+ email +" already in use. Please go back and try another one.";
+				response.sendRedirect("http://localhost:8080/caren/signup/error.html?error=" + error);
 			}
 			
 			

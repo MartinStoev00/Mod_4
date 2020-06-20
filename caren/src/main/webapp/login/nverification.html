@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <title>
+        Verification
+    </title>
+
+    <body>
+        <div class="main_message" style="text-align: center; margin: auto; margin-top: 45vh;">
+            <label style="color: #ff82b2; font-family: Trebuchet MS;  font-size: 4rem; font-variant: small-caps; text-shadow: 2px 2px #434343;">Your account is not verified. Click below to re-send your verification email.</label>
+        </div>
+
+        <div class="resend" style="text-align: center;  margin: auto;">
+            <button id="resend" style=" font-family: Trebuchet MS; font-variant: small-caps; font-size: 1.25rem; background-color: #ffffff; color: #434343; border: 2px solid #434343; height: 40px; width: 100px; cursor: pointer; margin-top: 20px">SEND</button>
+        </div>
+        
+    </body>
+
+    <script>
+        let txt = document.getElementById("timer");
+        let int;
+
+        let timer = 4;
+        window.onload = function(){
+            let url = document.location.href,
+            params = url.split('?')[1].split('&'),
+            data = {}, tmp;
+	        for (var i = 0, l = params.length; i < l; i++) {
+	             tmp = params[i].split('=');
+	             data[tmp[0]] = tmp[1];
+	        }
+	        
+        	document.getElementById("resend").onclick = function(){
+        		document.getElementById("resend").disabled = true;
+        		document.getElementById("resend").style.color = "#b3b3b3";
+        		document.getElementById("resend").style.border = "1px solid #b3b3b3;"
+        		
+        		let request = new XMLHttpRequest();
+        	    request.open("PUT", data.resend, true);
+        	    request.onreadystatechange = function(){
+        	        if (request.readyState == 4 && request.status >= 200 &&  request.status <= 299) {
+        	        	window.location.href = "http://localhost:8080/caren/login/resent.html";
+        	        }
+        	    }
+        	    request.send();
+        	};
+        }
+
+        function countDown(){
+            if (timer <= 0) {
+                window.clearInterval(int);
+                window.location.href = "http://localhost:8080/caren/login/";
+            } else {
+                timer = timer - 1;
+                txt.innerHTML = "Redirecting in " + timer + " seconds."
+            }
+        }
+    </script>
+</html>

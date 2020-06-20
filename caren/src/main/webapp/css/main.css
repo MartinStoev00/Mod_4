@@ -482,7 +482,9 @@
       text-transform: capitalize; }
     .mainPosts .post__uploader {
       font-weight: 600;
-      color: #385898; }
+      color: rgb(161, 23, 207);
+      font-family: Trebuchet MS;
+      }
     .mainPosts .post__date {
       color: #666;
       font-size: 12px; }

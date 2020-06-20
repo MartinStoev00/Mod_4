@@ -184,6 +184,7 @@
 			<div id="charts" class="charts">
 				<div class="statistics" style="width: 500px; height: 300px;">
 				 	<canvas id="canvas" width="650" height="400"></canvas>
+				 	<canvas id="changescanvas" width="650" height="400"></canvas>
 				</div>
 				<input type = "date" class = "statistics__date">
 				<input type = "date" class = "statistics__date">
