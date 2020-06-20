@@ -38,11 +38,11 @@ let stylingRoles = `
 let receivedItems;
 sidebarBlock.style.top = headerH + "px";
 let dp = false;
-let filterBoxTop = filterBtns.getBoundingClientRect().top + filterBtns.getBoundingClientRect().height - 1;
+let filterBoxTop = filterBtns.getBoundingClientRect().top + filterBtns.getBoundingClientRect().height - 10;
 filterBox.style.left = filterBtns.getBoundingClientRect().left + "px";
 filterBox.style.width = (filterBtns.getBoundingClientRect().width - 2) + "px";
 filterBox.style.top =  filterBoxTop + "px";
-people.style.height = "calc(100vh - " + (filterBtn.getBoundingClientRect().top + filterBtn.getBoundingClientRect().height) + "px)";
+people.style.height = "calc(100vh - " + (filterBtn.getBoundingClientRect().top + filterBtn.getBoundingClientRect().height + 68) + "px)";
 people.style.display = "none";
 let initData, data, commetsData;
 let startDate, endDate, order = chrono;
@@ -334,7 +334,7 @@ chartButton.addEventListener("click", () => {
 			settingsToggle.click();
 		}
 		chartButton.setAttribute("data-set", "on");
-		chartButton.style.color = "red";
+		chartButton.style.color = "purple";
 		peopleBtn.click();
 		sidebarNavBlock.style.display = "none";
 		Array.prototype.forEach.call(linkForPages, (currentPage) => {

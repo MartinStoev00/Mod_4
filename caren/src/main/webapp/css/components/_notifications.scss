@@ -6,7 +6,7 @@
 	width: 400px;
 	height: 475px;
 	position: fixed;
-	border: .5px solid #ddd;
+	border: .5px solid $border-grey;
 	background-color: #fff;
 	border-radius: 8px;
 	z-index: 10;
@@ -24,8 +24,8 @@
 		height: 15px;
 		transform: rotate(45deg);
 		position: absolute;
-		border-left: .5px solid #ddd;
-		border-top: .5px solid #ddd;
+		border-left: .5px solid $border-grey;
+		border-top: .5px solid $border-grey;
 		background-color: #fff;
 		z-index: 9;
 	}
@@ -39,9 +39,9 @@
 		width: calc(100%);
 		color: #000;
 		text-decoration: none;
-		border-top: .5px solid #ddd;
+		border-top: .5px solid $border-grey;
 		&:hover {
-			background-color: #f5f5f5;
+			background-color: $background-grey;
 			cursor: pointer;
 		}
 		&:nth-child(1){

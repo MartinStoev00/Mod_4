@@ -66,11 +66,11 @@
 		}
 		&__uploader {
 			font-weight: 600;
-			color: rgb(43, 43, 43);
+			color: $main-color;
 			font-family: Trebuchet MS;
 		} 
 		&__date {
-			color: #666;
+			color: rgba($main-color, 0.5);
 			font-size: 12px;
 		}
 		&__text {
@@ -81,7 +81,7 @@
 			display:none;
 			position:absolute;
 			text-decoration:underline; 
-			color: rgba(66, 133, 244,0.9);
+			color: lighten($main-color, 5%);
 			font-family:'Arial';
 		}
 		&__err {
@@ -107,6 +107,7 @@
 				    justify-content: flex-start;
 				    align-content: stretch;
 				    align-items: center;
+				color: $main-color;
 				}
 				.height {
 					width: 100px;
@@ -136,6 +137,7 @@
 				    align-content: stretch;
 				    align-items: center;
 					grid-area: text;
+					color: $main-color;
 				}
 				.weight {
 					width: calc(100px*(980/876));
@@ -166,6 +168,7 @@
 				    align-content: center;
 				    align-items: center;
 					grid-area: text;
+					color: $main-color;
 				}
 				.blood_pressure {
 					width: calc(100px*(980/972));
@@ -201,7 +204,7 @@
 		.comments {
 			align-self: stretch;
 			flex: 0 5 auto;
-			border-top:.5px solid #ddd;
+			border-top:.5px solid $border-grey;
 			text-align: center;
 			&__info {	
 			    display: flex;
@@ -222,7 +225,7 @@
 				}
 			}
 			&__viewall {
-				color: rgba(66, 133, 244,0.9);
+				color: lighten($main-color, 5%);
 				text-decoration: underline;
 				cursor: pointer;
 			}
@@ -246,7 +249,7 @@
 				&-input {
 					border-radius: 30px 0 0 30px;
 					padding: 7px 12px;
-					border: .5px solid #ddd;
+					border: .5px solid $border-grey;
 					background-color: #fbfbfb;
 					border-right: none;
 					width: 60%;
@@ -287,8 +290,8 @@
 				    margin: 0 5px;
 					border: none;
 					border-radius: 30px;
-					background-color:rgb(40, 196, 76);
-					border: .5px solid #ddd;
+					background-color: $reply-color;
+					border: .5px solid $border-grey;
 					&:hover {
 						cursor: pointer;
 					}
@@ -309,15 +312,15 @@
 				    margin: 0 5px;
 					border: none;
 					border-radius: 30px;
-					background-color: rgb(66, 133, 244);
-					border: .5px solid #ddd;
+					background-color: $send-color;
+					border: .5px solid $border-grey;
 					&:hover {
 						cursor: pointer;
 					}
 				}
 				&-click {
 					width: 40%;
-			      	border: .5px solid #ddd;
+			      	border: .5px solid $border-grey;
 			      	background-color: #fbfbfb;
 			      	border-radius: 0px 30px 30px 0px;
 			      	text-align: center;
@@ -327,7 +330,7 @@
 						position: absolute;
 				      	display: none;
 				     	background-color: #fbfbfb;
-				      	border: .5px solid #ddd;
+				      	border: .5px solid $border-grey;
 				      	border-top: none;
 				     	border-radius: 0px 0px 16px 16px;
 					}
@@ -375,7 +378,7 @@
 			}
 			&__showRest {
 				width: 100%;
-				color: rgb(66,133,244);
+				color: $send-color;
 				text-decoration: underline;
 				text-align: left;
 				margin-bottom: 10px;
@@ -389,7 +392,7 @@
 			    justify-content: center;
 			    align-content: center;
 			    align-items: center;
-				color: rgb(66,133,244);
+				color: $send-color;
 				text-decoration: underline;
 				margin-top: 7px;
 				font-size: 12px;

@@ -32,11 +32,11 @@
 		}
 		&[data-state="deselected"] {
 			color: #666;
-			background-color: rgb(239, 239, 239);
+			background-color: lighten($background-grey, 5%);
 		}
 		&[data-state="hovered"] {
 			color: #333;
-			background-color: rgb(245, 245, 245);
+			background-color: lighten($background-grey, 10%);
 		}
 	}
 	&__content {
@@ -72,16 +72,16 @@
 			padding: 12px 24px;
 		}
 		&[data-state="selected"] {
-			background-color: rgba(66, 133, 244, 0.1);
-			color: rgb(66, 133, 244);
+			background-color: $main-color-transparent;
+			color: $main-color;
 		}
 		&[data-state="deselected"] {
 			background-color: #fff;
 			color: #444;
 		}
 		&[data-state="selectedHover"] {
-			background-color: rgba(66, 133, 244, 0.2);
-			color: rgb(66, 133, 244);
+			background-color: darken($main-color-transparent, 5%);
+			color: $main-color;
 		}
 		&[data-state="deselectedHover"] {
 			background-color: #f5f5f5;
@@ -113,19 +113,18 @@
 			&Bar {
 				transition: .2s;
 				border: .5px solid #fff;
-				background-color: rgb(231, 231, 231);
-				padding: 10px;
 				background-color: #f5f5f5;
+				padding: 10px;
 				width: calc(100% - 41px);
 				margin: 20px 10px 10px;
 				border-radius: 5px;
 				&:hover {
 					cursor: pointer;
-					background-color: rgb(221, 221, 221);
+					background-color: $background-grey;
 				}
 				&:focus {
 					background-color: #fff;
-					border: .5px solid rgb(231, 231, 231);
+					border: .5px solid $background-grey;
 				}
 			}
 		}
@@ -139,7 +138,7 @@
 			text-decoration: none;
 			color: #000;
 			&:hover {
-				background-color: #f5f5f5;
+				background-color: $background-grey;
 				cursor: pointer;
 			}
 		}
@@ -186,11 +185,11 @@
 		    background-color: #f5f5f5;
 			&:hover {
 				cursor: pointer;
-				background-color: rgb(221, 221, 221);
+				background-color: $background-grey-light;
 			}
 			&:focus {
 				background-color: #fff;
-				border: .5px solid rgb(231, 231, 231);
+				border: .5px solid $background-grey;
 			}
 	    }
 	    &__filter, &__reset {
@@ -198,14 +197,14 @@
 			border-radius: 5px;
 			border: none;
 			padding: 10px 15px;
-			background-color: #f5f5f5;
+			background-color: $background-grey;
 			border: .5px #fff solid;
 			position: relative;
 			z-index: 1;
 			transition: .2s;
 			&:hover {
 				cursor: pointer;
-				background-color: #d8d8d8;
+				background-color: darken($background-grey-light, 5%);
 			}
 	    	.fas {
 	    		display: inline-block;	
@@ -254,10 +253,10 @@
 	    &__box {
 	    	position: fixed;
 			display: none;
-			background-color: #f5f5f5;
+			background-color: $background-grey;
 			border-radius: 0px 0px 5px 5px;
 			font-family: 'Arial';
-			border: .5px #ddd solid;
+			border: .5px $border-grey solid;
 			border-top: none;
 			box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); 
 	    	.box__text {

@@ -30,12 +30,12 @@
 				display: block;
 				width: 280px;
 				border: 1px solid #ccc;
-				background-color: rgba(26, 115, 232,0.1);
+				background-color: rgba($login-color, 0.1);
 				padding: 8px;
 				font-size: 17px;
 				border-radius: 4px;
 				&:focus {
-					border: 1px solid rgb(26, 115, 232);
+					border: 1px solid $login-color;
 				}
 			}
 			&__label{
@@ -60,24 +60,24 @@
 			    align-items: flex-start;
 				&s {
 					padding: 5px 10px;
-					color: rgba(26, 115, 232,0.9);
+					color: rgba($login-color, 0.9);
 					font-size: 13px;
 					&:hover, &:focus {
-						color: rgba(26, 115, 232, 1);
-						text-shadow: 0 0 7px rgba(26, 115, 232,0.3);
+						color: $login-color;
+						text-shadow: 0 0 7px rgba($login-color, 0.3);
 					}
 				}
 			}
 			&__btn {
 				transition: 0.2s;
 				color: #fff;
-				background-color: rgb(26, 115, 232);
+				background-color: $login-color;
 				border: none;
 				padding: 10px 20px;
 				border-radius: 6px;
 				&:hover, &:focus {
-					box-shadow: 0 0 7px rgba(26, 115, 232,0.3) , 0 0 13px rgba(26, 115, 232,0.2);
-					background-color: rgba(26, 115, 232,0.9);
+					box-shadow: 0 0 7px rgba($login-color, 0.3) , 0 0 13px rgba($login-color, 0.2);
+					background-color: rgba($login-color, 0.9);
 				}
 			}
 		}

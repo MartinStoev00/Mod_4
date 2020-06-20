@@ -52,7 +52,7 @@ function onloadedSettings (){
 function ToggleSettings(){
 	if (settingsButton.getAttribute("data-set") == "off") {
 		settingsButton.setAttribute("data-set", "on");
-		settingsButton.style.color = "red";
+		settingsButton.style.color = "purple";
 
 		if (chartsButton.getAttribute("data-set") == "on") {
 			chartsButton.click();

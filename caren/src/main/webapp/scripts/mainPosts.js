@@ -96,7 +96,6 @@ function visibilityAndReadMore(post) {
         		comment.style.display = "none";
         	});
     	}
-    	
     });
     
 
@@ -117,6 +116,9 @@ function visibilityAndReadMore(post) {
     			originalDisplay.push(postSelectedCurrent.getAttribute("data-id"));
     		}
     	});
+    	if(goBackBtn.style.display == "none" || goBackBtn.style.display == "") {
+    		post.getElementsByClassName("comments__info")[0].click();
+    	}
     	if(post.getElementsByClassName("more")[0]) {
     		post.getElementsByClassName("more")[0].style.display = "inline";
     		post.getElementsByClassName("ReadMore")[0].style.display = "none";
