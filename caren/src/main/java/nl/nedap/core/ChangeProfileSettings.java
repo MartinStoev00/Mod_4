@@ -27,6 +27,7 @@ public class ChangeProfileSettings extends HttpServlet {
 		String email_input = request.getParameter("email");
 		String password_input = request.getParameter("password");
 		String old_password_input = request.getParameter("old_password");
+		String profile_picture_input = request.getParameter("profile_picture");
 		String dark_mode_input = request.getParameter("dark_mode");
 		String rpl_input = request.getParameter("rpl");
 		

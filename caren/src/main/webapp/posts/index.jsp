@@ -90,7 +90,7 @@
 		                    </header>
 		                </div>
 		                 
-		                <form action="changesettings">
+		                <form action="changesettings" method="post" enctype="multipart/form-data">
 		                    <div class="settings_wrapper" style="height: 300px;">
 		
 		                        <div class="setting_field">
@@ -113,6 +113,16 @@
 		                            </div>
 		                            <input name="email" class="setting_text_input" id="email_input" type="text" placeholder="Loading..." style="background-image: url('icons/mail.png'); background-position: 5px 0px; background-repeat: no-repeat; background-size: 7%;">
 		                        </div>
+		                        
+		                        <div class="setting_field">
+		    						<div class="setting_label">
+		                                Profile Picture:
+		                            </div>
+		    					
+		    						<input name="profile_picture" class="setting_file_input" id="profile_picture_input" type="file">
+		    					</div>
+		                        
+		                        
 		                        <!-- <hr style="margin-top: 30px; width: 50%;">-->
 		                        <div class="setting_field">
 		                            <div class="setting_label">
@@ -123,7 +133,7 @@
 		
 		                        <div class="setting_field">
 		                            <div class="setting_label">
-		                                Old Password*:
+		                                Old Password<label style="color: red;">*</label>:
 		                            </div>
 		                            <input name="old_password" class="setting_text_input"  id="old_password_input" type="password" placeholder="********" style="background-image: url('icons/lock.png'); background-position: 7px 2px; background-repeat: no-repeat; background-size: 6%;">
 		                        </div>
@@ -141,15 +151,6 @@
 		                    </div>
 		    
 		                    <div class="settings_wrapper" style="height: 100px;">
-		                    
-		    					<div class="setting_field">
-		    						<div class="setting_label">
-		                                Profile Picture:
-		                            </div>
-		    					
-		    						<input name="profile_picture" class="setting_file_input" id="profile_picture_input" type="file">
-		    					</div>
-		    
 		                        <div class="setting_field" style="display: none;">
 		                            <div class="setting_label">
 		                                Dark Mode:

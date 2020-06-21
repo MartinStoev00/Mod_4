@@ -84,6 +84,14 @@ body{
     margin-right: 20%;
 }
 
+.setting_file_input{
+    font-family: Trebuchet MS;
+    height: 25px;
+    float: right;
+    cursor: pointer;
+    margin-right: 20%;
+}
+
 .setting_description{
     color: #737373;
     font-family: Trebuchet MS;

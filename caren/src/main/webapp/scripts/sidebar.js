@@ -129,7 +129,6 @@ export function sidebar(items, posts, comments) {
     	toDate.value = endDate;
     }
     mainWithComments(posts.sort(oldestToNewestFun));
-    sortingBlocks(posts);
 }
 
 export function sidebarWithPeople(input, rid){
