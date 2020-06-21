@@ -53,10 +53,6 @@
 			</div>
 			<div class="filters">
 				<input class="filters__search" type="text" placeholder="Search Term">
-				<button class="filters__filter">Oldest to Newest <i class="fas fa-caret-down"></i></button>
-				<div class="filters__box">
-					<button class="box__btn">Newest to Oldest</button>
-				</div>
 				<div class="filters__date">
 					<div class="date__line">
 						<p class="date__text">From: </p>

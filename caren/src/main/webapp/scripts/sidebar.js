@@ -10,9 +10,6 @@ let filterBtn = document.getElementsByClassName("sidebar__control")[0];
 let peopleBtn = document.getElementsByClassName("sidebar__control")[1];
 let linkForPages = document.getElementsByClassName("sidebar__link");
 let headerH = headerBlock.getBoundingClientRect().height;
-let filterBtns = document.getElementsByClassName("filters__filter")[0];
-let filterBox = document.getElementsByClassName("filters__box")[0];
-let iconCurr = filterBtns.getElementsByClassName("fas")[0]; 
 let boxBtns = document.getElementsByClassName("box__btn");
 let fromDate = document.getElementsByClassName("date__date")[0];
 let toDate = document.getElementsByClassName("date__date")[1];
@@ -21,9 +18,6 @@ let searchRecords = document.getElementsByClassName("filters__search")[0];
 let searchBlockPeople = document.getElementsByClassName("people__search")[0];
 let searchBarPeople = document.getElementsByClassName("people__searchBar")[0];
 let chartButton = document.getElementsByClassName("header__chart")[0];
-let caret = `<i class="fas fa-caret-down"></i>`;
-let chrono = "Oldest to Newest";
-let revChrono = "Newest to Oldest";
 let stylingRoles = ` 
     display: flex;
     flex-direction: row;
@@ -38,26 +32,15 @@ let stylingRoles = `
 let receivedItems;
 sidebarBlock.style.top = headerH + "px";
 let dp = false;
-let filterBoxTop = filterBtns.getBoundingClientRect().top + filterBtns.getBoundingClientRect().height - 10;
-filterBox.style.left = filterBtns.getBoundingClientRect().left + "px";
-filterBox.style.width = (filterBtns.getBoundingClientRect().width - 2) + "px";
-filterBox.style.top =  filterBoxTop + "px";
-people.style.height = "calc(100vh - " + (filterBtn.getBoundingClientRect().top + filterBtn.getBoundingClientRect().height + 68) + "px)";
+people.style.height = "calc(100vh - " + (filterBtn.getBoundingClientRect().top + filterBtn.getBoundingClientRect().height +	 68) + "px)";
 people.style.display = "none";
 let initData, data, commetsData;
-let startDate, endDate, order = chrono;
+let startDate, endDate;
 let oldestToNewestFun = (a, b) => {
     let one = new Date(a.date_added);
     let two = new Date(b.date_added)
     if(one < two) { return -1; }
     if(one > two) { return 1; }
-    return 0;
-}
-let newestToOldestFun = (a, b) => {
-    let one = new Date(a.date_added);
-    let two = new Date(b.date_added)
-    if(one > two) { return -1; }
-    if(one < two) { return 1; }
     return 0;
 }
 
@@ -90,13 +73,11 @@ export function sidebar(items, posts, comments) {
 				}
 		        initData = postsA;
 	    		data = initData;
-	    		order = chrono;startDate = ordererdDates.shift();
+	    		startDate = ordererdDates.shift();
 	    		fromDate.value = startDate;
 	    		endDate = ordererdDates.pop();
 	    		toDate.value = endDate;
-	    		boxBtns[0].innerHTML = revChrono;
 	    		searchRecords.value = "";
-	    		filterBtns.innerHTML = order + " " + caret;
 	    		if(statisticsBtn.getAttribute("data-set") !== "on") {
 		    		Array.prototype.forEach.call(linkForPages, (link) => {
 		    		    link.setAttribute("data-state", "selected");
@@ -508,71 +489,18 @@ searchRecords.addEventListener("keyup", () => {
     }
 });
 
-function sortingBlocks(posts) {
-    function on() {
-        iconCurr.className = "fas fa-caret-up";
-        filterBtns.style.borderRadius = "5px 5px 0px 0px";
-        dp = true;
-        filterBtns.style.border = ".5px #ddd solid";
-        filterBtns.style.borderBottom = ".5px #f5f5f5 solid";
-        filterBox.style.display = "block";
-    }
-    function off() {
-        iconCurr.className = "fas fa-caret-down";
-        filterBtns.style.borderRadius = "5px";
-        dp = false;
-        filterBtns.style.border = ".5px #fff solid";
-        filterBox.style.display = "none";
-    }
-    filterBtns.addEventListener("click", () => {
-        if(!dp) {
-            on();
-        } else {
-            off();
-        }
-    });
-    filterBtns.addEventListener("blur", () => {
-        setTimeout(() => {
-            if(document.activeElement.className !=="box__date") {
-                off();
-            }
-        },150);
-    });    
-}
-
-boxBtns[0].addEventListener("click", () => {
-    if(boxBtns[0].innerHTML.includes(chrono)) {
-        order = chrono;
-        boxBtns[0].innerHTML = revChrono;
-        filterBtns.innerHTML = order + " " + caret;
-        let newArr = data.sort(oldestToNewestFun);
-        data = newArr;
-        mainWithComments(data);
-    } else {
-        order = revChrono;
-        boxBtns[0].innerHTML = chrono;
-        filterBtns.innerHTML = order + " " + caret;
-        let newArr = data.sort(newestToOldestFun);
-        data = newArr;
-        mainWithComments(data);
-    }
-});
-
 btnReset.addEventListener("click", () => {
     let ordererdDates = initData.map((post) => {
         let {date_added} = post;
         return date_added.split(" ")[0];
     }).sort(oldestToNewestFun);
     data = initData;
-    order = chrono;
 
     startDate = ordererdDates.shift();
     fromDate.value = startDate;
     endDate = ordererdDates.pop();
     toDate.value = endDate;
-    boxBtns[0].innerHTML = revChrono;
     searchRecords.value = "";
-    filterBtns.innerHTML = order + " " + caret;
     Array.prototype.forEach.call(linkForPages, (link) => {
         link.setAttribute("data-state", "selected");
         link.getElementsByClassName("fa-check")[0].style.display = "block";

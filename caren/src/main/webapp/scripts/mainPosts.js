@@ -70,34 +70,8 @@ function visibilityAndReadMore(post) {
         }
     });
     let commentInfoButton = post.getElementsByClassName("comments__info")[0];
+	let urCommentSection = post.getElementsByClassName("comments__urs")[0];
     let originalText = commentInfoButton.innerHTML;
-    commentInfoButton.addEventListener("click", () => {
-    	let urCommentSection = post.getElementsByClassName("comments__urs")[0];
-    	if(commentInfoButton.innerHTML != "Collapse Comments") {
-    		commentInfoButton.style.borderBottom = ".5px solid #ddd";
-    		commentInfoButton.innerHTML = "Collapse Comments";
-        	urCommentSection.style.display = "flex";
-        	Array.prototype.forEach.call(post.getElementsByClassName("comment"), (commentSelected) => {
-        		if(commentSelected.getAttribute("class") == "comment") {
-        			commentSelected.style.display = "flex";
-        		}
-        	});
-        	
-        	Array.prototype.forEach.call(document.getElementsByClassName("comment__data"), (commentData) => {
-        		commentData.style.justifyContent = "space-between";
-        		
-        		commentData.getElementsByClassName("comment__showReplies")[0].style.display = "flex";
-        	})
-    	} else {	
-    		commentInfoButton.style.borderBottom = "none";
-    		commentInfoButton.innerHTML = originalText;
-    		urCommentSection.style.display = "none";
-        	Array.prototype.forEach.call(post.getElementsByClassName("comment"), (comment) => {
-        		comment.style.display = "none";
-        	});
-    	}
-    });
-    
 
     if(postTextBlock[0].innerHTML.length > charLimit) {
         let text = postTextBlock[0].getElementsByClassName("content")[0].innerHTML;
@@ -117,7 +91,20 @@ function visibilityAndReadMore(post) {
     		}
     	});
     	if(goBackBtn.style.display == "none" || goBackBtn.style.display == "") {
-    		post.getElementsByClassName("comments__info")[0].click();
+    		commentInfoButton.style.borderBottom = ".5px solid #ddd";
+    		commentInfoButton.innerHTML = "Collapse Comments";
+        	urCommentSection.style.display = "flex";
+        	Array.prototype.forEach.call(post.getElementsByClassName("comment"), (commentSelected) => {
+        		if(commentSelected.getAttribute("class") == "comment") {
+        			commentSelected.style.display = "flex";
+        		}
+        	});
+        	
+        	Array.prototype.forEach.call(document.getElementsByClassName("comment__data"), (commentData) => {
+        		commentData.style.justifyContent = "space-between";
+        		commentData.getElementsByClassName("comment__showReplies")[0].style.display = "flex";
+        	});
+        	commentInfoButton.style.display = "none";
     	}
     	if(post.getElementsByClassName("more")[0]) {
     		post.getElementsByClassName("more")[0].style.display = "inline";
@@ -127,7 +114,13 @@ function visibilityAndReadMore(post) {
     	goBackBtn.style.display = "block";
     	goBackBtn.addEventListener("click", () => {
     		if(post.getElementsByClassName("comments__info")[0].innerHTML == "Collapse Comments") {
-    			post.getElementsByClassName("comments__info")[0].click();
+            	commentInfoButton.style.display = "flex";
+    			commentInfoButton.style.borderBottom = "none";
+        		commentInfoButton.innerHTML = originalText;
+        		urCommentSection.style.display = "none";
+            	Array.prototype.forEach.call(post.getElementsByClassName("comment"), (comment) => {
+            		comment.style.display = "none";
+            	})
     		}
     		originalDisplay.forEach((postID) => {
     			Array.prototype.forEach.call(allPostsOnPageCurrent,(postSelectedCurrently) => {
@@ -209,7 +202,7 @@ function sendingDataFunctionality(post) {
             createdDivPic.setAttribute("style", "background-image: url(../Pictures/profile_pics/1.jpg);");
             createdDivWrapper.setAttribute("class", "comment__wrapper");
             createdDivWrapperText.setAttribute("class", "comment__text");
-            createdDivWrapperTextName.setAttribute("style", "color: rgb(56, 88, 152);font-weight: 600;");
+            createdDivWrapperTextName.setAttribute("style", "color: purple;font-weight: 600;");
             createdDivWrapperDate.setAttribute("class", "comment__date");
             createdDivWrapperDateReply.setAttribute("style", "color: rgb(66, 133, 244); text-decoration: underline; margin-right: 7px;");
             createdDivWrapperDateReply.setAttribute("class", "comment__replyBtn");
@@ -310,7 +303,7 @@ function sendingDataFunctionality(post) {
         responseBlockCreated.innerHTML = `
         	<div class="comment__pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
             <div class="comment__wrapper">
-        		<div class="comment__text"><span style="color: rgb(56, 88, 152);font-weight: 600;">You </span>${contentINeedToSendTo}</div>
+        		<div class="comment__text"><span style="color: purple;font-weight: 600;">You </span>${contentINeedToSendTo}</div>
                 <div class="comment__date">
         			<span>${date}</span>
         			<i class="fas fa-circle" style="margin: 5px; font-size: 5px;padding:5px;"></i>
