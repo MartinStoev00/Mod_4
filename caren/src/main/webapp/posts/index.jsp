@@ -118,14 +118,14 @@
 		                            <div class="setting_label">
 		                                New Password:
 		                            </div>
-		                            <input name="password" class="setting_text_input"  id="password_input" type="password" placeholder="********" style="background-image: url('icons/lock.png'); background-position: 7px 2px; background-repeat: no-repeat; background-size: 6%;"">
+		                            <input name="password" class="setting_text_input"  id="password_input" type="password" placeholder="********" style="background-image: url('icons/lock.png'); background-position: 7px 2px; background-repeat: no-repeat; background-size: 6%;">
 		                        </div>
 		
 		                        <div class="setting_field">
 		                            <div class="setting_label">
 		                                Old Password*:
 		                            </div>
-		                            <input name="old_password" class="setting_text_input"  id="old_password_input" type="password" placeholder="********" style="background-image: url('icons/lock.png'); background-position: 7px 2px; background-repeat: no-repeat; background-size: 6%;"">
+		                            <input name="old_password" class="setting_text_input"  id="old_password_input" type="password" placeholder="********" style="background-image: url('icons/lock.png'); background-position: 7px 2px; background-repeat: no-repeat; background-size: 6%;">
 		                        </div>
 		
 		                        <div class="settings_note" style="margin-top: 50px;">
@@ -141,21 +141,29 @@
 		                    </div>
 		    
 		                    <div class="settings_wrapper" style="height: 100px;">
+		                    
+		    					<div class="setting_field">
+		    						<div class="setting_label">
+		                                Profile Picture:
+		                            </div>
+		    					
+		    						<input name="profile_picture" class="setting_file_input" id="profile_picture_input" type="file">
+		    					</div>
 		    
-		                        <div class="setting_field">
+		                        <div class="setting_field" style="display: none;">
 		                            <div class="setting_label">
 		                                Dark Mode:
 		                            </div>
 		    
 		                            <span class="switch">
 		                                <i>
-		                                    <span class="setting_description">Enables dark mode.</span>
+		                                	<span class="setting_description">Enables dark mode.</span>
 		                                </i>
 		                                <input name="dark_mode" class="setting_checkbox_input" id="dark_mode_input" type="checkbox" style="background-image: url('icons/user.png'); background-position: 7px 2px; background-repeat: no-repeat; background-size: 6%;" value="dark_mode">
 		                            </span>
 		                        </div>
 		    
-		                        <div class="setting_field">
+		                        <div class="setting_field" style="display: none;">
 		                            <div class="setting_label">
 		                                Reports Per Line:
 		                            </div>
