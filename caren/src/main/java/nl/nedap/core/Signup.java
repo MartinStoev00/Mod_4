@@ -29,26 +29,7 @@ import java.sql.Date;
  */
 public class Signup extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	private static final String HOST = "bronto.ewi.utwente.nl";
-	private static final String DBNAME = "dab_di19202b_340";
-	private static final String DBUSERNAME = "dab_di19202b_340";
-	private static final String DBPASS = "pYMCMcw6zBx7xaxH";
-	private static final String URL = "jdbc:postgresql://" + HOST + ":5432/" + DBNAME;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public Signup() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -158,21 +139,6 @@ public class Signup extends HttpServlet {
 			e.printStackTrace();
 			out.println(docType + "<HTML> <body> Unexpected error has occured. </body> </HTML>");
 		}
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		/*
-		 * // TODO Auto-generated method stub System.out.println("BOOP");
-		 * 
-		 * BufferedReader reader = request.getReader(); String body = ""; String line;
-		 * while ((line = reader.readLine()) != null) { body = body + line + "\n";
-		 * System.out.println("WHAT"); } System.out.println(body);
-		 */
 	}
 
 }

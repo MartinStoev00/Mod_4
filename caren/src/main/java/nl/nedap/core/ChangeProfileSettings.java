@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import nl.nedap.utility.DatabaseManager;
+import nl.nedap.utility.ForeignCharactersChecker;
 
 public class ChangeProfileSettings extends HttpServlet {
 
@@ -30,6 +31,15 @@ public class ChangeProfileSettings extends HttpServlet {
 		String profile_picture_input = request.getParameter("profile_picture");
 		String dark_mode_input = request.getParameter("dark_mode");
 		String rpl_input = request.getParameter("rpl");
+		
+		//Sanitization
+		if (ForeignCharactersChecker.basicHasForeignCharacters(first_name_input) || ForeignCharactersChecker.basicHasForeignCharacters(last_name_input)
+				|| ForeignCharactersChecker.emailHasForeignCharacters(email_input) || ForeignCharactersChecker.basicHasForeignCharacters(password_input)
+				|| ForeignCharactersChecker.basicHasForeignCharacters(old_password_input) || ForeignCharactersChecker.basicHasForeignCharacters(profile_picture_input)
+				|| ForeignCharactersChecker.basicHasForeignCharacters(dark_mode_input) || ForeignCharactersChecker.basicHasForeignCharacters(rpl_input))
+		{
+			return;
+		}
 		
 		if (request.getSession().getAttribute("aid") == null) {
 			return;

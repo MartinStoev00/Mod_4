@@ -25,7 +25,12 @@ public class ProfileSettingsResource {
 			return null;
 		}
 		
-		int aid = (int)request.getSession().getAttribute("aid");
+		int aid;
+		try {
+			aid = (int)request.getSession().getAttribute("aid");
+		} catch(Exception e) {
+			return null;
+		}
 		
 		String q = "SELECT * FROM caren.getprofilesettings(?);";
 		

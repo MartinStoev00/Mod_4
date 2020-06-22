@@ -24,39 +24,48 @@ public class RecordsResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Record> showTime(@Context HttpServletRequest request, @PathParam("id") int id) {
 		List<Record> result = new ArrayList<Record>();
+		
+		if (request.getSession().getAttribute("aid") == null) {
+			return null;
+		}
+		
+		int loggedaid, loggedpid;
+		String loggedtype;
+		try {
+			loggedaid = (int)request.getSession().getAttribute("aid");
+			loggedpid = (int)request.getSession().getAttribute("pid");
+			loggedtype = (String)request.getSession().getAttribute("aidType");
+		} catch(Exception e) {
+			return null;
+		}
 
-		if (request.getSession().getAttribute("aid") != null) {
-			int loggedaid = (int) request.getSession().getAttribute("aid");
-			int loggedpid = (int) request.getSession().getAttribute("pid");
-			String loggedtype = (String)request.getSession().getAttribute("aidType");
 
-			if (id == 0) {
-				id = loggedpid;
-			} else if (!DatabaseManager.IsAssociate(loggedpid, id)) {
-				return result;
+		if (id == 0) {
+			id = loggedpid;
+		} else if (!DatabaseManager.IsAssociate(loggedpid, id)) {
+			return null;
+		}
+
+		String query = "SELECT * FROM caren.getrecords(?);";
+
+		ResultSet records = DatabaseManager.ReadQuery(query, "" + id);
+
+		try {
+			while (records.next()) {
+				int posted_by_id = records.getInt(1);
+				int posted_for_id = records.getInt(2);
+				String posted_by_name = records.getString(3);
+				int record_id = records.getInt(4);
+				String type = records.getString(5);
+				String data = records.getString(6);
+				String date_added = records.getString(7);
+				
+				Record record = new Record(posted_by_id, posted_for_id, posted_by_name, record_id, type, data, date_added);
+				result.add(record);
 			}
-
-			String query = "SELECT * FROM caren.getrecords(?);";
-
-			ResultSet records = DatabaseManager.ReadQuery(query, "" + id);
-
-			try {
-				while (records.next()) {
-					int posted_by_id = records.getInt(1);
-					int posted_for_id = records.getInt(2);
-					String posted_by_name = records.getString(3);
-					int record_id = records.getInt(4);
-					String type = records.getString(5);
-					String data = records.getString(6);
-					String date_added = records.getString(7);
-					
-					Record record = new Record(posted_by_id, posted_for_id, posted_by_name, record_id, type, data, date_added);
-					result.add(record);
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		return result;
