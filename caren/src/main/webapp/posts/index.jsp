@@ -119,7 +119,7 @@
 		                                Profile Picture:
 		                            </div>
 		    					
-		    						<input name="profile_picture" class="setting_file_input" id="profile_picture_input" type="file">
+		    						<input name="profile_picture" class="setting_file_input" id="profile_picture_input" type="file" accept="image/jpeg">
 		    					</div>
 		                        
 		                        
