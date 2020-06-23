@@ -29,26 +29,7 @@ import java.sql.Date;
  */
 public class Signup extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	private static final String HOST = "bronto.ewi.utwente.nl";
-	private static final String DBNAME = "dab_di19202b_340";
-	private static final String DBUSERNAME = "dab_di19202b_340";
-	private static final String DBPASS = "pYMCMcw6zBx7xaxH";
-	private static final String URL = "jdbc:postgresql://" + HOST + ":5432/" + DBNAME;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public Signup() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -65,24 +46,14 @@ public class Signup extends HttpServlet {
 		String passwordagn = request.getParameter("passwordagn");
 		
 		try {
-			Class.forName("org.postgresql.Driver");
-			Connection conn = DriverManager.getConnection(URL, DBUSERNAME, DBPASS);
-			
-			
 			//TODO check if account already exists
 			//The query
 			String q = "SELECT a.email" + "\n"
 					+ "FROM caren.accounts a" + "\n"
 					+ "WHERE a.email = ?;";
 			
-			//Create prepared statement object
-			PreparedStatement statement = conn.prepareStatement(q);
-			
-			//Add values to prepared statement
-			statement.setString(1, email);
-			
 			//Result set of statement execution
-			ResultSet resultset = statement.executeQuery();
+			ResultSet resultset = DatabaseManager.ReadQuery(q, email);
 			
 			if (email == "" || firstname == "" || lastname == ""  || birthdate == "" || gender == "" || password == "" || passwordagn == "") {
 				String error = "Please make sure all field are filled.";
@@ -119,38 +90,29 @@ public class Signup extends HttpServlet {
 			if (!resultset.next()) { // can create acc
 				//get max p_key for accounts and for people
 				String pKeyGet = "SELECT MAX(a.aid) FROM caren.accounts a";
-				PreparedStatement pKeyStat = conn.prepareStatement(pKeyGet);
-				ResultSet pkeySet = pKeyStat.executeQuery();
+				ResultSet pkeySet = DatabaseManager.ReadQuery(pKeyGet);
 				pkeySet.next();
 				int maxpKeyAccounts = pkeySet.getInt(1);
 				pKeyGet = "SELECT MAX(p.pid) FROM caren.people p";
-				pKeyStat = conn.prepareStatement(pKeyGet);
-				pkeySet = pKeyStat.executeQuery();
+				pkeySet = DatabaseManager.ReadQuery(pKeyGet);
 				pkeySet.next();
 				int maxpKeyPeople = pkeySet.getInt(1);
 				
 				Date birthDateFormatted = Date.valueOf(birthdate);
 				
 				//Making call to database to make account.
-				String createAccQ = "INSERT INTO caren.accounts (aid, email, password) VALUES (?,?, ?)"; // email, password.
-				PreparedStatement accCreationSt = conn.prepareStatement(createAccQ);
-				accCreationSt.setInt(1, maxpKeyAccounts + 1); accCreationSt.setString(2, email); accCreationSt.setString(3, password);
+				String createAccQ = "INSERT INTO caren.accounts (aid, email, password) VALUES (CAST(? AS int),?, ?)"; // email, password.
 				//fix
-				accCreationSt.executeUpdate();
+				DatabaseManager.updateQuery(createAccQ, ""+maxpKeyAccounts + 1, email, password);
 				//Retrieving the new account's aid.
 				String aidQ = "SELECT a.aid FROM caren.accounts a WHERE a.email = ?"; // email.
-				PreparedStatement aidSt = conn.prepareStatement(aidQ);
-				aidSt.setString(1, email);
-				ResultSet aidResultSet = aidSt.executeQuery();
+				ResultSet aidResultSet = DatabaseManager.ReadQuery(aidQ, email);
 				aidResultSet.next();
 				int aid = aidResultSet.getInt(1);
 				System.out.println(aid);
 				//Making call to database to make person in people.
-				String createPersQ = "INSERT INTO caren.people (pid,aid, first_name, last_name, date_of_birth, gender) VALUES (?,?, ?, ?, ?, ?)";
-				PreparedStatement persCreationSt = conn.prepareStatement(createPersQ);
-				persCreationSt.setInt(1, maxpKeyPeople +1); persCreationSt.setInt(2, aid); persCreationSt.setString(3, firstname); persCreationSt.setString(4,lastname); persCreationSt.setDate(5, birthDateFormatted);
-				persCreationSt.setString(6, gender);
-				persCreationSt.executeUpdate();
+				String createPersQ = "INSERT INTO caren.people (pid,aid, first_name, last_name, date_of_birth, gender) VALUES (CAST(? AS int), CAST(? AS int), ?, ?, CAST(? AS date), ?)";
+				DatabaseManager.updateQuery(createPersQ, ""+ (maxpKeyPeople + 1), ""+aid, firstname, lastname, ""+birthDateFormatted.toString(), gender);
 				
 				
 				
@@ -177,21 +139,6 @@ public class Signup extends HttpServlet {
 			e.printStackTrace();
 			out.println(docType + "<HTML> <body> Unexpected error has occured. </body> </HTML>");
 		}
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		/*
-		 * // TODO Auto-generated method stub System.out.println("BOOP");
-		 * 
-		 * BufferedReader reader = request.getReader(); String body = ""; String line;
-		 * while ((line = reader.readLine()) != null) { body = body + line + "\n";
-		 * System.out.println("WHAT"); } System.out.println(body);
-		 */
 	}
 
 }

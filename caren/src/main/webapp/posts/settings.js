@@ -5,11 +5,13 @@ let email = document.getElementById("email_input");
 let password = document.getElementById("password_input");
 let old_password = document.getElementById("old_password_input");
 
+let profile_picture = document.getElementById("profile_picture_input");
 let dark_mode = document.getElementById("dark_mode_input");
 let rpl = document.getElementById("RPL_input");
 
-let dark_mode_default = document.getElementById("dark_mode_input").value;
-let rpl_default = document.getElementById("RPL_input").value;
+let profile_picture_default = profile_picture.value;
+let dark_mode_default = dark_mode.value;
+let rpl_default = rpl.value;
 
 let save = document.getElementById("save");
 let error = document.getElementById("error");
@@ -28,6 +30,7 @@ password.addEventListener('change', inputChanged)
 old_password.addEventListener('change', inputChanged)
 dark_mode.addEventListener('change', inputChanged)
 rpl.addEventListener('change', inputChanged)
+profile_picture.addEventListener('change', inputChanged)
 settingsButton.addEventListener('click', ToggleSettings)
 
 function onloadedSettings (){
@@ -99,7 +102,7 @@ function displayPlaceHolders(profileSettings){
 }
 
 function inputChanged(){
-    if (first_name.value == "" && last_name.value == "" && email.value == "" && password.value == "" && dark_mode.checked == dark_mode_default && rpl.value == rpl_default) {
+    if (first_name.value == "" && last_name.value == "" && email.value == "" && password.value == "" && profile_picture.value == "" && dark_mode.checked == dark_mode_default && rpl.value == rpl_default) {
         save.disabled = true;
         save.style.color = "#b3b3b3";
         save.style.border = "1px solid #b3b3b3";
@@ -109,7 +112,7 @@ function inputChanged(){
         save.style.color = "#434343";
         save.style.border = "2px solid #434343";
         error.innerHTML = "";
-    } else if (first_name.value == "" && last_name.value == "" && email.value == "" && password.value == "" && (dark_mode.checked != dark_mode_default || rpl.value != rpl_default)){
+    } else if (first_name.value == "" && last_name.value == "" && email.value == "" && password.value == "" && profile_picture.value == "" && (dark_mode.checked != dark_mode_default || rpl.value != rpl_default)){
         save.disabled = false;
         save.style.color = "#434343";
         save.style.border = "2px solid #434343";

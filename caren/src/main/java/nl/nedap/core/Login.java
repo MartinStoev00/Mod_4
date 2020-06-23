@@ -42,11 +42,13 @@ public class Login extends HttpServlet {
 		
 		try {
 			if (ForeignCharactersChecker.basicHasForeignCharacters(password)) {//sanitisation for password field
-				out.println(docType + "<HTML> <body>Password input fields can only contain the following characters: a->z, A->Z, 0->9 </body> </HTML>");
+				String error = "Password input fields can only contain the following characters: a->z, A->Z, 0->9.";
+				response.sendRedirect("http://localhost:8080/caren/login/error.html?error=" + error);
 				return;
 			}
 			if (ForeignCharactersChecker.emailHasForeignCharacters(email)) {//sanitisation for email field
-				out.println(docType + "<HTML> <body>Email input fields can only contain the following characters: a->z, A->Z, 0->9, '@', '.', '-', '_' </body> </HTML>");
+				String error = "Email input fields can only contain the following characters: a->z, A->Z, 0->9, '@', '.', '-', '_'";
+				response.sendRedirect("http://localhost:8080/caren/login/error.html?error=" + error);
 				return;
 			}
 			//TODO check if account already exists

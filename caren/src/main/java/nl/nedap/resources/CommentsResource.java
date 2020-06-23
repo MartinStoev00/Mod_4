@@ -27,12 +27,19 @@ public class CommentsResource {
 		List<Comment> comments = new ArrayList<>();
 				
 		if (request.getSession().getAttribute("aid") == null) {
-			return comments;
+			return null;
 		}
 		
-		int loggedaid = (int)request.getSession().getAttribute("aid");
-		int loggedpid = (int)request.getSession().getAttribute("pid");
-		String aidType = (String)request.getSession().getAttribute("aidType");
+		int loggedaid;
+		int loggedpid;
+		String aidType;
+		try {
+			loggedaid = (int)request.getSession().getAttribute("aid");
+			loggedpid = (int)request.getSession().getAttribute("pid");
+			aidType = (String)request.getSession().getAttribute("aidType");
+		} catch(Exception e) {
+			return null;
+		} 
 		
 		if (destpid == 0) {
 			destpid = loggedpid;
