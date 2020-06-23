@@ -427,6 +427,7 @@ function filteringDates() {
 }
 
 searchRecords.addEventListener("keyup", () => {
+	window.scrollTo(0,0);
     let curr = searchRecords.value.toLowerCase();
     let postsBlocks = document.getElementsByClassName("post");
     Array.prototype.forEach.call(postsBlocks, (post) => {
@@ -437,7 +438,7 @@ searchRecords.addEventListener("keyup", () => {
         post.getElementsByClassName("post__uploader")[0].innerHTML = post.getElementsByClassName("post__uploader")[0].innerHTML.replace(`<span style="background-color:yellow;font-weight: 900;">`,"").replace(`</span>`,"");
     });
     Array.prototype.forEach.call(postsBlocks, (post) => {
-        let currTitle = post.getElementsByClassName("content")[0].innerHTML.toLowerCase() + post.getElementsByClassName("post__uploader")[0].innerHTML.toLowerCase();
+        let currTitle = post.getElementsByClassName("content")[0].textContent.toLowerCase() + post.getElementsByClassName("post__uploader")[0].innerHTML.toLowerCase();
         let reportType = post.getElementsByClassName("post__text")[0].getElementsByTagName("div")[0].className.split("-")[1];
         currTitle += reportType;
         let currDate = new Date(post.getElementsByClassName("post__date")[0].innerHTML.split(" ")[0]);
@@ -455,18 +456,28 @@ searchRecords.addEventListener("keyup", () => {
         	if(!(currTitle.includes(curr) || curr.includes(currTitle)) ) {
                 post.style.display = "none";
             } else {
-                if(post.getElementsByClassName("content")[0].innerHTML.includes(curr)) {
-                	post.getElementsByClassName("content")[0].innerHTML = post.getElementsByClassName("content")[0].innerHTML.replace(`${curr}`, `<span style="background-color:yellow;font-weight: 900;">${curr}</span>`);
-                } else if(post.getElementsByClassName("post__uploader")[0].innerHTML.toLowerCase().includes(curr)) {
-                	let original = post.getElementsByClassName("post__uploader")[0].innerHTML;
-                	let firstLetters = post.getElementsByClassName("post__uploader")[0].innerHTML.toLowerCase().split(curr)[0].length;
-                	let currLength = curr.length;
-                	let result = original.substring(0, firstLetters);
-                	result += `<span style="background-color:yellow;font-weight: 900;">`;
-                	result += original.substring(firstLetters, firstLetters + currLength);
-                	result += "</span>";
-                	result += original.substring(firstLetters + currLength, original.length + 1);
-                	post.getElementsByClassName("post__uploader")[0].innerHTML = result;
+                if(curr !== "") {
+                	if(post.getElementsByClassName("content")[0].textContent.includes(curr)) {
+                    	if(post.getElementsByClassName("content")[0].innerHTML.includes("</b></span>")) {
+                    		let first = post.getElementsByClassName("content")[0].innerHTML.split(`<span style="color: purple;"><b>`)[0];
+                    		let second = post.getElementsByClassName("content")[0].innerHTML.split(`<span style="color: purple;"><b>`)[1].replace(`</b></span>`, "");
+                    		first = first.replace(`${curr}`, `<span style="background-color:yellow;font-weight: 900;">${curr}</span>`);
+                    		second = second.replace(`${curr}`, `<span style="background-color:yellow;font-weight: 900;">${curr}</span>`);
+                    		post.getElementsByClassName("content")[0].innerHTML = first + `<span style = "color: purple;"><b>` + second + `</b></span>`;
+                    	} else {
+                    		post.getElementsByClassName("content")[0].innerHTML = post.getElementsByClassName("content")[0].innerHTML.replace(`${curr}`, `<span style="background-color:yellow;font-weight: 900;">${curr}</span>`);
+                    	}
+                    } else if(post.getElementsByClassName("post__uploader")[0].innerHTML.toLowerCase().includes(curr)) {
+                    	let original = post.getElementsByClassName("post__uploader")[0].innerHTML;
+                    	let firstLetters = post.getElementsByClassName("post__uploader")[0].innerHTML.toLowerCase().split(curr)[0].length;
+                    	let currLength = curr.length;
+                    	let result = original.substring(0, firstLetters);
+                    	result += `<span style="background-color:yellow;font-weight: 900;">`;
+                    	result += original.substring(firstLetters, firstLetters + currLength);
+                    	result += "</span>";
+                    	result += original.substring(firstLetters + currLength, original.length + 1);
+                    	post.getElementsByClassName("post__uploader")[0].innerHTML = result;
+                    }
                 }
                 post.style.display = "flex";
             }
