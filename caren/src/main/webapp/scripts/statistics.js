@@ -223,6 +223,22 @@ function onclickData(event){
 			block.style.display = "none";
 			if(block.getAttribute("data-id") == rid) {
 				block.style.display = "flex";
+			    let commentInfoButton = block.getElementsByClassName("comments__info")[0];
+				let urCommentSection = block.getElementsByClassName("comments__urs")[0];
+				commentInfoButton.style.borderBottom = ".5px solid #ddd";
+        		commentInfoButton.innerHTML = "Collapse Comments";
+            	urCommentSection.style.display = "flex";
+            	Array.prototype.forEach.call(block.getElementsByClassName("comment"), (commentSelected) => {
+            		if(commentSelected.getAttribute("class") == "comment") {
+            			commentSelected.style.display = "flex";
+            		}
+            	});
+            	
+            	Array.prototype.forEach.call(document.getElementsByClassName("comment__data"), (commentData) => {
+            		commentData.style.justifyContent = "space-between";
+            		commentData.getElementsByClassName("comment__showReplies")[0].style.display = "flex";
+            	});
+            	commentInfoButton.style.display = "none";
 			}
 		});
     }

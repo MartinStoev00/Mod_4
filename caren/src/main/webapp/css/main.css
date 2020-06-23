@@ -182,7 +182,8 @@
   left: 0;
   width: calc(20vw);
   border-right: .5px solid #ddd;
-  background-color: #fff; }
+  background-color: #fff;
+  transition: .3s; }
   .sidebar__nav {
     border-top: .5px solid #ddd;
     border-bottom: .5px solid #ddd;
@@ -420,11 +421,11 @@
 .mainPosts {
   margin-left: calc(20vw);
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: nowrap;
   justify-content: center;
   align-content: center;
-  align-items: center;
+  align-items: flex-start;
   background-color: #f3f3f3;
   min-height: calc(100vh); }
   .mainPosts .charts {
@@ -491,7 +492,8 @@
       padding: 0 15px 15px; }
     .mainPosts .post__goBack {
       display: none;
-      position: absolute;
+      transition: .3s;
+      position: fixed;
       text-decoration: underline;
       color: #9a009a;
       font-family: 'Arial'; }
@@ -806,6 +808,28 @@
         margin-left: 65px; }
       .mainPosts .post .comment__viewall {
         cursor: pointer; }
+
+.charts {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center; }
+  .charts__date {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center; }
+  .charts .statistics {
+    height: 350px;
+    width: 500px; }
+  .charts .bars {
+    height: 350px;
+    width: 500px; }
 
 * {
   margin: 0;

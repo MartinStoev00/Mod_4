@@ -178,12 +178,22 @@
 		        </div> 
 			</div>
 			<div id="charts" class="charts">
-				<div class="statistics" style="width: 500px; height: 300px;">
-				 	<canvas id="canvas" width="650" height="400"></canvas>
-				 	<canvas id="changescanvas" width="650" height="400"></canvas>
+				<div class="charts__date">
+					<div class="charts__dateBlock">
+						<p>From:</p>
+						<input type = "date" class = "statistics__date">
+					</div>
+					<div class="charts__dateBlock">
+						<p>To:</p>
+						<input type = "date" class = "statistics__date">
+					</div>
 				</div>
-				<input type = "date" class = "statistics__date">
-				<input type = "date" class = "statistics__date">
+				<div class="statistics">
+				 	<canvas id="canvas"></canvas>
+				</div>
+				<div class="bars">
+				 	<canvas id="changescanvas"></canvas>
+				</div>
 			</div>
 			<div id="posts" class="posts"></div>
 		</div>

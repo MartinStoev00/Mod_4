@@ -10,7 +10,6 @@ let filterBtn = document.getElementsByClassName("sidebar__control")[0];
 let peopleBtn = document.getElementsByClassName("sidebar__control")[1];
 let linkForPages = document.getElementsByClassName("sidebar__link");
 let headerH = headerBlock.getBoundingClientRect().height;
-let boxBtns = document.getElementsByClassName("box__btn");
 let fromDate = document.getElementsByClassName("date__date")[0];
 let toDate = document.getElementsByClassName("date__date")[1];
 let btnReset = document.getElementsByClassName("filters__reset")[0];
@@ -104,6 +103,7 @@ export function sidebar(items, posts, comments) {
     Array.prototype.forEach.call(peopleiwanttoclickon, (person) => {
     	let idiwannagoto = person.getAttribute("data-name");
     	person.addEventListener("click", () => {
+    		window.scrollTo(0,0);
     		gettingTheRaCOfPerson(idiwannagoto);
     	});
     	
@@ -129,7 +129,6 @@ export function sidebar(items, posts, comments) {
     	toDate.value = endDate;
     }
     mainWithComments(posts.sort(oldestToNewestFun));
-    sortingBlocks(posts);
 }
 
 export function sidebarWithPeople(input, rid){
@@ -324,7 +323,7 @@ chartButton.addEventListener("click", () => {
 		});
 		linkForPages[1].setAttribute("data-state", "selected");
 		linkForPages[1].getElementsByTagName("i")[1].style.display = "block";
-		chartsBlock.style.display = "block";
+		chartsBlock.style.display = "flex";
 		let postsBlocks = document.getElementsByClassName("post");
 		let postErr = document.getElementsByClassName("post__err")[0];
 		postErr.style.display = "none";
