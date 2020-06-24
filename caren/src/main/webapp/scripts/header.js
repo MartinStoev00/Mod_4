@@ -15,12 +15,9 @@ let headerH = headerBlock.getBoundingClientRect().height;
 let sidebar = document.getElementsByClassName("sidebar")[0];
 let notificationsReceived, itemsReceived;
 
-
 export function header(inputNotifications) {
     handleNotifications(inputNotifications);
 }
-
-
 
 notifyIcon.addEventListener("click", () => {
     notifyNumber.style.top = (notifyIconY - 34) + "px";

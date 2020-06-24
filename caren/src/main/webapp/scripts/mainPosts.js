@@ -81,65 +81,67 @@ function visibilityAndReadMore(post) {
     }
     
     post.addEventListener("click", () => {
-    	let originalDisplay = [];
-    	let allPostsOnPageCurrent = document.getElementsByClassName("post");
-    	let goBackBtn = document.getElementsByClassName("post__goBack")[0];
-    	Array.prototype.forEach.call(allPostsOnPageCurrent, (postSelectedCurrent) => {
-    		if(postSelectedCurrent.getAttribute("data-id") !== post.getAttribute("data-id") && postSelectedCurrent.style.display != "none") {
-    			postSelectedCurrent.style.display = "none";
-    			originalDisplay.push(postSelectedCurrent.getAttribute("data-id"));
-    		}
-    	});
-    	if(goBackBtn.style.display == "none" || goBackBtn.style.display == "") {
-    		commentInfoButton.style.borderBottom = ".5px solid #ddd";
-    		commentInfoButton.innerHTML = "Collapse Comments";
-        	urCommentSection.style.display = "flex";
-        	Array.prototype.forEach.call(post.getElementsByClassName("comment"), (commentSelected) => {
-        		if(commentSelected.getAttribute("class") == "comment") {
-        			commentSelected.style.display = "flex";
+    	if(document.getElementsByClassName("header__chart")[0].getAttribute("data-set") == "off") {
+    		let originalDisplay = [];
+        	let allPostsOnPageCurrent = document.getElementsByClassName("post");
+        	let goBackBtn = document.getElementsByClassName("post__goBack")[0];
+        	Array.prototype.forEach.call(allPostsOnPageCurrent, (postSelectedCurrent) => {
+        		if(postSelectedCurrent.getAttribute("data-id") !== post.getAttribute("data-id") && postSelectedCurrent.style.display != "none") {
+        			postSelectedCurrent.style.display = "none";
+        			originalDisplay.push(postSelectedCurrent.getAttribute("data-id"));
         		}
         	});
-        	
-        	Array.prototype.forEach.call(document.getElementsByClassName("comment__data"), (commentData) => {
-        		commentData.style.justifyContent = "space-between";
-        		commentData.getElementsByClassName("comment__showReplies")[0].style.display = "flex";
-        	});
-        	commentInfoButton.style.display = "none";
-    	}
-    	if(post.getElementsByClassName("more")[0]) {
-    		post.getElementsByClassName("more")[0].style.display = "inline";
-    		post.getElementsByClassName("ReadMore")[0].style.display = "none";
-    	}
-    	document.getElementsByClassName("sidebar")[0].style.pointerEvents =  "none";
-    	goBackBtn.style.display = "block";
-    	goBackBtn.addEventListener("click", () => {
-    		if(post.getElementsByClassName("comments__info")[0].innerHTML == "Collapse Comments") {
-            	commentInfoButton.style.display = "flex";
-    			commentInfoButton.style.borderBottom = "none";
-        		commentInfoButton.innerHTML = originalText;
-        		urCommentSection.style.display = "none";
-            	Array.prototype.forEach.call(post.getElementsByClassName("comment"), (comment) => {
-            		comment.style.display = "none";
-            	})
-    		}
-    		originalDisplay.forEach((postID) => {
-    			Array.prototype.forEach.call(allPostsOnPageCurrent,(postSelectedCurrently) => {
-    				if(postSelectedCurrently.getAttribute("data-id") == postID) {
-    					postSelectedCurrently.style.display = "flex";
-    				}
-    			});
-    		});
-        	if(post.getElementsByClassName("more")[0]) {
-        		post.getElementsByClassName("more")[0].style.display = "none";
-        		post.getElementsByClassName("ReadMore")[0].style.display = "inline";
+        	if(goBackBtn.style.display == "none" || goBackBtn.style.display == "") {
+        		commentInfoButton.style.borderBottom = ".5px solid #ddd";
+        		commentInfoButton.innerHTML = "Collapse Comments";
+            	urCommentSection.style.display = "flex";
+            	Array.prototype.forEach.call(post.getElementsByClassName("comment"), (commentSelected) => {
+            		if(commentSelected.getAttribute("class") == "comment") {
+            			commentSelected.style.display = "flex";
+            		}
+            	});
+            	
+            	Array.prototype.forEach.call(document.getElementsByClassName("comment__data"), (commentData) => {
+            		commentData.style.justifyContent = "space-between";
+            		commentData.getElementsByClassName("comment__showReplies")[0].style.display = "flex";
+            	});
+            	commentInfoButton.style.display = "none";
         	}
-        	document.getElementsByClassName("sidebar")[0].style.pointerEvents =  "auto";
-    		goBackBtn.style.display = "none";
-    	});
-    });
-    
-
-    
+        	document.getElementsByClassName("sidebar")[0].style.opacity = "0.5";
+        	if(post.getElementsByClassName("more")[0]) {
+        		post.getElementsByClassName("more")[0].style.display = "inline";
+        		post.getElementsByClassName("ReadMore")[0].style.display = "none";
+        	}
+        	document.getElementsByClassName("sidebar")[0].style.pointerEvents =  "none";
+        	goBackBtn.style.display = "block";
+        	goBackBtn.addEventListener("click", () => {
+            	document.getElementsByClassName("sidebar")[0].style.cursor = "auto";
+        		if(post.getElementsByClassName("comments__info")[0].innerHTML == "Collapse Comments") {
+                	commentInfoButton.style.display = "flex";
+        			commentInfoButton.style.borderBottom = "none";
+            		commentInfoButton.innerHTML = originalText;
+            		urCommentSection.style.display = "none";
+                	Array.prototype.forEach.call(post.getElementsByClassName("comment"), (comment) => {
+                		comment.style.display = "none";
+                	})
+        		}
+        		originalDisplay.forEach((postID) => {
+        			Array.prototype.forEach.call(allPostsOnPageCurrent,(postSelectedCurrently) => {
+        				if(postSelectedCurrently.getAttribute("data-id") == postID) {
+        					postSelectedCurrently.style.display = "flex";
+        				}
+        			});
+        		});
+            	if(post.getElementsByClassName("more")[0]) {
+            		post.getElementsByClassName("more")[0].style.display = "none";
+            		post.getElementsByClassName("ReadMore")[0].style.display = "inline";
+            	}
+            	document.getElementsByClassName("sidebar")[0].style.pointerEvents =  "auto";
+        		goBackBtn.style.display = "none";
+            	document.getElementsByClassName("sidebar")[0].style.opacity = "1";
+        	});
+    	}
+    }); 
 }
 
 function sendingDataFunctionality(post) {
@@ -309,8 +311,7 @@ function sendingDataFunctionality(post) {
         			<i class="fas fa-circle" style="margin: 5px; font-size: 5px;padding:5px;"></i>
         			<span style="text-transform: capitalize;">${visibilityINeedToSendTo}</span>
         		</div>
-        	</div>
-        `
+        	</div>`;
         let allThreadsInThisPost = post.getElementsByClassName("comment__thread");
         Array.prototype.forEach.call(allThreadsInThisPost, (givenThread) => {
         	let frstElementInTheThread = givenThread.getElementsByClassName("comment")[0];
@@ -347,7 +348,7 @@ function doEveryThing(posts, comments) {
 
 export default function mainPosts(something, comments) {
     document.getElementsByTagName("body")[0].style.backgroundColor = "#f5f5f5";
-    document.getElementsByClassName("posts")[0].style.marginTop = headerH + "px";
+    document.getElementsByClassName("mainPosts")[0].style.marginTop = headerH + "px";
     document.getElementsByClassName("settings")[0].style.marginTop = headerH + "px";
     data = something;
     initData = something;

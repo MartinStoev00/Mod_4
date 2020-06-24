@@ -12,15 +12,9 @@ window.chartColors = {
 };
 
 let ctxgraph = document.getElementById('canvas');
-//To retrieve values from the canvas. Calls onclickData();
-ctxgraph.onclick = onclickData;
 var ctx = ctxgraph.getContext('2d');
-
-
 let ctxgraphbar = document.getElementById('changescanvas');
 var ctxbar = ctxgraphbar.getContext('2d');
-
-
 let initData;
 let from_date = document.getElementsByClassName("statistics__date")[0];
 let end_date = document.getElementsByClassName("statistics__date")[1];
@@ -81,152 +75,152 @@ let lineConfig = {
 };
 
 let barConfig = {
-		type: 'bar',
-		title: 'Changes since last measurement',
-		data: {
-			labels: ['Previous','Current'],
-			datasets: [{
-				backgroundColor: window.chartColors.blueopacity,
-	            borderColor: window.chartColors.blue,
-				label: 'default',
-				fill: true,
-				data:[]
-			}]
+	type: 'bar',
+	title: 'Changes since last measurement',
+	data: {
+		labels: ['Previous','Current'],
+		datasets: [{
+			backgroundColor: window.chartColors.blueopacity,
+			borderColor: window.chartColors.blue,
+			label: 'default',
+			fill: true,
+			data:[]
+		}]
+	},
+	options: {
+		legend: {
+			display: false
 		},
-		options: {
-			legend: {
-	            display: false
-	         },
-	        responsive: true,
-	        tooltips: {
-	            mode: 'index',
-	            intersect: false,
-	        },
-	        hover: {
-	            mode: 'nearest',
-	            intersect: true
-	        },
-	        scales: {
-	            xAxes: [{
-	            	gridLines: {
-	                    color: "rgba(0, 0, 0, 0)",
-	                },
-	                display: true,
-	                scaleLabel: {
-	                    display: true,
-	                    labelString: 'Date'
-	                }
-	            }],
-	            yAxes: [{
-	            	ticks : {
-	            		suggestedMin: 0,
-		            	suggestMax: 250
-	            	},
-	            	gridLines: {
-	                    color: "rgba(0, 0, 0, 0)",
-	                },
-	                display: true,
-	                scaleLabel: {
-	                    display: true,
-	                    labelString: 'default'
-	                }
-	            }]
-	        }
-	    }
+		responsive: true,
+		tooltips: {
+			mode: 'index',
+			intersect: false,
+		},
+		hover: {
+			mode: 'nearest',
+			intersect: true
+		},
+		scales: {
+			xAxes: [{
+				gridLines: {
+					color: "rgba(0, 0, 0, 0)",
+				},
+				display: true,
+				scaleLabel: {
+					display: true,
+					labelString: 'Date'
+				}
+			}],
+			yAxes: [{
+				ticks : {
+					suggestedMin: 0,
+					suggestMax: 250
+				},
+				gridLines: {
+					color: "rgba(0, 0, 0, 0)",
+				},
+				display: true,
+				scaleLabel: {
+					display: true,
+					labelString: 'default'
+				}
+			}]
+		}
+	}
 }
 
-export function statistics(records) {
 
+ctxgraph.onclick = onclickData;
+
+export function statistics(records) {
 	if(window.lineChart){
 		window.lineChart.destroy();
 	}
 	initData = records;
-	
 	insertIntoJSON(records);
 	window.lineChart = new Chart(ctx, lineConfig);
-	
-	window.barChart = new Chart(ctxbar, barConfig);
-
-	console.log(measurementData);
-	
-	
-	displayGraph('height');
-    
-    
+	window.barChart = new Chart(ctxbar, barConfig);	
 };
 
 function insertIntoJSON(records){
 	measurementData = {
-			weight: [],
-			height: [],
-			bloodpressure: {
-				systolic: [],
-				diastolic: []
-			}
-		};
+		weight: [],
+		height: [],
+		bloodpressure: {
+			systolic: [],
+			diastolic: []
+		}
+	};
 		
-	    records.forEach((report) => {
-	    	
-	        let reportType = report.type;
-	        let dataformatted = report.data.replace(/\\/g, ``);
-	        if(!dataformatted.includes("text")){
-	        	dataformatted = JSON.parse(dataformatted);
-	        }
-	        if (reportType == "height" || reportType == "weight") {
-	        	
-	            let obj = {
-	                value: dataformatted.value,
-	                date: report.date_added,
-	                unit: dataformatted.unit,
-	                rid: report.record_id
-	            }
-	            measurementData[reportType].push(obj);
-
-	        } else if (reportType == "blood_pressure") {
-	            let systolicobj = {
-	                value: dataformatted.systolic,
-	                date: report.date_added,
-	                unit: dataformatted.unit,
-	                rid: report.record_id
-
-	            }
-	            let diastolicobj = {
-	                value: dataformatted.diastolic,
-	                date: report.date_added,
-	                unit: dataformatted.unit,
-	                
-	            }
-	            measurementData.bloodpressure.systolic.push(systolicobj);
-	            measurementData.bloodpressure.diastolic.push(diastolicobj);
-	        }
-	    });
-
+	records.forEach((report) => {
+		let reportType = report.type;
+		let dataformatted = report.data.replace(/\\/g, ``);
+		if(!dataformatted.includes("text")){
+			dataformatted = JSON.parse(dataformatted);
+		}
+		if (reportType == "height" || reportType == "weight") {    	
+			let obj = {
+				value: dataformatted.value,
+				date: report.date_added,
+				unit: dataformatted.unit,
+				rid: report.record_id
+			}
+			measurementData[reportType].push(obj);
+		} else if (reportType == "blood_pressure") {
+			let systolicobj = {
+				value: dataformatted.systolic,
+				date: report.date_added,
+				unit: dataformatted.unit,
+				rid: report.record_id
+			}
+			let diastolicobj = {
+				value: dataformatted.diastolic,
+				date: report.date_added,
+				unit: dataformatted.unit,
+			}
+			measurementData.bloodpressure.systolic.push(systolicobj);
+			measurementData.bloodpressure.diastolic.push(diastolicobj);
+		}
+	});
 }
 
 
 function onclickData(event){
-	let reportselectedblock = document.getElementsByClassName("report__clicked")[0];
-    var content = lineChart.getElementAtEvent(event);
+    let content = lineChart.getElementAtEvent(event);
+    console.log(event)
     if(content[0]){
-    	console.log(content[0]);
-    	var chartData= content[0]['_chart'].config.data;
-    	var index = content[0]['_index'];
+    	let chartData= content[0]['_chart'].config.data;
+    	let index = content[0]['_index'];
     	let rid;
     	if((chartData.datasets[0].label).includes('Height') || (chartData.datasets[0].label).includes('Weight')){
             rid = chartData.datasets[0].rid[index];
     	} else {
             rid = chartData.datasets[0].rid[index];
     	}
-		console.log("What we have:" + rid);
 		let postsBlocks = document.getElementsByClassName("post");
 		Array.prototype.forEach.call(postsBlocks, (block) => {
 			block.style.display = "none";
 			if(block.getAttribute("data-id") == rid) {
 				block.style.display = "flex";
+			    let commentInfoButton = block.getElementsByClassName("comments__info")[0];
+				let urCommentSection = block.getElementsByClassName("comments__urs")[0];
+				commentInfoButton.style.borderBottom = ".5px solid #ddd";
+        		commentInfoButton.innerHTML = "Collapse Comments";
+            	urCommentSection.style.display = "flex";
+            	Array.prototype.forEach.call(block.getElementsByClassName("comment"), (commentSelected) => {
+            		if(commentSelected.getAttribute("class") == "comment") {
+            			commentSelected.style.display = "flex";
+            		}
+            	});
+            	
+            	Array.prototype.forEach.call(document.getElementsByClassName("comment__data"), (commentData) => {
+            		commentData.style.justifyContent = "space-between";
+            		commentData.getElementsByClassName("comment__showReplies")[0].style.display = "flex";
+            	});
+            	commentInfoButton.style.display = "none";
 			}
 		});
     }
-    
 }
 
 export function displayGraph(typebutton){
@@ -241,10 +235,31 @@ export function displayGraph(typebutton){
             barConfig.options.scales.yAxes[0].scaleLabel.labelString = typebutton.charAt(0).toUpperCase() + typebutton.slice(1) + " ( " + measurementData[typebutton.toLowerCase()][0].unit + " )";
             barConfig.data.datasets[0].label = typebutton.charAt(0).toUpperCase() + typebutton.slice(1) + " ( " + measurementData[typebutton.toLowerCase()][0].unit + " )";
             
+            let lastRid = measurementData[typebutton][measurementData[typebutton].length - 1].rid; 
+            Array.prototype.forEach.call(document.getElementsByClassName("post"), (postToBeDp) => {
+            	if(postToBeDp.getAttribute("data-id") == lastRid) {
+            		postToBeDp.style.display = "flex";
+            		let commentInfoButton = postToBeDp.getElementsByClassName("comments__info")[0];
+    				let urCommentSection = postToBeDp.getElementsByClassName("comments__urs")[0];
+    				commentInfoButton.style.borderBottom = ".5px solid #ddd";
+            		commentInfoButton.innerHTML = "Collapse Comments";
+                	urCommentSection.style.display = "flex";
+                	Array.prototype.forEach.call(postToBeDp.getElementsByClassName("comment"), (commentSelected) => {
+                		if(commentSelected.getAttribute("class") == "comment") {
+                			commentSelected.style.display = "flex";
+                		}
+                	});
+                	
+                	Array.prototype.forEach.call(document.getElementsByClassName("comment__data"), (commentData) => {
+                		commentData.style.justifyContent = "space-between";
+                		commentData.getElementsByClassName("comment__showReplies")[0].style.display = "flex";
+                	});
+                	commentInfoButton.style.display = "none";
+            	}
+            });
     	} else {
     		chart.clear();
-    		
-    		console.log("No records nibba");
+    		console.log("No records");
     	}  
     } else {
     	if(!measurementData.bloodpressure.systolic.length == 0){
@@ -255,17 +270,37 @@ export function displayGraph(typebutton){
             from_date.value = measurementData.bloodpressure.systolic[0].date.split(" ")[0];
             end_date.value = measurementData.bloodpressure.systolic[measurementData.bloodpressure.systolic.length - 1].date.split(" ")[0];
 
-         barConfig.options.scales.yAxes[0].scaleLabel.labelString = typebutton.charAt(0).toUpperCase() + typebutton.slice(1) + " ( " + measurementData.bloodpressure.systolic[0].unit + " )";
+            barConfig.options.scales.yAxes[0].scaleLabel.labelString = typebutton.charAt(0).toUpperCase() + typebutton.slice(1) + " ( " + measurementData.bloodpressure.systolic[0].unit + " )";
             barConfig.data.datasets[0].label = "Systolic" + " ( " + measurementData.bloodpressure.systolic[0].unit + " )";
             barConfig.data.datasets[1].label = "Diastolic" + " ( " + measurementData.bloodpressure.systolic[0].unit + " )";
             
-    	}else {
-    		
-    		console.log("No records nibba");
-    	}
-    	
+            let lastRid = measurementData.bloodpressure.systolic[measurementData.bloodpressure.systolic.length - 1].rid;
+            Array.prototype.forEach.call(document.getElementsByClassName("post"), (postToBeDp) => {
+            	if(postToBeDp.getAttribute("data-id") == lastRid) {
+            		postToBeDp.style.display = "flex";
+            		let commentInfoButton = postToBeDp.getElementsByClassName("comments__info")[0];
+    				let urCommentSection = postToBeDp.getElementsByClassName("comments__urs")[0];
+    				commentInfoButton.style.borderBottom = ".5px solid #ddd";
+            		commentInfoButton.innerHTML = "Collapse Comments";
+                	urCommentSection.style.display = "flex";
+                	Array.prototype.forEach.call(postToBeDp.getElementsByClassName("comment"), (commentSelected) => {
+                		if(commentSelected.getAttribute("class") == "comment") {
+                			commentSelected.style.display = "flex";
+                		}
+                	});
+                	
+                	Array.prototype.forEach.call(document.getElementsByClassName("comment__data"), (commentData) => {
+                		commentData.style.justifyContent = "space-between";
+                		commentData.getElementsByClassName("comment__showReplies")[0].style.display = "flex";
+                	});
+                	commentInfoButton.style.display = "none";
+            	}
+            });
+    	} else {
+    		console.log("No records");
+    	}   	
     }
-    
+	window.scrollTo(0, 0);
     window.lineChart.update();
     window.barChart.update();
 }
@@ -351,7 +386,7 @@ function addLineDataset(datasetvalue, ridvalue) {
 
 function addBarDataset(datasetvalue){
     
-    var secondDatasetBar = {
+    let secondDatasetBar = {
     	backgroundColor: window.chartColors.yellowopacity,
         borderColor: window.chartColors.yellow,	
 		label: 'Diastolic ( mm Hg )',
@@ -359,17 +394,16 @@ function addBarDataset(datasetvalue){
 		data:[]
 	}
     
-    console.log(datasetvalue);
-    
     for(var index = 0; index < datasetvalue.length; index++){
     	secondDatasetBar.data.push(datasetvalue[index]);
     }
-    barConfig.data.datasets.push(secondDatasetBar);
-    
-    
+    barConfig.data.datasets.push(secondDatasetBar);  
 }
 
 function dataChange() {
+	Array.prototype.forEach.call(document.getElementsByClassName("post"), (postNow) => {
+		postNow.style.display = "none";
+	});
 	let start = new Date(from_date.value);
 	let finish = new Date(end_date.value);
 	console.log(start < finish);

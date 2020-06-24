@@ -10,7 +10,6 @@ let filterBtn = document.getElementsByClassName("sidebar__control")[0];
 let peopleBtn = document.getElementsByClassName("sidebar__control")[1];
 let linkForPages = document.getElementsByClassName("sidebar__link");
 let headerH = headerBlock.getBoundingClientRect().height;
-let boxBtns = document.getElementsByClassName("box__btn");
 let fromDate = document.getElementsByClassName("date__date")[0];
 let toDate = document.getElementsByClassName("date__date")[1];
 let btnReset = document.getElementsByClassName("filters__reset")[0];
@@ -84,7 +83,9 @@ export function sidebar(items, posts, comments) {
 		    		    link.getElementsByClassName("fa-check")[0].style.display = "block";
 		    		});
 				}		 
-	    		filterBtn.click();
+	    		if(filterBtn.style.display == "none") {
+	    			filterBtn.click();
+	    		}
 			});
 		});
 	}
@@ -104,6 +105,7 @@ export function sidebar(items, posts, comments) {
     Array.prototype.forEach.call(peopleiwanttoclickon, (person) => {
     	let idiwannagoto = person.getAttribute("data-name");
     	person.addEventListener("click", () => {
+    		window.scrollTo(0,0);
     		gettingTheRaCOfPerson(idiwannagoto);
     	});
     	
@@ -153,8 +155,8 @@ export function sidebarWithPeople(input, rid){
 			comments = JSON.parse(data);
 			sidebar(receivedItems, posts, comments);
 			Array.prototype.forEach.call(document.getElementsByClassName("post"), (p) => {
-				if (p.getAttribute("data-id") != rid) {
-					p.style.display = "none";
+				if (p.getAttribute("data-id") == rid) {
+					p.click();
 				}
 			});
 		});
@@ -270,7 +272,7 @@ filterBtn.addEventListener("click", () => {
     peopleBtn.setAttribute("data-state", "deselected");
     searchBlockPeople.style.display = "none";
     people.style.display = "none";
-    settings.style.display = "block";
+    settings.style.display = "flex";
 });
 
 filterBtn.addEventListener("mouseover", () => {
@@ -291,7 +293,6 @@ peopleBtn.addEventListener("click", () => {
     searchBlockPeople.style.display = "block";
     people.style.display = "block";
     settings.style.display = "none";
-    console.log(filterBtn.getBoundingClientRect().bottom);
 });
 
 peopleBtn.addEventListener("mouseover", () => {
@@ -309,6 +310,7 @@ chartButton.addEventListener("click", () => {
 	let settingsToggle = document.getElementById("settingsToggle");
 	let sidebarNavBlock = document.getElementsByClassName("sidebar__nav")[0];
 	let chartsBlock = document.getElementsByClassName("charts")[0];
+	document.getElementsByClassName("post__goBack")[0].style.display = "none";
 	if(chartButton.getAttribute("data-set") == "off") {
 		if (settingsToggle.getAttribute("data-set") == "on") {
 			settingsToggle.click();
@@ -323,7 +325,7 @@ chartButton.addEventListener("click", () => {
 		});
 		linkForPages[1].setAttribute("data-state", "selected");
 		linkForPages[1].getElementsByTagName("i")[1].style.display = "block";
-		chartsBlock.style.display = "block";
+		chartsBlock.style.display = "flex";
 		let postsBlocks = document.getElementsByClassName("post");
 		let postErr = document.getElementsByClassName("post__err")[0];
 		postErr.style.display = "none";
@@ -344,6 +346,7 @@ chartButton.addEventListener("click", () => {
 		chartsBlock.style.display = "none";
 		btnReset.click();
 	}
+	displayGraph('height');
 });
 
 searchBarPeople.addEventListener("keyup", () => {
@@ -427,6 +430,7 @@ function filteringDates() {
 }
 
 searchRecords.addEventListener("keyup", () => {
+	window.scrollTo(0,0);
     let curr = searchRecords.value.toLowerCase();
     let postsBlocks = document.getElementsByClassName("post");
     Array.prototype.forEach.call(postsBlocks, (post) => {
@@ -437,7 +441,7 @@ searchRecords.addEventListener("keyup", () => {
         post.getElementsByClassName("post__uploader")[0].innerHTML = post.getElementsByClassName("post__uploader")[0].innerHTML.replace(`<span style="background-color:yellow;font-weight: 900;">`,"").replace(`</span>`,"");
     });
     Array.prototype.forEach.call(postsBlocks, (post) => {
-        let currTitle = post.getElementsByClassName("content")[0].innerHTML.toLowerCase() + post.getElementsByClassName("post__uploader")[0].innerHTML.toLowerCase();
+        let currTitle = post.getElementsByClassName("content")[0].textContent.toLowerCase() + post.getElementsByClassName("post__uploader")[0].innerHTML.toLowerCase();
         let reportType = post.getElementsByClassName("post__text")[0].getElementsByTagName("div")[0].className.split("-")[1];
         currTitle += reportType;
         let currDate = new Date(post.getElementsByClassName("post__date")[0].innerHTML.split(" ")[0]);
@@ -455,18 +459,28 @@ searchRecords.addEventListener("keyup", () => {
         	if(!(currTitle.includes(curr) || curr.includes(currTitle)) ) {
                 post.style.display = "none";
             } else {
-                if(post.getElementsByClassName("content")[0].innerHTML.includes(curr)) {
-                	post.getElementsByClassName("content")[0].innerHTML = post.getElementsByClassName("content")[0].innerHTML.replace(`${curr}`, `<span style="background-color:yellow;font-weight: 900;">${curr}</span>`);
-                } else if(post.getElementsByClassName("post__uploader")[0].innerHTML.toLowerCase().includes(curr)) {
-                	let original = post.getElementsByClassName("post__uploader")[0].innerHTML;
-                	let firstLetters = post.getElementsByClassName("post__uploader")[0].innerHTML.toLowerCase().split(curr)[0].length;
-                	let currLength = curr.length;
-                	let result = original.substring(0, firstLetters);
-                	result += `<span style="background-color:yellow;font-weight: 900;">`;
-                	result += original.substring(firstLetters, firstLetters + currLength);
-                	result += "</span>";
-                	result += original.substring(firstLetters + currLength, original.length + 1);
-                	post.getElementsByClassName("post__uploader")[0].innerHTML = result;
+                if(curr !== "") {
+                	if(post.getElementsByClassName("content")[0].textContent.includes(curr)) {
+                    	if(post.getElementsByClassName("content")[0].innerHTML.includes("</b></span>")) {
+                    		let first = post.getElementsByClassName("content")[0].innerHTML.split(`<span style="color: purple;"><b>`)[0];
+                    		let second = post.getElementsByClassName("content")[0].innerHTML.split(`<span style="color: purple;"><b>`)[1].replace(`</b></span>`, "");
+                    		first = first.replace(`${curr}`, `<span style="background-color:yellow;font-weight: 900;">${curr}</span>`);
+                    		second = second.replace(`${curr}`, `<span style="background-color:yellow;font-weight: 900;">${curr}</span>`);
+                    		post.getElementsByClassName("content")[0].innerHTML = first + `<span style = "color: purple;"><b>` + second + `</b></span>`;
+                    	} else {
+                    		post.getElementsByClassName("content")[0].innerHTML = post.getElementsByClassName("content")[0].innerHTML.replace(`${curr}`, `<span style="background-color:yellow;font-weight: 900;">${curr}</span>`);
+                    	}
+                    } else if(post.getElementsByClassName("post__uploader")[0].innerHTML.toLowerCase().includes(curr)) {
+                    	let original = post.getElementsByClassName("post__uploader")[0].innerHTML;
+                    	let firstLetters = post.getElementsByClassName("post__uploader")[0].innerHTML.toLowerCase().split(curr)[0].length;
+                    	let currLength = curr.length;
+                    	let result = original.substring(0, firstLetters);
+                    	result += `<span style="background-color:yellow;font-weight: 900;">`;
+                    	result += original.substring(firstLetters, firstLetters + currLength);
+                    	result += "</span>";
+                    	result += original.substring(firstLetters + currLength, original.length + 1);
+                    	post.getElementsByClassName("post__uploader")[0].innerHTML = result;
+                    }
                 }
                 post.style.display = "flex";
             }

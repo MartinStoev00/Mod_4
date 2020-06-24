@@ -1,11 +1,11 @@
 .mainPosts {
 	margin-left: calc(20vw);
 	display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: nowrap;
     justify-content: center;
     align-content: center;
-    align-items: center;
+    align-items: flex-start;
     background-color: #f3f3f3;
 	min-height: calc(100vh);
 	.charts {
@@ -79,7 +79,8 @@
 		}
 		&__goBack {
 			display:none;
-			position:absolute;
+			transition: .3s;
+			position: fixed;
 			text-decoration:underline; 
 			color: lighten($main-color, 5%);
 			font-family:'Arial';
