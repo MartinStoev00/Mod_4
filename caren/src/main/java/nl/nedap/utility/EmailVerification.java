@@ -45,10 +45,10 @@ public class EmailVerification {
 		mailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(recepient));
 		
 		//Email details details
-		mailMessage.setSubject("Caren account verification");
+		mailMessage.setSubject("Caren Account Verification");
 		
 		String emailBody = "Dear User, " +"<br><br> we would like you to verify your email using the following link : " + 
-		"<h2>" + link + "</h2>" +"<br> We are so excited to have you as a user of Caren " + "<br><br> Regards, <br>Caren Team 2";
+		"<h2>" + link + "</h2>" +"<br> We are so excited to have you as a user of Caren. " + "<br><br> Regards, <br>Caren Team 2";
 		
 		mailMessage.setContent(emailBody, "text/html");
 	}
