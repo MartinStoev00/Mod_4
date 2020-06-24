@@ -6,6 +6,12 @@
 	border-right: .5px solid #ddd;
 	background-color: #fff;
 	transition: .3s;
+	display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-content: stretch;
+    align-items: stretch;
 	&__nav {
 		border-top: .5px solid #ddd;
 		border-bottom: .5px solid #ddd;
@@ -81,7 +87,7 @@
 			color: #444;
 		}
 		&[data-state="selectedHover"] {
-			background-color: darken($main-color-transparent, 5%);
+			background-color: rgba($main-color-transparent, 0.15);
 			color: $main-color;
 		}
 		&[data-state="deselectedHover"] {
@@ -168,13 +174,16 @@
 		transition: .2s;
 		padding: 10px;	
 		background-color: #fff;
+		height: auto;
+		flex: 1 1 auto;
+		align-self: stretch;
 		width: calc(100% - 20px);
 		font-family: 'Arial';
 		display: flex;
 	    flex-direction: column;
 	    flex-wrap: nowrap;
-	    justify-content: flex-start;
-	    align-content: space-between;
+	    justify-content: space-between;
+	    align-content: stretch;
 	    align-items: center;
 	    &__search {
 	    	transition: .2s;
@@ -215,10 +224,7 @@
 	    	margin-bottom: 10px;
 	    }
 	    &__reset {
-	    	position: absolute;
-	    	bottom: 10px;
-	    	left: 10px;
-	    	width: calc(100% - 20px);
+	    	width: 100%;
 	    }
 	    &__date {
 	    	width: calc(100% - 4px);

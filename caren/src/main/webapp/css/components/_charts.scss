@@ -6,8 +6,11 @@
     justify-content: center;
     align-content: center;
     align-items: center;
+	* {
+		margin-top: 20px;
+	}
 	&__date {
-		
+		font-family: 'Arial';
 		display: flex;
 	    flex-direction: row;
 	    flex-wrap: nowrap;
@@ -15,15 +18,28 @@
 	    align-content: center;
 	    align-items: center;
 		&Block {
-			
+			display: flex;
+		    flex-direction: row;
+		    flex-wrap: nowrap;
+		    justify-content: center;
+		    align-content: center;
+		    align-items: center;
+			* {
+				margin: 10px 5px;
+			}
+			.statistics__date {
+				border: none;
+				padding: 5px;
+				border-radius: 5px;
+			}
 		}	
 	}
 	.statistics {
-		height: 350px;
+		height: 250px;
 		width: 500px;
 	}
 	.bars {
-		height: 350px;
+		height: 250px;
 		width: 500px;
 	}
 }

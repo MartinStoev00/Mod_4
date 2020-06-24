@@ -141,10 +141,7 @@ function visibilityAndReadMore(post) {
             	document.getElementsByClassName("sidebar")[0].style.opacity = "1";
         	});
     	}
-    });
-    
-
-    
+    }); 
 }
 
 function sendingDataFunctionality(post) {

@@ -83,7 +83,9 @@ export function sidebar(items, posts, comments) {
 		    		    link.getElementsByClassName("fa-check")[0].style.display = "block";
 		    		});
 				}		 
-	    		filterBtn.click();
+	    		if(filterBtn.style.display == "none") {
+	    			filterBtn.click();
+	    		}
 			});
 		});
 	}
@@ -153,8 +155,8 @@ export function sidebarWithPeople(input, rid){
 			comments = JSON.parse(data);
 			sidebar(receivedItems, posts, comments);
 			Array.prototype.forEach.call(document.getElementsByClassName("post"), (p) => {
-				if (p.getAttribute("data-id") != rid) {
-					p.style.display = "none";
+				if (p.getAttribute("data-id") == rid) {
+					p.click();
 				}
 			});
 		});
@@ -270,7 +272,7 @@ filterBtn.addEventListener("click", () => {
     peopleBtn.setAttribute("data-state", "deselected");
     searchBlockPeople.style.display = "none";
     people.style.display = "none";
-    settings.style.display = "block";
+    settings.style.display = "flex";
 });
 
 filterBtn.addEventListener("mouseover", () => {
@@ -291,7 +293,6 @@ peopleBtn.addEventListener("click", () => {
     searchBlockPeople.style.display = "block";
     people.style.display = "block";
     settings.style.display = "none";
-    console.log(filterBtn.getBoundingClientRect().bottom);
 });
 
 peopleBtn.addEventListener("mouseover", () => {
@@ -309,6 +310,7 @@ chartButton.addEventListener("click", () => {
 	let settingsToggle = document.getElementById("settingsToggle");
 	let sidebarNavBlock = document.getElementsByClassName("sidebar__nav")[0];
 	let chartsBlock = document.getElementsByClassName("charts")[0];
+	document.getElementsByClassName("post__goBack")[0].style.display = "none";
 	if(chartButton.getAttribute("data-set") == "off") {
 		if (settingsToggle.getAttribute("data-set") == "on") {
 			settingsToggle.click();
@@ -344,6 +346,7 @@ chartButton.addEventListener("click", () => {
 		chartsBlock.style.display = "none";
 		btnReset.click();
 	}
+	displayGraph('height');
 });
 
 searchBarPeople.addEventListener("keyup", () => {
