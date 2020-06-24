@@ -7,6 +7,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -19,9 +20,8 @@ import nl.nedap.utility.EmailVerification;
 @Path("resendEmail/{email}")
 public class resendVerificationPage {
 
-	@GET
-	@Produces({MediaType.TEXT_PLAIN})
-	public String Verify(@Context HttpServletRequest request, @PathParam("email") String email) throws SQLException, AddressException, MessagingException {
+	@PUT
+	public void Verify(@Context HttpServletRequest request, @PathParam("email") String email) throws SQLException, AddressException, MessagingException {
 		
 		String checkUnverifiedQuery = "SELECT a.verified FROM caren.accounts a WHERE a.email = ?";
 		ResultSet isUnverifiedSet = DatabaseManager.ReadQuery(checkUnverifiedQuery, email);
@@ -37,14 +37,9 @@ public class resendVerificationPage {
 				
 				DatabaseManager.updateQuery(insertToken, token, email);
 				EmailVerification.sendEmail(verifying);
-				
-				return "Check your email for a new verification email";
-				
 			}else {
-				return "Email is already verified";
 			}
 			
 		}
-		return "Email doesn't exist";
 	}
 }

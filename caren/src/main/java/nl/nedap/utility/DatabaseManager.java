@@ -16,12 +16,30 @@ public class DatabaseManager {
 	private static final String DBPASS = "pYMCMcw6zBx7xaxH";
 	private static final String URL = "jdbc:postgresql://" + HOST + ":5432/" + DBNAME;
 	
-	public static ResultSet ReadQuery(String q, String ... vars) {
-		
+	private static boolean inited = false;
+	
+	private static Connection conn;
+	
+	public static void init() {
 		try {
 			Class.forName("org.postgresql.Driver");
-			Connection conn = DriverManager.getConnection(URL, DBUSERNAME, DBPASS);
-			
+			conn = DriverManager.getConnection(URL, DBUSERNAME, DBPASS);
+			inited = true;
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static ResultSet ReadQuery(String q, String ... vars) {
+		if (!inited) {
+			init();
+		}
+		
+		try {
 			//Create prepared statement object
 			PreparedStatement statement = conn.prepareStatement(q);
 			
@@ -50,9 +68,6 @@ public class DatabaseManager {
 public static void updateQuery(String q, String ... vars) {
 		
 	try {
-		Class.forName("org.postgresql.Driver");
-		Connection conn = DriverManager.getConnection(URL, DBNAME, DBPASS);
-		
 		//Create prepared statement object
 		PreparedStatement statement = conn.prepareStatement(q);
 		
@@ -75,10 +90,7 @@ public static void updateQuery(String q, String ... vars) {
 
 public static void updateRegularQuery(String q) {
 	
-	try {
-		Class.forName("org.postgresql.Driver");
-		Connection conn = DriverManager.getConnection(URL, DBNAME, DBPASS);
-		
+	try {		
 		//Create prepared statement object
 		Statement statement = conn.createStatement();
 		
@@ -114,11 +126,11 @@ public static void updateRegularQuery(String q) {
 	}
 	
 	public static Boolean IsClient(int sessionId, int id) {
-		//if (sessionId == id) {return true;}
-		
-		String q = "SELECT a.aid" + "\n"
-				+ "FROM caren.accounts a, caren.care_providers p, caren.care_providers_people c" + "\n"
-				+ "WHERE c.care_provider_id = CAST(? AS int) AND c.person_id = CAST(? AS int)";
+		String q = "SELECT p.aid" + "\n"
+				+ "FROM caren.accounts a, caren.people p, caren.relationships r" + "\n"
+				+ "WHERE r.person_id = CAST(? AS int)" + "\n"
+				+ "AND r.related_person_id = CAST(? AS int)" + "\n"
+				+ "AND p.pid = r.related_person_id AND p.type = 'client'";
 		
 		ResultSet r = ReadQuery(q, ""+sessionId, ""+id);
 		try {
@@ -134,10 +146,12 @@ public static void updateRegularQuery(String q) {
 		return false;
 	}
 
-	public static boolean isBeingCareForBy(int loggedpid, int pid) {
-		String q = "SELECT a.aid" + "\n"
-				+ "FROM caren.accounts a, caren.care_providers p, caren.care_providers_people c" + "\n"
-				+ "WHERE c.care_provider_id = CAST(? AS int) AND c.person_id = CAST(? AS int)";
+	public static boolean isBeingCaredForBy(int loggedpid, int pid) {
+		String q = "SELECT p.aid" + "\n"
+				+ "FROM caren.accounts a, caren.people p, caren.relationships r" + "\n"
+				+ "WHERE r.person_id = CAST(? AS int)" + "\n"
+				+ "AND r.related_person_id = CAST(? AS int)" + "\n"
+				+ "AND p.pid = r.related_person_id AND p.type = 'client'";
 		
 		ResultSet r = ReadQuery(q, ""+pid, ""+loggedpid);
 		try {
@@ -150,6 +164,16 @@ public static void updateRegularQuery(String q) {
 		}
 		
 		
+		return false;
+	}
+
+	public static boolean recordBelongsToLoggedInUser(int loggedpid, int rid) {
+		String q = "SELECT r.id" + "\n"
+				+ "FROM caren.reports r" + "\n"
+				+ "WHERE r.person_id = CAST(? AS int)" + "\n"
+				+ "AND r.id = CAST(? AS int);";
+		
+		ResultSet r = ReadQuery(q, ""+loggedpid, ""+rid);
 		return false;
 	}
 }

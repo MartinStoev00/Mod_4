@@ -10,10 +10,6 @@ let filterBtn = document.getElementsByClassName("sidebar__control")[0];
 let peopleBtn = document.getElementsByClassName("sidebar__control")[1];
 let linkForPages = document.getElementsByClassName("sidebar__link");
 let headerH = headerBlock.getBoundingClientRect().height;
-let filterBtns = document.getElementsByClassName("filters__filter")[0];
-let filterBox = document.getElementsByClassName("filters__box")[0];
-let iconCurr = filterBtns.getElementsByClassName("fas")[0]; 
-let boxBtns = document.getElementsByClassName("box__btn");
 let fromDate = document.getElementsByClassName("date__date")[0];
 let toDate = document.getElementsByClassName("date__date")[1];
 let btnReset = document.getElementsByClassName("filters__reset")[0];
@@ -21,9 +17,6 @@ let searchRecords = document.getElementsByClassName("filters__search")[0];
 let searchBlockPeople = document.getElementsByClassName("people__search")[0];
 let searchBarPeople = document.getElementsByClassName("people__searchBar")[0];
 let chartButton = document.getElementsByClassName("header__chart")[0];
-let caret = `<i class="fas fa-caret-down"></i>`;
-let chrono = "Oldest to Newest";
-let revChrono = "Newest to Oldest";
 let stylingRoles = ` 
     display: flex;
     flex-direction: row;
@@ -35,17 +28,13 @@ let stylingRoles = `
     font-size: 12px;
     color: #999;
 `
-
+let receivedItems;
 sidebarBlock.style.top = headerH + "px";
 let dp = false;
-let filterBoxTop = filterBtns.getBoundingClientRect().top + filterBtns.getBoundingClientRect().height - 1;
-filterBox.style.left = filterBtns.getBoundingClientRect().left + "px";
-filterBox.style.width = (filterBtns.getBoundingClientRect().width - 2) + "px";
-filterBox.style.top =  filterBoxTop + "px";
-people.style.height = "calc(100vh - " + (filterBtn.getBoundingClientRect().top + filterBtn.getBoundingClientRect().height) + "px)";
+people.style.height = "calc(100vh - " + (filterBtn.getBoundingClientRect().top + filterBtn.getBoundingClientRect().height +	 68) + "px)";
 people.style.display = "none";
 let initData, data, commetsData;
-let startDate, endDate, order = chrono;
+let startDate, endDate;
 let oldestToNewestFun = (a, b) => {
     let one = new Date(a.date_added);
     let two = new Date(b.date_added)
@@ -53,62 +42,55 @@ let oldestToNewestFun = (a, b) => {
     if(one > two) { return 1; }
     return 0;
 }
-let newestToOldestFun = (a, b) => {
-    let one = new Date(a.date_added);
-    let two = new Date(b.date_added)
-    if(one > two) { return -1; }
-    if(one < two) { return 1; }
-    return 0;
-}
 
-export default function sidebar(items, posts, comments) {
-	function gettingTheRaCOfPerson(input) {
+
+export function sidebar(items, posts, comments) {
+	 function gettingTheRaCOfPerson(input) {
 		let all = document.getElementsByClassName("all")[0];
 		let loaderBody = document.getElementsByClassName("loaderBody")[0];
 		all.style.opacity = "0";
 		all.style.pointerEvents = "none";
 		loaderBody.style.display = "flex";
-		let posts, comments;
+		let postsA, commentsA;
 		getrecords("http://localhost:8080/caren/rest/getrecords/"+input).then((data) => {
-			posts = JSON.parse(data);
+			postsA = JSON.parse(data);
 			getrecords("http://localhost:8080/caren/rest/getcomments/"+input).then((data) => {
-        		loaderBody.style.display="none";
-        		all.style.opacity = "1";
-        		all.style.pointerEvents = "auto";
+	    		loaderBody.style.display="none";
+	    		all.style.opacity = "1";
+	    		all.style.pointerEvents = "auto";
 				let previousSet = "off";
 				let statisticsBtn = document.getElementsByClassName("header__chart")[0];
 				if(statisticsBtn.getAttribute("data-set") == "on") {
 					statisticsBtn.click();
 					previousSet = "on";
 				}
-				comments = JSON.parse(data);
-				mainPosts(posts.sort(oldestToNewestFun), comments);
-				statistics(posts.sort(oldestToNewestFun));
+				commentsA = JSON.parse(data);
+				mainPosts(postsA.sort(oldestToNewestFun), commentsA);
+				statistics(postsA.sort(oldestToNewestFun));
 				if(previousSet == "on") {
 					statisticsBtn.click();
 				}
-		        initData = posts;
+		        initData = postsA;
 	    		data = initData;
-	    		order = chrono;startDate = ordererdDates.shift();
+	    		startDate = ordererdDates.shift();
 	    		fromDate.value = startDate;
 	    		endDate = ordererdDates.pop();
 	    		toDate.value = endDate;
-	    		boxBtns[0].innerHTML = revChrono;
 	    		searchRecords.value = "";
-	    		filterBtns.innerHTML = order + " " + caret;
 	    		if(statisticsBtn.getAttribute("data-set") !== "on") {
 		    		Array.prototype.forEach.call(linkForPages, (link) => {
 		    		    link.setAttribute("data-state", "selected");
 		    		    link.getElementsByClassName("fa-check")[0].style.display = "block";
 		    		});
-				}		        
+				}		 
+	    		filterBtn.click();
 			});
 		});
 	}
-
+	receivedItems = items;
     fromDate.addEventListener("change", filteringDates);
     toDate.addEventListener("change", filteringDates);
-	people.innerHTML = `<div class="people__err">No Results Found</div>`
+	people.innerHTML = `<div class="people__err">No Results Found</div>`;
     items.forEach((item) => {
         let {name, pid, aid, description} = item;
         people.innerHTML += 
@@ -121,25 +103,63 @@ export default function sidebar(items, posts, comments) {
     Array.prototype.forEach.call(peopleiwanttoclickon, (person) => {
     	let idiwannagoto = person.getAttribute("data-name");
     	person.addEventListener("click", () => {
+    		window.scrollTo(0,0);
     		gettingTheRaCOfPerson(idiwannagoto);
     	});
     	
     })
-    let ordererdDates = posts.map((post) => {
-        let {date_added} = post;
-        return date_added.split(" ")[0];
-    }).sort(oldestToNewestFun);
+    let ordererdDates = posts.map((post) => post.date_added.split(" ")[0]).sort((a, b) => {
+    		let one = new Date(a);
+    		let two = new Date(b)
+    		if(one < two) { return -1; }
+    		if(one > two) { return 1; }
+    		return 0;
+    	}
+    );
     commetsData = comments;
     initData = posts;
     data = posts;
     startDate = ordererdDates.shift();
-    fromDate.value = startDate;
+    if(startDate){
+        fromDate.value = startDate;
+    }
     endDate = ordererdDates.pop();
-    toDate.value = endDate;
+    
+    if(endDate){
+    	toDate.value = endDate;
+    }
     mainWithComments(posts.sort(oldestToNewestFun));
-    sortingBlocks(posts);
-    filteringSearch();
 }
+
+export function sidebarWithPeople(input, rid){
+	let all = document.getElementsByClassName("all")[0];
+	let loaderBody = document.getElementsByClassName("loaderBody")[0];
+	all.style.opacity = "0";
+	all.style.pointerEvents = "none";
+	loaderBody.style.display = "flex";
+	
+	
+	let posts, comments;
+	getrecords("http://localhost:8080/caren/rest/getrecords/"+input).then((data) => {
+		posts = JSON.parse(data);
+		getrecords("http://localhost:8080/caren/rest/getcomments/"+input).then((data) => {
+			loaderBody.style.display="none";
+    		all.style.opacity = "1";
+    		all.style.pointerEvents = "auto";
+			let statisticsBtn = document.getElementsByClassName("header__chart")[0];
+			if(statisticsBtn.getAttribute("data-set") == "on") {
+				statisticsBtn.click();
+			}
+			comments = JSON.parse(data);
+			sidebar(receivedItems, posts, comments);
+			Array.prototype.forEach.call(document.getElementsByClassName("post"), (p) => {
+				if (p.getAttribute("data-id") != rid) {
+					p.style.display = "none";
+				}
+			});
+		});
+	});
+} 
 
 function mainWithComments(inputData) {
     mainPosts(inputData, commetsData)
@@ -186,6 +206,19 @@ Array.prototype.forEach.call(linkForPages, (link, index) => {
                     }
                 });
             }
+            Array.prototype.forEach.call(postBlockMain, (blockPost) => {
+            	let currDate = new Date(blockPost.getElementsByClassName("post__date")[0].innerHTML.split(" ")[0]);
+                let fromDateObj = new Date(fromDate.value);
+                let toDateObj = new Date(toDate.value);
+                let currSearch = document.getElementsByClassName("filters__search")[0].value.toLowerCase();
+                let currPerson = blockPost.getElementsByClassName("post__uploader")[0].innerHTML.toLowerCase();
+                let currText = blockPost.getElementsByClassName("content")[0].innerHTML.toLowerCase();
+                let bool1 = currSearch.includes(currPerson) || currPerson.includes(currSearch);
+                let bool2 = currSearch.includes(currText) || currText.includes(currSearch);
+            	if(!(currDate >= fromDateObj && currDate <= toDateObj && (bool1 || bool2))) {
+            		blockPost.style.display = "none";
+            	}
+            });
             let noone = true;
             Array.prototype.forEach.call(postBlockMain, (blockPost) => {
                 if(blockPost.style.display !== "none") {
@@ -281,7 +314,7 @@ chartButton.addEventListener("click", () => {
 			settingsToggle.click();
 		}
 		chartButton.setAttribute("data-set", "on");
-		chartButton.style.color = "red";
+		chartButton.style.color = "purple";
 		peopleBtn.click();
 		sidebarNavBlock.style.display = "none";
 		Array.prototype.forEach.call(linkForPages, (currentPage) => {
@@ -290,7 +323,7 @@ chartButton.addEventListener("click", () => {
 		});
 		linkForPages[1].setAttribute("data-state", "selected");
 		linkForPages[1].getElementsByTagName("i")[1].style.display = "block";
-		chartsBlock.style.display = "block";
+		chartsBlock.style.display = "flex";
 		let postsBlocks = document.getElementsByClassName("post");
 		let postErr = document.getElementsByClassName("post__err")[0];
 		postErr.style.display = "none";
@@ -329,7 +362,7 @@ searchBarPeople.addEventListener("keyup", () => {
     let someInThere = false;
     let peopleErr = document.getElementsByClassName("people__err")[0];
     Array.prototype.forEach.call(document.getElementsByClassName("people__container"), (person) => {
-        if(person.style.display == "flex") {
+        if(person.style.display == "flex") {	
             someInThere = true;
         }
     });
@@ -362,8 +395,26 @@ function filteringDates() {
         return postDate > from && postDate < to;
     });
     mainWithComments(data);
-    let people = 0;
     let postBlockMain = document.getElementsByClassName("post");
+    Array.prototype.forEach.call(postBlockMain, (blockPost) => {
+    	let isType = true;
+        Array.prototype.forEach.call(linkForPages, (linkForAPage) => {
+        	if(linkForAPage.getAttribute("data-link") == blockPost.getAttribute("data-link")) {
+        		if(linkForAPage.getAttribute("data-state") !== "selected") {
+            		isType =  false;
+        		}
+        	}
+        });
+        let currSearch = document.getElementsByClassName("filters__search")[0].value.toLowerCase();
+        let currPerson = blockPost.getElementsByClassName("post__uploader")[0].innerHTML.toLowerCase();
+        let currText = blockPost.getElementsByClassName("content")[0].innerHTML.toLowerCase();
+        let bool1 = currSearch.includes(currPerson) || currPerson.includes(currSearch);
+        let bool2 = currSearch.includes(currText) || currText.includes(currSearch);
+    	if(!(isType && (bool1 || bool2))) {
+    		blockPost.style.display = "none";
+    	}
+    });
+    let people = 0;
     Array.prototype.forEach.call(postBlockMain, (blockPost) => {
         people++;
     });
@@ -375,95 +426,76 @@ function filteringDates() {
     }
 }
 
-function filteringSearch() {
-    let errBlock = document.getElementsByClassName("post__err")[0];
-    searchRecords.addEventListener("keyup", () => {
-        let present = 0;
-        let curr = searchRecords.value.toLowerCase();
-        let postsBlocks = document.getElementsByClassName("post");
-        Array.prototype.forEach.call(postsBlocks, (post) => {
-            post.getElementsByClassName("post__text")[0].innerHTML = post.getElementsByClassName("post__text")[0].innerHTML.replace(`<span style="background-color:yellow;font-weight: 900;">`,"").replace(`</span>`,"");
-            post.getElementsByClassName("post__uploader")[0].innerHTML = post.getElementsByClassName("post__uploader")[0].innerHTML.replace(`<span style="background-color:yellow;font-weight: 900;">`,"").replace(`</span>`,"");
+searchRecords.addEventListener("keyup", () => {
+	window.scrollTo(0,0);
+    let curr = searchRecords.value.toLowerCase();
+    let postsBlocks = document.getElementsByClassName("post");
+    Array.prototype.forEach.call(postsBlocks, (post) => {
+    	if(post.getElementsByClassName("content")[0].innerHTML.includes(`<span style="background-color:yellow;font-weight: 900;">`,"")) {
+    		let oldText = post.getElementsByClassName("content")[0].innerHTML.split(`<span style="background-color:yellow;font-weight: 900;">`)[1].replace(`</span>`,"");
+            post.getElementsByClassName("content")[0].innerHTML = post.getElementsByClassName("content")[0].innerHTML.split(`<span style="background-color:yellow;font-weight: 900;">`)[0] + oldText;
+    	}
+        post.getElementsByClassName("post__uploader")[0].innerHTML = post.getElementsByClassName("post__uploader")[0].innerHTML.replace(`<span style="background-color:yellow;font-weight: 900;">`,"").replace(`</span>`,"");
+    });
+    Array.prototype.forEach.call(postsBlocks, (post) => {
+        let currTitle = post.getElementsByClassName("content")[0].textContent.toLowerCase() + post.getElementsByClassName("post__uploader")[0].innerHTML.toLowerCase();
+        let reportType = post.getElementsByClassName("post__text")[0].getElementsByTagName("div")[0].className.split("-")[1];
+        currTitle += reportType;
+        let currDate = new Date(post.getElementsByClassName("post__date")[0].innerHTML.split(" ")[0]);
+        let fromDateObj = new Date(fromDate.value);
+        let toDateObj = new Date(toDate.value);
+        let isType = true;
+        Array.prototype.forEach.call(linkForPages, (linkForAPage) => {
+        	if(linkForAPage.getAttribute("data-link") == post.getAttribute("data-link")) {
+        		if(linkForAPage.getAttribute("data-state") !== "selected") {
+            		isType =  false;
+        		}
+        	}
         });
-        Array.prototype.forEach.call(postsBlocks, (post) => {
-            let currTitle = post.getElementsByClassName("content")[0].innerHTML.toLowerCase() + post.getElementsByClassName("post__uploader")[0].innerHTML.toLowerCase();
-            let reportType = post.getElementsByClassName("post__text")[0].getElementsByTagName("div")[0].className.split("-")[1];
-            currTitle += reportType;
-            if(!(currTitle.includes(curr) || curr.includes(currTitle))) {
+        if(currDate >=  fromDateObj && currDate <= toDateObj && isType) {
+        	if(!(currTitle.includes(curr) || curr.includes(currTitle)) ) {
                 post.style.display = "none";
             } else {
-                if(post.getElementsByClassName("content")[0].innerHTML.includes(curr)) {
-                	post.getElementsByClassName("content")[0].innerHTML = post.getElementsByClassName("content")[0].innerHTML.replace(`${curr}`, `<span style="background-color:yellow;font-weight: 900;">${curr}</span>`);
-                } else if(post.getElementsByClassName("post__uploader")[0].innerHTML.toLowerCase().includes(curr)) {
-                	let original = post.getElementsByClassName("post__uploader")[0].innerHTML;
-                	let firstLetters = post.getElementsByClassName("post__uploader")[0].innerHTML.toLowerCase().split(curr)[0].length;
-                	let currLength = curr.length;
-                	let result = original.substring(0, firstLetters);
-                	result += `<span style="background-color:yellow;font-weight: 900;">`;
-                	result += original.substring(firstLetters, firstLetters + currLength);
-                	result += "</span>";
-                	result += original.substring(firstLetters + currLength, original.length + 1);
-                	post.getElementsByClassName("post__uploader")[0].innerHTML = result;
+                if(curr !== "") {
+                	if(post.getElementsByClassName("content")[0].textContent.includes(curr)) {
+                    	if(post.getElementsByClassName("content")[0].innerHTML.includes("</b></span>")) {
+                    		let first = post.getElementsByClassName("content")[0].innerHTML.split(`<span style="color: purple;"><b>`)[0];
+                    		let second = post.getElementsByClassName("content")[0].innerHTML.split(`<span style="color: purple;"><b>`)[1].replace(`</b></span>`, "");
+                    		first = first.replace(`${curr}`, `<span style="background-color:yellow;font-weight: 900;">${curr}</span>`);
+                    		second = second.replace(`${curr}`, `<span style="background-color:yellow;font-weight: 900;">${curr}</span>`);
+                    		post.getElementsByClassName("content")[0].innerHTML = first + `<span style = "color: purple;"><b>` + second + `</b></span>`;
+                    	} else {
+                    		post.getElementsByClassName("content")[0].innerHTML = post.getElementsByClassName("content")[0].innerHTML.replace(`${curr}`, `<span style="background-color:yellow;font-weight: 900;">${curr}</span>`);
+                    	}
+                    } else if(post.getElementsByClassName("post__uploader")[0].innerHTML.toLowerCase().includes(curr)) {
+                    	let original = post.getElementsByClassName("post__uploader")[0].innerHTML;
+                    	let firstLetters = post.getElementsByClassName("post__uploader")[0].innerHTML.toLowerCase().split(curr)[0].length;
+                    	let currLength = curr.length;
+                    	let result = original.substring(0, firstLetters);
+                    	result += `<span style="background-color:yellow;font-weight: 900;">`;
+                    	result += original.substring(firstLetters, firstLetters + currLength);
+                    	result += "</span>";
+                    	result += original.substring(firstLetters + currLength, original.length + 1);
+                    	post.getElementsByClassName("post__uploader")[0].innerHTML = result;
+                    }
                 }
                 post.style.display = "flex";
-                present++;
             }
-        });
-        if(present == 0) {
-            errBlock.style.display = "block";
         } else {
-            errBlock.style.display = "none";
+        	post.style.display = "none";
         }
     });
-}
-
-function sortingBlocks(posts) {
-    function on() {
-        iconCurr.className = "fas fa-caret-up";
-        filterBtns.style.borderRadius = "5px 5px 0px 0px";
-        dp = true;
-        filterBtns.style.border = ".5px #ddd solid";
-        filterBtns.style.borderBottom = ".5px #f5f5f5 solid";
-        filterBox.style.display = "block";
-    }
-    function off() {
-        iconCurr.className = "fas fa-caret-down";
-        filterBtns.style.borderRadius = "5px";
-        dp = false;
-        filterBtns.style.border = ".5px #fff solid";
-        filterBox.style.display = "none";
-    }
-    filterBtns.addEventListener("click", () => {
-        if(!dp) {
-            on();
-        } else {
-            off();
-        }
+    let atLeastOneDp = false;
+    Array.prototype.forEach.call(postsBlocks, (postToBeFiltered) => {
+    	if(postToBeFiltered.style.display == "flex") {
+    		atLeastOneDp = true;
+    	}
     });
-    filterBtns.addEventListener("blur", () => {
-        setTimeout(() => {
-            if(document.activeElement.className !=="box__date") {
-                off();
-            }
-        },150);
-    });    
-}
-
-boxBtns[0].addEventListener("click", () => {
-    if(boxBtns[0].innerHTML.includes(chrono)) {
-        order = chrono;
-        boxBtns[0].innerHTML = revChrono;
-        filterBtns.innerHTML = order + " " + caret;
-        let newArr = data.sort(oldestToNewestFun);
-        data = newArr;
-        mainWithComments(data);
+    let errBlock = document.getElementsByClassName("post__err")[0];
+    if(atLeastOneDp) {
+        errBlock.style.display = "none";
     } else {
-        order = revChrono;
-        boxBtns[0].innerHTML = chrono;
-        filterBtns.innerHTML = order + " " + caret;
-        let newArr = data.sort(newestToOldestFun);
-        data = newArr;
-        mainWithComments(data);
+        errBlock.style.display = "block";
     }
 });
 
@@ -473,15 +505,12 @@ btnReset.addEventListener("click", () => {
         return date_added.split(" ")[0];
     }).sort(oldestToNewestFun);
     data = initData;
-    order = chrono;
 
     startDate = ordererdDates.shift();
     fromDate.value = startDate;
     endDate = ordererdDates.pop();
     toDate.value = endDate;
-    boxBtns[0].innerHTML = revChrono;
     searchRecords.value = "";
-    filterBtns.innerHTML = order + " " + caret;
     Array.prototype.forEach.call(linkForPages, (link) => {
         link.setAttribute("data-state", "selected");
         link.getElementsByClassName("fa-check")[0].style.display = "block";

@@ -1,5 +1,11 @@
 @charset 'UTF-8';
 
+* {
+	margin: 0;
+	padding: 0;
+	outline: none;
+}
+
 @import
   'abstracts/variables',
   'abstracts/mixins',
@@ -9,21 +15,17 @@
  'vendors/scrollbar';
 
 @import
-  'base/base',
-  'base/fonts',
-  'base/typography',
-  'base/animation';
-
-@import
   'components/header',
   'components/notifications',
   'components/sidebar',
-  'components/mainPosts';
+  'components/mainPosts',
+  'components/charts';
 
 @import 
   'pages/login',
   'pages/signup',
   'pages/welcome';
+
 .all {
 	pointer-events: none;
 	opacity: 0;

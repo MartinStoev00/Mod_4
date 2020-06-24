@@ -1,39 +1,76 @@
 package nl.nedap.core;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Scanner;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import nl.nedap.utility.DatabaseManager;
+import nl.nedap.utility.ForeignCharactersChecker;
 
+
+@MultipartConfig
 public class ChangeProfileSettings extends HttpServlet {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String first_name_input = request.getParameter("first_name");
-		String last_name_input = request.getParameter("last_name");
-		String email_input = request.getParameter("email");
-		String password_input = request.getParameter("password");
-		String old_password_input = request.getParameter("old_password");
-		String dark_mode_input = request.getParameter("dark_mode");
-		String rpl_input = request.getParameter("rpl");
+	private String getValueOfPart(Part p) {
+		if (p == null) {
+			return "";
+		}
 		
-		if (request.getSession().getAttribute("aid") == null) {
+		String s = "";
+		try (Scanner scanner = new Scanner(p.getInputStream())) {
+		    s = scanner.nextLine(); // read from the part
+		} catch (Exception e) {
+			return s;
+		} 
+		return s;
+	}
+	
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		int loggedaid, loggedpid;
+		try {
+			loggedaid = (int)request.getSession().getAttribute("aid");
+			loggedpid = (int)request.getSession().getAttribute("pid");
+		} catch(Exception e) {
 			return;
 		}
-		int loggedaid = (int)request.getSession().getAttribute("aid");
+		
+		System.out.println("PAM!");
+		String first_name_input = getValueOfPart(request.getPart("first_name"));
+		String last_name_input = getValueOfPart(request.getPart("last_name"));
+		String email_input = getValueOfPart(request.getPart("email"));
+		String password_input = getValueOfPart(request.getPart("password"));
+		String old_password_input = getValueOfPart(request.getPart("old_password"));
+		
+		Part profile_picture_input = request.getPart("profile_picture");
+		
+		String dark_mode_input = getValueOfPart(request.getPart("dark_mode"));
+		String rpl_input = getValueOfPart(request.getPart("rpl"));
+
+		//Sanitization
+		if (ForeignCharactersChecker.basicHasForeignCharacters(first_name_input) || ForeignCharactersChecker.basicHasForeignCharacters(last_name_input)
+				|| ForeignCharactersChecker.emailHasForeignCharacters(email_input) || ForeignCharactersChecker.basicHasForeignCharacters(password_input)
+				|| ForeignCharactersChecker.basicHasForeignCharacters(old_password_input) || ForeignCharactersChecker.emailHasForeignCharacters(dark_mode_input)
+				|| ForeignCharactersChecker.basicHasForeignCharacters(rpl_input))
+		{
+			return;
+		}
 		
 		String passwordQ = "SELECT a.password" + "\n"
 		+ "FROM caren.people p, caren.accounts a" + "\n"
@@ -105,7 +142,7 @@ public class ChangeProfileSettings extends HttpServlet {
 				return;
 			}
 		}
-
+		
 		//dark_mode & rpl
 		if (old_password_input.equals(pass)) {
 			int dark_mode_value = 0;
@@ -128,7 +165,21 @@ public class ChangeProfileSettings extends HttpServlet {
 			DatabaseManager.updateQuery(q2, rpl_input, ""+loggedaid);
 		}
 		
+		
+		/*
+		ServletContext sc = getServletContext();
+		System.out.println(sc.getRealPath("/1.jpg"));
+		Path old = Paths.get(sc.getRealPath("") + "/Pictures/profile_pics");
+		Path file = Paths.get(old+"/"+loggedpid+".jpg");
+		System.out.println("PAM!");
+		try (InputStream input = profile_picture_input.getInputStream()) {
+			Files.copy(input, file, StandardCopyOption.REPLACE_EXISTING);
+		}
+		*/
+		
+		
 		response.sendRedirect("http://localhost:8080/caren/settings/success.html");
+		
 	}
 	
 }

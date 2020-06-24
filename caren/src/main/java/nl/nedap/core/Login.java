@@ -42,11 +42,13 @@ public class Login extends HttpServlet {
 		
 		try {
 			if (ForeignCharactersChecker.basicHasForeignCharacters(password)) {//sanitisation for password field
-				out.println(docType + "<HTML> <body>Password input fields can only contain the following characters: a->z, A->Z, 0->9 </body> </HTML>");
+				String error = "Password input fields can only contain the following characters: a->z, A->Z, 0->9.";
+				response.sendRedirect("http://localhost:8080/caren/login/error.html?error=" + error);
 				return;
 			}
 			if (ForeignCharactersChecker.emailHasForeignCharacters(email)) {//sanitisation for email field
-				out.println(docType + "<HTML> <body>Email input fields can only contain the following characters: a->z, A->Z, 0->9, '@', '.', '-', '_' </body> </HTML>");
+				String error = "Email input fields can only contain the following characters: a->z, A->Z, 0->9, '@', '.', '-', '_'";
+				response.sendRedirect("http://localhost:8080/caren/login/error.html?error=" + error);
 				return;
 			}
 			//TODO check if account already exists
@@ -75,14 +77,13 @@ public class Login extends HttpServlet {
 				//if account is not verified
 				if (verified != 1) {
 					String resendVerificationLink = "http://localhost:8080/caren/rest/resendEmail/" + email;
-					out.println(docType + "<HTML> <body>Please check your email to verify account <a href ='" + resendVerificationLink + "'> or click here"
-							+ " to resend verification link </a> </body> </HTML>");
+					response.sendRedirect("http://localhost:8080/caren/login/nverification.html?resend="+resendVerificationLink);
 					return;
 				}
 				
 				
 				//if password matches and account is verified
-				if (pass.equals(password) && verified == 1) {
+				if (pass.equals(password)) {
 					//Make session
 					HttpSession session = request.getSession();
 					session.setAttribute("aid", aid);
@@ -101,8 +102,12 @@ public class Login extends HttpServlet {
 					
 					System.out.println("Login successful: " + email);
 				} else {
-					response.sendRedirect("http://localhost:8080/caren/login/");
+					//No accounts with given credentials.
+					response.sendRedirect("http://localhost:8080/caren/login/failure.html");
 				}
+			} else {
+				//No accounts with given credentials.
+				response.sendRedirect("http://localhost:8080/caren/login/failure.html");
 			}
 		
 		}catch(Exception e) {

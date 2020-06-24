@@ -1,0 +1,29 @@
+.charts {
+	flex: 1 1 auto;
+	display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+	&__date {
+		
+		display: flex;
+	    flex-direction: row;
+	    flex-wrap: nowrap;
+	    justify-content: center;
+	    align-content: center;
+	    align-items: center;
+		&Block {
+			
+		}	
+	}
+	.statistics {
+		height: 350px;
+		width: 500px;
+	}
+	.bars {
+		height: 350px;
+		width: 500px;
+	}
+}

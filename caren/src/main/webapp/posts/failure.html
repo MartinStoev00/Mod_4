@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <title>
-        Success
+        Failure
     </title>
 
     <body>
@@ -19,7 +19,7 @@
         let txt = document.getElementById("timer");
         let int;
 
-        let timer = 5;
+        let timer = 3;
         window.onload = function(){
             int = window.setInterval(countDown, 1000);
         }
@@ -27,7 +27,7 @@
         function countDown(){
             if (timer <= 0) {
                 window.clearInterval(int);
-                window.location.href = "http://localhost:8080/caren/settings/";
+                window.location.href = "http://localhost:8080/caren/posts/";
             } else {
                 timer = timer - 1;
                 txt.innerHTML = "Redirecting in " + timer + " seconds."

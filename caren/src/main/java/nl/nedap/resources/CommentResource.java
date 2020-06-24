@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 
 import model.Comment;
 import nl.nedap.utility.DatabaseManager;
+import nl.nedap.utility.ForeignCharactersChecker;
 
 @Path("comment/{id}")
 public class CommentResource {
@@ -26,9 +27,21 @@ public class CommentResource {
 			return;
 		}
 		
-		int pid = (int)request.getSession().getAttribute("pid");
+		int pid;
+		try {
+			pid = (int)request.getSession().getAttribute("pid");
+		} catch(Exception e) {
+			return;
+		}
 		
 		String q = "SELECT caren.makecomment(?, ?, ?, ?, ?, ?)";
+		
+		if (ForeignCharactersChecker.basicHasForeignCharacters(""+comment.getRid()) || ForeignCharactersChecker.basicHasForeignCharacters(""+pid)
+				|| ForeignCharactersChecker.basicHasForeignCharacters(comment.getVisibility()) || ForeignCharactersChecker.basicHasForeignCharacters(comment.getText())
+				|| ForeignCharactersChecker.basicHasForeignCharacters(comment.getDate_added()) || ForeignCharactersChecker.basicHasForeignCharacters(""+comment.getParentid()))
+		{
+			return;
+		}
 		
 		DatabaseManager.updateQuery(q, ""+comment.getRid(), ""+pid, comment.getVisibility(), comment.getText(), comment.getDate_added(), ""+comment.getParentid());
 	}

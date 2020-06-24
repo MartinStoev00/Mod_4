@@ -6,12 +6,11 @@ let postsMain = mainPostsBlocks.getElementsByClassName("posts")[0];
 let headerBlock = document.getElementsByClassName("header")[0];
 let headerH = headerBlock.getBoundingClientRect().height;
 let data, initData;
-let charLimit = 400;
-let readMore = `<span class="ReadMore">...<span  style="color: rgb(66, 133, 244);cursor:pointer;"> Read More</span></span>`;
+let charLimit = 300;
+let readMore = `<span class="ReadMore" style="color: rgb(66, 133, 244);"> Read More</span>`;
 
 function visibilityAndReadMore(post) {
     let dp = false;
-    let readMoreBlock = post.getElementsByClassName("ReadMore");
     let postTextBlock = post.getElementsByClassName("post__text"); 
     let visibility = post.getElementsByClassName("comments__urs-click")[0];
     let visOptions = post.getElementsByClassName("visibility__options")[0];
@@ -27,29 +26,6 @@ function visibilityAndReadMore(post) {
         visibility.style.borderRadius = "0 30px 30px 0";
         visibility.style.borderBottom = ".5px solid #ddd";
         dp = false;
-    }
-    if(postTextBlock.length > 0 && postTextBlock[0].innerHTML.length > 400) {
-        let postText = post.getElementsByClassName("post__text")[0];
-        let text = postText.innerHTML;
-        let firstHalf = text.substring(0, charLimit);
-        let secondHalf = `<span class="more" style="display:none;">${text.substring(charLimit, text.length)}</span>`;
-        postText.innerHTML = firstHalf + secondHalf + readMore;
-    }
-    if(readMoreBlock.length > 0) {
-        let dpied = false;
-        let click = readMoreBlock[0];
-        let more = post.getElementsByClassName("more")[0];
-        click.addEventListener("click",() => {
-            if(!dpied) {
-                more.style.display = "inline";
-                dpied = true;
-                click.innerHTML = `<span style="color: rgb(66, 133, 244);cursor:pointer;"> Read Less</span>`;
-            } else {
-                click.innerHTML = `...<span style="color: rgb(66, 133, 244);cursor:pointer;"> Read More</span>`;
-                more.style.display = "none";
-                dpied = false;
-            }
-        });
     }
     visOptions.style.top = (visibility.offsetTop + visibility.getBoundingClientRect().height - .5) + "px";
     visOptions.style.left = (visibility.getBoundingClientRect().left) + "px"; 
@@ -94,44 +70,81 @@ function visibilityAndReadMore(post) {
         }
     });
     let commentInfoButton = post.getElementsByClassName("comments__info")[0];
+	let urCommentSection = post.getElementsByClassName("comments__urs")[0];
     let originalText = commentInfoButton.innerHTML;
-    commentInfoButton.addEventListener("click", () => {
-    	let urCommentSection = post.getElementsByClassName("comments__urs")[0];
-    	if(commentInfoButton.innerHTML != "Collapse Comments") {
-    		commentInfoButton.style.borderBottom = ".5px solid #ddd";
-    		commentInfoButton.innerHTML = "Collapse Comments";
-        	urCommentSection.style.display = "flex";
-        	Array.prototype.forEach.call(document.getElementsByClassName("post"), (postGiven) => {
-        		if(postGiven.getBoundingClientRect().top == post.getBoundingClientRect().top) {
-        			postGiven.style.alignSelf = "flex-start";
+
+    if(postTextBlock[0].innerHTML.length > charLimit) {
+        let text = postTextBlock[0].getElementsByClassName("content")[0].innerHTML;
+        let firstHalf = text.substring(0, charLimit);
+        let secondHalf = `<span class="more" style="display:none;">${text.substring(charLimit, text.length)}</span>`;
+        postTextBlock[0].getElementsByClassName("content")[0].innerHTML = firstHalf + readMore + secondHalf;
+    }
+    
+    post.addEventListener("click", () => {
+    	if(document.getElementsByClassName("header__chart")[0].getAttribute("data-set") == "off") {
+    		let originalDisplay = [];
+        	let allPostsOnPageCurrent = document.getElementsByClassName("post");
+        	let goBackBtn = document.getElementsByClassName("post__goBack")[0];
+        	Array.prototype.forEach.call(allPostsOnPageCurrent, (postSelectedCurrent) => {
+        		if(postSelectedCurrent.getAttribute("data-id") !== post.getAttribute("data-id") && postSelectedCurrent.style.display != "none") {
+        			postSelectedCurrent.style.display = "none";
+        			originalDisplay.push(postSelectedCurrent.getAttribute("data-id"));
         		}
         	});
-        	Array.prototype.forEach.call(post.getElementsByClassName("comment"), (commentSelected) => {
-        		if(commentSelected.getAttribute("class") == "comment") {
-        			commentSelected.style.display = "flex";
+        	if(goBackBtn.style.display == "none" || goBackBtn.style.display == "") {
+        		commentInfoButton.style.borderBottom = ".5px solid #ddd";
+        		commentInfoButton.innerHTML = "Collapse Comments";
+            	urCommentSection.style.display = "flex";
+            	Array.prototype.forEach.call(post.getElementsByClassName("comment"), (commentSelected) => {
+            		if(commentSelected.getAttribute("class") == "comment") {
+            			commentSelected.style.display = "flex";
+            		}
+            	});
+            	
+            	Array.prototype.forEach.call(document.getElementsByClassName("comment__data"), (commentData) => {
+            		commentData.style.justifyContent = "space-between";
+            		commentData.getElementsByClassName("comment__showReplies")[0].style.display = "flex";
+            	});
+            	commentInfoButton.style.display = "none";
+        	}
+        	document.getElementsByClassName("sidebar")[0].style.opacity = "0.5";
+        	if(post.getElementsByClassName("more")[0]) {
+        		post.getElementsByClassName("more")[0].style.display = "inline";
+        		post.getElementsByClassName("ReadMore")[0].style.display = "none";
+        	}
+        	document.getElementsByClassName("sidebar")[0].style.pointerEvents =  "none";
+        	goBackBtn.style.display = "block";
+        	goBackBtn.addEventListener("click", () => {
+            	document.getElementsByClassName("sidebar")[0].style.cursor = "auto";
+        		if(post.getElementsByClassName("comments__info")[0].innerHTML == "Collapse Comments") {
+                	commentInfoButton.style.display = "flex";
+        			commentInfoButton.style.borderBottom = "none";
+            		commentInfoButton.innerHTML = originalText;
+            		urCommentSection.style.display = "none";
+                	Array.prototype.forEach.call(post.getElementsByClassName("comment"), (comment) => {
+                		comment.style.display = "none";
+                	})
         		}
-        	});
-        	
-        	Array.prototype.forEach.call(document.getElementsByClassName("comment__data"), (commentData) => {
-        		commentData.style.justifyContent = "space-between";
-        		
-        		commentData.getElementsByClassName("comment__showReplies")[0].style.display = "flex";
-        	})
-    	} else {	
-    		commentInfoButton.style.borderBottom = "none";
-    		commentInfoButton.innerHTML = originalText;
-    		urCommentSection.style.display = "none";
-        	Array.prototype.forEach.call(post.getElementsByClassName("comment"), (comment) => {
-        		comment.style.display = "none";
-        	});
-        	Array.prototype.forEach.call(document.getElementsByClassName("post"), (postGiven) => {
-        		if(postGiven.getBoundingClientRect().top == post.getBoundingClientRect().top) {
-        			postGiven.style.alignSelf = "auto";
-        		}
+        		originalDisplay.forEach((postID) => {
+        			Array.prototype.forEach.call(allPostsOnPageCurrent,(postSelectedCurrently) => {
+        				if(postSelectedCurrently.getAttribute("data-id") == postID) {
+        					postSelectedCurrently.style.display = "flex";
+        				}
+        			});
+        		});
+            	if(post.getElementsByClassName("more")[0]) {
+            		post.getElementsByClassName("more")[0].style.display = "none";
+            		post.getElementsByClassName("ReadMore")[0].style.display = "inline";
+            	}
+            	document.getElementsByClassName("sidebar")[0].style.pointerEvents =  "auto";
+        		goBackBtn.style.display = "none";
+            	document.getElementsByClassName("sidebar")[0].style.opacity = "1";
         	});
     	}
-    	
     });
+    
+
+    
 }
 
 function sendingDataFunctionality(post) {
@@ -194,7 +207,7 @@ function sendingDataFunctionality(post) {
             createdDivPic.setAttribute("style", "background-image: url(../Pictures/profile_pics/1.jpg);");
             createdDivWrapper.setAttribute("class", "comment__wrapper");
             createdDivWrapperText.setAttribute("class", "comment__text");
-            createdDivWrapperTextName.setAttribute("style", "color: rgb(56, 88, 152);font-weight: 600;");
+            createdDivWrapperTextName.setAttribute("style", "color: purple;font-weight: 600;");
             createdDivWrapperDate.setAttribute("class", "comment__date");
             createdDivWrapperDateReply.setAttribute("style", "color: rgb(66, 133, 244); text-decoration: underline; margin-right: 7px;");
             createdDivWrapperDateReply.setAttribute("class", "comment__replyBtn");
@@ -295,14 +308,13 @@ function sendingDataFunctionality(post) {
         responseBlockCreated.innerHTML = `
         	<div class="comment__pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
             <div class="comment__wrapper">
-        		<div class="comment__text"><span style="color: rgb(56, 88, 152);font-weight: 600;">You </span>${contentINeedToSendTo}</div>
+        		<div class="comment__text"><span style="color: purple;font-weight: 600;">You </span>${contentINeedToSendTo}</div>
                 <div class="comment__date">
         			<span>${date}</span>
         			<i class="fas fa-circle" style="margin: 5px; font-size: 5px;padding:5px;"></i>
         			<span style="text-transform: capitalize;">${visibilityINeedToSendTo}</span>
         		</div>
-        	</div>
-        `
+        	</div>`;
         let allThreadsInThisPost = post.getElementsByClassName("comment__thread");
         Array.prototype.forEach.call(allThreadsInThisPost, (givenThread) => {
         	let frstElementInTheThread = givenThread.getElementsByClassName("comment")[0];
@@ -318,44 +330,9 @@ function sendingDataFunctionality(post) {
     });
 }
 
-function fillPosts(posts) {
-    let postsBlocks = document.getElementsByClassName("post");
-    Array.prototype.forEach.call(postsBlocks, (block, i) => {
-        if(block.getElementsByClassName("comments__viewall").length > 0) {
-            let viewall = block.getElementsByClassName("comments__viewall")[0];
-            let dp = false;
-            viewall.addEventListener("click", () => {
-                let info = block.getElementsByClassName("comments__info")[0];
-                let section = block.getElementsByClassName("comments__section")[0];
-                let count = info.getElementsByClassName("comments__count")[0];
-                let commentsText = ``;
-                section.innerHTML = ``;
-                if(!dp) {
-                    viewall.innerHTML = `Collapse Menu`;
-                    count.innerHTML = `${posts[i].comments.length} out of ${posts[i].comments.length}`;
-                    posts[i].comments.forEach((comment) => {
-                        commentsText += commentTemplate(comment);
-                    });
-                    section.innerHTML = commentsText;
-                    dp = true;
-                } else {
-                    viewall.innerHTML = `View All Comments`;
-                    count.innerHTML = `${numDisplayed} out of ${posts[i].comments.length}`;
-                    posts[i].comments.forEach((comment, num) => {
-                        if(num < numDisplayed) {
-                            commentsText += commentTemplate(comment);
-                        }
-                    });
-                    section.innerHTML = commentsText;
-                    dp = false;
-                }
-            });
-        }
-    });
-}
-
 function doEveryThing(posts, comments) {
-    postsMain.innerHTML = `<div class="post__err">No Results Found</div>`;
+    postsMain.innerHTML = `<div class="post__err">No Results Found</div>
+<div class="post__goBack"><i class="fas fa-arrow-left"></i> Go Back</div>`;
     posts.forEach((post) => {
         let {record_id, posted_by_id, posted_by_name, date_added, posted_for_id, data, type} = post;
         let dataAboutComments = [];
@@ -366,7 +343,6 @@ function doEveryThing(posts, comments) {
         });
         postsMain.innerHTML += postsTemplate(posted_for_id, posted_by_id, posted_by_name, date_added, type, JSON.stringify(data), dataAboutComments, dataAboutComments.length, record_id);
     });
-    fillPosts(posts, comments);
     Array.prototype.forEach.call(document.getElementsByClassName("post"), (postBlock) => {
         visibilityAndReadMore(postBlock);
         sendingDataFunctionality(postBlock);
@@ -375,11 +351,14 @@ function doEveryThing(posts, comments) {
 
 export default function mainPosts(something, comments) {
     document.getElementsByTagName("body")[0].style.backgroundColor = "#f5f5f5";
-    document.getElementsByClassName("posts")[0].style.marginTop = headerH + "px";
+    document.getElementsByClassName("mainPosts")[0].style.marginTop = headerH + "px";
     document.getElementsByClassName("settings")[0].style.marginTop = headerH + "px";
     data = something;
     initData = something;
     doEveryThing(initData, comments);
+    let sidebarW = document.getElementsByClassName("sidebar")[0].getBoundingClientRect().width;
+    document.getElementsByClassName("post__goBack")[0].style.top = (headerH + 8) + "px";
+    document.getElementsByClassName("post__goBack")[0].style.left = (sidebarW + 10) + "px";
 }
 
 

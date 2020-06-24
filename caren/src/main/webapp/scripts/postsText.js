@@ -71,7 +71,7 @@ function constructData(input, type) {
 		let {value: valueOther, unit: unitOther, description: descriptionOther} = anObj;
 		let valueAndUnit = "" + (valueOther == null ? "" : valueOther) + (unitOther == null ? "" : unitOther);
 		contentInfo += `
-			<div class="content">${descriptionOther}${valueAndUnit=="" ? "" : ":"} <b>${valueAndUnit}</b></div>
+			<div class="content">${descriptionOther}${valueAndUnit=="" ? "" : ":"} <span style = "color: purple;"><b>${valueAndUnit}</b></span></div>
 		`;
 		break;
 	}
@@ -123,7 +123,7 @@ export function commentTemplate(comment, hasReplies) {
             `<div class="comment comment__response" data-cid="${cid}">
                 <div class="comment__pic" style="background-image: url(../Pictures/profile_pics/${pid}.jpg);"></div>
                 <div class="comment__wrapper">
-                    <div class="comment__text"><span style="color: rgb(56, 88, 152);font-weight: 600;">${name} </span>${text}</div>
+                    <div class="comment__text"><span style="color: purple;font-weight: 600;">${name} </span>${text}</div>
                     <div class="comment__date">
                     	<span>${date_added}</span>
                     	<i class="fas fa-circle" style="margin: 5px; font-size: 5px;padding:5px;"></i>
@@ -137,7 +137,7 @@ export function commentTemplate(comment, hasReplies) {
                 `<div class="comment" data-cid="${cid}">
                     <div class="comment__pic" style="background-image: url(../Pictures/profile_pics/${pid}.jpg);"></div>
                     <div class="comment__wrapper">
-                        <div class="comment__text"><span style="color: rgb(56, 88, 152);font-weight: 600;">${name} </span>${text}</div>
+                        <div class="comment__text"><span style="color: purple;font-weight: 600;">${name} </span>${text}</div>
                         <div class="comment__data">
                         	<div class="comment__showReplies">Show Replies</div>
 	                        <div class="comment__date">
@@ -154,7 +154,7 @@ export function commentTemplate(comment, hasReplies) {
     		`<div class="comment" data-cid="${cid}">
 	            <div class="comment__pic" style="background-image: url(../Pictures/profile_pics/${pid}.jpg);"></div>
 	            <div class="comment__wrapper">
-	                <div class="comment__text"><span style="color: rgb(56, 88, 152);font-weight: 600;">${name} </span>${text}</div>
+	                <div class="comment__text"><span style="color: purple;font-weight: 600;">${name} </span>${text}</div>
 	                <div class="comment__date">
 	                	${replyButton}
 	                	<span>${date_added}</span>

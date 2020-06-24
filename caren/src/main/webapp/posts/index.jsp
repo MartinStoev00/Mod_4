@@ -53,10 +53,6 @@
 			</div>
 			<div class="filters">
 				<input class="filters__search" type="text" placeholder="Search Term">
-				<button class="filters__filter">Oldest to Newest <i class="fas fa-caret-down"></i></button>
-				<div class="filters__box">
-					<button class="box__btn">Newest to Oldest</button>
-				</div>
 				<div class="filters__date">
 					<div class="date__line">
 						<p class="date__text">From: </p>
@@ -94,7 +90,7 @@
 		                    </header>
 		                </div>
 		                 
-		                <form action="changesettings">
+		                <form action="changesettings" method="post" enctype="multipart/form-data">
 		                    <div class="settings_wrapper" style="height: 300px;">
 		
 		                        <div class="setting_field">
@@ -117,19 +113,29 @@
 		                            </div>
 		                            <input name="email" class="setting_text_input" id="email_input" type="text" placeholder="Loading..." style="background-image: url('icons/mail.png'); background-position: 5px 0px; background-repeat: no-repeat; background-size: 7%;">
 		                        </div>
+		                        
+		                        <div class="setting_field">
+		    						<div class="setting_label">
+		                                Profile Picture:
+		                            </div>
+		    					
+		    						<input name="profile_picture" class="setting_file_input" id="profile_picture_input" type="file" accept="image/jpeg">
+		    					</div>
+		                        
+		                        
 		                        <!-- <hr style="margin-top: 30px; width: 50%;">-->
 		                        <div class="setting_field">
 		                            <div class="setting_label">
 		                                New Password:
 		                            </div>
-		                            <input name="password" class="setting_text_input"  id="password_input" type="password" placeholder="********" style="background-image: url('icons/lock.png'); background-position: 7px 2px; background-repeat: no-repeat; background-size: 6%;"">
+		                            <input name="password" class="setting_text_input"  id="password_input" type="password" placeholder="********" style="background-image: url('icons/lock.png'); background-position: 7px 2px; background-repeat: no-repeat; background-size: 6%;">
 		                        </div>
 		
 		                        <div class="setting_field">
 		                            <div class="setting_label">
-		                                Old Password*:
+		                                Old Password<label style="color: red;">*</label>:
 		                            </div>
-		                            <input name="old_password" class="setting_text_input"  id="old_password_input" type="password" placeholder="********" style="background-image: url('icons/lock.png'); background-position: 7px 2px; background-repeat: no-repeat; background-size: 6%;"">
+		                            <input name="old_password" class="setting_text_input"  id="old_password_input" type="password" placeholder="********" style="background-image: url('icons/lock.png'); background-position: 7px 2px; background-repeat: no-repeat; background-size: 6%;">
 		                        </div>
 		
 		                        <div class="settings_note" style="margin-top: 50px;">
@@ -145,21 +151,20 @@
 		                    </div>
 		    
 		                    <div class="settings_wrapper" style="height: 100px;">
-		    
-		                        <div class="setting_field">
+		                        <div class="setting_field" style="display: none;">
 		                            <div class="setting_label">
 		                                Dark Mode:
 		                            </div>
 		    
 		                            <span class="switch">
 		                                <i>
-		                                    <span class="setting_description">Enables dark mode.</span>
+		                                	<span class="setting_description">Enables dark mode.</span>
 		                                </i>
 		                                <input name="dark_mode" class="setting_checkbox_input" id="dark_mode_input" type="checkbox" style="background-image: url('icons/user.png'); background-position: 7px 2px; background-repeat: no-repeat; background-size: 6%;" value="dark_mode">
 		                            </span>
 		                        </div>
 		    
-		                        <div class="setting_field">
+		                        <div class="setting_field" style="display: none;">
 		                            <div class="setting_label">
 		                                Reports Per Line:
 		                            </div>
@@ -182,11 +187,22 @@
 		        </div> 
 			</div>
 			<div id="charts" class="charts">
-				<div class="statistics" style="width: 500px; height: 300px;">
-				 	<canvas id="canvas" width="650" height="400"></canvas>
+				<div class="charts__date">
+					<div class="charts__dateBlock">
+						<p>From:</p>
+						<input type = "date" class = "statistics__date">
+					</div>
+					<div class="charts__dateBlock">
+						<p>To:</p>
+						<input type = "date" class = "statistics__date">
+					</div>
 				</div>
-				<input type = "date" class = "statistics__date">
-				<input type = "date" class = "statistics__date">
+				<div class="statistics">
+				 	<canvas id="canvas"></canvas>
+				</div>
+				<div class="bars">
+				 	<canvas id="changescanvas"></canvas>
+				</div>
 			</div>
 			<div id="posts" class="posts"></div>
 		</div>

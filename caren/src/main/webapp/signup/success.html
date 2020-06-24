@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <title>
+        Success
+    </title>
+
+    <body>
+        <div class="main_message" style="text-align: center; margin: auto; margin-top: 45vh;">
+            <label style="color: #93ff85; font-family: Trebuchet MS;  font-size: 3.5rem; font-variant: small-caps; text-shadow: 2px 2px #434343;">Your account has been created. Please check your email for verification.</label>
+        </div>
+
+        <div class="sub_message" style="text-align: center;  margin: auto;">
+            <label id="timer" style="font-family: Trebuchet MS; font-size: 2rem;">Redirecting in 5 seconds.</label>
+        </div>
+        
+    </body>
+
+    <script>
+        let txt = document.getElementById("timer");
+        let int;
+
+        let timer = 5;
+        window.onload = function(){
+            int = window.setInterval(countDown, 1000);
+        }
+
+        function countDown(){
+            if (timer <= 0) {
+                window.clearInterval(int);
+                window.location.href = "http://localhost:8080/caren/posts/";
+            } else {
+                timer = timer - 1;
+                txt.innerHTML = "Redirecting in " + timer + " seconds."
+            }
+        }
+    </script>
+</html>

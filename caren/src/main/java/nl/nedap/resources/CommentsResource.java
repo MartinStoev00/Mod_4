@@ -27,12 +27,19 @@ public class CommentsResource {
 		List<Comment> comments = new ArrayList<>();
 				
 		if (request.getSession().getAttribute("aid") == null) {
-			return comments;
+			return null;
 		}
 		
-		int loggedaid = (int)request.getSession().getAttribute("aid");
-		int loggedpid = (int)request.getSession().getAttribute("pid");
-		String aidType = (String)request.getSession().getAttribute("aidType");
+		int loggedaid;
+		int loggedpid;
+		String aidType;
+		try {
+			loggedaid = (int)request.getSession().getAttribute("aid");
+			loggedpid = (int)request.getSession().getAttribute("pid");
+			aidType = (String)request.getSession().getAttribute("aidType");
+		} catch(Exception e) {
+			return null;
+		} 
 		
 		if (destpid == 0) {
 			destpid = loggedpid;
@@ -42,7 +49,7 @@ public class CommentsResource {
 		String query = "SELECT * FROM caren.getcomments(?);";
 		
 		//Resultset
-		ResultSet result = DatabaseManager.ReadQuery(query, ""+loggedpid);
+		ResultSet result = DatabaseManager.ReadQuery(query, ""+destpid);
 
 		try {
 			while (result.next()) {
@@ -61,13 +68,14 @@ public class CommentsResource {
 				boolean addComment = false;
 				
 				// Handling visibility.
-				if (aidType.equals("care_provider") && (visibility == CommentVisibility.PUBLIC || visibility == CommentVisibility.PRIVATE)) {
-					if (DatabaseManager.IsClient(loggedaid, pid)) {
+				if (loggedpid == pid) {
+					addComment = true;
+				} else if (aidType.equals("provider") && (visibility.equals(CommentVisibility.PUBLIC) || visibility.equals(CommentVisibility.PRIVATE))) {
+					System.out.println(DatabaseManager.IsClient(loggedpid, pid));
+					if (DatabaseManager.IsClient(loggedpid, pid)) {
 						addComment = true;
 					}
-				} else if (loggedaid == pid) {
-					addComment = true;
-				} else if ((DatabaseManager.IsAssociate(pid, loggedpid) || DatabaseManager.isBeingCareForBy(loggedpid, pid)) && (visibility.equals(CommentVisibility.PUBLIC))) {
+				} else if ( ( DatabaseManager.IsAssociate(pid, loggedpid) && visibility.equals(CommentVisibility.PUBLIC) )|| ( DatabaseManager.isBeingCaredForBy(loggedpid, pid) && !visibility.equals(CommentVisibility.PERSONAL) && DatabaseManager.recordBelongsToLoggedInUser(loggedpid, rid)) ) {
 					addComment = true;
 				} else {
 					
