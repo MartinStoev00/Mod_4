@@ -38,7 +38,7 @@ public class CommentResource {
 		
 		if (ForeignCharactersChecker.basicHasForeignCharacters(""+comment.getRid()) || ForeignCharactersChecker.basicHasForeignCharacters(""+pid)
 				|| ForeignCharactersChecker.basicHasForeignCharacters(comment.getVisibility()) || ForeignCharactersChecker.basicHasForeignCharacters(comment.getText())
-				|| ForeignCharactersChecker.basicHasForeignCharacters(comment.getDate_added()) || ForeignCharactersChecker.basicHasForeignCharacters(""+comment.getParentid()))
+				|| ForeignCharactersChecker.emailHasForeignCharacters(comment.getDate_added()) || ForeignCharactersChecker.basicHasForeignCharacters(""+comment.getParentid()))
 		{
 			return;
 		}
