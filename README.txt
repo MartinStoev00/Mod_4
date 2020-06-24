@@ -25,6 +25,6 @@ https://git.snt.utwente.nl/s2288745/di02
 
 The team members on the git solutions:
 Legitizer - Mohammad Assaad (s2374544).
-wishal17 - Wishal M Sri Rangan ().
+wishal17 - Wishal M Sri Rangan (s2323680).
 s2392593 - Martin Stoev (s2392593).
 s2288745 - Hamza Biabani (s2288745).
