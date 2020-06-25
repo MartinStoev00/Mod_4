@@ -659,7 +659,8 @@ body {
   .post__goBack {
     display: none;
     transition: .3s;
-    position: fixed;
+    width: 100%;
+    padding: 5px 10px;
     text-decoration: underline;
     color: #9a009a;
     font-family: 'Arial'; }

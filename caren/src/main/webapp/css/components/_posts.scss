@@ -67,8 +67,9 @@
 	&__goBack {
 		display:none;
 		transition: .3s;
-		position: fixed;
-		text-decoration:underline; 
+		width: 100%;
+		padding: 5px 10px;
+		text-decoration: underline; 
 		color: lighten($main-color, 5%);
 		font-family:'Arial';
 	}

@@ -86,12 +86,7 @@ function visibilityAndReadMore(post) {
     	if(document.getElementsByClassName("header__chart")[0].getAttribute("data-set") == "off" || (boolOn1 && (boolOn2 || boolOn3))) {
     		let originalDisplay = [];
         	let allPostsOnPageCurrent = document.getElementsByClassName("post");
-        	let headerBlock = document.getElementsByClassName("header")[0];
-        	let headerH = headerBlock.getBoundingClientRect().height;
         	let goBackBtn = document.getElementsByClassName("post__goBack")[0];
-            let sidebarW = document.getElementsByClassName("sidebar")[0].getBoundingClientRect().width;
-            document.getElementsByClassName("post__goBack")[0].style.top = (headerH + 8) + "px";
-            document.getElementsByClassName("post__goBack")[0].style.left = (sidebarW + 10) + "px";
         	Array.prototype.forEach.call(allPostsOnPageCurrent, (postSelectedCurrent) => {
         		if(postSelectedCurrent.getAttribute("data-id") !== post.getAttribute("data-id") && postSelectedCurrent.style.display != "none") {
         			postSelectedCurrent.style.display = "none";

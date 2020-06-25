@@ -62,7 +62,16 @@ export function headerStyle() {
 	    notifyNumber.style.top = (notifyIconY - 41) + "px";
 	    notifyNumber.style.left = (notifyIconX + 92) + "px";
 	    notifications.style.top = (notifyIconY) + "px";
-	    notifications.style.left = (notifyIconX - 240) + "px";
+	    if(window.innerWidth > 1023) {
+	    	document.getElementsByClassName("filters__reset")[0].innerHTML = "Reset";
+		    notifications.style.left = (notifyIconX - 240) + "px";
+	    	friendsBtn.style.display = "none";
+	    } else {
+	    	document.getElementsByClassName("filters__reset")[0].innerHTML = "x";
+		    notifications.style.left = "0px";
+		    notifications.style.width = window.innerWidth + "px";
+	    	friendsBtn.style.display = "inline";
+	    }
     }, 100);
 }
 
