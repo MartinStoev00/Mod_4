@@ -24,6 +24,7 @@ public class DatabaseManager {
 		try {
 			Class.forName("org.postgresql.Driver");
 			conn = DriverManager.getConnection(URL, DBUSERNAME, DBPASS);
+			conn.setAutoCommit(false);
 			inited = true;
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -34,11 +35,33 @@ public class DatabaseManager {
 		}
 	}
 	
+	private static void connect() {
+		try {
+			conn = DriverManager.getConnection(URL, DBUSERNAME, DBPASS);
+			conn.setAutoCommit(false);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private static void close(AutoCloseable c) {
+		try {
+			c.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public static ResultSet ReadQuery(String q, String ... vars) {
 		if (!inited) {
 			init();
 		}
 		
+		connect();
+		
+		ResultSet resultset;
 		try {
 			//Create prepared statement object
 			PreparedStatement statement = conn.prepareStatement(q);
@@ -52,56 +75,86 @@ public class DatabaseManager {
 			}
 			
 			//Result set of statement execution
-			ResultSet resultset = statement.executeQuery();
+			resultset = statement.executeQuery();
 			
-			return resultset;
-			
+			conn.commit();
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			return null;
 		}
 		
+		
+		close(conn);
+		return resultset;
 	}
 	
-public static void updateQuery(String q, String ... vars) {
+	public static void updateQuery(String q, String ... vars) {
 		
-	try {
-		//Create prepared statement object
-		PreparedStatement statement = conn.prepareStatement(q);
-		
-		//Set variables
-		if (vars != null && vars.length > 0) {
-			for (int i = 0; i < vars.length; i++) {
-				//Add values to prepared statement
-				statement.setString(i+1, vars[i]);
+		connect();
+			
+		try {
+			//Create prepared statement object
+			PreparedStatement statement = conn.prepareStatement(q);
+			
+			//Set variables
+			if (vars != null && vars.length > 0) {
+				for (int i = 0; i < vars.length; i++) {
+					//Add values to prepared statement
+					statement.setString(i+1, vars[i]);
+				}
+			}
+			
+			//Result set of statement execution
+			statement.executeUpdate();
+			conn.commit();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 		}
 		
-		//Result set of statement execution
-		statement.executeUpdate();
-	} catch (Exception e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+		close(conn);
+			
 	}
-		
-}
 
-public static void updateRegularQuery(String q) {
-	
-	try {		
-		//Create prepared statement object
-		Statement statement = conn.createStatement();
+	public static void updateRegularQuery(String q) {
 		
-		//Result set of statement execution
-		statement.executeUpdate(q);
-	} catch (Exception e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+		connect();
+		
+		try {		
+			//Create prepared statement object
+			Statement statement = conn.createStatement();
+			
+			//Result set of statement execution
+			statement.executeUpdate(q);
+			
+			conn.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
+		close(conn);
+			
 	}
-		
-}
 	
 	public static Boolean IsAssociate(int assTo, int ass) {
 		//if (sessionId == id) {return true;}

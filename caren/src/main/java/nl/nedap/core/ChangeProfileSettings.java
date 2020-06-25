@@ -75,13 +75,14 @@ public class ChangeProfileSettings extends HttpServlet {
 		String passwordQ = "SELECT a.password" + "\n"
 		+ "FROM caren.people p, caren.accounts a" + "\n"
 		+ "WHERE a.aid = p.aid" + "\n"
-		+ "AND a.aid = CAST(? AS int)";
+		+ "AND a.aid = CAST(? AS int);";
 		
 		ResultSet passwordR = DatabaseManager.ReadQuery(passwordQ, ""+loggedaid);
 		String pass;
 		try {
 			passwordR.next();
 			pass = passwordR.getString(1);
+			System.out.println(pass);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return;
