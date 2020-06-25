@@ -9,12 +9,17 @@ let friendsBtn = headerBlock.getElementsByClassName("header__friends")[0];
 let notifications = headerBlock.getElementsByClassName("notifications")[0];
 let tri = headerBlock.getElementsByClassName("notifications__triangle")[0];
 let notifyNumber = headerBlock.getElementsByClassName("notifications__number")[0];
+let headerMyProfile = headerBlock.getElementsByClassName("header__myProfile")[0];
 let notificationsReceived, itemsReceived;
 
 export function header(inputNotifications) {
     handleNotifications(inputNotifications);
 }
-
+headerMyProfile.addEventListener("focus", () => {
+	if(window.innerWidth < 1024) {
+		document.getElementsByClassName("sidebar__content")[0].style.display = "flex";
+	}
+})
 notifyIcon.addEventListener("click", () => {
 	let notifyIconY = notifyIcon.getBoundingClientRect().top + 50;
     notifyNumber.style.top = (notifyIconY - 34) + "px";
@@ -41,6 +46,11 @@ notifyIcon.addEventListener("blur", () => {
     }, 100)
 });
 friendsBtn.addEventListener("click", () => {
+	if(document.getElementsByClassName("header__chart")[0].getAttribute("data-set") == "on") {
+		document.getElementsByClassName("header__chart")[0].click();
+	}
+    document.getElementsByClassName("people__searchBar")[0].style.display = "inline";
+	document.getElementsByClassName("sidebar__content")[0].style.display = "none";
 	document.getElementsByClassName("sidebar__control")[1].click();
 })
 Array.prototype.forEach.call(icons, (icon) => {

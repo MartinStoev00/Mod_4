@@ -76,3 +76,10 @@
 		}
 	}
 }
+@media screen and (max-width: 1023px) { 
+	.sidebar {
+		.people {
+			width: calc(100vw);
+		}
+	}
+}

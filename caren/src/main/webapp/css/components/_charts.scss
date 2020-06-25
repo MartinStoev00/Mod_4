@@ -44,3 +44,24 @@
 		width: 500px;
 	}
 }
+@media screen and (max-width: 1023px) {
+	.charts {
+		width: 95vw;
+		&__date {
+			p {
+				display: none;
+			}
+			&Block {
+				width: 45%;
+			}
+		}
+		.statistics {
+			height: calc(50% - 10px);
+			width: calc(100% - 20px);
+		}
+		.bars {
+			height: calc(50% - 10px);
+			width: calc(100% - 20px);
+		}
+	}
+}

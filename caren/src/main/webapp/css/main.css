@@ -338,7 +338,8 @@ body {
 
 @media screen and (max-width: 1023px) {
   .mainPosts {
-    height: calc(100vh - (100vw - 20px)*(44.23/201.6) - 246.8px); } }
+    height: calc(100vh - (100vw - 20px)*(44.23/201.6) - 246.8px);
+    display: block; } }
 .charts {
   display: none;
   flex: 1 1 auto;
@@ -378,6 +379,19 @@ body {
     height: 250px;
     width: 500px; }
 
+@media screen and (max-width: 1023px) {
+  .charts {
+    width: 95vw; }
+    .charts__date p {
+      display: none; }
+    .charts__dateBlock {
+      width: 45%; }
+    .charts .statistics {
+      height: calc(50% - 10px);
+      width: calc(100% - 20px); }
+    .charts .bars {
+      height: calc(50% - 10px);
+      width: calc(100% - 20px); } }
 .comments {
   align-self: stretch;
   flex: 0 5 auto;
@@ -953,6 +967,9 @@ body {
     align-items: flex-start;
     width: calc(100% - 80px); }
 
+@media screen and (max-width: 1023px) {
+  .sidebar .people {
+    width: calc(100vw); } }
 * {
   margin: 0;
   padding: 0;
@@ -1261,6 +1278,6 @@ body {
     grid-template-columns: auto;
     grid-template-rows: auto;
     pointer-events: none;
-    grid-template-areas: "header" "sidebar" "mainPosts"; } }
+    grid-template-areas: "header" "sidebar" "mainPosts" "mainPosts"; } }
 
 /*# sourceMappingURL=main.css.map */

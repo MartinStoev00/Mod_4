@@ -310,7 +310,12 @@ chartButton.addEventListener("click", () => {
 		}
 		chartButton.setAttribute("data-set", "on");
 		chartButton.style.color = "purple";
-		peopleBtn.click();
+		if(window.innerWidth > 1023) {
+			peopleBtn.click();
+		} else {
+			document.getElementsByClassName("mainPosts")[0].style.height = "calc(100vh - (100vw - 20px)*(44.23/201.6) - 64.8px)";
+			document.getElementsByClassName("sidebar")[0].style.display = "none";
+		}
 		sidebarNavBlock.style.display = "none";
 		Array.prototype.forEach.call(linkForPages, (currentPage) => {
 			currentPage.setAttribute("data-state", "deselected");
@@ -343,7 +348,16 @@ chartButton.addEventListener("click", () => {
 		sidebarNavBlock.style.display = "flex";
 	    people.style.display = "block";
 	    settings.style.display = "block";
-	    filterBtn.click();
+	    if(window.innerWidth > 1023) {
+		    filterBtn.click();
+		} else {
+			document.getElementsByClassName("mainPosts")[0].style.height = "calc(100vh - (100vw - 20px)*(44.23/201.6) - 246.8px)";
+			document.getElementsByClassName("sidebar")[0].style.display = "flex";
+			sidebarNavBlock.style.display = "none";
+		    people.style.display = "none";
+		    searchBarPeople.style.display = "none";
+		    settings.style.display = "flex";
+		}
 		Array.prototype.forEach.call(linkForPages, (currentPage) => {
 			currentPage.setAttribute("data-state", "selected");
 			currentPage.getElementsByTagName("i")[1].style.display = "block";
