@@ -147,3 +147,51 @@ body{
     border: 3px solid #434343;
     cursor: pointer;
 }
+
+@media only screen and (max-width: 1023px) {
+	.welcome {
+		display: none;
+	}
+	
+	.settings {
+		margin-top: 40%;
+		width: 100%;
+	}
+	
+	.setting_field{
+		padding-bottom: 0px;
+		margin-top: 10px;
+		margin-bottom: 15px;
+		width: 100%;
+	}
+	
+	.panel{
+	    margin: auto;
+	    width: 100%;
+	    height: 110%;
+	}
+	
+	.setting_label{
+	    float: none;
+	}
+	
+	.setting_text_input{
+		display: block;
+		float: none;
+		margin-left: 5%;
+		padding-left: 10px;
+    	width:85%;
+    	margin-top: 10px;
+	}
+	
+	.submit_button {
+		display:block;
+	    margin-top: 0px;
+	}
+	
+	.setting_file_input{
+	    float: none;
+	    cursor: pointer;
+	    margin-left: 5%;
+	}
+}

@@ -92,7 +92,7 @@
 		                </div>
 		                 
 		                <form action="changesettings" method="post" enctype="multipart/form-data">
-		                    <div class="settings_wrapper" style="height: 300px;">
+		                    <div class="settings_wrapper" style="height: 375px;">
 		
 		                        <div class="setting_field">
 		                            <div class="setting_label">
@@ -139,12 +139,17 @@
 		                            <input name="old_password" class="setting_text_input"  id="old_password_input" type="password" placeholder="********" style="background-image: url('icons/lock.png'); background-position: 7px 2px; background-repeat: no-repeat; background-size: 6%;">
 		                        </div>
 		
-		                        <div class="settings_note" style="margin-top: 50px;">
+		                        <div class="settings_note" style="margin-top: 10px;">
 		                            <label>Empty fields will remain unchanged.</label>
 		                        </div>
+		                        
+		                        <input class="submit_button" id="save" type="submit" value="Save" style="margin-right: 5%;" disabled>
 		                    </div>
-		                   
-		                    <div class="card_title_wrapper">
+		                    
+							
+							
+							
+		                    <div class="card_title_wrapper" style="display: none;">
 		                        <header class="card_header">
 		                            Site
 		                            <hr style="width: 35%; margin-top: 5px; margin-left: 0;">
@@ -178,7 +183,7 @@
 		                            </span>
 		                        </div>
 		                    </div>
-		                    <input class="submit_button" id="save" type="submit" value="Save" style="margin-right: 5%; margin-top: 5%;" disabled>
+		                    
 		                    <div class="settings_error" style="margin-top: 50px;">
 		                        <label id="error" style="color: red; float: right; margin-right: 10%; font-family: Trebuchet MS;"></label>
 		                    </div>
