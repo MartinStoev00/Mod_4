@@ -51,7 +51,6 @@ public class ChangeProfileSettings extends HttpServlet {
 			return;
 		}
 		
-		System.out.println("PAM!");
 		String first_name_input = getValueOfPart(request.getPart("first_name"));
 		String last_name_input = getValueOfPart(request.getPart("last_name"));
 		String email_input = getValueOfPart(request.getPart("email"));

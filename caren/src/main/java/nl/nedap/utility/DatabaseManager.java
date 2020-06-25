@@ -18,30 +18,25 @@ public class DatabaseManager {
 	
 	private static boolean inited = false;
 	
-	private static Connection conn;
-	
 	public static void init() {
 		try {
 			Class.forName("org.postgresql.Driver");
-			conn = DriverManager.getConnection(URL, DBUSERNAME, DBPASS);
-			conn.setAutoCommit(false);
 			inited = true;
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	private static void connect() {
+	private static Connection connect() {
 		try {
-			conn = DriverManager.getConnection(URL, DBUSERNAME, DBPASS);
+			Connection conn = DriverManager.getConnection(URL, DBUSERNAME, DBPASS);
 			conn.setAutoCommit(false);
+			return conn;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		}
 	}
 	
@@ -59,7 +54,7 @@ public class DatabaseManager {
 			init();
 		}
 		
-		connect();
+		Connection conn = connect();
 		
 		ResultSet resultset;
 		try {
@@ -84,6 +79,7 @@ public class DatabaseManager {
 			e.printStackTrace();
 			try {
 				conn.rollback();
+				close(conn);
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -98,8 +94,7 @@ public class DatabaseManager {
 	
 	public static void updateQuery(String q, String ... vars) {
 		
-		connect();
-			
+		Connection conn = connect();
 		try {
 			//Create prepared statement object
 			PreparedStatement statement = conn.prepareStatement(q);
@@ -116,10 +111,15 @@ public class DatabaseManager {
 			statement.executeUpdate();
 			conn.commit();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 			try {
-				conn.rollback();
+				if (e.getMessage().equals("A result was returned when none was expected.")) {
+					System.out.println("Comment was added.");
+					conn.commit();
+				} else {
+					System.out.println("Could not add comment. Rolling back.");
+					conn.rollback();
+				}
+				
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -127,33 +127,30 @@ public class DatabaseManager {
 		}
 		
 		close(conn);
-			
 	}
 
 	public static void updateRegularQuery(String q) {
-		
-		connect();
-		
-		try {		
-			//Create prepared statement object
-			Statement statement = conn.createStatement();
-			
-			//Result set of statement execution
-			statement.executeUpdate(q);
-			
-			conn.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			try {
-				conn.rollback();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+		Connection conn = connect();
+			try {		
+				//Create prepared statement object
+				Statement statement = conn.createStatement();
+				
+				//Result set of statement execution
+				statement.executeUpdate(q);
+				
+				conn.commit();
+			} catch (Exception e) {
+				e.printStackTrace();
+				try {
+					conn.rollback();
+					close(conn);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
-		}
-		
-		close(conn);
 			
+			close(conn);
 	}
 	
 	public static Boolean IsAssociate(int assTo, int ass) {
