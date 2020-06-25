@@ -18,17 +18,32 @@ public class DatabaseManager {
 	
 	private static boolean inited = false;
 	
-	private static Connection conn;
-	
 	public static void init() {
 		try {
 			Class.forName("org.postgresql.Driver");
-			conn = DriverManager.getConnection(URL, DBUSERNAME, DBPASS);
 			inited = true;
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	
+	private static Connection connect() {
+		try {
+			Connection conn = DriverManager.getConnection(URL, DBUSERNAME, DBPASS);
+			conn.setAutoCommit(false);
+			return conn;
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	private static void close(AutoCloseable c) {
+		try {
+			c.close();
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -39,6 +54,9 @@ public class DatabaseManager {
 			init();
 		}
 		
+		Connection conn = connect();
+		
+		ResultSet resultset;
 		try {
 			//Create prepared statement object
 			PreparedStatement statement = conn.prepareStatement(q);
@@ -52,56 +70,88 @@ public class DatabaseManager {
 			}
 			
 			//Result set of statement execution
-			ResultSet resultset = statement.executeQuery();
+			resultset = statement.executeQuery();
 			
-			return resultset;
-			
+			conn.commit();
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			try {
+				conn.rollback();
+				close(conn);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			return null;
 		}
 		
+		
+		close(conn);
+		return resultset;
 	}
 	
-public static void updateQuery(String q, String ... vars) {
+	public static void updateQuery(String q, String ... vars) {
 		
-	try {
-		//Create prepared statement object
-		PreparedStatement statement = conn.prepareStatement(q);
-		
-		//Set variables
-		if (vars != null && vars.length > 0) {
-			for (int i = 0; i < vars.length; i++) {
-				//Add values to prepared statement
-				statement.setString(i+1, vars[i]);
+		Connection conn = connect();
+		try {
+			//Create prepared statement object
+			PreparedStatement statement = conn.prepareStatement(q);
+			
+			//Set variables
+			if (vars != null && vars.length > 0) {
+				for (int i = 0; i < vars.length; i++) {
+					//Add values to prepared statement
+					statement.setString(i+1, vars[i]);
+				}
+			}
+			
+			//Result set of statement execution
+			statement.executeUpdate();
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				if (e.getMessage().equals("A result was returned when none was expected.")) {
+					System.out.println("Comment was added.");
+					conn.commit();
+				} else {
+					System.out.println("Could not add comment. Rolling back.");
+					conn.rollback();
+				}
+				
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 		}
 		
-		//Result set of statement execution
-		statement.executeUpdate();
-	} catch (Exception e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+		close(conn);
 	}
-		
-}
 
-public static void updateRegularQuery(String q) {
-	
-	try {		
-		//Create prepared statement object
-		Statement statement = conn.createStatement();
-		
-		//Result set of statement execution
-		statement.executeUpdate(q);
-	} catch (Exception e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+	public static void updateRegularQuery(String q) {
+		Connection conn = connect();
+			try {		
+				//Create prepared statement object
+				Statement statement = conn.createStatement();
+				
+				//Result set of statement execution
+				statement.executeUpdate(q);
+				
+				conn.commit();
+			} catch (Exception e) {
+				e.printStackTrace();
+				try {
+					conn.rollback();
+					close(conn);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			
+			close(conn);
 	}
-		
-}
 	
 	public static Boolean IsAssociate(int assTo, int ass) {
 		//if (sessionId == id) {return true;}

@@ -37,12 +37,11 @@ public class CommentResource {
 		String q = "SELECT caren.makecomment(?, ?, ?, ?, ?, ?)";
 		
 		if (ForeignCharactersChecker.basicHasForeignCharacters(""+comment.getRid()) || ForeignCharactersChecker.basicHasForeignCharacters(""+pid)
-				|| ForeignCharactersChecker.basicHasForeignCharacters(comment.getVisibility()) || ForeignCharactersChecker.basicHasForeignCharacters(comment.getText())
-				|| ForeignCharactersChecker.basicHasForeignCharacters(comment.getDate_added()) || ForeignCharactersChecker.basicHasForeignCharacters(""+comment.getParentid()))
+				|| ForeignCharactersChecker.basicHasForeignCharacters(comment.getVisibility()) || ForeignCharactersChecker.textHasForeignCharacters(comment.getText())
+				|| ForeignCharactersChecker.emailHasForeignCharacters(comment.getDate_added()) || ForeignCharactersChecker.basicHasForeignCharacters(""+comment.getParentid()))
 		{
 			return;
 		}
-		
 		DatabaseManager.updateQuery(q, ""+comment.getRid(), ""+pid, comment.getVisibility(), comment.getText(), comment.getDate_added(), ""+comment.getParentid());
 	}
 	
