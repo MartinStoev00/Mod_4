@@ -103,7 +103,7 @@ public class Signup extends HttpServlet {
 				//Making call to database to make account.
 				String createAccQ = "INSERT INTO caren.accounts (aid, email, password) VALUES (CAST(? AS int),?, ?)"; // email, password.
 				//fix
-				DatabaseManager.updateQuery(createAccQ, ""+maxpKeyAccounts + 1, email, password);
+				DatabaseManager.updateQuery(createAccQ, "" + (maxpKeyAccounts + 1), email, password);
 				//Retrieving the new account's aid.
 				String aidQ = "SELECT a.aid FROM caren.accounts a WHERE a.email = ?"; // email.
 				ResultSet aidResultSet = DatabaseManager.ReadQuery(aidQ, email);
