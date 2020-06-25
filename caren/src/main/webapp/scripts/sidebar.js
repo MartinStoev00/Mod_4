@@ -2,14 +2,11 @@ import mainPosts from "./mainPosts.js";
 import getrecords from "../main.js";
 import {displayGraph, statistics} from "./statistics.js";
 
-let headerBlock = document.getElementsByClassName("header")[0];
-let sidebarBlock = document.getElementsByClassName("sidebar")[0];
 let people = document.getElementsByClassName("people")[0];
 let settings = document.getElementsByClassName("filters")[0];
 let filterBtn = document.getElementsByClassName("sidebar__control")[0];
 let peopleBtn = document.getElementsByClassName("sidebar__control")[1];
 let linkForPages = document.getElementsByClassName("sidebar__link");
-let headerH = headerBlock.getBoundingClientRect().height;
 let fromDate = document.getElementsByClassName("date__date")[0];
 let toDate = document.getElementsByClassName("date__date")[1];
 let btnReset = document.getElementsByClassName("filters__reset")[0];
@@ -26,13 +23,9 @@ let stylingRoles = `
     align-items: center;
     text-transform: capitalize;
     font-size: 12px;
-    color: #999;
-`
+    color: #999;`;
 let receivedItems;
-sidebarBlock.style.top = headerH + "px";
-let dp = false;
 people.style.height = "calc(100vh - " + (filterBtn.getBoundingClientRect().top + filterBtn.getBoundingClientRect().height +	 68) + "px)";
-people.style.display = "none";
 let initData, data, commetsData;
 let startDate, endDate;
 let oldestToNewestFun = (a, b) => {
@@ -48,7 +41,7 @@ export function sidebar(items, posts, comments) {
 	 function gettingTheRaCOfPerson(input) {
 		let all = document.getElementsByClassName("all")[0];
 		let loaderBody = document.getElementsByClassName("loaderBody")[0];
-		all.style.opacity = "0";
+		all.style.display = "none";
 		all.style.pointerEvents = "none";
 		loaderBody.style.display = "flex";
 		let postsA, commentsA;
@@ -56,7 +49,7 @@ export function sidebar(items, posts, comments) {
 			postsA = JSON.parse(data);
 			getrecords("http://localhost:8080/caren/rest/getcomments/"+input).then((data) => {
 	    		loaderBody.style.display="none";
-	    		all.style.opacity = "1";
+	    		all.style.display = "grid";
 	    		all.style.pointerEvents = "auto";
 				let previousSet = "off";
 				let statisticsBtn = document.getElementsByClassName("header__chart")[0];
@@ -136,7 +129,7 @@ export function sidebar(items, posts, comments) {
 export function sidebarWithPeople(input, rid){
 	let all = document.getElementsByClassName("all")[0];
 	let loaderBody = document.getElementsByClassName("loaderBody")[0];
-	all.style.opacity = "0";
+	all.style.display = "noen";
 	all.style.pointerEvents = "none";
 	loaderBody.style.display = "flex";
 	
@@ -146,7 +139,7 @@ export function sidebarWithPeople(input, rid){
 		posts = JSON.parse(data);
 		getrecords("http://localhost:8080/caren/rest/getcomments/"+input).then((data) => {
 			loaderBody.style.display="none";
-    		all.style.opacity = "1";
+    		all.style.display = "grid";
     		all.style.pointerEvents = "auto";
 			let statisticsBtn = document.getElementsByClassName("header__chart")[0];
 			if(statisticsBtn.getAttribute("data-set") == "on") {
@@ -288,7 +281,7 @@ filterBtn.addEventListener("mouseout", () => {
 });
 
 peopleBtn.addEventListener("click", () => {
-    filterBtn.setAttribute("data-state", "deselected");
+	filterBtn.setAttribute("data-state", "deselected");
     peopleBtn.setAttribute("data-state", "selected");
     searchBlockPeople.style.display = "block";
     people.style.display = "block";
@@ -332,7 +325,19 @@ chartButton.addEventListener("click", () => {
 		Array.prototype.forEach.call(postsBlocks, (currentReport) => {
 			currentReport.style.display = "none";
 		});
+		displayGraph('height');
 	} else {
+		Array.prototype.forEach.call(document.getElementsByClassName("post"), (post) => {
+			let commentInfoButton = post.getElementsByClassName("comments__info")[0];
+			let urCommentSection = post.getElementsByClassName("comments__urs")[0];
+			commentInfoButton.style.display = "flex";
+			commentInfoButton.style.borderBottom = "none";
+    		commentInfoButton.innerHTML = post.getElementsByClassName("comment").length == 0 ? "No Comments" : (post.getElementsByClassName("comment").length == 1 ? "1 Comment" : `${post.getElementsByClassName("comment").length} Comments`);
+    		urCommentSection.style.display = "none";
+        	Array.prototype.forEach.call(post.getElementsByClassName("comment"), (comment) => {
+        		comment.style.display = "none";
+        	});
+		});
 		chartButton.setAttribute("data-set", "off");
 		chartButton.style.color = "#444";
 		sidebarNavBlock.style.display = "flex";
@@ -346,7 +351,6 @@ chartButton.addEventListener("click", () => {
 		chartsBlock.style.display = "none";
 		btnReset.click();
 	}
-	displayGraph('height');
 });
 
 searchBarPeople.addEventListener("keyup", () => {

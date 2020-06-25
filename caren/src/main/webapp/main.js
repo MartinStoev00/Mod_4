@@ -4,7 +4,6 @@ import {statistics} from "./scripts/statistics.js";
 
 function init() {
     window.scrollTo(0,0);
-    stylize();
     onloadedSettings();
     let posts;
     let associations;
@@ -20,10 +19,12 @@ function init() {
                 		let all = document.getElementsByClassName("all")[0];
                 		let loaderBody = document.getElementsByClassName("loaderBody")[0];
                 		loaderBody.style.display="none";
-                		all.style.opacity = "1";
+                		all.style.display = "grid";
                 		all.style.pointerEvents = "auto";
+                	    window.scrollTo(0,0);
                 		sidebar(associations, posts, comments);
                         header(comments);
+                        stylize();
                         statistics(posts);
                 	}
                 }

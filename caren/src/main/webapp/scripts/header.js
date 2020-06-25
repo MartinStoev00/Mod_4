@@ -5,14 +5,10 @@ let headerBlock = document.getElementsByClassName("header")[0];
 let noNotifications = `<div class="notifications__none">None</div>`;
 let icons = headerBlock.getElementsByClassName("fas");
 let notifyIcon = headerBlock.getElementsByClassName("header__notify")[0];
-let notifyIconY = notifyIcon.getBoundingClientRect().top + 50;
+let friendsBtn = headerBlock.getElementsByClassName("header__friends")[0];
 let notifications = headerBlock.getElementsByClassName("notifications")[0];
 let tri = headerBlock.getElementsByClassName("notifications__triangle")[0];
 let notifyNumber = headerBlock.getElementsByClassName("notifications__number")[0];
-let main = document.getElementsByClassName("main")[0];
-let mainPosts = document.getElementsByClassName("mainPosts")[0];
-let headerH = headerBlock.getBoundingClientRect().height;
-let sidebar = document.getElementsByClassName("sidebar")[0];
 let notificationsReceived, itemsReceived;
 
 export function header(inputNotifications) {
@@ -20,6 +16,7 @@ export function header(inputNotifications) {
 }
 
 notifyIcon.addEventListener("click", () => {
+	let notifyIconY = notifyIcon.getBoundingClientRect().top + 50;
     notifyNumber.style.top = (notifyIconY - 34) + "px";
     setTimeout(() => {
         notifyNumber.style.top = (notifyIconY - 41) + "px";
@@ -43,6 +40,9 @@ notifyIcon.addEventListener("blur", () => {
         }
     }, 100)
 });
+friendsBtn.addEventListener("click", () => {
+	document.getElementsByClassName("sidebar__control")[1].click();
+})
 Array.prototype.forEach.call(icons, (icon) => {
     icon.addEventListener("click", () => {
         icon.style.marginBottom = "-7px";
@@ -53,15 +53,17 @@ Array.prototype.forEach.call(icons, (icon) => {
 });
 
 export function headerStyle() {
-    let notifyIconX = notifyIcon.getBoundingClientRect().left - 70;
-    let notifyIconY = notifyIcon.getBoundingClientRect().top + 50;
-    tri.style.top = (notifyIconY - 7.5) + "px";
-    tri.style.left = (notifyIconX + 84) + "px";
-    notifyNumber.style.display = "block";
-    notifyNumber.style.top = (notifyIconY - 41) + "px";
-    notifyNumber.style.left = (notifyIconX + 92) + "px";
-    notifications.style.top = (notifyIconY) + "px";
-    notifications.style.left = (notifyIconX - 240) + "px";
+    setTimeout(() => {
+    	let notifyIconX = notifyIcon.getBoundingClientRect().left - 70;
+	    let notifyIconY = notifyIcon.getBoundingClientRect().top + 50;
+	    tri.style.top = (notifyIconY - 7.5) + "px";
+	    tri.style.left = (notifyIconX + 84) + "px";
+	    notifyNumber.style.display = "block";
+	    notifyNumber.style.top = (notifyIconY - 41) + "px";
+	    notifyNumber.style.left = (notifyIconX + 92) + "px";
+	    notifications.style.top = (notifyIconY) + "px";
+	    notifications.style.left = (notifyIconX - 240) + "px";
+    }, 100);
 }
 
 function handleNotifications(comments){
@@ -120,11 +122,7 @@ function fillNotifications() {
                 </div>
             </div>`;
     });
-    
-	
-    
     let notifics = document.getElementsByClassName("notifications__item");
-    
     for (var i = 0; i < notifics.length; i++) {
 		let notis = notifics[i];
     	function notificationClicked(){
@@ -134,10 +132,8 @@ function fillNotifications() {
     		
     		sidebarWithPeople(0, notis.getAttribute("data-rid"));
     	}
-    	
     	notifics[i].addEventListener('click', notificationClicked);
     }
-
     notifyNumber.innerHTML = notificationsReceived.length !== 0 ? notificationsReceived.length : "";
     let items = document.getElementsByClassName("notifications__item");
     Array.prototype.forEach.call(items, (item) => {

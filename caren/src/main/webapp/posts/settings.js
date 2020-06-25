@@ -19,6 +19,7 @@ let error = document.getElementById("error");
 let settingsDiv = document.getElementById("settings");
 let chartsDiv = document.getElementById("charts");
 let postsDiv = document.getElementById("posts");
+let mainPostsBlock = document.getElementsByClassName("mainPosts")[0];
 
 let settingsButton = document.getElementById("settingsToggle");
 let chartsButton = document.getElementById("chartsToggle");
@@ -72,11 +73,13 @@ function ToggleSettings(){
 function showSettings(){
 	settings.style.display = "block";
 	postsDiv.style.display = "none";
+	mainPostsBlock.style.alignItems = "center";
 }
 
 function hideSettings(){
 	settings.style.display = "none";
 	postsDiv.style.display = "flex";
+	mainPostsBlock.style.alignItems = "flex-start";
 }
 
 

@@ -1,6 +1,6 @@
 .charts {
+	display:none;
 	flex: 1 1 auto;
-	display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
     justify-content: center;
@@ -28,6 +28,7 @@
 				margin: 10px 5px;
 			}
 			.statistics__date {
+				background-color: #fff;
 				border: none;
 				padding: 5px;
 				border-radius: 5px;

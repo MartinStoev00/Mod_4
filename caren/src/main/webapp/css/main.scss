@@ -6,6 +6,21 @@
 	outline: none;
 }
 
+body {
+	overflow-y: hidden;
+}
+
+.all {
+	display: none;
+	grid-template-columns: 20vw 20vw 20vw 20vw 20vw;
+	grid-template-rows: auto;
+	pointer-events: none;
+	grid-template-areas: 
+	 "header header header header header"
+	 "sidebar mainPosts mainPosts mainPosts mainPosts"
+	 "sidebar mainPosts mainPosts mainPosts mainPosts";
+}
+
 @import
   'abstracts/variables',
   'abstracts/mixins',
@@ -19,14 +34,28 @@
   'components/notifications',
   'components/sidebar',
   'components/mainPosts',
-  'components/charts';
+  'components/charts',
+  'components/comments',
+  'components/posts',
+  'components/sidebarFilter',
+  'components/sidebarPeople';
 
 @import 
   'pages/login',
   'pages/signup',
   'pages/welcome';
 
-.all {
-	pointer-events: none;
-	opacity: 0;
+@media screen and (max-width: 1023px) {
+	body {
+		overflow-y: hidden;
+	}
+	.all {
+		grid-template-columns: auto;
+		grid-template-rows: auto;
+		pointer-events: none;
+		grid-template-areas: 
+		 "header"
+		 "sidebar"
+		 "mainPosts";
+	}
 }

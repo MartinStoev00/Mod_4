@@ -100,4 +100,9 @@
     transform: translate3d(8px, 0, 0);
   }
 }
+@media screen and (max-width: 1023px) { 
+	.login__container {
+		border: none;
+	}
+}
 

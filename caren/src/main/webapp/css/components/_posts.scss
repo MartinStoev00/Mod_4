@@ -1,0 +1,192 @@
+.posts {
+	width:100%;
+	display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: stretch;
+    align-items: stretch;
+}
+.post {
+	transition: .2s;
+	width: 400px;
+	font-family: 'Arial';
+	border: 1px #ddd solid;
+	border-radius: 3px;	
+	margin: 20px;
+	background-color: #fff;
+	min-height: 120px;
+	display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: stretch;
+    align-items: stretch;
+	&__header {
+		margin: 0 50px;
+		flex: 0 1 auto;
+		align-self: stretch;
+		display: flex;
+	    flex-direction: row;
+		flex-wrap: nowrap;
+		justify-content: center;
+		align-content: center;
+		align-items: center;
+	}
+	&__pic {
+		margin: 15px 15px 15px 0;
+		padding: 7px;
+		height: 30px; width: 30px;
+		background-position: center;
+		background-size: cover;
+		border-radius: 50%;
+		display: inline-block;
+	}
+	&__title {
+		flex: 0 1 auto;
+		align-self: stretch;
+		text-align: center;
+	    font-size: 22px;
+	    font-weight: 600;
+	    margin: 10px 0 30px;
+	    text-transform: capitalize;   
+	}
+	&__uploader {
+		font-weight: 600;
+		color: $main-color;
+		font-family: Trebuchet MS;
+	} 
+	&__date {
+		color: rgba($main-color, 0.5);
+		font-size: 12px;
+	}
+	&__text {
+		text-align: justify;
+		padding: 0 15px 15px;
+	}
+	&__goBack {
+		display:none;
+		transition: .3s;
+		position: fixed;
+		text-decoration:underline; 
+		color: lighten($main-color, 5%);
+		font-family:'Arial';
+	}
+	&__err {
+		text-align: center;
+	    font-size: 22px;
+	    color: #555;
+	    font-family: 'Arial';
+	    font-weight: 600;
+	    display: none;
+	    padding: 30px;
+	}
+	&__type {
+		&-height {
+			align-self: auto;
+			flex: 1 1 auto;
+			.content {
+				font-size: 25px;
+				font-weight: 900;
+				grid-area: text;
+				display: flex;
+			    flex-direction: row;
+			    flex-wrap: nowrap;
+			    justify-content: flex-start;
+			    align-content: stretch;
+			    align-items: center;
+			color: $main-color;
+			}
+			.height {
+				width: 100px;
+				height: 100px;
+				background-image: url(../Pictures/height.png);
+				background-position: center;
+				background-size: cover;
+				justify-self: end;
+				grid-area: img;
+			}
+			display: grid;
+			grid-template-columns: auto;
+			grid-template-rows: auto;
+			grid-template-areas: 
+				". . img text . .";
+		}
+		&-weight {
+			align-self: auto;
+			flex: 1 2 auto;
+			.content {
+				font-size: 25px;
+				font-weight: 900;
+				display: flex;
+			    flex-direction: row;
+			    flex-wrap: nowrap;
+			    justify-content: center;
+			    align-content: stretch;
+			    align-items: center;
+				grid-area: text;
+				color: $main-color;
+			}
+			.weight {
+				width: calc(100px*(980/876));
+				height: 100px;
+				background-image: url(../Pictures/weight.png);
+				background-position: center;
+				margin: auto;
+				background-size: cover;
+				grid-area: img;
+			}
+			display: grid;
+			grid-template-columns: auto;
+			grid-template-rows: auto;
+			grid-template-areas: 
+				"text"
+				"img";
+		}
+		&-blood_pressure {
+			align-self: auto;
+			flex: 1 2 auto;
+			.content {
+				font-size: 25px;
+				font-weight: 900;
+				display: flex;
+			    flex-direction: column;
+			    flex-wrap: nowrap;
+			    justify-content: center;
+			    align-content: center;
+			    align-items: center;
+				grid-area: text;
+				color: $main-color;
+			}
+			.blood_pressure {
+				width: calc(100px*(980/972));
+				height: 100px;
+				background-image: url(../Pictures/blood_pressure.png);
+				background-position: center;
+				background-size: cover;
+				margin: auto;
+				grid-area: img;
+			}
+			display: grid;
+			grid-template-columns: auto;
+			grid-template-rows: auto;
+			grid-template-areas: 
+				"text"
+				"img";
+		}
+		&-text {
+			align-self: auto;
+			flex: 1 2 auto;
+			.content {
+				text-align: center;
+			}
+		}
+		&-other {
+			align-self: auto;
+			flex: 1 2 auto;
+			.content {
+				text-align: center;
+			}
+		}
+	}
+}
