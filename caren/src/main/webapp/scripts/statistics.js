@@ -12,8 +12,12 @@ window.chartColors = {
 };
 
 let ctxgraph = document.getElementById('canvas');
+//ctxgraph.style.backgroundColor = 'rgba(255,255,255,255)';
 var ctx = ctxgraph.getContext('2d');
 let ctxgraphbar = document.getElementById('changescanvas');
+//ctxgraphbar.style.backgroundColor = 'rgba(255,255,255,255)';
+
+
 var ctxbar = ctxgraphbar.getContext('2d');
 let initData;
 let from_date = document.getElementsByClassName("statistics__date")[0];
@@ -32,6 +36,7 @@ let measurementData = {
 
 //line Graph Configuration
 let lineConfig = {
+		
     type: 'line',
     data: {
         labels: ['default'],

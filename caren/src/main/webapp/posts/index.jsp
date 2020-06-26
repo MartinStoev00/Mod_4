@@ -192,24 +192,25 @@
 		            </div>
 		        </div> 
 			</div>
-			<div id="charts" class="charts">
-				<div class="charts__date">
-					<div class="charts__dateBlock">
+			<div id="charts" class="charts" style = "background-color: white; margin-top: 20px; padding : 2%; border: .5px solid #ddd;">
+				<div class="charts__date" style = "margin-top : 0%; padding-top: 0%; height : 10px;">
+					<div class="charts__dateBlock" style = "margin-top : 10px; padding-top: 0%;">
 						<p>From:</p>
 						<input type = "date" class = "statistics__date">
 					</div>
-					<div class="charts__dateBlock">
+					<div class="charts__dateBlock" style = "margin-top : 10px; padding-top: 0%;">
 						<p>To:</p>
 						<input type = "date" class = "statistics__date">
 					</div>
 				</div>
 				
-				<iframe class="statistics">
+				<div class="statistics">
 				 	<canvas id="canvas"></canvas>
-				</iframe>
-				<iframe class="bars">
+				</div>
+				<hr style = "width : 74%; margin-top: 10%">
+				<div class="bars">
 				 	<canvas id="changescanvas"></canvas>
-				</iframe>
+				</div>
 			</div>
 			<div id="posts" class="posts"></div>
 		</div>
