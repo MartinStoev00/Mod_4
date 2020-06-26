@@ -113,10 +113,9 @@ public class DatabaseManager {
 		} catch (Exception e) {
 			try {
 				if (e.getMessage().equals("A result was returned when none was expected.")) {
-					System.out.println("Comment was added.");
 					conn.commit();
 				} else {
-					System.out.println("Could not add comment. Rolling back.");
+					System.out.println("Rolling back.");
 					conn.rollback();
 				}
 				
