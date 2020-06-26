@@ -3,8 +3,6 @@ import {postsTemplate, commentTemplate} from "./postsText.js";
 
 let mainPostsBlocks = document.getElementsByClassName("mainPosts")[0]
 let postsMain = mainPostsBlocks.getElementsByClassName("posts")[0];
-let headerBlock = document.getElementsByClassName("header")[0];
-let headerH = headerBlock.getBoundingClientRect().height;
 let data, initData;
 let charLimit = 300;
 let readMore = `<span class="ReadMore" style="color: rgb(66, 133, 244);"> Read More</span>`;
@@ -81,7 +79,11 @@ function visibilityAndReadMore(post) {
     }
     
     post.addEventListener("click", () => {
-    	if(document.getElementsByClassName("header__chart")[0].getAttribute("data-set") == "off") {
+    	let boolOn1 = document.getElementsByClassName("header__chart")[0].getAttribute("data-set") == "on";
+    	let boolOn2 =  document.getElementsByClassName("sidebar__link")[0].getAttribute("data-state") == "selected";
+    	let boolOn3 =  document.getElementsByClassName("sidebar__link")[4].getAttribute("data-state") == "selected";
+    	
+    	if(document.getElementsByClassName("header__chart")[0].getAttribute("data-set") == "off" || (boolOn1 && (boolOn2 || boolOn3))) {
     		let originalDisplay = [];
         	let allPostsOnPageCurrent = document.getElementsByClassName("post");
         	let goBackBtn = document.getElementsByClassName("post__goBack")[0];
@@ -347,15 +349,10 @@ function doEveryThing(posts, comments) {
 }
 
 export default function mainPosts(something, comments) {
-    document.getElementsByTagName("body")[0].style.backgroundColor = "#f5f5f5";
-    document.getElementsByClassName("mainPosts")[0].style.marginTop = headerH + "px";
-    document.getElementsByClassName("settings")[0].style.marginTop = headerH + "px";
+	document.getElementsByTagName("body")[0].style.backgroundColor = "#f5f5f5";
     data = something;
     initData = something;
     doEveryThing(initData, comments);
-    let sidebarW = document.getElementsByClassName("sidebar")[0].getBoundingClientRect().width;
-    document.getElementsByClassName("post__goBack")[0].style.top = (headerH + 8) + "px";
-    document.getElementsByClassName("post__goBack")[0].style.left = (sidebarW + 10) + "px";
 }
 
 

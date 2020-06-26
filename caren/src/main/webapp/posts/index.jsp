@@ -28,6 +28,7 @@
 			<div class="header__buttons">
 				<button class="header__myProfile fas fa-user-circle" onclick="location.href='http://localhost:8080/caren/posts/'"></button>
 				<button class="header__notify fas fa-bell"></button>
+				<button class="header__friends fas fa-user-friends"></button>
 				<button id="chartsToggle" class="header__chart fas fa-chart-area" data-set="off"></button>
 				<button id="settingsToggle" class="header__settings fas fa-cog" data-set="off"></button>
 				<form action="../signout">
@@ -41,11 +42,11 @@
 		</div>
 		<div class="sidebar">
 			<ul class="sidebar__content">
-				<li class="sidebar__link" data-state="selected" data-link="text"><span><i class="far fa-copy"></i>Text</span><i class="fas fa-check"></i></li>
-				<li class="sidebar__link" data-state="selected" data-link="height"><span><i class="fas fa-ruler"></i>Height</span><i class="fas fa-check"></i></li>
-				<li class="sidebar__link" data-state="selected" data-link="weight"><span><i class="fas fa-weight"></i>Weight</span><i class="fas fa-check"></i></li>
-				<li class="sidebar__link" data-state="selected" data-link="blood_pressure"><span><i class="fas fa-tint"></i>Blood Pressure</span><i class="fas fa-check"></i></li>
-				<li class="sidebar__link" data-state="selected" data-link="other"><span><i class="fas fa-chart-bar"></i>Other</span><i class="fas fa-check"></i></li>
+				<li class="sidebar__link" data-state="selected" data-link="text"><span><i class="far fa-copy"></i><span>Text</span></span><i class="fas fa-check"></i></li>
+				<li class="sidebar__link" data-state="selected" data-link="height"><span><i class="fas fa-ruler"></i><span>Height</span></span><i class="fas fa-check"></i></li>
+				<li class="sidebar__link" data-state="selected" data-link="weight"><span><i class="fas fa-weight"></i><span>Weight</span></span><i class="fas fa-check"></i></li>
+				<li class="sidebar__link" data-state="selected" data-link="blood_pressure"><span><i class="fas fa-tint"></i><span>Blood Pressure</span></span><i class="fas fa-check"></i></li>
+				<li class="sidebar__link" data-state="selected" data-link="other"><span><i class="fas fa-chart-bar"></i><span>Other</span></span><i class="fas fa-check"></i></li>
 			</ul>
 			<div class="sidebar__nav">
 				<button class="sidebar__control" data-state="selected">Filter</button>
@@ -64,7 +65,7 @@
 						<input class="date__date" type="date">
 					</div>
 				</div>
-				<button class="filters__reset">Reset</button>
+				<button class="filters__reset">x</button>
 			</div>
 			<div class="people__search">
 				<input type="text" class="people__searchBar" placeholder="Find a person">
@@ -91,7 +92,7 @@
 		                </div>
 		                 
 		                <form action="changesettings" method="post" enctype="multipart/form-data">
-		                    <div class="settings_wrapper" style="height: 300px;">
+		                    <div class="settings_wrapper" style="height: 375px;">
 		
 		                        <div class="setting_field">
 		                            <div class="setting_label">
@@ -138,12 +139,17 @@
 		                            <input name="old_password" class="setting_text_input"  id="old_password_input" type="password" placeholder="********" style="background-image: url('icons/lock.png'); background-position: 7px 2px; background-repeat: no-repeat; background-size: 6%;">
 		                        </div>
 		
-		                        <div class="settings_note" style="margin-top: 50px;">
+		                        <div class="settings_note" style="margin-top: 10px;">
 		                            <label>Empty fields will remain unchanged.</label>
 		                        </div>
+		                        
+		                        <input class="submit_button" id="save" type="submit" value="Save" style="margin-right: 5%;" disabled>
 		                    </div>
-		                   
-		                    <div class="card_title_wrapper">
+		                    
+							
+							
+							
+		                    <div class="card_title_wrapper" style="display: none;">
 		                        <header class="card_header">
 		                            Site
 		                            <hr style="width: 35%; margin-top: 5px; margin-left: 0;">
@@ -177,7 +183,7 @@
 		                            </span>
 		                        </div>
 		                    </div>
-		                    <input class="submit_button" id="save" type="submit" value="Save" style="margin-right: 5%; margin-top: 5%;" disabled>
+		                    
 		                    <div class="settings_error" style="margin-top: 50px;">
 		                        <label id="error" style="color: red; float: right; margin-right: 10%; font-family: Trebuchet MS;"></label>
 		                    </div>

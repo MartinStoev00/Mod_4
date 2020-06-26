@@ -143,4 +143,20 @@
     transform: translate3d(8px, 0, 0);
   }
 }
+@media screen and (max-width: 1023px) { 
+	.signup__container {
+		border: none;
+		.input__halves {
+			display: flex;
+		    flex-direction: column;
+		    flex-wrap: nowrap;
+		    justify-content: center;
+		    align-content: stretch;
+		    align-items: stretch;
+			.input__text {
+				max-width: none;
+			}
+		}
+	}
+}
 
