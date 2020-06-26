@@ -22,6 +22,10 @@
     justify-content: space-between;
     align-content: stretch;
     align-items: stretch;
+	&:hover {
+		cursor: pointer;
+		box-shadow: 0 0 7px rgba(#aaa, 0.3) , 0 0 13px rgba(#aaa, 0.2);
+	}
 	&__header {
 		margin: 0 50px;
 		flex: 0 1 auto;
@@ -72,6 +76,10 @@
 		text-decoration: underline; 
 		color: lighten($main-color, 5%);
 		font-family:'Arial';
+		&:hover {
+			cursor: pointer;
+			text-shadow: 0 0 7px rgba(purple, 0.3) , 0 0 13px rgba(purple, 0.2);
+		}
 	}
 	&__err {
 		text-align: center;
