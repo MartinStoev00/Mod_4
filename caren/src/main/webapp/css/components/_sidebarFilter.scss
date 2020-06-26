@@ -65,7 +65,6 @@
 	    			margin: 5px 15px;
 	    		}
 	    		&__date {
-					max-width: 125px;
 					margin: 5px;
 					border: none;
 					padding: 10px;
@@ -114,6 +113,7 @@
 		    	}
 		    }
 		    &__date {
+				max-width: 125px;
 		    	background-color: inherit;
 				align-self: stretch;
 				flex: 1 1 auto;

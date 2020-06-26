@@ -63,14 +63,16 @@ Array.prototype.forEach.call(icons, (icon) => {
 });
 
 export function headerStyle() {
+	 if(window.innerWidth > 1023) {
+	    	friendsBtn.style.display = "none";
+	    } else {
+	    	friendsBtn.style.display = "inline";
+	    }
     setTimeout(() => {
     	let notifyIconX = notifyIcon.getBoundingClientRect().left - 70;
 	    let notifyIconY = notifyIcon.getBoundingClientRect().top + 50;
 	    tri.style.top = (notifyIconY - 7.5) + "px";
 	    tri.style.left = (notifyIconX + 84) + "px";
-	    notifyNumber.style.display = "block";
-	    notifyNumber.style.top = (notifyIconY - 41) + "px";
-	    notifyNumber.style.left = (notifyIconX + 92) + "px";
 	    notifications.style.top = (notifyIconY) + "px";
 	    if(window.innerWidth > 1023) {
 	    	document.getElementsByClassName("filters__reset")[0].innerHTML = "Reset";
@@ -82,7 +84,10 @@ export function headerStyle() {
 		    notifications.style.width = window.innerWidth + "px";
 	    	friendsBtn.style.display = "inline";
 	    }
-    }, 100);
+	    notifyNumber.style.top = (notifyIconY - 41) + "px";
+	    notifyNumber.style.left = (notifyIconX + 92) + "px";
+	    notifyNumber.style.display = "block";
+    }, 50);
 }
 
 function handleNotifications(comments){

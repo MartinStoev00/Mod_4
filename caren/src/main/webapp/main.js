@@ -28,7 +28,6 @@ function init() {
                         statistics(posts);
                 	}
                 }
-                
             }).catch((err) => {
                 console.log(err);
             });

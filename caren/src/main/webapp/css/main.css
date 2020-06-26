@@ -831,7 +831,6 @@ body {
     .sidebar .filters__date .date__text {
       margin: 5px 15px; }
     .sidebar .filters__date .date__date {
-      max-width: 125px;
       margin: 5px;
       border: none;
       padding: 10px;
@@ -869,6 +868,7 @@ body {
       .sidebar .filters__filter .fas, .sidebar .filters__reset .fas {
         display: inline-block; }
     .sidebar .filters__date {
+      max-width: 125px;
       background-color: inherit;
       align-self: stretch;
       flex: 1 1 auto;
