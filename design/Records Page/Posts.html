@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<!-- saved from url=(0034)http://localhost:8080/caren/posts/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	
+	<title>Posts</title>
+	<link rel="stylesheet" href="./Posts_files/settings.css">
+	<link rel="stylesheet" href="./Posts_files/main.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="./Posts_files/all.min.css">
+	<script src="./Posts_files/Chart.min.js.download"></script>
+<style type="text/css">/* Chart.js */
+@keyframes chartjs-render-animation{from{opacity:.99}to{opacity:1}}.chartjs-render-monitor{animation:chartjs-render-animation 1ms}.chartjs-size-monitor,.chartjs-size-monitor-expand,.chartjs-size-monitor-shrink{position:absolute;direction:ltr;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1}.chartjs-size-monitor-expand>div{position:absolute;width:1000000px;height:1000000px;left:0;top:0}.chartjs-size-monitor-shrink>div{position:absolute;width:200%;height:200%;left:0;top:0}</style></head>
+<body style="background-color: rgb(245, 245, 245);">
+
+	
+	<div class="loaderBody" style="display: none;">
+		<div class="loader">
+			<div class="circle"></div>
+			<div class="circle"></div>
+	    </div>
+	</div>
+	<div class="all" style="display: grid; pointer-events: auto;">
+		<div class="header" name="header">
+			<div class="header__wrapper"><img class="header__logo" src="./Posts_files/website_icon.png" alt=""></div>
+			<div class="header__buttons">
+				<button class="header__myProfile fas fa-user-circle" onclick="location.href=&#39;http://localhost:8080/caren/posts/&#39;"></button>
+				<button class="header__notify fas fa-bell"></button>
+				<button class="header__friends fas fa-user-friends" style="display: none;"></button>
+				<button id="chartsToggle" class="header__chart fas fa-chart-area" data-set="off"></button>
+				<button id="settingsToggle" class="header__settings fas fa-cog" data-set="off"></button>
+				<form action="http://localhost:8080/caren/signout">
+					<button type="submit" class="header__logout fas fa-sign-out-alt"></button>
+				</form>
+				<div class="notifications" style="top: 68.2813px; left: 1366.13px;"><div class="notifications__none">None</div></div>
+				<div class="notifications__triangle" style="top: 60.7813px; left: 1690.13px;"></div>
+				<p class="notifications__number" style="top: 27.2813px; left: 1698.13px; display: block;"></p>
+				<div class="arrow"></div>
+			</div>
+		</div>
+		<div class="sidebar">
+			<ul class="sidebar__content">
+				<li class="sidebar__link" data-state="selected" data-link="text"><span><i class="far fa-copy"></i><span>Text</span></span><i class="fas fa-check" style="display: block;"></i></li>
+				<li class="sidebar__link" data-state="selected" data-link="height"><span><i class="fas fa-ruler"></i><span>Height</span></span><i class="fas fa-check" style="display: block;"></i></li>
+				<li class="sidebar__link" data-state="selected" data-link="weight"><span><i class="fas fa-weight"></i><span>Weight</span></span><i class="fas fa-check" style="display: block;"></i></li>
+				<li class="sidebar__link" data-state="selected" data-link="blood_pressure"><span><i class="fas fa-tint"></i><span>Blood Pressure</span></span><i class="fas fa-check" style="display: block;"></i></li>
+				<li class="sidebar__link" data-state="selected" data-link="other"><span><i class="fas fa-chart-bar"></i><span>Other</span></span><i class="fas fa-check" style="display: block;"></i></li>
+			</ul>
+			<div class="sidebar__nav">
+				<button class="sidebar__control" data-state="selected">Filter</button>
+				<button class="sidebar__control" data-state="deselected">People</button>
+			</div>
+			<div class="filters">
+				<input class="filters__search" type="text" placeholder="Search Term">
+				<div class="filters__date">
+					<div class="date__line">
+						<p class="date__text">From: </p>
+						<input class="date__date" type="date">
+					</div>
+					<div class="date__separate"></div>
+					<div class="date__line">
+						<p class="date__text">To: </p>
+						<input class="date__date" type="date">
+					</div>
+				</div>
+				<button class="filters__reset">Reset</button>
+			</div>
+			<div class="people__search">
+				<input type="text" class="people__searchBar" placeholder="Find a person">
+			</div>
+			<div class="people" style="height: calc(100vh - 68px);"><div class="people__err">No Results Found</div><div data-name="4" class="people__container">
+                <div class="people__pic" style="background-image: url(../Pictures/profile_pics/4.jpg);"></div>
+                <div class="people__name"><span>Arvilla Klocko</span><span style=" 
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-content: stretch;
+    align-items: center;
+    text-transform: capitalize;
+    font-size: 12px;
+    color: #999;">care giver<i class="fas fa-circle" style="margin: 5px; font-size: 5px;padding:5px;"></i>other</span></div>  
+            </div><div data-name="1" class="people__container">
+                <div class="people__pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                <div class="people__name"><span>Augusta O'Reilly</span><span style=" 
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-content: stretch;
+    align-items: center;
+    text-transform: capitalize;
+    font-size: 12px;
+    color: #999;">other</span></div>  
+            </div><div data-name="9" class="people__container">
+                <div class="people__pic" style="background-image: url(../Pictures/profile_pics/9.jpg);"></div>
+                <div class="people__name"><span>Damaris Leffler</span><span style=" 
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-content: stretch;
+    align-items: center;
+    text-transform: capitalize;
+    font-size: 12px;
+    color: #999;">parent</span></div>  
+            </div><div data-name="29" class="people__container">
+                <div class="people__pic" style="background-image: url(../Pictures/profile_pics/29.jpg);"></div>
+                <div class="people__name"><span>Emil Runolfsson</span><span style=" 
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-content: stretch;
+    align-items: center;
+    text-transform: capitalize;
+    font-size: 12px;
+    color: #999;">child</span></div>  
+            </div><div data-name="14" class="people__container">
+                <div class="people__pic" style="background-image: url(../Pictures/profile_pics/14.jpg);"></div>
+                <div class="people__name"><span>Gene Durgan</span><span style=" 
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-content: stretch;
+    align-items: center;
+    text-transform: capitalize;
+    font-size: 12px;
+    color: #999;">parent</span></div>  
+            </div></div>
+		</div>
+		<div class="mainPosts">
+			<div id="settings" class="settings" style="display: none;">
+	        	<div class="title_content">
+		            <header class="root_header" style="margin-top: 150px; margin-bottom: 25px; display: none;">
+		                Settings
+		                
+		            </header>
+		        </div>
+		
+		        <div class="panel">
+		            <div class="settings_card">
+		                <div class="card_title_wrapper">
+		                    <header class="card_header">
+		                        Account
+		                        <span id="welcome" style="float: right; margin-right: 5%; text-align: center; font-size: 20px;">Welcome: Okey Batz</span>
+		                        <hr style="width: 35%; margin-top: 5px; margin-left: 0;">
+		                    </header>
+		                </div>
+		                 
+		                <form action="http://localhost:8080/caren/posts/changesettings" method="post" enctype="multipart/form-data">
+		                    <div class="settings_wrapper" style="height: 375px;">
+		
+		                        <div class="setting_field">
+		                            <div class="setting_label">
+		                                First Name:
+		                            </div>
+		                            <input name="first_name" class="setting_text_input" id="first_name_input" type="text" placeholder="Okey" style="background-image: url(&#39;icons/user.png&#39;); background-position: 7px 2px; background-repeat: no-repeat; background-size: 6%;">
+		                        </div>
+		    
+		                        <div class="setting_field">
+		                            <div class="setting_label">
+		                                Last Name:
+		                            </div>
+		                            <input name="last_name" class="setting_text_input" id="last_name_input" type="text" placeholder="Batz" style="background-image: url(&#39;icons/user.png&#39;); background-position: 7px 2px; background-repeat: no-repeat; background-size: 6%;">
+		                        </div>
+		    
+		                        <div class="setting_field">
+		                            <div class="setting_label">
+		                                E-mail:
+		                            </div>
+		                            <input name="email" class="setting_text_input" id="email_input" type="text" placeholder="Okey.Batz@nedap.nl" style="background-image: url(&#39;icons/mail.png&#39;); background-position: 5px 0px; background-repeat: no-repeat; background-size: 7%;">
+		                        </div>
+		                        
+		                        <div class="setting_field">
+		    						<div class="setting_label">
+		                                Profile Picture:
+		                            </div>
+		    					
+		    						<input name="profile_picture" class="setting_file_input" id="profile_picture_input" type="file" accept="image/jpeg">
+		    					</div>
+		                        
+		                        
+		                        <!-- <hr style="margin-top: 30px; width: 50%;">-->
+		                        <div class="setting_field">
+		                            <div class="setting_label">
+		                                New Password:
+		                            </div>
+		                            <input name="password" class="setting_text_input" id="password_input" type="password" placeholder="********" style="background-image: url(&#39;icons/lock.png&#39;); background-position: 7px 2px; background-repeat: no-repeat; background-size: 6%;">
+		                        </div>
+		
+		                        <div class="setting_field">
+		                            <div class="setting_label">
+		                                Old Password<label style="color: red;">*</label>:
+		                            </div>
+		                            <input name="old_password" class="setting_text_input" id="old_password_input" type="password" placeholder="********" style="background-image: url(&#39;icons/lock.png&#39;); background-position: 7px 2px; background-repeat: no-repeat; background-size: 6%;">
+		                        </div>
+		
+		                        <div class="settings_note" style="margin-top: 10px;">
+		                            <label>Empty fields will remain unchanged.</label>
+		                        </div>
+		                        
+		                        <input class="submit_button" id="save" type="submit" value="Save" style="margin-right: 5%; color: rgb(179, 179, 179); border: 1px solid rgb(179, 179, 179);" disabled="">
+		                    </div>
+		                    
+							
+							
+							
+		                    <div class="card_title_wrapper" style="display: none;">
+		                        <header class="card_header">
+		                            Site
+		                            <hr style="width: 35%; margin-top: 5px; margin-left: 0;">
+		                        </header>
+		                    </div>
+		    
+		                    <div class="settings_wrapper" style="height: 100px;">
+		                        <div class="setting_field" style="display: none;">
+		                            <div class="setting_label">
+		                                Dark Mode:
+		                            </div>
+		    
+		                            <span class="switch">
+		                                <i>
+		                                	<span class="setting_description">Enables dark mode.</span>
+		                                </i>
+		                                <input name="dark_mode" class="setting_checkbox_input" id="dark_mode_input" type="checkbox" style="background-image: url(&#39;icons/user.png&#39;); background-position: 7px 2px; background-repeat: no-repeat; background-size: 6%;" value="dark_mode">
+		                            </span>
+		                        </div>
+		    
+		                        <div class="setting_field" style="display: none;">
+		                            <div class="setting_label">
+		                                Reports Per Line:
+		                            </div>
+		    
+		                            <span class="switch">
+		                                <i>
+		                                    <span class="setting_description">Adjusts card view.</span>
+		                                </i>
+		                                <input name="rpl" type="range" id="RPL_input" min="1" max="7" value="4" class="setting_slider_input">
+		                            </span>
+		                        </div>
+		                    </div>
+		                    
+		                    <div class="settings_error" style="margin-top: 50px;">
+		                        <label id="error" style="color: red; float: right; margin-right: 10%; font-family: Trebuchet MS;"></label>
+		                    </div>
+		                </form>
+		
+		            </div>
+		        </div> 
+			</div>
+			<div id="charts" class="charts">
+				<div class="charts__date">
+					<div class="charts__dateBlock">
+						<p>From:</p>
+						<input type="date" class="statistics__date">
+					</div>
+					<div class="charts__dateBlock">
+						<p>To:</p>
+						<input type="date" class="statistics__date">
+					</div>
+				</div>
+				<div class="statistics">
+				 	<canvas id="canvas" style="display: block; width: 0px; height: 0px;" height="0" class="chartjs-render-monitor" width="0"></canvas>
+				</div>
+				<div class="bars">
+				 	<canvas id="changescanvas" height="0" class="chartjs-render-monitor" width="0" style="display: block; width: 0px; height: 0px;"></canvas>
+				</div>
+			</div>
+			<div id="posts" class="posts"><div class="post__err">No Results Found</div>
+<div class="post__goBack"><i class="fas fa-arrow-left"></i> Go Back</div><div class="post" data-link="height" data-id="1514">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/44.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">I.K.H. Ebnekpijn</div>
+                    <div class="post__date">2019-12-31 16:53:08</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-height">
+				<div class="content">179cm</div>
+				<div class="height"></div>
+			
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">1 Comment</div>
+                <div class="comment__thread"><div class="comment" data-cid="75">
+	            <div class="comment__pic" style="background-image: url(../Pictures/profile_pics/8.jpg);"></div>
+	            <div class="comment__wrapper">
+	                <div class="comment__text"><span style="color: purple;font-weight: 600;">Okey Batz </span>poeasdf</div>
+	                <div class="comment__date">
+	                	<span class="comment__replyBtn" style="color: rgb(66, 133, 244); text-decoration: underline; margin-right: 7px;">Reply</span>
+	                	<span>2020-06-25 21:37:42</span>
+	                	<i class="fas fa-circle" style="margin: 5px; font-size: 5px;padding:5px;"></i>
+	                	<span style="text-transform: capitalize;">public</span>
+	                </div>
+	            </div>
+	        </div></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="weight" data-id="1967">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/44.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">I.K.H. Ebnekpijn</div>
+                    <div class="post__date">2020-01-02 16:33:35</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-weight">
+				<div class="content">46kg</div>
+				<div class="weight"></div>
+			
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="weight" data-id="1736">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/48.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">Aan Huis</div>
+                    <div class="post__date">2020-01-09 02:41:15</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-weight">
+				<div class="content">20kg</div>
+				<div class="weight"></div>
+			
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="weight" data-id="2002">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/48.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">Aan Huis</div>
+                    <div class="post__date">2020-01-12 18:08:06</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-weight">
+				<div class="content">61kg</div>
+				<div class="weight"></div>
+			
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="other" data-id="1556">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/44.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">I.K.H. Ebnekpijn</div>
+                    <div class="post__date">2020-01-21 07:29:51</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-other">
+			<div class="content">Juist antwoorden bij laatste pubquiz: <span style="color: purple;"><b>6%</b></span></div>
+		
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="other" data-id="1584">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/44.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">I.K.H. Ebnekpijn</div>
+                    <div class="post__date">2020-01-21 19:55:27</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-other">
+			<div class="content">Juist antwoorden bij laatste pubquiz: <span style="color: purple;"><b>85%</b></span></div>
+		
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="blood_pressure" data-id="1770">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/44.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">I.K.H. Ebnekpijn</div>
+                    <div class="post__date">2020-01-25 09:40:40</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-blood_pressure">
+				<div class="content"><p>S: 101 mm Hg</p><p>D: 123 mm Hg</p></div>
+				<div class="blood_pressure"></div>
+			
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="blood_pressure" data-id="1642">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/48.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">Aan Huis</div>
+                    <div class="post__date">2020-01-25 10:31:12</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-blood_pressure">
+				<div class="content"><p>S: 91 mm Hg</p><p>D: 118 mm Hg</p></div>
+				<div class="blood_pressure"></div>
+			
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="text" data-id="1377">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/44.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">I.K.H. Ebnekpijn</div>
+                    <div class="post__date">2020-01-25 22:13:57</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-text">
+				<div class="content">Mw.haar steunkousen aangetrokken met hulpmiddel en haar schoenen met schoenlepel.</div>
+			
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="other" data-id="1885">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/44.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">I.K.H. Ebnekpijn</div>
+                    <div class="post__date">2020-01-28 07:32:50</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-other">
+			<div class="content">Besmet met het Covid-19 virus <span style="color: purple;"><b></b></span></div>
+		
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="other" data-id="1256">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/44.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">I.K.H. Ebnekpijn</div>
+                    <div class="post__date">2020-01-28 15:22:39</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-other">
+			<div class="content">Juist antwoorden bij laatste pubquiz: <span style="color: purple;"><b>65%</b></span></div>
+		
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="text" data-id="1959">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/48.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">Aan Huis</div>
+                    <div class="post__date">2020-01-31 13:53:17</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-text">
+				<div class="content">Mw. niet over buikklachten gehoord.</div>
+			
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="blood_pressure" data-id="1413">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/48.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">Aan Huis</div>
+                    <div class="post__date">2020-01-31 19:33:42</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-blood_pressure">
+				<div class="content"><p>S: 85 mm Hg</p><p>D: 106 mm Hg</p></div>
+				<div class="blood_pressure"></div>
+			
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="height" data-id="1884">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/44.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">I.K.H. Ebnekpijn</div>
+                    <div class="post__date">2020-02-04 13:59:20</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-height">
+				<div class="content">123cm</div>
+				<div class="height"></div>
+			
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="other" data-id="1998">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/44.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">I.K.H. Ebnekpijn</div>
+                    <div class="post__date">2020-02-06 21:36:49</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-other">
+			<div class="content">Besmet met het Covid-19 virus: <span style="color: purple;"><b>false</b></span></div>
+		
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="blood_pressure" data-id="1622">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/52.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">De Beste Hulp</div>
+                    <div class="post__date">2020-02-08 06:23:39</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-blood_pressure">
+				<div class="content"><p>S: 113 mm Hg</p><p>D: 151 mm Hg</p></div>
+				<div class="blood_pressure"></div>
+			
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="blood_pressure" data-id="1924">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/48.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">Aan Huis</div>
+                    <div class="post__date">2020-02-09 10:45:02</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-blood_pressure">
+				<div class="content"><p>S: 80 mm Hg</p><p>D: 138 mm Hg</p></div>
+				<div class="blood_pressure"></div>
+			
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="weight" data-id="1455">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/52.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">De Beste Hulp</div>
+                    <div class="post__date">2020-02-09 14:43:33</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-weight">
+				<div class="content">135kg</div>
+				<div class="weight"></div>
+			
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="text" data-id="1576">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/48.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">Aan Huis</div>
+                    <div class="post__date">2020-02-09 19:44:26</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-text">
+				<div class="content">Mw. eet vanavond niet meen is met dochter weg.</div>
+			
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="height" data-id="1046">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/48.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">Aan Huis</div>
+                    <div class="post__date">2020-02-10 14:42:11</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-height">
+				<div class="content">184cm</div>
+				<div class="height"></div>
+			
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="other" data-id="1074">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/52.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">De Beste Hulp</div>
+                    <div class="post__date">2020-02-15 09:00:34</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-other">
+			<div class="content">Juist antwoorden bij laatste pubquiz: <span style="color: purple;"><b>35%</b></span></div>
+		
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="other" data-id="1656">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/48.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">Aan Huis</div>
+                    <div class="post__date">2020-02-17 07:30:12</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-other">
+			<div class="content">Besmet met het Covid-19 virus: <span style="color: purple;"><b>true</b></span></div>
+		
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="blood_pressure" data-id="2044">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/44.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">I.K.H. Ebnekpijn</div>
+                    <div class="post__date">2020-02-18 17:55:02</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-blood_pressure">
+				<div class="content"><p>S: 91 mm Hg</p><p>D: 130 mm Hg</p></div>
+				<div class="blood_pressure"></div>
+			
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="height" data-id="1243">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/44.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">I.K.H. Ebnekpijn</div>
+                    <div class="post__date">2020-02-25 07:09:02</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-height">
+				<div class="content">139cm</div>
+				<div class="height"></div>
+			
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="height" data-id="1668">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/48.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">Aan Huis</div>
+                    <div class="post__date">2020-02-25 09:15:43</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-height">
+				<div class="content">148cm</div>
+				<div class="height"></div>
+			
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="other" data-id="2112">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/44.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">I.K.H. Ebnekpijn</div>
+                    <div class="post__date">2020-03-06 05:01:12</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-other">
+			<div class="content">Juist antwoorden bij laatste pubquiz: <span style="color: purple;"><b>52%</b></span></div>
+		
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="blood_pressure" data-id="1069">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/48.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">Aan Huis</div>
+                    <div class="post__date">2020-03-07 11:01:26</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-blood_pressure">
+				<div class="content"><p>S: 106 mm Hg</p><p>D: 142 mm Hg</p></div>
+				<div class="blood_pressure"></div>
+			
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="blood_pressure" data-id="1026">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/52.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">De Beste Hulp</div>
+                    <div class="post__date">2020-03-13 16:51:01</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-blood_pressure">
+				<div class="content"><p>S: 118 mm Hg</p><p>D: 175 mm Hg</p></div>
+				<div class="blood_pressure"></div>
+			
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="blood_pressure" data-id="1190">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/48.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">Aan Huis</div>
+                    <div class="post__date">2020-03-13 21:20:55</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-blood_pressure">
+				<div class="content"><p>S: 112 mm Hg</p><p>D: 152 mm Hg</p></div>
+				<div class="blood_pressure"></div>
+			
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="height" data-id="1778">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/52.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">De Beste Hulp</div>
+                    <div class="post__date">2020-03-14 23:59:03</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-height">
+				<div class="content">131cm</div>
+				<div class="height"></div>
+			
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="text" data-id="2137">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/52.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">De Beste Hulp</div>
+                    <div class="post__date">2020-03-21 07:22:38</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-text">
+				<div class="content">Mw is gedouchtn haar Haar is niet gewassen. Heeft goed gegeten en gedronken. Mw is vriendelijk aanwezig.</div>
+			
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="text" data-id="1670">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/44.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">I.K.H. Ebnekpijn</div>
+                    <div class="post__date">2020-03-23 22:43:44</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-text">
+				<div class="content">Mw. is vanavond met fam mee uit eten geweestn had het naar haar zin gehad.</div>
+			
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="other" data-id="1131">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/52.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">De Beste Hulp</div>
+                    <div class="post__date">2020-03-28 20:07:20</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-other">
+			<div class="content">Juist antwoorden bij laatste pubquiz: <span style="color: purple;"><b>50%</b></span></div>
+		
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="height" data-id="1911">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/48.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">Aan Huis</div>
+                    <div class="post__date">2020-03-28 22:19:51</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-height">
+				<div class="content">133cm</div>
+				<div class="height"></div>
+			
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="height" data-id="1711">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/48.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">Aan Huis</div>
+                    <div class="post__date">2020-04-01 20:55:35</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-height">
+				<div class="content">74cm</div>
+				<div class="height"></div>
+			
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="other" data-id="2038">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/44.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">I.K.H. Ebnekpijn</div>
+                    <div class="post__date">2020-04-02 08:25:30</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-other">
+			<div class="content">Besmet met het Covid-19 virus: <span style="color: purple;"><b>true</b></span></div>
+		
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="weight" data-id="1589">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/44.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">I.K.H. Ebnekpijn</div>
+                    <div class="post__date">2020-04-03 05:49:30</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-weight">
+				<div class="content">139kg</div>
+				<div class="weight"></div>
+			
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div><div class="post" data-link="height" data-id="1634">
+            <div class="post__header">
+                <div class="post__pic" style="background-image: url(../Pictures/profile_pics/52.jpg);"></div>
+                <div class="post__info">
+                    <div class="post__uploader">De Beste Hulp</div>
+                    <div class="post__date">2020-04-07 03:42:32</div>
+                </div>
+            </div>
+            <div class="post__text">
+		<div class="post__type-height">
+				<div class="content">119cm</div>
+				<div class="height"></div>
+			
+		</div>
+	</div>
+            <div class="comments">
+                <div class="comments__info">No Comments</div>
+                <div class="comment__thread"></div>
+                <div class="comments__urs">
+                    <div class="comments__urs-pic" style="background-image: url(../Pictures/profile_pics/1.jpg);"></div>
+                    <div class="comments__urs-wrapper">
+    					<input class="comments__urs-input" type="text" placeholder="Write your comment">
+                        <input type="text" readonly="" class="comments__urs-click" value="public">
+                        <div class="visibility__options" style="top: -0.5px; left: 0px;">
+                        	<p class="visibility__select">private</p>
+                        	<p class="visibility__select">personal</p>
+                        </div>
+                    </div>
+    				<button class="comments__urs-send"><i class="fas fa-paper-plane"></i></button>
+    				<button class="comments__urs-reply"><i class="fas fa-reply"></i></button>
+                </div>
+            </div>
+        </div></div>
+		</div>
+	</div>
+
+<script src="./Posts_files/settings.js.download"></script>
+<script type="module" src="./Posts_files/main.js.download"></script>
+</body></html>

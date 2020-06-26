@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)http://localhost:8080/caren/signup/index.jsp -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	
+	<title>Sign up</title>
+	<link rel="stylesheet" href="./Sign up_files/main.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="./Sign up_files/jquery.min.js.download"></script>
+</head>
+<body class="signup">
+
+	
+	
+	
+	<div class="signup__container">
+		<img class="signup__logo" src="./Sign up_files/logo.png" alt="Nedap">
+		<h2 class="signup__heading">Sign up</h2>
+		<form action="http://localhost:8080/caren/signup/signupentr">
+			<div class="input">
+				<p class="input__label" style="left: 776px; font-size: 16px; background-color: rgb(255, 255, 255); top: 378.859px; z-index: -1;">First name</p>
+				<p class="input__label" style="left: 966px; font-size: 10px; background-color: rgb(255, 255, 255); top: 364.859px; z-index: 1;">Last name</p>
+				<p class="input__label" style="left: 776px; font-size: 10px; background-color: rgb(255, 255, 255); top: 422.859px; z-index: 1;">Email</p>
+				<p class="input__label" style="left: 776px; font-size: 10px; background-color: rgb(255, 255, 255); top: 480.859px; z-index: 1;">Birth date</p>
+				<p class="input__label" style="left: 966px; font-size: 10px; background-color: rgb(255, 255, 255); top: 480.859px; z-index: 1;">Gender</p>
+				<p class="input__label" style="left: 776px; font-size: 10px; background-color: rgb(255, 255, 255); top: 543.25px; z-index: 1;">Password [A-Z a-z 0-9]</p>
+				<p class="input__label" style="left: 776px; font-size: 10px; background-color: rgb(255, 255, 255); top: 591.25px; z-index: 1;">Repeat password</p>
+				<div class="input__halves">
+					<input required="required" class="input__text" type="text" name="firstname">
+					<input required="required" class="input__text" type="text" name="lastname">
+				</div>
+				<input required="required" class="input__text" type="text" name="email">
+				<div class="input__halves">
+					<input required="required" class="input__text" type="date" max="2020-12-31" name="birthdate">
+					<input required="required" class="input__text" type="text" name="gender" readonly="" value="other">
+				</div>
+				<input required="required" class="input__text" type="password" minlength="8" pattern="[A-Za-z0-9]{8, 30}" name="password">
+				<input required="required" class="input__text" type="password" name="passwordagn">
+				<div class="input__options" style="top: 529.25px; left: 961px; width: 186px;">
+					<p class="input__value">male</p>
+					<p class="input__value">female</p>
+					<p class="input__value">other</p>
+				</div>
+			</div>
+			<div class="submit">
+				<a class="submit__link" href="http://localhost:8080/caren/signup/index.jsp#">Forgotten Password?</a>
+				<input type="submit" value="Signup" class="submit__btn">
+			</div>
+		</form>
+	</div>
+
+<script src="./Sign up_files/form.js.download"></script>
+</body></html>

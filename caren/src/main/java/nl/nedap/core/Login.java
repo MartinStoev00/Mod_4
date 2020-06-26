@@ -2,6 +2,9 @@ package nl.nedap.core;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,6 +18,7 @@ import javax.servlet.http.HttpSession;
 
 import nl.nedap.utility.DatabaseManager;
 import nl.nedap.utility.ForeignCharactersChecker;
+import nl.nedap.utility.Hasher;
 
 /**
  * Servlet implementation class Login
@@ -37,8 +41,8 @@ public class Login extends HttpServlet {
 		// TODO Auto-generated method stub
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		PrintWriter out = response.getWriter();
-		String docType = "<!DOCTYPE HTML>\n";
+		
+		String hashedPassword = Hasher.hash(password);
 		
 		try {
 			if (ForeignCharactersChecker.basicHasForeignCharacters(password)) {//sanitisation for password field
@@ -56,7 +60,7 @@ public class Login extends HttpServlet {
 			String q = "SELECT caren.accountExists(?);";
 			
 			ResultSet resultset = DatabaseManager.ReadQuery(q, email);
-			System.out.println("Attempted login by: email: " + email + "; password: " + password + ";");
+			
 			
 			if (resultset.next()) { // has an account
 				System.out.println("Account with email: " + email + "; exists.");
@@ -73,7 +77,6 @@ public class Login extends HttpServlet {
 				int verified = passResultset.getInt(5);
 				String type = passResultset.getString(6);
 				
-				
 				//if account is not verified
 				if (verified != 1) {
 					String resendVerificationLink = "http://localhost:8080/caren/rest/resendEmail/" + email;
@@ -83,7 +86,7 @@ public class Login extends HttpServlet {
 				
 				
 				//if password matches and account is verified
-				if (pass.equals(password)) {
+				if (pass.equals(hashedPassword)) {
 					//Make session
 					HttpSession session = request.getSession();
 					session.setAttribute("aid", aid);

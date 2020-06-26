@@ -347,11 +347,9 @@ body {
   flex-wrap: nowrap;
   justify-content: center;
   align-content: center;
-  align-items: center;
-  margin-left: 40px; }
+  align-items: center; }
   .charts * {
-    margin-top: 20px;
- }
+    margin-top: 20px; }
   .charts__date {
     font-family: 'Arial';
     display: flex;
@@ -359,8 +357,7 @@ body {
     flex-wrap: nowrap;
     justify-content: center;
     align-content: center;
-    align-items: center;
-    margin-top: 10px;  }
+    align-items: center; }
     .charts__dateBlock {
       display: flex;
       flex-direction: row;
@@ -384,8 +381,7 @@ body {
 
 @media screen and (max-width: 1023px) {
   .charts {
-    width: 95vw;
-    margin-left: 0px; }
+    width: 95vw; }
     .charts__date p {
       display: none; }
     .charts__dateBlock {

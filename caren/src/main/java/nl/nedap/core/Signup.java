@@ -3,6 +3,9 @@ package nl.nedap.core;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -20,6 +23,7 @@ import javax.servlet.http.HttpSession;
 import nl.nedap.utility.DatabaseManager;
 import nl.nedap.utility.EmailVerification;
 import nl.nedap.utility.ForeignCharactersChecker;
+import nl.nedap.utility.Hasher;
 
 import java.sql.Date;
 
@@ -44,6 +48,7 @@ public class Signup extends HttpServlet {
 		String gender = request.getParameter("gender");
 		String password = request.getParameter("password");
 		String passwordagn = request.getParameter("passwordagn");
+		String hashedPassword = Hasher.hash(password);
 		
 		try {
 			//TODO check if account already exists
@@ -103,13 +108,12 @@ public class Signup extends HttpServlet {
 				//Making call to database to make account.
 				String createAccQ = "INSERT INTO caren.accounts (aid, email, password) VALUES (CAST(? AS int),?, ?)"; // email, password.
 				//fix
-				DatabaseManager.updateQuery(createAccQ, "" + (maxpKeyAccounts + 1), email, password);
+				DatabaseManager.updateQuery(createAccQ, "" + (maxpKeyAccounts + 1), email, hashedPassword);
 				//Retrieving the new account's aid.
 				String aidQ = "SELECT a.aid FROM caren.accounts a WHERE a.email = ?"; // email.
 				ResultSet aidResultSet = DatabaseManager.ReadQuery(aidQ, email);
 				aidResultSet.next();
 				int aid = aidResultSet.getInt(1);
-				System.out.println(aid);
 				//Making call to database to make person in people.
 				String createPersQ = "INSERT INTO caren.people (pid,aid, first_name, last_name, date_of_birth, gender) VALUES (CAST(? AS int), CAST(? AS int), ?, ?, CAST(? AS date), ?)";
 				DatabaseManager.updateQuery(createPersQ, ""+ (maxpKeyPeople + 1), ""+aid, firstname, lastname, ""+birthDateFormatted.toString(), gender);

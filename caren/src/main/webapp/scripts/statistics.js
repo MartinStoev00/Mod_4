@@ -12,8 +12,12 @@ window.chartColors = {
 };
 
 let ctxgraph = document.getElementById('canvas');
+//ctxgraph.style.backgroundColor = 'rgba(255,255,255,255)';
 var ctx = ctxgraph.getContext('2d');
 let ctxgraphbar = document.getElementById('changescanvas');
+//ctxgraphbar.style.backgroundColor = 'rgba(255,255,255,255)';
+
+
 var ctxbar = ctxgraphbar.getContext('2d');
 let initData;
 let from_date = document.getElementsByClassName("statistics__date")[0];
@@ -32,6 +36,7 @@ let measurementData = {
 
 //line Graph Configuration
 let lineConfig = {
+		
     type: 'line',
     data: {
         labels: ['default'],
@@ -88,6 +93,7 @@ let barConfig = {
 		}]
 	},
 	options: {
+		
 		legend: {
 			display: false
 		},
@@ -135,6 +141,9 @@ ctxgraph.onclick = onclickData;
 export function statistics(records) {
 	if(window.lineChart){
 		window.lineChart.destroy();
+	}
+	if(window.barChart){
+		window.barChart.destroy();
 	}
 	initData = records;
 	insertIntoJSON(records);
@@ -258,7 +267,9 @@ export function displayGraph(typebutton){
             	}
             });
     	} else {
-    		chart.clear();
+    		if(chart){
+    			chart.clear();
+    		}
     		console.log("No records");
     	}  
     } else {
@@ -297,12 +308,16 @@ export function displayGraph(typebutton){
             	}
             });
     	} else {
+    		if(chart){
+    			chart.clear();
+    		}
     		console.log("No records");
     	}   	
     }
-	window.scrollTo(0, 0);
     window.lineChart.update();
     window.barChart.update();
+	window.scrollTo(0, 0);
+
 }
 
 
@@ -315,6 +330,7 @@ function returnArray(fieldname) {
 	    lineConfig.data.datasets.splice(1, 1);
 	    barConfig.data.datasets.splice(1, 1);
 	}
+
     
     if (fieldname == 'height' || fieldname == 'weight') {
     		measurementData[fieldname].forEach((fieldnamedata) => {
@@ -329,8 +345,6 @@ function returnArray(fieldname) {
           if(arrayvalue1.length > 1){
             	barConfig.data.datasets[0].data = arrayvalue1.slice(arrayvalue1.length-2, arrayvalue1.length);
             }
-            
-            
         
     } else {
     		measurementData.bloodpressure.systolic.forEach((fieldnamedata) => {
@@ -351,8 +365,7 @@ function returnArray(fieldname) {
         	}
             addLineDataset(arrayvalue2, ridvalue);
             lineConfig.data.labels = date;
-            
-            
+
             if(arrayvalue1.length > 1){
             	barConfig.data.datasets[0].data = arrayvalue1.slice(arrayvalue1.length-2, arrayvalue1.length);
             	addBarDataset(arrayvalue2.slice(arrayvalue2.length-2, arrayvalue2.length));
@@ -397,7 +410,10 @@ function addBarDataset(datasetvalue){
     for(var index = 0; index < datasetvalue.length; index++){
     	secondDatasetBar.data.push(datasetvalue[index]);
     }
+
     barConfig.data.datasets.push(secondDatasetBar);  
+    //console.log("ss");
+    //console.log(barConfig.data.datasets);
 }
 
 function dataChange() {
