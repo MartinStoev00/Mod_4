@@ -81,7 +81,6 @@ public class ChangeProfileSettings extends HttpServlet {
 		try {
 			passwordR.next();
 			pass = passwordR.getString(1);
-			System.out.println(pass);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return;
@@ -178,7 +177,7 @@ public class ChangeProfileSettings extends HttpServlet {
 		*/
 		
 		
-		response.sendRedirect("http://localhost:8080/caren/settings/success.html");
+		response.sendRedirect("http://localhost:8080/caren/posts/success.html");
 		
 	}
 	
