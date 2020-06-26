@@ -868,7 +868,6 @@ body {
       .sidebar .filters__filter .fas, .sidebar .filters__reset .fas {
         display: inline-block; }
     .sidebar .filters__date {
-      max-width: 125px;
       background-color: inherit;
       align-self: stretch;
       flex: 1 1 auto;
@@ -896,6 +895,7 @@ body {
         display: none; }
       .sidebar .filters__date .date__date {
         flex: 1 1 auto;
+        max-width: 125px;
         width: 90%;
         margin: 0px;
         border: none;

@@ -87,7 +87,7 @@ export function headerStyle() {
 	    notifyNumber.style.top = (notifyIconY - 41) + "px";
 	    notifyNumber.style.left = (notifyIconX + 92) + "px";
 	    notifyNumber.style.display = "block";
-    }, 50);
+    }, 100);
 }
 
 function handleNotifications(comments){
