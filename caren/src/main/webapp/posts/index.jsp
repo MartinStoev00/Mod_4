@@ -203,12 +203,13 @@
 						<input type = "date" class = "statistics__date">
 					</div>
 				</div>
-				<div class="statistics">
+				
+				<iframe class="statistics">
 				 	<canvas id="canvas"></canvas>
-				</div>
-				<div class="bars">
+				</iframe>
+				<iframe class="bars">
 				 	<canvas id="changescanvas"></canvas>
-				</div>
+				</iframe>
 			</div>
 			<div id="posts" class="posts"></div>
 		</div>

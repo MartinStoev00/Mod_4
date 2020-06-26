@@ -1,9 +1,5 @@
 Manifest-Version: 1.0
-<<<<<<< HEAD
 Built-By: wisha
-=======
-Built-By: marti
->>>>>>> 454cac707ba117190fe53055e57104cf75f40501
 Build-Jdk: 11.0.5
 Created-By: Maven Integration for Eclipse
 
