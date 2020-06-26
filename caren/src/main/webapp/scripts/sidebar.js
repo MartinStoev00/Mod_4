@@ -313,7 +313,7 @@ chartButton.addEventListener("click", () => {
 		if(window.innerWidth > 1023) {
 			peopleBtn.click();
 		} else {
-			document.getElementsByClassName("mainPosts")[0].style.height = "calc(100vh - (100vw - 20px)*(44.23/201.6) - 64.8px)";
+			document.getElementsByClassName("mainPosts")[0].style.height = "calc(100vh - 64.8px)";
 			document.getElementsByClassName("sidebar")[0].style.display = "none";
 		}
 		sidebarNavBlock.style.display = "none";
@@ -351,7 +351,7 @@ chartButton.addEventListener("click", () => {
 	    if(window.innerWidth > 1023) {
 		    filterBtn.click();
 		} else {
-			document.getElementsByClassName("mainPosts")[0].style.height = "calc(100vh - (100vw - 20px)*(44.23/201.6) - 246.8px)";
+			document.getElementsByClassName("mainPosts")[0].style.height = "calc(100vh - 246.8px)";
 			document.getElementsByClassName("sidebar")[0].style.display = "flex";
 			sidebarNavBlock.style.display = "none";
 		    people.style.display = "none";
