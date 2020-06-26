@@ -12,7 +12,7 @@
 }
 @media screen and (max-width: 1023px) { 
 	.mainPosts {
-		height: calc(100vh - (100vw - 20px)*(44.23/201.6) - 246.8px);
+		height: calc(100vh - 246.8px);
 		display: block;
 	}
 }

@@ -116,7 +116,7 @@ body {
     align-content: flex-start;
     align-items: stretch; }
     .header__logo {
-      width: calc(100vw - 20px); }
+      display: none; }
     .header__wrapper {
       width: auto;
       display: flex;
@@ -338,7 +338,7 @@ body {
 
 @media screen and (max-width: 1023px) {
   .mainPosts {
-    height: calc(100vh - (100vw - 20px)*(44.23/201.6) - 246.8px);
+    height: calc(100vh - 246.8px);
     display: block; } }
 .charts {
   display: none;
@@ -831,6 +831,7 @@ body {
     .sidebar .filters__date .date__text {
       margin: 5px 15px; }
     .sidebar .filters__date .date__date {
+      max-width: 125px;
       margin: 5px;
       border: none;
       padding: 10px;

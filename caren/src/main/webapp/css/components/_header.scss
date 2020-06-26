@@ -56,7 +56,7 @@
 	    align-content: flex-start;
 	    align-items: stretch;
 		&__logo {
-			width: calc(100vw - 20px);
+			display: none;
 		}
 		&__wrapper {
 			width: auto;
