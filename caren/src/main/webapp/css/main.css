@@ -350,8 +350,7 @@ body {
   align-items: center;
   margin-left: 40px; }
   .charts * {
-    margin-top: 20px;
- }
+    margin-top: 20px; }
   .charts__date {
     font-family: 'Arial';
     display: flex;
@@ -359,15 +358,15 @@ body {
     flex-wrap: nowrap;
     justify-content: center;
     align-content: center;
-    align-items: center;
-    margin-top: 10px;  }
+    align-items: center; }
     .charts__dateBlock {
       display: flex;
       flex-direction: row;
       flex-wrap: nowrap;
       justify-content: center;
       align-content: center;
-      align-items: center; }
+      align-items: center;
+      margin-top: 10px; }
       .charts__dateBlock * {
         margin: 10px 5px; }
       .charts__dateBlock .statistics__date {
@@ -637,6 +636,9 @@ body {
   justify-content: space-between;
   align-content: stretch;
   align-items: stretch; }
+  .post:hover {
+    cursor: pointer;
+    box-shadow: 0 0 7px rgba(170, 170, 170, 0.3), 0 0 13px rgba(170, 170, 170, 0.2); }
   .post__header {
     margin: 0 50px;
     flex: 0 1 auto;
@@ -682,6 +684,9 @@ body {
     text-decoration: underline;
     color: #9a009a;
     font-family: 'Arial'; }
+    .post__goBack:hover {
+      cursor: pointer;
+      text-shadow: 0 0 7px rgba(128, 0, 128, 0.3), 0 0 13px rgba(128, 0, 128, 0.2); }
   .post__err {
     text-align: center;
     font-size: 22px;
