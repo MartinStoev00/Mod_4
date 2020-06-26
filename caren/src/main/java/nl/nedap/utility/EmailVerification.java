@@ -61,9 +61,9 @@ public class EmailVerification {
 		
 		Transport transport = e.mailSession.getTransport("smtp");
 		transport.connect("smtp.gmail.com", e.email, e.password);
-		System.out.println("send "+ e.recepient +" " + e.token );
+
 		transport.sendMessage(e.mailMessage, e.mailMessage.getAllRecipients());
-		System.out.println("sent");
+
 		transport.close();
 	}
 	

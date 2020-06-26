@@ -48,7 +48,6 @@ public class Signup extends HttpServlet {
 		String gender = request.getParameter("gender");
 		String password = request.getParameter("password");
 		String passwordagn = request.getParameter("passwordagn");
-		
 		String hashedPassword = Hasher.hash(password);
 		
 		try {
@@ -115,7 +114,6 @@ public class Signup extends HttpServlet {
 				ResultSet aidResultSet = DatabaseManager.ReadQuery(aidQ, email);
 				aidResultSet.next();
 				int aid = aidResultSet.getInt(1);
-				System.out.println(aid);
 				//Making call to database to make person in people.
 				String createPersQ = "INSERT INTO caren.people (pid,aid, first_name, last_name, date_of_birth, gender) VALUES (CAST(? AS int), CAST(? AS int), ?, ?, CAST(? AS date), ?)";
 				DatabaseManager.updateQuery(createPersQ, ""+ (maxpKeyPeople + 1), ""+aid, firstname, lastname, ""+birthDateFormatted.toString(), gender);
