@@ -21,6 +21,7 @@ import javax.servlet.http.Part;
 
 import nl.nedap.utility.DatabaseManager;
 import nl.nedap.utility.ForeignCharactersChecker;
+import nl.nedap.utility.Hasher;
 
 
 @MultipartConfig
@@ -55,7 +56,7 @@ public class ChangeProfileSettings extends HttpServlet {
 		String last_name_input = getValueOfPart(request.getPart("last_name"));
 		String email_input = getValueOfPart(request.getPart("email"));
 		String password_input = getValueOfPart(request.getPart("password"));
-		String old_password_input = getValueOfPart(request.getPart("old_password"));
+		String old_password_input = Hasher.hash(getValueOfPart(request.getPart("old_password")));
 		
 		Part profile_picture_input = request.getPart("profile_picture");
 		
