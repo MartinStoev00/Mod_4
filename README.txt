@@ -29,3 +29,6 @@ wishal17 - Wishal M Sri Rangan (s2323680).
 s2392593 - Martin Stoev (s2392593).
 s2288745 - Hamza Biabani (s2288745).
 omar elkady - Omar Elkady (s2389541)
+
+JIRA: https://nedapteam2.atlassian.net/secure/RapidBoard.jspa?rapidView=2&projectKey=MT
+database name: dab_di19202b_340
