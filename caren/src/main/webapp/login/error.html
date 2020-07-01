@@ -1,12 +1,38 @@
 <!DOCTYPE html>
 <html>
     <title>
-        Verification
+        Success
     </title>
 
+    <head>
+        <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" type="text/css" href="result.css">
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+    </head>
+
     <body>
-        <div class="main_message" style="text-align: center; margin: auto; margin-top: 45vh;">
-            <label id="msg" style="color: #ff82b2; font-family: Trebuchet MS;  font-size: 4rem; font-variant: small-caps; text-shadow: 2px 2px #434343;">Error.</label>
+        <div class="header" name="header">
+			<div class="header__wrapper"><img class="header__logo" src="../Pictures/website_icon.png" alt=""></div>
+			<div class="header__buttons">
+				<button class="header__myProfile fas fa-user-circle" onclick="location.href='http://localhost:8080/caren/posts/'"></button>
+				<button class="header__notify fas fa-bell"></button>
+				<button class="header__friends fas fa-user-friends"></button>
+				<button id="chartsToggle" class="header__chart fas fa-chart-area" data-set="off"></button>
+				<button id="settingsToggle" class="header__settings fas fa-cog" data-set="off"></button>
+				<form action="../signout">
+					<button type="submit" class="header__logout fas fa-sign-out-alt"></button>
+				</form>
+				<div class="notifications"></div>
+				<div class="notifications__triangle"></div>
+				<p class="notifications__number"></p>
+				<div class="arrow"></div>
+			</div>
+        </div>
+
+        <div class="main_message">
+            <div id="msg" class="message_text" style="margin-top: 80px; color: #434343; font-family: Trebuchet MS;  font-size: 2rem; font-variant: small-caps;">Error.</div>
+
+            <img src="../icons/wrong.png" style="margin-top: 50px; width: 50px;"> </img>
         </div>
 
         <div class="resend" style="text-align: center;  margin: auto;">
@@ -27,10 +53,11 @@
 	        
 	        let e = data.error;
 	        e = e.replace(/%20/g," ");
+            e = e.replace(/%3E/g,"");
 	        document.getElementById("msg").innerHTML = e;
 	        
         	document.getElementById("resend").onclick = function(){
-        		window.location.href = "http://localhost:8080/caren/signup/";
+        		window.location.href = "http://localhost:8080/caren/login/";
         	};
         }
     </script>

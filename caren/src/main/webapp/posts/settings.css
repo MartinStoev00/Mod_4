@@ -193,5 +193,9 @@ body{
 	    float: none;
 	    cursor: pointer;
 	    margin-left: 5%;
-	}
+    }
+
+    .main_message{
+        
+    }
 }

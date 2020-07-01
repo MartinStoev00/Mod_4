@@ -22,6 +22,7 @@ public class ProfileSettingsResource {
 		ProfileSettings ps;
 		
 		if (request.getSession().getAttribute("aid") == null) {
+			System.out.println("wut!");
 			return null;
 		}
 		

@@ -21,6 +21,7 @@ import javax.servlet.http.Part;
 
 import nl.nedap.utility.DatabaseManager;
 import nl.nedap.utility.ForeignCharactersChecker;
+import nl.nedap.utility.Hasher;
 
 
 @MultipartConfig
@@ -55,7 +56,7 @@ public class ChangeProfileSettings extends HttpServlet {
 		String last_name_input = getValueOfPart(request.getPart("last_name"));
 		String email_input = getValueOfPart(request.getPart("email"));
 		String password_input = getValueOfPart(request.getPart("password"));
-		String old_password_input = getValueOfPart(request.getPart("old_password"));
+		String old_password_input = Hasher.hash(getValueOfPart(request.getPart("old_password")));
 		
 		Part profile_picture_input = request.getPart("profile_picture");
 		
@@ -95,7 +96,7 @@ public class ChangeProfileSettings extends HttpServlet {
 				
 				DatabaseManager.updateQuery(q, first_name_input, ""+loggedaid);
 			} else {
-				response.sendRedirect("http://localhost:8080/caren/settings/failure.html");
+				response.sendRedirect("http://localhost:8080/caren/posts/failure.html");
 				return;
 			}
 		}
@@ -109,7 +110,7 @@ public class ChangeProfileSettings extends HttpServlet {
 				
 				DatabaseManager.updateQuery(q, last_name_input, ""+loggedaid);
 			} else {
-				response.sendRedirect("http://localhost:8080/caren/settings/failure.html");
+				response.sendRedirect("http://localhost:8080/caren/posts/failure.html");
 				return;
 			}
 		}
@@ -123,7 +124,7 @@ public class ChangeProfileSettings extends HttpServlet {
 				
 				DatabaseManager.updateQuery(q, email_input, ""+loggedaid);
 			} else {
-				response.sendRedirect("http://localhost:8080/caren/settings/failure.html");
+				response.sendRedirect("http://localhost:8080/caren/posts/failure.html");
 				return;
 			}
 		}
@@ -137,7 +138,7 @@ public class ChangeProfileSettings extends HttpServlet {
 				
 				DatabaseManager.updateQuery(q, password_input, ""+loggedaid);
 			} else {
-				response.sendRedirect("http://localhost:8080/caren/settings/failure.html");
+				response.sendRedirect("http://localhost:8080/caren/posts/failure.html");
 				return;
 			}
 		}
