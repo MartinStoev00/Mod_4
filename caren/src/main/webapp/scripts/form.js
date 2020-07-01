@@ -1,7 +1,10 @@
 let exclamation = `<i class="fa fa-exclamation-triangle exclamation"></i>`;
 
 window.addEventListener('resize', init);
-window.onload = init;
+window.onload = () => {
+		init();
+	    inputs[0].focus();	
+};
 
 let inputs = document.getElementsByClassName("input__text");
 let labels = document.getElementsByClassName("input__label");
@@ -143,5 +146,4 @@ function init() {
             
         });
     });
-    inputs[0].focus();	
 }
