@@ -46,7 +46,7 @@
 				</div>
 			</div>
 			<div class="submit">
-				<a class="submit__link" href="#" >Forgotten Password?</a>
+				<a class="submit__link" href="../login/" >Have an account?</a>
 				<input type="submit" value="Signup" class="submit__btn">
 			</div>
 		</form>
