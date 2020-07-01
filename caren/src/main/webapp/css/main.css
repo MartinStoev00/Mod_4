@@ -383,8 +383,8 @@ body {
 
 @media screen and (max-width: 1023px) {
   .charts {
-    width: 95vw;
-    margin-left: 0px; }
+    width: calc(90vw - 4%);
+    margin: 20px auto 0; }
     .charts__date p {
       display: none; }
     .charts__dateBlock {
@@ -620,169 +620,168 @@ body {
   justify-content: center;
   align-content: stretch;
   align-items: stretch; }
-
-.post {
-  transition: .2s;
-  width: 400px;
-  font-family: 'Arial';
-  border: 1px #ddd solid;
-  border-radius: 3px;
-  margin: 20px;
-  background-color: #fff;
-  min-height: 120px;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-content: stretch;
-  align-items: stretch; }
-  .post:hover {
-    cursor: pointer;
-    box-shadow: 0 0 7px rgba(170, 170, 170, 0.3), 0 0 13px rgba(170, 170, 170, 0.2); }
-  .post__header {
-    margin: 0 50px;
-    flex: 0 1 auto;
-    align-self: stretch;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-content: center;
-    align-items: center; }
-  .post__pic {
-    margin: 15px 15px 15px 0;
-    padding: 7px;
-    height: 30px;
-    width: 30px;
-    background-position: center;
-    background-size: cover;
-    border-radius: 50%;
-    display: inline-block; }
-  .post__title {
-    flex: 0 1 auto;
-    align-self: stretch;
-    text-align: center;
-    font-size: 22px;
-    font-weight: 600;
-    margin: 10px 0 30px;
-    text-transform: capitalize; }
-  .post__uploader {
-    font-weight: 600;
-    color: purple;
-    font-family: Trebuchet MS; }
-  .post__date {
-    color: rgba(128, 0, 128, 0.5);
-    font-size: 12px; }
-  .post__text {
-    text-align: justify;
-    padding: 0 15px 15px; }
-  .post__goBack {
-    display: none;
-    transition: .3s;
-    width: 100%;
-    padding: 5px 10px;
-    text-decoration: underline;
-    color: #9a009a;
-    font-family: 'Arial'; }
-    .post__goBack:hover {
-      cursor: pointer;
-      text-shadow: 0 0 7px rgba(128, 0, 128, 0.3), 0 0 13px rgba(128, 0, 128, 0.2); }
-  .post__err {
-    text-align: center;
-    font-size: 22px;
-    color: #555;
+  .posts .post {
+    transition: .2s;
+    width: 400px;
     font-family: 'Arial';
-    font-weight: 600;
-    display: none;
-    padding: 30px; }
-  .post__type-height {
-    align-self: auto;
-    flex: 1 1 auto;
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: auto;
-    grid-template-areas: ". . img text . ."; }
-    .post__type-height .content {
-      font-size: 25px;
-      font-weight: 900;
-      grid-area: text;
+    border: 1px #ddd solid;
+    border-radius: 3px;
+    margin: 20px;
+    background-color: #fff;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: stretch;
+    align-items: stretch; }
+    .posts .post:hover {
+      cursor: pointer;
+      box-shadow: 0 0 7px rgba(170, 170, 170, 0.3), 0 0 13px rgba(170, 170, 170, 0.2); }
+    .posts .post__header {
+      margin: 0 50px;
+      flex: 0 1 auto;
+      align-self: stretch;
       display: flex;
       flex-direction: row;
-      flex-wrap: nowrap;
-      justify-content: flex-start;
-      align-content: stretch;
-      align-items: center;
-      color: purple; }
-    .post__type-height .height {
-      width: 100px;
-      height: 100px;
-      background-image: url(../Pictures/height.png);
-      background-position: center;
-      background-size: cover;
-      justify-self: end;
-      grid-area: img; }
-  .post__type-weight {
-    align-self: auto;
-    flex: 1 2 auto;
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: auto;
-    grid-template-areas: "text" "img"; }
-    .post__type-weight .content {
-      font-size: 25px;
-      font-weight: 900;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      justify-content: center;
-      align-content: stretch;
-      align-items: center;
-      grid-area: text;
-      color: purple; }
-    .post__type-weight .weight {
-      width: calc(100px*(980/876));
-      height: 100px;
-      background-image: url(../Pictures/weight.png);
-      background-position: center;
-      margin: auto;
-      background-size: cover;
-      grid-area: img; }
-  .post__type-blood_pressure {
-    align-self: auto;
-    flex: 1 2 auto;
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: auto;
-    grid-template-areas: "text" "img"; }
-    .post__type-blood_pressure .content {
-      font-size: 25px;
-      font-weight: 900;
-      display: flex;
-      flex-direction: column;
       flex-wrap: nowrap;
       justify-content: center;
       align-content: center;
-      align-items: center;
-      grid-area: text;
-      color: purple; }
-    .post__type-blood_pressure .blood_pressure {
-      width: calc(100px*(980/972));
-      height: 100px;
-      background-image: url(../Pictures/blood_pressure.png);
+      align-items: center; }
+    .posts .post__pic {
+      margin: 15px 15px 15px 0;
+      padding: 7px;
+      height: 30px;
+      width: 30px;
       background-position: center;
       background-size: cover;
-      margin: auto;
-      grid-area: img; }
-  .post__type-text {
-    align-self: auto;
-    flex: 1 2 auto; }
-    .post__type-text .content {
-      text-align: center; }
-  .post__type-other {
-    align-self: auto;
-    flex: 1 2 auto; }
-    .post__type-other .content {
-      text-align: center; }
+      border-radius: 50%;
+      display: inline-block; }
+    .posts .post__title {
+      flex: 0 1 auto;
+      align-self: stretch;
+      text-align: center;
+      font-size: 22px;
+      font-weight: 600;
+      margin: 10px 0 30px;
+      text-transform: capitalize; }
+    .posts .post__uploader {
+      font-weight: 600;
+      color: purple;
+      font-family: Trebuchet MS; }
+    .posts .post__date {
+      color: rgba(128, 0, 128, 0.5);
+      font-size: 12px; }
+    .posts .post__text {
+      text-align: justify;
+      padding: 0 15px 15px; }
+    .posts .post__goBack {
+      display: none;
+      transition: .3s;
+      width: 100%;
+      padding: 5px 10px;
+      text-decoration: underline;
+      color: #9a009a;
+      font-family: 'Arial'; }
+      .posts .post__goBack:hover {
+        cursor: pointer;
+        text-shadow: 0 0 7px rgba(128, 0, 128, 0.3), 0 0 13px rgba(128, 0, 128, 0.2); }
+    .posts .post__err {
+      text-align: center;
+      font-size: 22px;
+      color: #555;
+      font-family: 'Arial';
+      font-weight: 600;
+      display: none;
+      padding: 30px; }
+    .posts .post__type-height {
+      align-self: auto;
+      flex: 1 1 auto;
+      display: grid;
+      grid-template-columns: auto;
+      grid-template-rows: auto;
+      grid-template-areas: ". . img text . ."; }
+      .posts .post__type-height .content {
+        font-size: 25px;
+        font-weight: 900;
+        grid-area: text;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-content: stretch;
+        align-items: center;
+        color: purple; }
+      .posts .post__type-height .height {
+        width: 100px;
+        height: 100px;
+        background-image: url(../Pictures/height.png);
+        background-position: center;
+        background-size: cover;
+        justify-self: end;
+        grid-area: img; }
+    .posts .post__type-weight {
+      align-self: auto;
+      flex: 1 2 auto;
+      display: grid;
+      grid-template-columns: auto;
+      grid-template-rows: auto;
+      grid-template-areas: "text" "img"; }
+      .posts .post__type-weight .content {
+        font-size: 25px;
+        font-weight: 900;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-content: stretch;
+        align-items: center;
+        grid-area: text;
+        color: purple; }
+      .posts .post__type-weight .weight {
+        width: calc(100px*(980/876));
+        height: 100px;
+        background-image: url(../Pictures/weight.png);
+        background-position: center;
+        margin: auto;
+        background-size: cover;
+        grid-area: img; }
+    .posts .post__type-blood_pressure {
+      align-self: auto;
+      flex: 1 2 auto;
+      display: grid;
+      grid-template-columns: auto;
+      grid-template-rows: auto;
+      grid-template-areas: "text" "img"; }
+      .posts .post__type-blood_pressure .content {
+        font-size: 25px;
+        font-weight: 900;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        grid-area: text;
+        color: purple; }
+      .posts .post__type-blood_pressure .blood_pressure {
+        width: calc(100px*(980/972));
+        height: 100px;
+        background-image: url(../Pictures/blood_pressure.png);
+        background-position: center;
+        background-size: cover;
+        margin: auto;
+        grid-area: img; }
+    .posts .post__type-text {
+      align-self: auto;
+      flex: 1 2 auto; }
+      .posts .post__type-text .content {
+        text-align: center; }
+    .posts .post__type-other {
+      align-self: auto;
+      flex: 1 2 auto; }
+      .posts .post__type-other .content {
+        text-align: center; }
 
 .sidebar .filters {
   transition: .2s;
@@ -1283,6 +1282,9 @@ body {
 @media screen and (max-width: 1023px) {
   body {
     overflow-y: hidden; }
+
+  .mainPosts {
+    overflow-x: hidden; }
 
   .all {
     grid-template-columns: auto;

@@ -312,11 +312,14 @@ chartButton.addEventListener("click", () => {
 		chartButton.style.color = "purple";
 		if(window.innerWidth > 1023) {
 			peopleBtn.click();
+			sidebarNavBlock.style.display = "none";
 		} else {
-			document.getElementsByClassName("mainPosts")[0].style.height = "calc(100vh - 64.8px)";
-			document.getElementsByClassName("sidebar")[0].style.display = "none";
+			document.getElementsByClassName("sidebar__control")[0].click();
+			document.getElementsByClassName("mainPosts")[0].style.height = "calc(100vh - 121.4px)";
+			document.getElementsByClassName("filters")[0].style.display = "none";
+			document.getElementsByClassName("sidebar__content")[0].style.paddingBottom = "10px";
+			document.getElementsByClassName("sidebar__content")[0].style.display = "flex";
 		}
-		sidebarNavBlock.style.display = "none";
 		Array.prototype.forEach.call(linkForPages, (currentPage) => {
 			currentPage.setAttribute("data-state", "deselected");
 			currentPage.getElementsByTagName("i")[1].style.display = "none";
@@ -452,11 +455,8 @@ searchRecords.addEventListener("keyup", () => {
     let curr = searchRecords.value.toLowerCase();
     let postsBlocks = document.getElementsByClassName("post");
     Array.prototype.forEach.call(postsBlocks, (post) => {
-    	if(post.getElementsByClassName("content")[0].innerHTML.includes(`<span style="background-color:yellow;font-weight: 900;">`,"")) {
-    		let oldText = post.getElementsByClassName("content")[0].innerHTML.split(`<span style="background-color:yellow;font-weight: 900;">`)[1].replace(`</span>`,"");
-            post.getElementsByClassName("content")[0].innerHTML = post.getElementsByClassName("content")[0].innerHTML.split(`<span style="background-color:yellow;font-weight: 900;">`)[0] + oldText;
-    	}
-        post.getElementsByClassName("post__uploader")[0].innerHTML = post.getElementsByClassName("post__uploader")[0].innerHTML.replace(`<span style="background-color:yellow;font-weight: 900;">`,"").replace(`</span>`,"");
+    	post.getElementsByClassName("content")[0].innerHTML = post.getElementsByClassName("content")[0].innerHTML.replace(`<mark><b>`,"").replace(`</b></mark>`,"");
+        post.getElementsByClassName("post__uploader")[0].innerHTML = post.getElementsByClassName("post__uploader")[0].innerHTML.replace(`<mark><b>`,"").replace(`</b></mark>`,"");
     });
     Array.prototype.forEach.call(postsBlocks, (post) => {
         let currTitle = post.getElementsByClassName("content")[0].textContent.toLowerCase() + post.getElementsByClassName("post__uploader")[0].innerHTML.toLowerCase();
@@ -480,22 +480,22 @@ searchRecords.addEventListener("keyup", () => {
                 if(curr !== "") {
                 	if(post.getElementsByClassName("content")[0].textContent.includes(curr)) {
                     	if(post.getElementsByClassName("content")[0].innerHTML.includes("</b></span>")) {
-                    		let first = post.getElementsByClassName("content")[0].innerHTML.split(`<span style="color: purple;"><b>`)[0];
-                    		let second = post.getElementsByClassName("content")[0].innerHTML.split(`<span style="color: purple;"><b>`)[1].replace(`</b></span>`, "");
-                    		first = first.replace(`${curr}`, `<span style="background-color:yellow;font-weight: 900;">${curr}</span>`);
-                    		second = second.replace(`${curr}`, `<span style="background-color:yellow;font-weight: 900;">${curr}</span>`);
-                    		post.getElementsByClassName("content")[0].innerHTML = first + `<span style = "color: purple;"><b>` + second + `</b></span>`;
+                    		let first = post.getElementsByClassName("content")[0].innerHTML.split(`<span style="color: purple; font-weight: 900;">`)[0];
+                    		let second = post.getElementsByClassName("content")[0].innerHTML.split(`<span style="color: purple; font-weight: 900;">`)[1].replace(`</span>`, "");
+                    		first = first.replace(`${curr}`, `<mark><b>${curr}</b></mark>`);
+                    		second = second.replace(`${curr}`, `<mark><b>${curr}</b></mark>`);
+                    		post.getElementsByClassName("content")[0].innerHTML = first + `<span style = "color: purple; font-weight: 900;">` + second + `</span>`;
                     	} else {
-                    		post.getElementsByClassName("content")[0].innerHTML = post.getElementsByClassName("content")[0].innerHTML.replace(`${curr}`, `<span style="background-color:yellow;font-weight: 900;">${curr}</span>`);
+                    		post.getElementsByClassName("content")[0].innerHTML = post.getElementsByClassName("content")[0].innerHTML.replace(`${curr}`, `<mark><b>${curr}</b></mark>`);
                     	}
                     } else if(post.getElementsByClassName("post__uploader")[0].innerHTML.toLowerCase().includes(curr)) {
                     	let original = post.getElementsByClassName("post__uploader")[0].innerHTML;
                     	let firstLetters = post.getElementsByClassName("post__uploader")[0].innerHTML.toLowerCase().split(curr)[0].length;
                     	let currLength = curr.length;
                     	let result = original.substring(0, firstLetters);
-                    	result += `<span style="background-color:yellow;font-weight: 900;">`;
+                    	result += `<mark><b>`;
                     	result += original.substring(firstLetters, firstLetters + currLength);
-                    	result += "</span>";
+                    	result += "</b></mark>";
                     	result += original.substring(firstLetters + currLength, original.length + 1);
                     	post.getElementsByClassName("post__uploader")[0].innerHTML = result;
                     }

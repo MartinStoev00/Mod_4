@@ -71,7 +71,7 @@ function constructData(input, type) {
 		let {value: valueOther, unit: unitOther, description: descriptionOther} = anObj;
 		let valueAndUnit = "" + (valueOther == null ? "" : valueOther) + (unitOther == null ? "" : unitOther);
 		contentInfo += `
-			<div class="content">${descriptionOther}${valueAndUnit=="" ? "" : ":"} <span style = "color: purple;"><b>${valueAndUnit}</b></span></div>
+			<div class="content">${descriptionOther}${valueAndUnit=="" ? "" : ":"} <span style = "color: purple;font-weight: 900;">${valueAndUnit}</span></div>
 		`;
 		break;
 	}
