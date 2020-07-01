@@ -1,6 +1,7 @@
 let inputs = document.getElementsByClassName("input__text");
 let labels = document.getElementsByClassName("input__label");
 
+window.addEventListener('resize', init);
 window.onload = init;
 
 function init() {
