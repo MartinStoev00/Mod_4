@@ -2,6 +2,9 @@ import {header, headerStyle} from "./scripts/header.js";
 import {sidebar} from "./scripts/sidebar.js";
 import {statistics} from "./scripts/statistics.js";
 
+
+document.getElementsByTagName("body")[0].style.overflowY = "hidden";
+
 function init() {
     window.scrollTo(0,0);
     onloadedSettings();

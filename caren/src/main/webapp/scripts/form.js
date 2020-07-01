@@ -4,6 +4,8 @@ let labels = document.getElementsByClassName("input__label");
 window.addEventListener('resize', init);
 window.onload = init;
 
+document.getElementsByTagName("body")[0].style.overflowY = "auto";
+
 function init() {
     Array.prototype.forEach.call(inputs, (input, index) => {
         let label = labels[index];

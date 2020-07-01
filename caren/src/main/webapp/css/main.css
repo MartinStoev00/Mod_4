@@ -1192,6 +1192,7 @@ body {
     transform: translate3d(8px, 0, 0); } }
 @media screen and (max-width: 1023px) {
   .signup__container {
+    padding-bottom: 300px;
     border: none; }
     .signup__container .input__halves {
       display: flex;
@@ -1280,9 +1281,6 @@ body {
   .welcome__container {
     border: none; } }
 @media screen and (max-width: 1023px) {
-  body {
-    overflow-y: hidden; }
-
   .mainPosts {
     overflow-x: hidden; }
 
