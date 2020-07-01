@@ -12,22 +12,18 @@ function init() {
         let offSet = input.getBoundingClientRect().top + 7;
         let leftOffSet = input.getBoundingClientRect().left + 5;
         label.style.left = leftOffSet + "px";
-        let on, off;
-        setTimeout(() => {
-        	offSet = input.getBoundingClientRect().top + 7;
-            on = () => {
-                label.style.fontSize = "10px";
-                label.style.backgroundColor = "#ffffff";
-                label.style.top = (offSet - 14) + "px";
-                label.style.zIndex = "1";
-            }
-            off = () => {
-                label.style.fontSize = "16px";
-                label.style.backgroundColor = "transperent";
-                label.style.top = offSet + "px";
-                label.style.zIndex = "-1";
-            }
-        }, 50);
+        function on() {
+            label.style.fontSize = "10px";
+            label.style.backgroundColor = "#ffffff";
+            label.style.top = (offSet - 14) + "px";
+            label.style.zIndex = "1";
+        }
+        function off() {
+            label.style.fontSize = "16px";
+            label.style.backgroundColor = "transperent";
+            label.style.top = offSet + "px";
+            label.style.zIndex = "-1";
+        }
         let optionsBlock = document.getElementsByClassName("input__options")[0];
         if(input.name == "gender") {
             let topForRect = input.getBoundingClientRect().height + input.getBoundingClientRect().top - 1;
