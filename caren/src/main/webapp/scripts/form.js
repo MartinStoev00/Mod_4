@@ -4,7 +4,7 @@ let labels = document.getElementsByClassName("input__label");
 window.addEventListener('resize', init);
 window.onload = init;
 
-document.getElementsByTagName("body")[0].style.overflowY = "auto";
+document.getElementsByTagName("body")[0].style.overflowY = "scroll";
 
 function init() {
     Array.prototype.forEach.call(inputs, (input, index) => {
