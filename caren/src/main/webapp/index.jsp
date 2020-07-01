@@ -4,13 +4,13 @@
 	<body>
 		<%
 		if (session.getAttribute("aid") != null) {
-			response.sendRedirect("../posts/");
+			response.sendRedirect("/caren/posts/");
 		}
 		%>
 	</body>
 	<script>
 		window.onload = function() {
-			location.href = "../welcome/index.jsp";
+			location.href = "/caren/welcome/index.jsp";
 		}
 	</script>
 </html>
