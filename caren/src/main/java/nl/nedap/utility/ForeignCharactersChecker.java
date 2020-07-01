@@ -4,7 +4,7 @@ public class ForeignCharactersChecker {
 
 	private static String passwordCharacters = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ ";
 	private static String emailCharacters = passwordCharacters+"@.-_: ";
-	private static String textCharacters = passwordCharacters + emailCharacters + "!,?";
+	private static String textCharacters = passwordCharacters + emailCharacters + "!,?;#$&(){}[]%=/\"";
 	
 	public static boolean basicHasForeignCharacters(String p) {//checker for all input fields except email
 		if (p == null) {
