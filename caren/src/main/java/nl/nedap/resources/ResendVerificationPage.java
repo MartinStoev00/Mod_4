@@ -18,7 +18,7 @@ import nl.nedap.utility.DatabaseManager;
 import nl.nedap.utility.EmailVerification;
 
 @Path("resendEmail/{email}")
-public class resendVerificationPage {
+public class ResendVerificationPage {
 
 	@PUT
 	public void Verify(@Context HttpServletRequest request, @PathParam("email") String email) throws SQLException, AddressException, MessagingException {
