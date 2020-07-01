@@ -28,7 +28,7 @@ public class EmailVerification {
 	}
 	
 	public void linkGenerator(String token) {
-		link = "http://localhost:8080/caren/rest/verification/" + token;
+		link = "/caren/rest/verification/" + token;
 	}
 	
 	public void setProperties(){

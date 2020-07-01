@@ -13,7 +13,7 @@
 
 	<%
 		if (session.getAttribute("aid") == null) {
-			response.sendRedirect("http://localhost:8080/caren/login/");
+			response.sendRedirect("../login/");
 		}
 	%>
 	<div class="loaderBody">
@@ -26,7 +26,7 @@
 		<div class="header" name="header">
 			<div class="header__wrapper"><img class="header__logo" src="../Pictures/website_icon.png" alt=""></div>
 			<div class="header__buttons">
-				<button class="header__myProfile fas fa-user-circle" onclick="location.href='http://localhost:8080/caren/posts/'"></button>
+				<button class="header__myProfile fas fa-user-circle" onclick="location.href='../posts/'"></button>
 				<button class="header__notify fas fa-bell"></button>
 				<button class="header__friends fas fa-user-friends"></button>
 				<button id="chartsToggle" class="header__chart fas fa-chart-area" data-set="off"></button>

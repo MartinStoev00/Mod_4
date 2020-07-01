@@ -29,7 +29,7 @@
         function countDown(){
             if (timer <= 0) {
                 window.clearInterval(int);
-                window.location.href = "http://localhost:8080/caren/settings/";
+                window.location.href = "../settings/";
             } else {
                 timer = timer - 1;
                 txt.innerHTML = "Redirecting in " + timer + " seconds."
