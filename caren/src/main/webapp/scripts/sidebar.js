@@ -310,6 +310,8 @@ chartButton.addEventListener("click", () => {
 		}
 		chartButton.setAttribute("data-set", "on");
 		chartButton.style.color = "purple";
+    	document.getElementsByClassName("sidebar")[0].style.pointerEvents =  "auto";
+    	document.getElementsByClassName("sidebar")[0].style.opacity =  "1";
 		if(window.innerWidth > 1023) {
 			peopleBtn.click();
 			sidebarNavBlock.style.display = "none";
