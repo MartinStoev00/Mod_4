@@ -49,6 +49,9 @@ body {
 	body {
 		overflow-y: hidden;
 	}
+	.mainPosts {
+		overflow-x: hidden;
+	}
 	.all {
 		grid-template-columns: auto;
 		grid-template-rows: auto;

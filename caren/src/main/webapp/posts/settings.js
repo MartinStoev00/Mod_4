@@ -74,12 +74,19 @@ function showSettings(){
 	settings.style.display = "block";
 	postsDiv.style.display = "none";
 	mainPostsBlock.style.alignItems = "center";
+	if(window.innerWidth < 1024) {
+		document.getElementsByClassName("sidebar")[0].style.display = "none";
+		document.getElementsByClassName("mainPosts")[0].style.height = `calc(100vh - 65.6px)`;
+	}
 }
 
 function hideSettings(){
 	settings.style.display = "none";
 	postsDiv.style.display = "flex";
 	mainPostsBlock.style.alignItems = "flex-start";
+	if(window.innerWidth < 1024) {
+		document.getElementsByClassName("sidebar")[0].style.display = "flex";
+	}
 }
 
 
