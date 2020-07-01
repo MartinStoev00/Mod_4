@@ -1,4 +1,6 @@
 let exclamation = `<i class="fa fa-exclamation-triangle exclamation"></i>`;
+let inputs = document.getElementsByClassName("input__text");
+let labels = document.getElementsByClassName("input__label");
 
 window.addEventListener('resize', init);
 window.onload = () => {
@@ -6,8 +8,6 @@ window.onload = () => {
 	    inputs[0].focus();	
 };
 
-let inputs = document.getElementsByClassName("input__text");
-let labels = document.getElementsByClassName("input__label");
 
 function shake(input, label) {
     let offSet = Math.ceil(window.pageYOffset + input.getBoundingClientRect().top) + 6;
