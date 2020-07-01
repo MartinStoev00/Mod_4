@@ -14,6 +14,7 @@ function init() {
         label.style.left = leftOffSet + "px";
         let on, off;
         setTimeout(() => {
+        	offSet = input.getBoundingClientRect().top + 7;
             on = () => {
                 label.style.fontSize = "10px";
                 label.style.backgroundColor = "#ffffff";
