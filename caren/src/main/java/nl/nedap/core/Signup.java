@@ -1,24 +1,15 @@
 package nl.nedap.core;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+
+
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import nl.nedap.utility.DatabaseManager;
 import nl.nedap.utility.EmailVerification;
@@ -128,7 +119,6 @@ public class Signup extends HttpServlet {
 				DatabaseManager.updateQuery(insertToken, token, ""+aid);
 				
 				EmailVerification.sendEmail(verifying);
-				String resendVerificationLink = "http://localhost:8080/caren/rest/resendEmail/" + email;
 				
 				response.sendRedirect("http://localhost:8080/caren/signup/success.html");
 				

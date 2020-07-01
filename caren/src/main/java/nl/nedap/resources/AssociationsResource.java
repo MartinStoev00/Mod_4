@@ -1,7 +1,6 @@
 package nl.nedap.resources;
 
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +38,6 @@ public class AssociationsResource {
 		ResultSet records = DatabaseManager.ReadQuery(query, ""+aid);
 		List<Associate> as = new ArrayList<>();
 		try {
-			boolean firstRecord = true;
 			
 			while (records.next()) {
 				//ResultSetMetaData metadata = records.getMetaData();

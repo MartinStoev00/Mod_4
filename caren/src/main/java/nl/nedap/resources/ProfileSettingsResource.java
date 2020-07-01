@@ -43,7 +43,6 @@ public class ProfileSettingsResource {
 				String first_name = result.getString(2);
 				String last_name = result.getString(3);
 				String email = result.getString(4);
-				String password = result.getString(5);
 				int dark_mode = result.getInt(6);
 				int rpl = result.getShort(7);
 				

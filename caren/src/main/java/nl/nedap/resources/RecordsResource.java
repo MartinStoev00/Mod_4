@@ -1,7 +1,6 @@
 package nl.nedap.resources;
 
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +14,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import model.Record;
-import model.RecordData;
 import nl.nedap.utility.DatabaseManager;
 
 @Path("getrecords/{id}")
