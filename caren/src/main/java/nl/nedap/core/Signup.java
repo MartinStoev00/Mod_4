@@ -53,33 +53,33 @@ public class Signup extends HttpServlet {
 			
 			if (email == "" || firstname == "" || lastname == ""  || birthdate == "" || gender == "" || password == "" || passwordagn == "") {
 				String error = "Please make sure all field are filled.";
-				response.sendRedirect("http://localhost:8080/caren/signup/error.html?error=" + error);
+				response.sendRedirect("/caren/signup/error.html?error=" + error);
 				return;
 			} else if (!(email.contains("@") && email.contains("."))) {
 				String error = "Invalid email format: "+email;
-				response.sendRedirect("http://localhost:8080/caren/signup/error.html?error=" + error);
+				response.sendRedirect("/caren/signup/error.html?error=" + error);
 				return;
 			}else if (ForeignCharactersChecker.emailHasForeignCharacters(email)) { //sanitisation of email field
 				String error = "Email input fields can only contain the following characters: a->z, A->Z, 0->9, '@', '.', '-', '_' ";
-				response.sendRedirect("http://localhost:8080/caren/signup/error.html?error=" + error);
+				response.sendRedirect("/caren/signup/error.html?error=" + error);
 				return;
 			}
 			else if (ForeignCharactersChecker.basicHasForeignCharacters(password)) {//sanitisation of password field
 				String error = "Password can only contain the following characters: a->z, A->Z, 0->9";
-				response.sendRedirect("http://localhost:8080/caren/signup/error.html?error=" + error);
+				response.sendRedirect("/caren/signup/error.html?error=" + error);
 				return;
 			}else if (ForeignCharactersChecker.basicHasForeignCharacters(firstname) || ForeignCharactersChecker.basicHasForeignCharacters(lastname) || 
 					ForeignCharactersChecker.basicHasForeignCharacters(passwordagn)) {//sanitisation of the rest of the fields
 				String error = "All (non email) input fields can only contain the following characters: a->z, A->Z, 0->9 ";
-				response.sendRedirect("http://localhost:8080/caren/signup/error.html?error=" + error);
+				response.sendRedirect("/caren/signup/error.html?error=" + error);
 				return;
 			}else if (password.length() < 8) {
 				String error = "Password must at least be 8 characters long";
-				response.sendRedirect("http://localhost:8080/caren/signup/error.html?error=" + error);
+				response.sendRedirect("/caren/signup/error.html?error=" + error);
 				return;
 			} else  if (!passwordagn.equals(password)) {
 				String error = "Passwords do not match";
-				response.sendRedirect("http://localhost:8080/caren/signup/error.html?error=" + error);
+				response.sendRedirect("/caren/signup/error.html?error=" + error);
 				return;
 			}
 			
@@ -120,11 +120,11 @@ public class Signup extends HttpServlet {
 				
 				EmailVerification.sendEmail(verifying);
 				
-				response.sendRedirect("http://localhost:8080/caren/signup/success.html");
+				response.sendRedirect("/caren/signup/success.html");
 				
 			} else { // cannot create acc
 				String error = " Email: "+ email +" already in use. Please go back and try another one.";
-				response.sendRedirect("http://localhost:8080/caren/signup/error.html?error=" + error);
+				response.sendRedirect("/caren/signup/error.html?error=" + error);
 			}
 			
 			

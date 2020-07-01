@@ -45,9 +45,9 @@ export function sidebar(items, posts, comments) {
 		all.style.pointerEvents = "none";
 		loaderBody.style.display = "flex";
 		let postsA, commentsA;
-		getrecords("http://localhost:8080/caren/rest/getrecords/"+input).then((data) => {
+		getrecords("../rest/getrecords/"+input).then((data) => {
 			postsA = JSON.parse(data);
-			getrecords("http://localhost:8080/caren/rest/getcomments/"+input).then((data) => {
+			getrecords("../rest/getcomments/"+input).then((data) => {
 	    		loaderBody.style.display="none";
 	    		all.style.display = "grid";
 	    		all.style.pointerEvents = "auto";
@@ -135,9 +135,9 @@ export function sidebarWithPeople(input, rid){
 	
 	
 	let posts, comments;
-	getrecords("http://localhost:8080/caren/rest/getrecords/"+input).then((data) => {
+	getrecords("../rest/getrecords/"+input).then((data) => {
 		posts = JSON.parse(data);
-		getrecords("http://localhost:8080/caren/rest/getcomments/"+input).then((data) => {
+		getrecords("../rest/getcomments/"+input).then((data) => {
 			loaderBody.style.display="none";
     		all.style.display = "grid";
     		all.style.pointerEvents = "auto";

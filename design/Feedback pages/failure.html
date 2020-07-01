@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
     <title>
-        Success
+        Failure
     </title>
 
     <head>
-        <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="../main.css">
         <link rel="stylesheet" type="text/css" href="result.css">
         <meta name='viewport' content='width=device-width, initial-scale=1'>
     </head>
@@ -14,7 +14,7 @@
         <div class="header" name="header">
 			<div class="header__wrapper"><img class="header__logo" src="../Pictures/website_icon.png" alt=""></div>
 			<div class="header__buttons">
-				<button class="header__myProfile fas fa-user-circle" onclick="location.href='../posts/'"></button>
+				<button class="header__myProfile fas fa-user-circle" onclick="location.href='http://localhost:8080/caren/posts/'"></button>
 				<button class="header__notify fas fa-bell"></button>
 				<button class="header__friends fas fa-user-friends"></button>
 				<button id="chartsToggle" class="header__chart fas fa-chart-area" data-set="off"></button>
@@ -28,9 +28,9 @@
 				<div class="arrow"></div>
 			</div>
         </div>
-
+        
         <div class="main_message">
-            <div class="message_text" style="margin-top: 80px; color: #434343; font-family: Trebuchet MS;  font-size: 2rem; font-variant: small-caps;">No accounts match your credentials.</div>
+            <div class="message_text" style="margin-top: 80px; color: #434343; font-family: Trebuchet MS;  font-size: 2rem; font-variant: small-caps;">Failure Message.</div>
 
             <div class="sub_message" style="text-align: center;  margin: auto;">
                 <label id="timer" style="font-family: Trebuchet MS; font-size: 1rem;">Redirecting in 5 seconds.</label>
@@ -45,7 +45,7 @@
         let txt = document.getElementById("timer");
         let int;
 
-        let timer = 3;
+        let timer = 5;
         window.onload = function(){
             int = window.setInterval(countDown, 1000);
         }
@@ -53,9 +53,9 @@
         function countDown(){
             if (timer <= 0) {
                 window.clearInterval(int);
-                window.location.href = "../login/";
+                window.location.href = "http://localhost:8080/caren/posts/";
             } else {
-                timer = timer - 1;
+                //timer = timer - 1;
                 txt.innerHTML = "Redirecting in " + timer + " seconds."
             }
         }

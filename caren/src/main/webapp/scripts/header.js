@@ -151,7 +151,7 @@ function fillNotifications() {
 		let notis = notifics[i];
     	function notificationClicked(){
     		let request = new XMLHttpRequest();
-    		request.open("PATCH", "http://localhost:8080/caren/rest/comment/" + notis.getAttribute("data-cid"), true);
+    		request.open("PATCH", "../rest/comment/" + notis.getAttribute("data-cid"), true);
     		request.send();
     		
     		sidebarWithPeople(0, notis.getAttribute("data-rid"));

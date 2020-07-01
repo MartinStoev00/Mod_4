@@ -8,11 +8,11 @@ function init() {
     let posts;
     let associations;
     let comments;
-    getrecords("http://localhost:8080/caren/rest/getassociations").then((data) => {
+    getrecords("../rest/getassociations").then((data) => {
         associations = JSON.parse(data);
-        getrecords("http://localhost:8080/caren/rest/getrecords/0").then((data) => {
+        getrecords("../rest/getrecords/0").then((data) => {
             posts = JSON.parse(data);
-            getrecords("http://localhost:8080/caren/rest/getcomments/0").then((data) => {
+            getrecords("../rest/getcomments/0").then((data) => {
                 comments = JSON.parse(data);
                 if(document.getElementsByClassName("sidebar").length > 0) { 
                 	if (posts != "[]"){
@@ -98,7 +98,7 @@ function putcomment(location, content) {
 }
 
 export function usePutComment(input, content) {
-    putcomment("http://localhost:8080/caren/rest/comment/"+input, content).catch((err) => {
+    putcomment("../rest/comment/"+input, content).catch((err) => {
         console.log(err);
     });
 }

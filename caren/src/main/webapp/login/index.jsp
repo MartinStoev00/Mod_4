@@ -10,7 +10,7 @@
 
 	<%
 		if (session.getAttribute("aid") != null) {
-		response.sendRedirect("http://localhost:8080/caren/posts/");
+		response.sendRedirect("../posts/");
 	}
 	%>
 
@@ -27,7 +27,7 @@
 			<div class="submit">
 				<div class="submit__link">
 					<a class="submit__links" href="#">Forgotten Password?</a> <a
-						class="submit__links" href="http://localhost:8080/caren/signup/index.jsp">Make
+						class="submit__links" href="../signup/index.jsp">Make
 						an account</a>
 				</div>
 				<input type="submit" class="submit__btn" value="Login">

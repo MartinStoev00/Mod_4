@@ -42,7 +42,7 @@ function onloadedSettings (){
     
     
     let request = new XMLHttpRequest();
-    request.open("GET", "http://localhost:8080/caren/rest/getprofilesettings", true);
+    request.open("GET", "../rest/getprofilesettings", true);
     request.onreadystatechange = function(){
         if (request.readyState == 4 && request.status == 200) {
             let profileSettings = JSON.parse(this.responseText);

@@ -11,7 +11,7 @@
 
 	<%
 		if (session.getAttribute("aid") != null) {
-		response.sendRedirect("http://localhost:8080/caren/posts/");
+		response.sendRedirect("../posts/");
 	}
 	%>
 	
