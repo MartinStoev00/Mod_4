@@ -1,6 +1,5 @@
 package nl.nedap.resources;
 
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
@@ -50,8 +49,6 @@ public class CommentResource {
 		if (request.getSession().getAttribute("pid") == null) {
 			return;
 		}
-		int aid = (int)request.getSession().getAttribute("aid");
-		int pid = (int)request.getSession().getAttribute("pid");
 		
 		String q = "SELECT caren.seencomment(?);";
 		

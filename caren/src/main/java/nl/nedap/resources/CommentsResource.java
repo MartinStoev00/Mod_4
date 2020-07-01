@@ -1,6 +1,6 @@
 package nl.nedap.resources;
 
-import java.net.http.HttpRequest;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
