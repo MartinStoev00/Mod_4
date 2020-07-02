@@ -28,7 +28,7 @@ public class EmailVerification {
 	}
 	
 	public void linkGenerator(String token) {
-		link = "/caren/rest/verification/" + token;
+		link = "http://env-di-team2.paas.hosted-by-previder.com/caren/rest/verification/" + token;
 	}
 	
 	public void setProperties(){

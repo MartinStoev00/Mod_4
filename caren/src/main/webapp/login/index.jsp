@@ -26,9 +26,7 @@
 			</div>
 			<div class="submit">
 				<div class="submit__link">
-					<a class="submit__links" href="#">Forgotten Password?</a> <a
-						class="submit__links" href="../signup/index.jsp">Make
-						an account</a>
+					<a class="submit__links" href="../signup/index.jsp">Make an account</a>
 				</div>
 				<input type="submit" class="submit__btn" value="Login">
 			</div>
