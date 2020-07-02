@@ -207,7 +207,7 @@
 				<div class="statistics">
 				 	<canvas id="canvas"></canvas>
 				</div>
-				<hr style = "width : 74%; margin-top: 10%">
+				
 				<div class="bars">
 				 	<canvas id="changescanvas"></canvas>
 				</div>

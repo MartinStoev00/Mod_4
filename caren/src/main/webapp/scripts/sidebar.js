@@ -405,15 +405,9 @@ function filteringDates() {
     data = initData.sort((a, b) => {
         let one = new Date(a.date_added);
         let two = new Date(b.date_added);
-        if(order == chrono) {
-            if(one < two) { return -1; }
-            if(one > two) { return 1; }
-            return 0;
-        } else {
-            if(one > two) { return -1; }
-            if(one < two) { return 1; }
-            return 0;
-        }
+        if(one < two) { return -1; }
+        if(one > two) { return 1; }
+        return 0;
     }).filter((postItem) => {
         let postDate = new Date(postItem.date_added);
         let from = new Date(startDate);
